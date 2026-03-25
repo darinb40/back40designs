@@ -134,9 +134,8 @@ export default function Back40LandingPage() {
             <img
   src="/images/logo.png"
   alt="Back40 Designs"
-  className="w-96 mb-2"
+  className="w-64 md:w-80 lg:w-96 mb-6"
 />
-
             <h1 className="max-w-3xl text-5xl font-semibold leading-tight tracking-tight md:text-7xl">
               Custom hats that look sharp and mean something.
             </h1>
