@@ -176,7 +176,7 @@ export default function Back40LandingPage() {
             </div>
           </div>
 
-          <div className="relative">
+          <div className="relative -mt-[24px]">
             <div className="rounded-[2rem] border border-white/10 bg-gradient-to-br from-stone-900 to-black p-6 shadow-2xl">
               <div className="grid gap-4 md:grid-cols-[1.1fr_0.9fr]">
                 <div className="rounded-[1.5rem] border border-white/10 bg-stone-900 p-5">
