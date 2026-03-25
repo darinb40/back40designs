@@ -136,7 +136,7 @@ export default function Back40LandingPage() {
   alt="Back40 Designs"
   className="w-64 md:w-80 lg:w-96 mb-6"
 />
-            <h1 className="mt-6 max-w-3xl text-5xl font-semibold leading-tight tracking-tight md:text-7xl">
+            <h1 className="mt-15 max-w-3xl text-5xl font-semibold leading-tight tracking-tight md:text-7xl">
               Custom hats that look sharp and mean something.
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-stone-300 md:text-xl">
