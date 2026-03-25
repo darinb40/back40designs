@@ -129,7 +129,7 @@ export default function Back40LandingPage() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.08),transparent_28%),radial-gradient(circle_at_bottom_left,rgba(255,255,255,0.06),transparent_24%)]" />
         <div className="absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.06)_1px,transparent_1px)] [background-size:48px_48px]" />
 
-        <div className="relative mx-auto grid max-w-7xl gap-12 px-6 pt-8 pb-20 md:px-10 md:py-28 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+        <div className="relative mx-auto grid max-w-7xl gap-16 px-6 pt-12 pb-28 md:px-10 md:pt-20 md:pb-36 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
           <div>
             <img
   src="/images/logo.png"
