@@ -131,13 +131,10 @@ export default function Back40LandingPage() {
 
         <div className="relative mx-auto grid max-w-7xl gap-12 px-6 py-20 md:px-10 md:py-28 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
           <div>
-            <div className="mb-5 inline-flex rounded-full border border-white/10 bg-white/5 px-4 py-1 text-sm uppercase tracking-[0.25em] text-stone-300">
-              Back40 Designs
-            </div>
             <img 
   src="/images/logo.png" 
   alt="Back40 Designs" 
-  className="h-16 w-auto mb-6"
+  className="h-45 w-auto mb-6"
 />
             <h1 className="max-w-3xl text-5xl font-semibold leading-tight tracking-tight md:text-7xl">
               Custom hats that look sharp and mean something.
