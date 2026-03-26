@@ -97,11 +97,10 @@ export default function Back40LandingPage() {
       a: "Yes. Some of the best builds come from personal stories, landmarks, memories, or custom legacy pieces.",
     },
   ];
-
-  const ctaLink = "mailto:info@back40designco.com?subject=Back40%20Project%20Inquiry";
-  const instagramLink = "https://www.instagram.com/b40_designs/";
-  const facebookLink = "https://www.facebook.com/";
-
+const ctaLink = "mailto:info@back40designco.com?subject=Back40%20Project%20Inquiry";
+const shopLink = "https://back40-headwear.myshopify.com/collections/shop-hats";
+const instagramLink = "https://www.instagram.com/b40_designs/";
+const facebookLink = "https://www.facebook.com/";
   return (
     <div className="min-h-screen bg-stone-950 text-stone-100">
       <header className="sticky top-0 z-30 border-b border-white/10 bg-stone-950/80 backdrop-blur">
