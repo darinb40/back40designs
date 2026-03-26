@@ -109,6 +109,7 @@ export default function Back40LandingPage() {
             <p className="text-lg font-semibold tracking-tight">Back40 Designs</p>
             <p className="text-xs uppercase tracking-[0.25em] text-stone-400">Custom Patch Hats</p>
           </div>
+
           <div className="hidden items-center gap-8 text-sm text-stone-300 md:flex">
             <a href="#collections" className="transition hover:text-white">Collections</a>
             <a href="#process" className="transition hover:text-white">Process</a>
@@ -116,6 +117,7 @@ export default function Back40LandingPage() {
             <a href="#work" className="transition hover:text-white">Past Work</a>
             <a href="#contact" className="transition hover:text-white">Contact</a>
           </div>
+
           <a
             href={ctaLink}
             className="rounded-2xl border border-white/15 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/5"
@@ -129,16 +131,18 @@ export default function Back40LandingPage() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.08),transparent_28%),radial-gradient(circle_at_bottom_left,rgba(255,255,255,0.06),transparent_24%)]" />
         <div className="absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.06)_1px,transparent_1px)] [background-size:48px_48px]" />
 
-        <div className="relative mx-auto grid max-w-7xl gap-16 px-6 pt-12 pb-28 md:px-10 md:pt-20 md:pb-36 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
+        <div className="relative mx-auto grid max-w-7xl gap-16 px-6 pb-28 pt-12 md:px-10 md:pb-36 md:pt-20 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
           <div>
             <img
-  src="/images/logo.png"
-  alt="Back40 Designs"
-  className="w-64 md:w-80 lg:w-96 mb-6"
-/>
+              src="/images/logo.png"
+              alt="Back40 Designs"
+              className="mb-6 w-64 md:w-80 lg:w-96"
+            />
+
             <h1 className="mt-24 max-w-3xl text-5xl font-semibold leading-tight tracking-tight md:text-7xl">
               Custom hats that look sharp and mean something.
             </h1>
+
             <p className="mt-6 max-w-2xl text-lg leading-8 text-stone-300 md:text-xl">
               Built for local brands, bike shops, events, businesses, and story-driven one-off projects that deserve more than generic merch.
             </p>
@@ -150,6 +154,7 @@ export default function Back40LandingPage() {
               >
                 Request a Quote <ArrowRight className="h-4 w-4" />
               </a>
+
               <a
                 href={instagramLink}
                 className="inline-flex items-center gap-2 rounded-2xl border border-white/15 px-6 py-3 text-sm font-semibold text-stone-100 transition hover:bg-white/5"
@@ -196,6 +201,7 @@ export default function Back40LandingPage() {
                         <span>Hero Mockup</span>
                         <span>Patch Preview</span>
                       </div>
+
                       <div className="flex flex-1 items-center justify-center py-8">
                         <div className="w-full max-w-[260px] rounded-[2rem] border border-white/10 bg-stone-900 p-5 shadow-xl">
                           <div className="mb-4 h-12 w-28 rounded-full border border-white/10 bg-stone-950" />
@@ -209,6 +215,7 @@ export default function Back40LandingPage() {
                           </div>
                         </div>
                       </div>
+
                       <div className="grid grid-cols-3 gap-2 text-center text-xs text-stone-400">
                         <div className="rounded-xl border border-white/10 bg-white/5 px-2 py-2">Acrylic</div>
                         <div className="rounded-xl border border-white/10 bg-white/5 px-2 py-2">Leatherette</div>
@@ -227,12 +234,14 @@ export default function Back40LandingPage() {
                       <li>• Story-driven concepts people actually remember</li>
                     </ul>
                   </div>
+
                   <div className="rounded-[1.5rem] border border-white/10 bg-stone-900 p-5">
                     <p className="text-xs uppercase tracking-[0.2em] text-stone-400">Best fit</p>
                     <p className="mt-4 text-sm leading-6 text-stone-300">
                       Bike shops, restaurants, events, outdoor brands, dealership teams, and custom client projects.
                     </p>
                   </div>
+
                   <div className="rounded-[1.5rem] border border-white/10 bg-stone-900 p-5">
                     <p className="text-xs uppercase tracking-[0.2em] text-stone-400">Built for</p>
                     <p className="mt-4 text-sm leading-6 text-stone-300">
@@ -254,9 +263,11 @@ export default function Back40LandingPage() {
               Merch that feels intentional.
             </h2>
           </div>
+
           <div className="text-sm leading-7 text-stone-300">
             Back40 is built around the idea that the best hats carry something with them — a place, a business, a memory, or a style people actually want to wear.
           </div>
+
           <div className="text-sm leading-7 text-stone-300">
             That means stronger concepts, cleaner patch execution, and a final product that feels like it belongs to your brand instead of looking pulled from a catalog.
           </div>
@@ -282,6 +293,7 @@ export default function Back40LandingPage() {
               Built for brands, stories, and repeatable merch wins.
             </h2>
           </div>
+
           <p className="max-w-xl text-stone-300">
             Whether you need a signature hat for your business or a custom run with a story behind it, Back40 is designed to help you stand out.
           </p>
@@ -325,19 +337,24 @@ export default function Back40LandingPage() {
                 <BadgeDollarSignIcon className="h-5 w-5 text-stone-300" />
                 <p className="text-sm uppercase tracking-[0.22em] text-stone-400">Suggested language</p>
               </div>
+
               <h3 className="text-3xl font-semibold">Custom runs start with real intent.</h3>
+
               <p className="mt-4 max-w-2xl text-sm leading-7 text-stone-300">
                 Most Back40 projects are designed around custom runs for businesses, events, or special projects. Minimums, materials, and final pricing depend on the patch style, hat selection, and complexity of the build.
               </p>
+
               <div className="mt-8 grid gap-4 sm:grid-cols-3">
                 <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
                   <p className="text-xs uppercase tracking-[0.22em] text-stone-500">Good for</p>
                   <p className="mt-3 text-lg font-semibold">Shops & brands</p>
                 </div>
+
                 <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
                   <p className="text-xs uppercase tracking-[0.22em] text-stone-500">Built around</p>
                   <p className="mt-3 text-lg font-semibold">Custom patch work</p>
                 </div>
+
                 <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
                   <p className="text-xs uppercase tracking-[0.22em] text-stone-500">Next step</p>
                   <p className="mt-3 text-lg font-semibold">Request a quote</p>
@@ -351,12 +368,14 @@ export default function Back40LandingPage() {
               <p className="mt-4 text-sm leading-7 text-stone-700">
                 Send your logo, idea, quantity, and rough direction. That is enough to start pricing and design conversation.
               </p>
+
               <div className="mt-8 space-y-3 text-sm text-stone-800">
                 <div className="rounded-2xl border border-stone-400/40 bg-white/40 px-4 py-3">Business or project name</div>
                 <div className="rounded-2xl border border-stone-400/40 bg-white/40 px-4 py-3">Quantity needed</div>
                 <div className="rounded-2xl border border-stone-400/40 bg-white/40 px-4 py-3">Patch style or concept</div>
                 <div className="rounded-2xl border border-stone-400/40 bg-white/40 px-4 py-3">Deadline if you have one</div>
               </div>
+
               <a
                 href={ctaLink}
                 className="mt-8 inline-flex items-center gap-2 rounded-2xl bg-stone-950 px-6 py-3 text-sm font-semibold text-stone-100 shadow-lg transition hover:-translate-y-0.5"
@@ -377,6 +396,7 @@ export default function Back40LandingPage() {
                 Real builds. Real brands. Real products people want to wear.
               </h2>
             </div>
+
             <p className="max-w-xl text-stone-300">
               Here’s a look at the kind of custom hat work Back40 can build for retail shops, trail brands, food businesses, and local merch lines.
             </p>
@@ -392,6 +412,7 @@ export default function Back40LandingPage() {
                     className="h-full w-full object-cover transition duration-500 hover:scale-[1.03]"
                   />
                 </div>
+
                 <div className="p-5">
                   <div className="mb-3 flex items-center justify-between">
                     <p className="text-xs uppercase tracking-[0.25em] text-stone-500">0{index + 1}</p>
@@ -467,6 +488,7 @@ export default function Back40LandingPage() {
           <div className="rounded-[2rem] border border-white/10 bg-stone-900 p-8">
             <p className="text-sm uppercase tracking-[0.2em] text-stone-400">Frequently asked</p>
             <h2 className="mt-3 text-3xl font-semibold tracking-tight">Questions buyers usually have.</h2>
+
             <div className="mt-8 space-y-4">
               {faqs.map((item) => (
                 <div key={item.q} className="rounded-[1.5rem] border border-white/10 bg-stone-950 p-5">
@@ -477,7 +499,10 @@ export default function Back40LandingPage() {
             </div>
           </div>
 
-          <section id="contact" className="rounded-[2rem] border border-white/10 bg-gradient-to-r from-stone-100 to-stone-300 px-8 py-10 text-stone-950 shadow-2xl md:px-12 md:py-14">
+          <section
+            id="contact"
+            className="rounded-[2rem] border border-white/10 bg-gradient-to-r from-stone-100 to-stone-300 px-8 py-10 text-stone-950 shadow-2xl md:px-12 md:py-14"
+          >
             <div className="flex h-full flex-col justify-between gap-6">
               <div>
                 <p className="text-sm uppercase tracking-[0.2em] text-stone-700">Let’s build something</p>
@@ -490,15 +515,26 @@ export default function Back40LandingPage() {
               </div>
 
               <div className="grid gap-3 text-sm text-stone-800">
-                <a href={ctaLink} className="flex items-center gap-3 rounded-2xl border border-stone-700/20 bg-white/50 px-4 py-4 transition hover:bg-white/70">
+                <a
+                  href={ctaLink}
+                  className="flex items-center gap-3 rounded-2xl border border-stone-700/20 bg-white/50 px-4 py-4 transition hover:bg-white/70"
+                >
                   <MailIcon className="h-5 w-5" />
                   <span>Email your project idea</span>
                 </a>
-                <a href={instagramLink} className="flex items-center gap-3 rounded-2xl border border-stone-700/20 bg-white/50 px-4 py-4 transition hover:bg-white/70">
+
+                <a
+                  href={instagramLink}
+                  className="flex items-center gap-3 rounded-2xl border border-stone-700/20 bg-white/50 px-4 py-4 transition hover:bg-white/70"
+                >
                   <InstagramIcon className="h-5 w-5" />
                   <span>See more on Instagram</span>
                 </a>
-                <a href={ctaLink} className="flex items-center gap-3 rounded-2xl border border-stone-700/20 bg-white/50 px-4 py-4 transition hover:bg-white/70">
+
+                <a
+                  href={ctaLink}
+                  className="flex items-center gap-3 rounded-2xl border border-stone-700/20 bg-white/50 px-4 py-4 transition hover:bg-white/70"
+                >
                   <MessageSquareIcon className="h-5 w-5" />
                   <span>Request a quote today</span>
                 </a>
@@ -506,7 +542,7 @@ export default function Back40LandingPage() {
 
               <div className="pt-2">
                 <a
-                 href={ctaLink}
+                  href={ctaLink}
                   className="inline-flex items-center gap-2 rounded-2xl bg-stone-950 px-6 py-3 text-sm font-semibold text-stone-100 shadow-lg transition hover:-translate-y-0.5"
                 >
                   Request a Quote <ArrowRight className="h-4 w-4" />
@@ -521,14 +557,60 @@ export default function Back40LandingPage() {
         <div className="rounded-[1.5rem] border border-amber-500/20 bg-amber-500/10 p-5 text-sm text-amber-100">
           <p className="font-semibold">Vercel deployment note</p>
           <p className="mt-2 leading-7 text-amber-50/90">
-            Put your images in <span className="font-semibold">public/images</span> with these exact file names: <span className="font-semibold">henny-dogs.jpg</span>, <span className="font-semibold">bella-vista-trail.jpg</span>, and <span className="font-semibold">little-sugar-trail.jpg</span>.
+            Put your images in <span className="font-semibold">public/images</span> with these exact file names:{" "}
+            <span className="font-semibold">henny-dogs.jpg</span>,{" "}
+            <span className="font-semibold">bella-vista-trail.jpg</span>, and{" "}
+            <span className="font-semibold">little-sugar-trail.jpg</span>.
           </p>
         </div>
       </section>
 
-<footer className="border-t border-white/10 px-6 py-8 text-sm text-stone-500 md:px-10">      <footer className="border-t border-white/10 px-6 py-8 text-sm text-stone-500 md:px-10">
+      <section className="border-t border-white/10 bg-black px-6 py-20 md:px-10">
+        <div className="mx-auto max-w-4xl">
+          <p className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-stone-400">
+            Our Story
+          </p>
+
+          <h2 className="text-3xl font-bold tracking-tight text-white md:text-5xl">
+            Back 40 wasn’t built overnight.
+          </h2>
+
+          <div className="mt-8 space-y-6 text-base leading-8 text-stone-300 md:text-lg">
+            <p>It started long before the first hat was ever made.</p>
+
+            <p>
+              Growing up, my grandfather — James E. McKeel, who we called “Papa Fuzzy” — always had a hat on. He was a baker, a hunter, a Cubs fan, and a hardworking man who loved his family deeply.
+            </p>
+
+            <p>
+              He was one of the biggest influences in my life. The kind of man who didn’t need to say much for people to feel his presence. Strong. Steady. Real.
+            </p>
+
+            <p className="font-medium text-white">
+              Back 40 comes from that same place.
+            </p>
+
+            <p>
+              This brand is about more than custom headwear. It’s about building something with meaning. Something honest. Something that reflects the people, places, and stories that matter most.
+            </p>
+
+            <p>
+              Every patch, every design, and every hat carries that mindset — purpose over hype, quality over shortcuts, and story over noise.
+            </p>
+          </div>
+
+          <div className="mt-12 rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur">
+            <p className="text-lg font-semibold text-white">
+              More than a hat. A story you can wear.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <footer className="border-t border-white/10 px-6 py-8 text-sm text-stone-500 md:px-10">
         <div className="mx-auto flex max-w-7xl flex-col gap-3 md:flex-row md:items-center md:justify-between">
           <p>© 2026 Back40 Designs. Custom patch hats with story and identity.</p>
+
           <div className="flex gap-5">
             <a href={instagramLink} className="transition hover:text-stone-300">Instagram</a>
             <a href={instagramLink} className="transition hover:text-stone-300">Facebook</a>
