@@ -195,8 +195,17 @@ export default function Back40LandingPage() {
                     </div>
                   </div>
 
-                  <div className="aspect-[4/5] rounded-[1.25rem] border border-dashed border-white/15 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.01))] p-4">
-                    <div className="flex h-full flex-col justify-between rounded-[1rem] border border-white/10 bg-stone-950 p-5">
+                  <div className="flex flex-1 items-center justify-center py-6">
+                    <div className="w-full max-w-[420px] overflow-hidden rounded-[2rem] border border-white/10 bg-stone-950 shadow-2xl">
+                      <img
+                      src="/images/featured-hat.jpg"
+                      alt="Back 40 custom dragon scales patch hat"
+                      className="aspect-[4/5] w-full object-cover"
+                   />
+                 </div>
+                </div>
+                  
+                  <div className="flex h-full flex-col justify-between rounded-[1rem] border border-white/10 bg-stone-950 p-5">
                       
                       <div className="flex flex-1 items-center justify-center py-8">
                         <div className="w-full max-w-[360px] overflow-hidden rounded-[2rem] border border-white/10 bg-stone-950 shadow-2xl">
