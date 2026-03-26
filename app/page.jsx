@@ -197,11 +197,7 @@ export default function Back40LandingPage() {
 
                   <div className="aspect-[4/5] rounded-[1.25rem] border border-dashed border-white/15 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.01))] p-4">
                     <div className="flex h-full flex-col justify-between rounded-[1rem] border border-white/10 bg-stone-950 p-5">
-                      <div className="flex items-center justify-between text-xs uppercase tracking-[0.25em] text-stone-500">
-                        <span>Hero Mockup</span>
-                        <span>Patch Preview</span>
-                      </div>
-
+                      
                       <div className="flex flex-1 items-center justify-center py-8">
                         <div className="w-full max-w-[360px] overflow-hidden rounded-[2rem] border border-white/10 bg-stone-950 shadow-2xl">
                           <img
@@ -213,8 +209,8 @@ export default function Back40LandingPage() {
                        </div>
                       
                       <div className="grid grid-cols-3 gap-2 text-center text-xs text-stone-400">
-                        <div className="rounded-xl border border-white/10 bg-white/5 px-2 py-2">Acrylic</div>
-                        <div className="rounded-xl border border-white/10 bg-white/5 px-2 py-2">Leatherette</div>
+                        <div className="rounded-xl border border-white/10 bg-white/5 px-2 py-2">Richardson</div>
+                        <div className="rounded-xl border border-white/10 bg-white/5 px-2 py-2">AnyRope</div>
                         <div className="rounded-xl border border-white/10 bg-white/5 px-2 py-2">Custom Fit</div>
                       </div>
                     </div>
