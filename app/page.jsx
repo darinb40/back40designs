@@ -113,6 +113,14 @@ const facebookLink = "https://www.facebook.com/";
           </div>
 
           <div className="hidden items-center gap-8 text-sm text-stone-300 md:flex">
+            <a
+               href={shopLink}
+               target="_blank"
+               rel="noreferrer"
+               className="transition hover:text-white"
+            >
+               Shop
+              </a> 
             <a href="#collections" className="transition hover:text-white">
               Collections
             </a>
