@@ -188,10 +188,10 @@ export default function Back40LandingPage() {
                   <div className="mb-4 flex items-center justify-between">
                     <div>
                       <p className="text-xs uppercase tracking-[0.25em] text-stone-400">Featured Build</p>
-                      <h2 className="mt-2 text-2xl font-semibold">Trail Patch Series</h2>
+                      <h2 className="mt-2 text-2xl font-semibold">Custom Patch Headwear</h2>
                     </div>
                     <div className="rounded-full border border-white/10 px-3 py-1 text-xs text-stone-300">
-                      Limited Runs
+                      Built for Brands
                     </div>
                   </div>
 
@@ -208,8 +208,7 @@ export default function Back40LandingPage() {
                           <div className="mx-auto flex aspect-[1.2/1] w-full items-center justify-center rounded-[1.5rem] border border-white/10 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.12),transparent_40%)] text-center">
                             <div>
                               <p className="text-xs uppercase tracking-[0.22em] text-stone-400">Patch Area</p>
-                              <p className="mt-2 text-base font-medium text-stone-200">
-                                Topo texture + bold front patch + outdoor identity
+                             <p className="mt-2 text-base font-medium text-stone-200">Bold front patch + clean shape language + story-driven identity
                               </p>
                             </div>
                           </div>
@@ -238,14 +237,14 @@ export default function Back40LandingPage() {
                   <div className="rounded-[1.5rem] border border-white/10 bg-stone-900 p-5">
                     <p className="text-xs uppercase tracking-[0.2em] text-stone-400">Best fit</p>
                     <p className="mt-4 text-sm leading-6 text-stone-300">
-                      Bike shops, restaurants, events, outdoor brands, dealership teams, and custom client projects.
+                      Businesses that want merch people actually wear.
                     </p>
                   </div>
 
                   <div className="rounded-[1.5rem] border border-white/10 bg-stone-900 p-5">
                     <p className="text-xs uppercase tracking-[0.2em] text-stone-400">Built for</p>
                     <p className="mt-4 text-sm leading-6 text-stone-300">
-                      Brands that want their merch to feel like part of the culture, not just another giveaway item.
+                      People who want their brand worn — not forgotten.
                     </p>
                   </div>
                 </div>
