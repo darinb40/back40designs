@@ -203,18 +203,15 @@ export default function Back40LandingPage() {
                       </div>
 
                       <div className="flex flex-1 items-center justify-center py-8">
-                        <div className="w-full max-w-[260px] rounded-[2rem] border border-white/10 bg-stone-900 p-5 shadow-xl">
-                          <div className="mb-4 h-12 w-28 rounded-full border border-white/10 bg-stone-950" />
-                          <div className="mx-auto flex aspect-[1.2/1] w-full items-center justify-center rounded-[1.5rem] border border-white/10 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.12),transparent_40%)] text-center">
-                            <div>
-                              <p className="text-xs uppercase tracking-[0.22em] text-stone-400">Patch Area</p>
-                             <p className="mt-2 text-base font-medium text-stone-200">Bold front patch + clean shape language + story-driven identity
-                              </p>
-                            </div>
-                          </div>
+                        <div className="w-full max-w-[360px] overflow-hidden rounded-[2rem] border border-white/10 bg-stone-950 shadow-2xl">
+                          <img
+                            src="/images/featured-hat.jpg"
+                            alt="Back 40 custom dragon scales patch hat"
+                            className="aspect-[4/5] w-full object-cover"
+                          />
                         </div>
-                      </div>
-
+                       </div>
+                      
                       <div className="grid grid-cols-3 gap-2 text-center text-xs text-stone-400">
                         <div className="rounded-xl border border-white/10 bg-white/5 px-2 py-2">Acrylic</div>
                         <div className="rounded-xl border border-white/10 bg-white/5 px-2 py-2">Leatherette</div>
