@@ -224,7 +224,7 @@ export default function Back40LandingPage() {
                       <img
                         src="/images/featured-hat.jpg"
                         alt="Back 40 custom patch hat"
-                        className="aspect-[4/5] w-full object-cover"
+                        className="w-full h-auto object-contain"
                       />
                     </div>
                   </div>
