@@ -100,6 +100,7 @@ export default function Back40LandingPage() {
 
   const ctaLink = "mailto:info@back40designco.com?subject=Back40%20Project%20Inquiry";
   const instagramLink = "https://www.instagram.com/b40_designs/";
+  const facebookLink = "https://www.facebook.com/";
 
   return (
     <div className="min-h-screen bg-stone-950 text-stone-100">
@@ -107,15 +108,27 @@ export default function Back40LandingPage() {
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 md:px-10">
           <div>
             <p className="text-lg font-semibold tracking-tight">Back40 Designs</p>
-            <p className="text-xs uppercase tracking-[0.25em] text-stone-400">Custom Patch Hats</p>
+            <p className="text-xs uppercase tracking-[0.25em] text-stone-400">
+              Custom Patch Hats
+            </p>
           </div>
 
           <div className="hidden items-center gap-8 text-sm text-stone-300 md:flex">
-            <a href="#collections" className="transition hover:text-white">Collections</a>
-            <a href="#process" className="transition hover:text-white">Process</a>
-            <a href="#pricing" className="transition hover:text-white">Pricing</a>
-            <a href="#work" className="transition hover:text-white">Past Work</a>
-            <a href="#contact" className="transition hover:text-white">Contact</a>
+            <a href="#collections" className="transition hover:text-white">
+              Collections
+            </a>
+            <a href="#process" className="transition hover:text-white">
+              Process
+            </a>
+            <a href="#pricing" className="transition hover:text-white">
+              Pricing
+            </a>
+            <a href="#work" className="transition hover:text-white">
+              Past Work
+            </a>
+            <a href="#contact" className="transition hover:text-white">
+              Contact
+            </a>
           </div>
 
           <a
@@ -144,7 +157,8 @@ export default function Back40LandingPage() {
             </h1>
 
             <p className="mt-6 max-w-2xl text-lg leading-8 text-stone-300 md:text-xl">
-              Built for local brands, bike shops, events, businesses, and story-driven one-off projects that deserve more than generic merch.
+              Built for local brands, bike shops, events, businesses, and story-driven one-off
+              projects that deserve more than generic merch.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-4">
@@ -157,6 +171,8 @@ export default function Back40LandingPage() {
 
               <a
                 href={instagramLink}
+                target="_blank"
+                rel="noreferrer"
                 className="inline-flex items-center gap-2 rounded-2xl border border-white/15 px-6 py-3 text-sm font-semibold text-stone-100 transition hover:bg-white/5"
               >
                 See the Work <InstagramIcon className="h-4 w-4" />
@@ -175,19 +191,27 @@ export default function Back40LandingPage() {
             </div>
 
             <div className="mt-8 flex flex-wrap gap-3 text-sm text-stone-300">
-              <div className="rounded-full border border-white/10 bg-white/5 px-4 py-2">Custom hats</div>
-              <div className="rounded-full border border-white/10 bg-white/5 px-4 py-2">Patch-forward design</div>
-              <div className="rounded-full border border-white/10 bg-white/5 px-4 py-2">Business merch</div>
+              <div className="rounded-full border border-white/10 bg-white/5 px-4 py-2">
+                Custom hats
+              </div>
+              <div className="rounded-full border border-white/10 bg-white/5 px-4 py-2">
+                Patch-forward design
+              </div>
+              <div className="rounded-full border border-white/10 bg-white/5 px-4 py-2">
+                Business merch
+              </div>
             </div>
           </div>
 
           <div className="relative -mt-[24px]">
             <div className="rounded-[2rem] border border-white/10 bg-gradient-to-br from-stone-900 to-black p-6 shadow-2xl">
-              <div className="grid gap-4 md:grid-cols-[1.1fr_0.9fr]">
+              <div className="grid gap-4">
                 <div className="rounded-[1.5rem] border border-white/10 bg-stone-900 p-5">
                   <div className="mb-4 flex items-center justify-between">
                     <div>
-                      <p className="text-xs uppercase tracking-[0.25em] text-stone-400">Featured Build</p>
+                      <p className="text-xs uppercase tracking-[0.25em] text-stone-400">
+                        Featured Build
+                      </p>
                       <h2 className="mt-2 text-2xl font-semibold">Custom Patch Headwear</h2>
                     </div>
                     <div className="rounded-full border border-white/10 px-3 py-1 text-xs text-stone-300">
@@ -195,40 +219,34 @@ export default function Back40LandingPage() {
                     </div>
                   </div>
 
-                  <div className="flex flex-1 items-center justify-center py-6">
+                  <div className="flex items-center justify-center py-6">
                     <div className="w-full max-w-[420px] overflow-hidden rounded-[2rem] border border-white/10 bg-stone-950 shadow-2xl">
                       <img
-                      src="/images/featured-hat.jpg"
-                      alt="Back 40 custom dragon scales patch hat"
-                      className="aspect-[4/5] w-full object-cover"
-                   />
-                 </div>
-                </div>
-                  
-                  <div className="flex h-full flex-col justify-between rounded-[1rem] border border-white/10 bg-stone-950 p-5">
-                      
-                      <div className="flex flex-1 items-center justify-center py-8">
-                        <div className="w-full max-w-[360px] overflow-hidden rounded-[2rem] border border-white/10 bg-stone-950 shadow-2xl">
-                          <img
-                            src="/images/featured-hat.jpg"
-                            alt="Back 40 custom dragon scales patch hat"
-                            className="aspect-[4/5] w-full object-cover"
-                          />
-                        </div>
-                       </div>
-                      
-                      <div className="grid grid-cols-3 gap-2 text-center text-xs text-stone-400">
-                        <div className="rounded-xl border border-white/10 bg-white/5 px-2 py-2">Richardson</div>
-                        <div className="rounded-xl border border-white/10 bg-white/5 px-2 py-2">AnyRope</div>
-                        <div className="rounded-xl border border-white/10 bg-white/5 px-2 py-2">Custom Fit</div>
-                      </div>
+                        src="/images/featured-hat.jpg"
+                        alt="Back 40 custom patch hat"
+                        className="aspect-[4/5] w-full object-cover"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-3 gap-2 text-center text-xs text-stone-400">
+                    <div className="rounded-xl border border-white/10 bg-white/5 px-2 py-2">
+                      Richardson
+                    </div>
+                    <div className="rounded-xl border border-white/10 bg-white/5 px-2 py-2">
+                      AnyRope
+                    </div>
+                    <div className="rounded-xl border border-white/10 bg-white/5 px-2 py-2">
+                      Custom Fit
                     </div>
                   </div>
                 </div>
 
-                <div className="space-y-4">
+                <div className="grid gap-4 md:grid-cols-3">
                   <div className="rounded-[1.5rem] border border-white/10 bg-stone-900 p-5">
-                    <p className="text-xs uppercase tracking-[0.2em] text-stone-400">Why it works</p>
+                    <p className="text-xs uppercase tracking-[0.2em] text-stone-400">
+                      Why it works
+                    </p>
                     <ul className="mt-4 space-y-3 text-sm leading-6 text-stone-300">
                       <li>• Premium patch-forward design language</li>
                       <li>• Clean branding for retail, teams, and local businesses</li>
@@ -259,18 +277,22 @@ export default function Back40LandingPage() {
       <section className="mx-auto max-w-7xl px-6 py-20 md:px-10">
         <div className="grid gap-8 rounded-[2rem] border border-white/10 bg-white/5 p-8 md:grid-cols-3 md:p-10">
           <div>
-            <p className="text-sm uppercase tracking-[0.22em] text-stone-400">Made for people who care</p>
+            <p className="text-sm uppercase tracking-[0.22em] text-stone-400">
+              Made for people who care
+            </p>
             <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-4xl">
               Merch that feels intentional.
             </h2>
           </div>
 
           <div className="text-sm leading-7 text-stone-300">
-            Back40 is built around the idea that the best hats carry something with them — a place, a business, a memory, or a style people actually want to wear.
+            Back40 is built around the idea that the best hats carry something with them — a
+            place, a business, a memory, or a style people actually want to wear.
           </div>
 
           <div className="text-sm leading-7 text-stone-300">
-            That means stronger concepts, cleaner patch execution, and a final product that feels like it belongs to your brand instead of looking pulled from a catalog.
+            That means stronger concepts, cleaner patch execution, and a final product that feels
+            like it belongs to your brand instead of looking pulled from a catalog.
           </div>
         </div>
       </section>
@@ -278,7 +300,10 @@ export default function Back40LandingPage() {
       <section className="mx-auto max-w-7xl px-6 pb-8 md:px-10">
         <div className="grid gap-6 md:grid-cols-4">
           {offerPoints.map((point) => (
-            <div key={point} className="rounded-[1.75rem] border border-white/10 bg-stone-900/70 p-5">
+            <div
+              key={point}
+              className="rounded-[1.75rem] border border-white/10 bg-stone-900/70 p-5"
+            >
               <CheckCircle2 className="mb-4 h-5 w-5 text-stone-300" />
               <p className="text-sm leading-7 text-stone-300">{point}</p>
             </div>
@@ -296,7 +321,8 @@ export default function Back40LandingPage() {
           </div>
 
           <p className="max-w-xl text-stone-300">
-            Whether you need a signature hat for your business or a custom run with a story behind it, Back40 is designed to help you stand out.
+            Whether you need a signature hat for your business or a custom run with a story behind
+            it, Back40 is designed to help you stand out.
           </p>
         </div>
 
@@ -308,7 +334,9 @@ export default function Back40LandingPage() {
                 key={item.title}
                 className="rounded-[2rem] border border-white/10 bg-stone-900/70 p-7 shadow-xl transition hover:-translate-y-1"
               >
-                <p className="text-xs uppercase tracking-[0.25em] text-stone-500">{item.eyebrow}</p>
+                <p className="text-xs uppercase tracking-[0.25em] text-stone-500">
+                  {item.eyebrow}
+                </p>
                 <div className="my-5 flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-stone-950">
                   <Icon className="h-5 w-5 text-stone-300" />
                 </div>
@@ -328,7 +356,8 @@ export default function Back40LandingPage() {
               Clear enough to qualify. Flexible enough to sell.
             </h2>
             <p className="mt-4 text-stone-300">
-              Use this section to set expectations without boxing yourself in. It helps serious buyers understand the kind of work you do.
+              Use this section to set expectations without boxing yourself in. It helps serious
+              buyers understand the kind of work you do.
             </p>
           </div>
 
@@ -336,13 +365,17 @@ export default function Back40LandingPage() {
             <div className="rounded-[2rem] border border-white/10 bg-stone-950 p-8">
               <div className="mb-6 flex items-center gap-3">
                 <BadgeDollarSignIcon className="h-5 w-5 text-stone-300" />
-                <p className="text-sm uppercase tracking-[0.22em] text-stone-400">Suggested language</p>
+                <p className="text-sm uppercase tracking-[0.22em] text-stone-400">
+                  Suggested language
+                </p>
               </div>
 
               <h3 className="text-3xl font-semibold">Custom runs start with real intent.</h3>
 
               <p className="mt-4 max-w-2xl text-sm leading-7 text-stone-300">
-                Most Back40 projects are designed around custom runs for businesses, events, or special projects. Minimums, materials, and final pricing depend on the patch style, hat selection, and complexity of the build.
+                Most Back40 projects are designed around custom runs for businesses, events, or
+                special projects. Minimums, materials, and final pricing depend on the patch style,
+                hat selection, and complexity of the build.
               </p>
 
               <div className="mt-8 grid gap-4 sm:grid-cols-3">
@@ -352,7 +385,9 @@ export default function Back40LandingPage() {
                 </div>
 
                 <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
-                  <p className="text-xs uppercase tracking-[0.22em] text-stone-500">Built around</p>
+                  <p className="text-xs uppercase tracking-[0.22em] text-stone-500">
+                    Built around
+                  </p>
                   <p className="mt-3 text-lg font-semibold">Custom patch work</p>
                 </div>
 
@@ -367,14 +402,23 @@ export default function Back40LandingPage() {
               <p className="text-sm uppercase tracking-[0.22em] text-stone-700">Quote starter</p>
               <h3 className="mt-3 text-3xl font-semibold">Ready to build something?</h3>
               <p className="mt-4 text-sm leading-7 text-stone-700">
-                Send your logo, idea, quantity, and rough direction. That is enough to start pricing and design conversation.
+                Send your logo, idea, quantity, and rough direction. That is enough to start
+                pricing and design conversation.
               </p>
 
               <div className="mt-8 space-y-3 text-sm text-stone-800">
-                <div className="rounded-2xl border border-stone-400/40 bg-white/40 px-4 py-3">Business or project name</div>
-                <div className="rounded-2xl border border-stone-400/40 bg-white/40 px-4 py-3">Quantity needed</div>
-                <div className="rounded-2xl border border-stone-400/40 bg-white/40 px-4 py-3">Patch style or concept</div>
-                <div className="rounded-2xl border border-stone-400/40 bg-white/40 px-4 py-3">Deadline if you have one</div>
+                <div className="rounded-2xl border border-stone-400/40 bg-white/40 px-4 py-3">
+                  Business or project name
+                </div>
+                <div className="rounded-2xl border border-stone-400/40 bg-white/40 px-4 py-3">
+                  Quantity needed
+                </div>
+                <div className="rounded-2xl border border-stone-400/40 bg-white/40 px-4 py-3">
+                  Patch style or concept
+                </div>
+                <div className="rounded-2xl border border-stone-400/40 bg-white/40 px-4 py-3">
+                  Deadline if you have one
+                </div>
               </div>
 
               <a
@@ -399,13 +443,17 @@ export default function Back40LandingPage() {
             </div>
 
             <p className="max-w-xl text-stone-300">
-              Here’s a look at the kind of custom hat work Back40 can build for retail shops, trail brands, food businesses, and local merch lines.
+              Here’s a look at the kind of custom hat work Back40 can build for retail shops, trail
+              brands, food businesses, and local merch lines.
             </p>
           </div>
 
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             {gallery.map((item, index) => (
-              <div key={item.title} className="overflow-hidden rounded-[2rem] border border-white/10 bg-stone-900 shadow-xl">
+              <div
+                key={item.title}
+                className="overflow-hidden rounded-[2rem] border border-white/10 bg-stone-900 shadow-xl"
+              >
                 <div className="aspect-[4/3] overflow-hidden">
                   <img
                     src={item.image}
@@ -416,7 +464,9 @@ export default function Back40LandingPage() {
 
                 <div className="p-5">
                   <div className="mb-3 flex items-center justify-between">
-                    <p className="text-xs uppercase tracking-[0.25em] text-stone-500">0{index + 1}</p>
+                    <p className="text-xs uppercase tracking-[0.25em] text-stone-500">
+                      0{index + 1}
+                    </p>
                     <span className="rounded-full border border-white/10 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-stone-400">
                       {item.tag}
                     </span>
@@ -456,15 +506,25 @@ export default function Back40LandingPage() {
               Not just another hat company.
             </h2>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-stone-300">
-              The best custom gear feels personal. Back40 Designs focuses on hats that connect to a place, a business, a memory, or a brand identity people actually care about.
+              The best custom gear feels personal. Back40 Designs focuses on hats that connect to a
+              place, a business, a memory, or a brand identity people actually care about.
             </p>
           </div>
 
           <div className="grid gap-4">
             {[
-              ["Intentional Design", "Each concept is built to feel unique, not pulled from a generic catalog."],
-              ["Strong Patch Aesthetic", "Acrylic and leatherette patch styles give the product a premium, signature feel."],
-              ["Local Business Friendly", "Perfect for owners who want a clean merch option without huge brand-agency overhead."],
+              [
+                "Intentional Design",
+                "Each concept is built to feel unique, not pulled from a generic catalog.",
+              ],
+              [
+                "Strong Patch Aesthetic",
+                "Acrylic and leatherette patch styles give the product a premium, signature feel.",
+              ],
+              [
+                "Local Business Friendly",
+                "Perfect for owners who want a clean merch option without huge brand-agency overhead.",
+              ],
             ].map(([title, text]) => (
               <div key={title} className="rounded-[1.75rem] border border-white/10 bg-stone-950 p-6">
                 <h3 className="text-xl font-semibold">{title}</h3>
@@ -479,7 +539,8 @@ export default function Back40LandingPage() {
         <div className="rounded-[2rem] border border-white/10 bg-white/5 p-10 md:p-14">
           <p className="text-sm uppercase tracking-[0.25em] text-stone-400">Brand perspective</p>
           <blockquote className="mt-5 text-2xl font-medium leading-10 text-stone-100 md:text-3xl">
-            “Back40 is about more than just making hats. It’s about building something people want to wear because it means something.”
+            “Back40 is about more than just making hats. It’s about building something people want
+            to wear because it means something.”
           </blockquote>
         </div>
       </section>
@@ -488,7 +549,9 @@ export default function Back40LandingPage() {
         <div className="grid gap-6 lg:grid-cols-[1fr_1fr]">
           <div className="rounded-[2rem] border border-white/10 bg-stone-900 p-8">
             <p className="text-sm uppercase tracking-[0.2em] text-stone-400">Frequently asked</p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-tight">Questions buyers usually have.</h2>
+            <h2 className="mt-3 text-3xl font-semibold tracking-tight">
+              Questions buyers usually have.
+            </h2>
 
             <div className="mt-8 space-y-4">
               {faqs.map((item) => (
@@ -506,12 +569,15 @@ export default function Back40LandingPage() {
           >
             <div className="flex h-full flex-col justify-between gap-6">
               <div>
-                <p className="text-sm uppercase tracking-[0.2em] text-stone-700">Let’s build something</p>
+                <p className="text-sm uppercase tracking-[0.2em] text-stone-700">
+                  Let’s build something
+                </p>
                 <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">
                   Need custom hats for your brand or next project?
                 </h2>
                 <p className="mt-4 max-w-2xl text-base leading-7 text-stone-700 md:text-lg">
-                  Start with an idea, a logo, or just a rough direction. Back40 Designs can turn that into a clean, wearable concept.
+                  Start with an idea, a logo, or just a rough direction. Back40 Designs can turn
+                  that into a clean, wearable concept.
                 </p>
               </div>
 
@@ -526,6 +592,8 @@ export default function Back40LandingPage() {
 
                 <a
                   href={instagramLink}
+                  target="_blank"
+                  rel="noreferrer"
                   className="flex items-center gap-3 rounded-2xl border border-stone-700/20 bg-white/50 px-4 py-4 transition hover:bg-white/70"
                 >
                   <InstagramIcon className="h-5 w-5" />
@@ -558,10 +626,12 @@ export default function Back40LandingPage() {
         <div className="rounded-[1.5rem] border border-amber-500/20 bg-amber-500/10 p-5 text-sm text-amber-100">
           <p className="font-semibold">Vercel deployment note</p>
           <p className="mt-2 leading-7 text-amber-50/90">
-            Put your images in <span className="font-semibold">public/images</span> with these exact file names:{" "}
-            <span className="font-semibold">henny-dogs.jpg</span>,{" "}
-            <span className="font-semibold">bella-vista-trail.jpg</span>, and{" "}
-            <span className="font-semibold">little-sugar-trail.jpg</span>.
+            Put your images in <span className="font-semibold">public/images</span> with these exact
+            file names: <span className="font-semibold">henny-dogs.jpg</span>,{" "}
+            <span className="font-semibold">bella-vista-trail.jpg</span>,{" "}
+            <span className="font-semibold">little-sugar-trail.jpg</span>,{" "}
+            <span className="font-semibold">featured-hat.jpg</span>, and{" "}
+            <span className="font-semibold">logo.png</span>.
           </p>
         </div>
       </section>
@@ -580,23 +650,27 @@ export default function Back40LandingPage() {
             <p>It started long before the first hat was ever made.</p>
 
             <p>
-              Growing up, my grandfather — James E. McKeel, who we called “Papa Fuzzy” — always had a hat on. He was a baker, a hunter, a Cubs fan, and a hardworking man who loved his family deeply.
+              Growing up, my grandfather — James E. McKeel, who we called “Papa Fuzzy” — always had
+              a hat on. He was a baker, a hunter, a Cubs fan, and a hardworking man who loved his
+              family deeply.
             </p>
 
             <p>
-              He was one of the biggest influences in my life. The kind of man who didn’t need to say much for people to feel his presence. Strong. Steady. Real.
+              He was one of the biggest influences in my life. The kind of man who didn’t need to
+              say much for people to feel his presence. Strong. Steady. Real.
             </p>
 
-            <p className="font-medium text-white">
-              Back 40 comes from that same place.
+            <p className="font-medium text-white">Back 40 comes from that same place.</p>
+
+            <p>
+              This brand is about more than custom headwear. It’s about building something with
+              meaning. Something honest. Something that reflects the people, places, and stories
+              that matter most.
             </p>
 
             <p>
-              This brand is about more than custom headwear. It’s about building something with meaning. Something honest. Something that reflects the people, places, and stories that matter most.
-            </p>
-
-            <p>
-              Every patch, every design, and every hat carries that mindset — purpose over hype, quality over shortcuts, and story over noise.
+              Every patch, every design, and every hat carries that mindset — purpose over hype,
+              quality over shortcuts, and story over noise.
             </p>
           </div>
 
@@ -613,9 +687,25 @@ export default function Back40LandingPage() {
           <p>© 2026 Back40 Designs. Custom patch hats with story and identity.</p>
 
           <div className="flex gap-5">
-            <a href={instagramLink} className="transition hover:text-stone-300">Instagram</a>
-            <a href={instagramLink} className="transition hover:text-stone-300">Facebook</a>
-            <a href={ctaLink} className="transition hover:text-stone-300">Email</a>
+            <a
+              href={instagramLink}
+              target="_blank"
+              rel="noreferrer"
+              className="transition hover:text-stone-300"
+            >
+              Instagram
+            </a>
+            <a
+              href={facebookLink}
+              target="_blank"
+              rel="noreferrer"
+              className="transition hover:text-stone-300"
+            >
+              Facebook
+            </a>
+            <a href={ctaLink} className="transition hover:text-stone-300">
+              Email
+            </a>
           </div>
         </div>
       </footer>
