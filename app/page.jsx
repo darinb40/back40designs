@@ -98,7 +98,7 @@ export default function Back40LandingPage() {
     },
   ];
 const ctaLink = "mailto:info@back40designco.com?subject=Back40%20Project%20Inquiry";
-const shopLink = "https://back40-headwear.myshopify.com/collections/shop-hats";
+const shopLink = "https://back40-headwear.myshopify.com/collections/b40-trail-series";
 const instagramLink = "https://www.instagram.com/b40_designs/";
 const facebookLink = "https://www.facebook.com/";
   return (
