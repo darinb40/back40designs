@@ -644,51 +644,58 @@ const facebookLink = "https://www.facebook.com/";
       </section>
 
       <section className="border-t border-white/10 bg-black px-6 py-20 md:px-10">
-        <div className="mx-auto max-w-4xl">
-          <p className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-stone-400">
-            Our Story
-          </p>
+  <div className="mx-auto max-w-4xl">
+    <p className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-stone-400">
+      Built from something real
+    </p>
 
-          <h2 className="text-3xl font-bold tracking-tight text-white md:text-5xl">
-            Back 40 wasn’t built overnight.
-          </h2>
+    <h2 className="text-3xl font-bold tracking-tight text-white md:text-5xl">
+      Back 40 wasn’t built overnight.
+    </h2>
 
-          <div className="mt-8 space-y-6 text-base leading-8 text-stone-300 md:text-lg">
-            <p>It started long before the first hat was ever made.</p>
+    <div className="mt-8 space-y-6 text-base leading-8 text-stone-300 md:text-lg">
+      <p>It started long before the first hat was ever made.</p>
 
-            <p>
-              Growing up, my grandfather — James E. McKeel, who we called “Papa Fuzzy” — always had
-              a hat on. He was a baker, a hunter, a Cubs fan, and a hardworking man who loved his
-              family deeply.
-            </p>
+      <p>
+        Growing up, my grandfather — James E. McKeel, “Papa Fuzzy” — always had a hat on. Every day it was a different one. He’d get excited to show me a new one, and before long, I became obsessed just like him.
+      </p>
 
-            <p>
-              He was one of the biggest influences in my life. The kind of man who didn’t need to
-              say much for people to feel his presence. Strong. Steady. Real.
-            </p>
+      <p>
+        Every picture I have of him, he’s wearing a hat — except one. The family photo. One of the rare moments without it.
+      </p>
 
-            <p className="font-medium text-white">Back 40 comes from that same place.</p>
+      <p className="italic text-white">So yeah… I came by it honestly.</p>
 
-            <p>
-              This brand is about more than custom headwear. It’s about building something with
-              meaning. Something honest. Something that reflects the people, places, and stories
-              that matter most.
-            </p>
+      <p className="font-medium text-white">It’s all Papa Fuzzy’s fault.</p>
 
-            <p>
-              Every patch, every design, and every hat carries that mindset — purpose over hype,
-              quality over shortcuts, and story over noise.
-            </p>
-          </div>
+      <p>
+        He was a hard worker — a baker for most of his life, getting up before the sun came up, putting on his all-white hat, and going to work. Then coming home, putting on a different hat, and spending everything he had on his grandkids.
+      </p>
 
-          <div className="mt-12 rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur">
-            <p className="text-lg font-semibold text-white">
-              More than a hat. A story you can wear.
-            </p>
-          </div>
-        </div>
-      </section>
+      <p className="font-semibold text-white">
+        I got to feel that firsthand.
+      </p>
 
+      <p className="font-medium text-white">
+        Back 40 comes from that same place.
+      </p>
+
+      <p>
+        This brand is about more than headwear — it’s about building something with meaning. Something honest. Something that reflects the people, places, and stories that matter most.
+      </p>
+
+      <p className="font-semibold text-white">
+        purpose over hype. quality over shortcuts. story over noise.
+      </p>
+    </div>
+
+    <div className="mt-12 rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur">
+      <p className="text-lg font-semibold text-white">
+        More than a hat. A story worth wearing.
+      </p>
+    </div>
+  </div>
+</section>
       <footer className="border-t border-white/10 px-6 py-8 text-sm text-stone-500 md:px-10">
         <div className="mx-auto flex max-w-7xl flex-col gap-3 md:flex-row md:items-center md:justify-between">
           <p>© 2026 Back40 Designs. Custom patch hats with story and identity.</p>
