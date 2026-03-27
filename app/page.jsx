@@ -372,8 +372,7 @@ const facebookLink = "https://www.facebook.com/";
             <div className="rounded-[2rem] border border-white/10 bg-stone-950 p-8">
               <div className="mb-6 flex items-center gap-3">
                 <BadgeDollarSignIcon className="h-5 w-5 text-stone-300" />
-                <p className="text-sm uppercase tracking-[0.22em] text-stone-400">
-                  Suggested language
+                Custom Runs
                 </p>
               </div>
 
@@ -630,17 +629,7 @@ const facebookLink = "https://www.facebook.com/";
       </section>
 
       <section className="mx-auto max-w-7xl px-6 pb-8 md:px-10">
-        <div className="rounded-[1.5rem] border border-amber-500/20 bg-amber-500/10 p-5 text-sm text-amber-100">
-          <p className="font-semibold">Vercel deployment note</p>
-          <p className="mt-2 leading-7 text-amber-50/90">
-            Put your images in <span className="font-semibold">public/images</span> with these exact
-            file names: <span className="font-semibold">henny-dogs.jpg</span>,{" "}
-            <span className="font-semibold">bella-vista-trail.jpg</span>,{" "}
-            <span className="font-semibold">little-sugar-trail.jpg</span>,{" "}
-            <span className="font-semibold">featured-hat.jpg</span>, and{" "}
-            <span className="font-semibold">logo.png</span>.
-          </p>
-        </div>
+  
       </section>
 
       <section className="border-t border-white/10 bg-black px-6 py-20 md:px-10">
