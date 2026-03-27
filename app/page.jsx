@@ -70,9 +70,9 @@ export default function Back40LandingPage() {
       image: "/images/bella-vista-trail.jpg",
     },
     {
-      title: "Little Sugar Trail",
-      tag: "Bold Build",
-      image: "/images/little-sugar-trail.jpg",
+      title: "Amor Patriea",
+      tag: "Bold Statements",
+      image: "/images/ap-12.jpg",
     },
   ];
 
