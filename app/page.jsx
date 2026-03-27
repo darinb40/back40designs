@@ -123,7 +123,7 @@ export default function Back40LandingPage() {
             <a href="#pillars" className="transition hover:text-white">Pillars</a>
             <a href="#collections" className="transition hover:text-white">Collections</a>
             <a href="#process" className="transition hover:text-white">Process</a>
-            <a href="#work" className="transition hover:text-white">Work</a>
+            <a href="#gallery" className="transition hover:text-white">Gallery</a>
             <a href="#story" className="transition hover:text-white">Story</a>
           </nav>
 
@@ -322,51 +322,53 @@ export default function Back40LandingPage() {
         </div>
       </section>
 
-      <section id="work" className="bg-stone-950">
-        <div className="mx-auto max-w-7xl px-6 py-20 md:px-10">
-          <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-            <div>
-              <p className="text-sm uppercase tracking-[0.2em] text-stone-400">Past work</p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">
-                Real builds. Real brands. Real hats people want to wear.
-              </h2>
-            </div>
+ <section id="work" className="bg-stone-950">
+  <div className="mx-auto max-w-7xl px-6 py-20 md:px-10">
 
-            <p className="max-w-xl leading-7 text-stone-300">
-              A look at the kind of work Back 40 can build for retail shops, trail culture,
-              food businesses, collabs, and local merch lines.
-            </p>
+    <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+      <div>
+        <p className="text-sm uppercase tracking-[0.2em] text-stone-400">Past Work</p>
+        <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">
+          A look at past builds, collaborations, and custom work.
+        </h2>
+      </div>
+
+      <a
+        href="/gallery"
+        className="inline-flex items-center gap-2 rounded-2xl bg-white px-6 py-3 text-sm font-semibold text-black transition hover:-translate-y-0.5"
+      >
+        View Full Gallery <ArrowRight className="h-4 w-4" />
+      </a>
+    </div>
+
+    <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+      {[
+        { title: "Hyundai Green", image: "/images/hyundaigreen.png" },
+        { title: "Hog Camo", image: "/images/hog-camo.png" },
+        { title: "AP Camo", image: "/images/apcamo.png" },
+        { title: "Lumber Lids", image: "/images/lumberlids.png" },
+      ].map((item) => (
+        <div
+          key={item.title}
+          className="group overflow-hidden rounded-[2rem] border border-white/10 bg-stone-900"
+        >
+          <div className="aspect-[4/5] overflow-hidden">
+            <img
+              src={item.image}
+              alt={item.title}
+              className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.05]"
+            />
           </div>
 
-          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {gallery.map((item, index) => (
-              <div
-                key={item.title}
-                className="overflow-hidden rounded-[2rem] border border-white/10 bg-stone-900 shadow-xl"
-              >
-                <div className="aspect-[4/3] overflow-hidden">
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="h-full w-full object-cover transition duration-500 hover:scale-[1.03]"
-                  />
-                </div>
-
-                <div className="p-5">
-                  <div className="mb-3 flex items-center justify-between">
-                    <p className="text-xs uppercase tracking-[0.25em] text-stone-500">0{index + 1}</p>
-                    <span className="rounded-full border border-white/10 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-stone-400">
-                      {item.tag}
-                    </span>
-                  </div>
-                  <p className="text-xl font-semibold text-stone-100">{item.title}</p>
-                </div>
-              </div>
-            ))}
+          <div className="p-4">
+            <p className="text-lg font-semibold text-white">{item.title}</p>
           </div>
         </div>
-      </section>
+      ))}
+    </div>
 
+  </div>
+</section>
       <section id="process" className="mx-auto max-w-7xl px-6 py-20 md:px-10">
         <div className="mb-10 max-w-3xl">
           <p className="text-sm uppercase tracking-[0.2em] text-stone-400">Process</p>
