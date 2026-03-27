@@ -649,11 +649,11 @@ const facebookLink = "https://www.facebook.com/";
     <div className="grid gap-12 md:grid-cols-2 md:items-center">
 
       {/* LEFT SIDE — IMAGE */}
-      <div className="w-full rounded-2xl border border-white/20 bg-black overflow-hidden p-1">
+     <div className="w-full rounded-2xl border border-white/20 bg-black overflow-hidden p-1">
   <img
     src="/images/papa-fuzzy.jpg"
     alt="Papa Fuzzy"
-    className="w-full h-full object-cover"
+    className="block w-full scale-[1.02]"
   />
 </div>
       {/* RIGHT SIDE — TEXT */}
