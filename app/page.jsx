@@ -649,14 +649,13 @@ const facebookLink = "https://www.facebook.com/";
     <div className="grid gap-12 md:grid-cols-2 md:items-center">
 
       {/* LEFT SIDE — IMAGE */}
-      <div>
-        <img
-          src="/images/papa-fuzzy.jpg" // replace with your actual image path
-          alt="Papa Fuzzy"
-          className="w-full rounded-2xl border border-white/20 p-1 bg-black"
-        />
-      </div>
-
+      <div className="w-full rounded-2xl border border-white/20 bg-black overflow-hidden p-1">
+  <img
+    src="/images/papa-fuzzy-final.jpg"
+    alt="Papa Fuzzy"
+    className="w-full h-full object-cover"
+  />
+</div>
       {/* RIGHT SIDE — TEXT */}
       <div>
         <p className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-stone-400">
