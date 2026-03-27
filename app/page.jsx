@@ -653,7 +653,7 @@ const facebookLink = "https://www.facebook.com/";
         <img
           src="/images/papa-fuzzy.jpg" // replace with your actual image path
           alt="Papa Fuzzy"
-          className="w-full rounded-2xl border border-white/10 grayscale opacity-90"
+          className="w-full rounded-2xl border border-white/20 p-1 bg-black"
         />
       </div>
 
