@@ -337,7 +337,7 @@ export default function Back40LandingPage() {
         href="/gallery"
         className="inline-flex items-center gap-2 rounded-2xl bg-white px-6 py-3 text-sm font-semibold text-black transition hover:-translate-y-0.5"
       >
-        View Full Gallery <ArrowRight className="h-4 w-4" />
+        See All Builds <ArrowRight className="h-4 w-4" />
       </a>
     </div>
 
