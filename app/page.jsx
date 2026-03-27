@@ -651,7 +651,7 @@ const facebookLink = "https://www.facebook.com/";
       {/* LEFT SIDE — IMAGE */}
       <div className="w-full rounded-2xl border border-white/20 bg-black overflow-hidden p-1">
   <img
-    src="/images/papa-fuzzy-final.jpg"
+    src="/images/papa-fuzzy.jpg"
     alt="Papa Fuzzy"
     className="w-full h-full object-cover"
   />
