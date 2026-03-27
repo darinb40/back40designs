@@ -331,6 +331,10 @@ export default function Back40LandingPage() {
         <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">
           A look at past builds, collaborations, and custom work.
         </h2>
+
+        <p className="mt-4 max-w-xl text-stone-300">
+          Built for brands, shops, and projects that need more than generic merch.
+       </p>        
       </div>
 
       <a
