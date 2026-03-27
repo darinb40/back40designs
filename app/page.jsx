@@ -123,7 +123,7 @@ export default function Back40LandingPage() {
             <a href="#pillars" className="transition hover:text-white">Pillars</a>
             <a href="#collections" className="transition hover:text-white">Collections</a>
             <a href="#process" className="transition hover:text-white">Process</a>
-            <a href="#gallery" className="transition hover:text-white">Gallery</a>
+            <a href="/gallery" className="transition hover:text-white">Gallery</a>
             <a href="#story" className="transition hover:text-white">Story</a>
           </nav>
 
