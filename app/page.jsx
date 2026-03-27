@@ -502,13 +502,13 @@ export default function Back40LandingPage() {
       <section id="story" className="border-t border-white/10 bg-black px-6 py-20 md:px-10">
         <div className="mx-auto max-w-6xl">
           <div className="grid gap-12 md:grid-cols-2 md:items-center">
-            <div className="overflow-hidden rounded-[2rem] border border-white/15 bg-black p-1 shadow-2xl">
-              <img
-                src="/images/papa-fuzzy.jpg"
-                alt="Papa Fuzzy"
-                className="block w-full rounded-[1.7rem] object-cover"
-              />
-            </div>
+            <div className="w-full rounded-2xl border border-white/20 bg-black overflow-hidden p-1">
+             <img
+              src="/images/papa-fuzzy.jpg"
+              alt="Papa Fuzzy"
+              className="block w-full scale-[1.02]"
+            />
+          </div>
 
             <div>
               <p className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-stone-400">
