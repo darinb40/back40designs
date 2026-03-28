@@ -549,7 +549,7 @@ export default function Back40LandingPage() {
                 <p>
                   Back 40 comes from that same place. This brand is about more than headwear — it’s about
                   building something with meaning. Something honest. Something that reflect the people, places,
-                  and stories tat matter most.
+                  and stories that matter most.
                 </p>
 
                 <p className="font-semibold uppercase tracking-[0.14em] text-white">
