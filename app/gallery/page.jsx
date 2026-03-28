@@ -113,7 +113,7 @@ export default function GalleryPage() {
         </div>
       </section>
 
-      <section className="px-6 py-12 md:px-10 md:py-16">
+      <section className="px-4 py-10 md:px-10 md:py-16">
         <div className="mx-auto max-w-7xl">
           <div className="mb-8 flex items-center justify-between gap-4">
             <div>
@@ -138,7 +138,7 @@ export default function GalleryPage() {
                 onClick={() => openImage(index)}
                 className="group overflow-hidden rounded-[1.6rem] border border-white/10 bg-white/5 text-left transition duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.07]"
               >
-                <div className="relative aspect-[4/5] overflow-hidden bg-stone-950">
+                <div className="relativeaspect-[3/4] sm:aspect-[4/5] overflow-hidden bg-stone-950">
                   <img
                     src={item.image}
                     alt={item.title}
