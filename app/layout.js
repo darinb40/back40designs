@@ -5,6 +5,11 @@ export const metadata = {
   description: 'Custom patch hats and branded merch',
 }
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+}
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
