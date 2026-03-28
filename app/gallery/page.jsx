@@ -130,7 +130,7 @@ export default function GalleryPage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {gallery.map((item, index) => (
               <button
                 key={`${item.title}-${index}`}
@@ -138,7 +138,7 @@ export default function GalleryPage() {
                 onClick={() => openImage(index)}
                 className="group overflow-hidden rounded-[1.6rem] border border-white/10 bg-white/5 text-left transition duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.07]"
               >
-                <div className="relativeaspect-[3/4] sm:aspect-[4/5] overflow-hidden bg-stone-950">
+                <div className="relative aspect-[3/4] sm:aspect-[4/5] overflow-hidden bg-stone-950">
                   <img
                     src={item.image}
                     alt={item.title}
