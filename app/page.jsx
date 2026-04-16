@@ -51,7 +51,7 @@ export default function Back40LandingPage() {
       eyebrow: "One-Off Projects",
       description: "Story-driven pieces built from places, memories, family history, and meaningful details worth preserving.",
       icon: ShieldCheckIcon,
-      image: "/images/back40-loop.jpg",
+      image: "/images/back40-loop.JPG",
     },
   ];
 
@@ -99,10 +99,10 @@ export default function Back40LandingPage() {
     { title: "Trail Series — Dragon Scales", image: "/images/dragon-scales.jpg" },
     { title: "Back 40 Loop", image: "/images/topo-row.jpg" },
     { title: "Gravette Bad Bananas", image: "/images/bad-bananas.jpg" },
-    { title: "B40 Collection", image: "/images/b40-stack.jpg" },
-    { title: "Pinnacle Sports", image: "/images/pinnacle.jpg" },
+    { title: "B40 Collection", image: "/images/b40-stack.JPG" },
+    { title: "Pinnacle Sports", image: "/images/pinnacle.JPG" },
     { title: "Little Sugar — Bella Vista", image: "/images/little-sugar-held.jpg" },
-    { title: "Hubcap Kid", image: "/images/hubcap-kid.jpg" },
+    { title: "Hubcap Kid", image: "/images/hubccap-kid.JPG" },
     { title: "Hat Lineup", image: "/images/hat-lineup.jpg" },
   ];
 
@@ -529,7 +529,7 @@ export default function Back40LandingPage() {
               </div>
               <div className="w-full overflow-hidden rounded-2xl border border-white/20 bg-black p-1">
                 <img
-                  src="/images/bentonville-bicycle.jpg"
+                  src="/images/bentonville-bicycle.JPG"
                   alt="Back 40 at Bentonville Bicycle Co."
                   className="block w-full object-cover rounded-2xl"
                 />
