@@ -239,6 +239,53 @@ export default function Back40LandingPage() {
         </div>
       </section>
 
+      {/* Partners & Trusted By */}
+      <section className="border-b border-white/10 bg-stone-900/40">
+        <div className="mx-auto max-w-7xl px-4 py-10 md:px-10 md:py-14">
+          <p className="mb-8 text-center text-xs font-semibold uppercase tracking-[0.3em] text-stone-500">
+            Partners & Trusted By
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-10 md:gap-20">
+            <a
+              href="https://pinnaclesportsventures.com"
+              target="_blank"
+              rel="noreferrer"
+              className="transition opacity-75 hover:opacity-100"
+            >
+              <img
+                src="/images/psv.PNG"
+                alt="Pinnacle Sports Ventures"
+                className="h-16 w-auto object-contain md:h-20"
+              />
+            </a>
+            <a
+              href="https://www.bentonvillebicycleco.com"
+              target="_blank"
+              rel="noreferrer"
+              className="transition opacity-75 hover:opacity-100"
+            >
+              <img
+                src="/images/bentonville-bicycle-logo.png"
+                alt="Bentonville Bicycle Co."
+                className="h-16 w-auto object-contain md:h-20"
+              />
+            </a>
+            <a
+              href="https://lonestaradhesive.com"
+              target="_blank"
+              rel="noreferrer"
+              className="transition opacity-75 hover:opacity-100"
+            >
+              <img
+                src="/images/lonestar.png"
+                alt="LoneStar Adhesive"
+                className="h-16 w-auto object-contain md:h-20"
+              />
+            </a>
+          </div>
+        </div>
+      </section>
+
       <section id="pillars" className="mx-auto max-w-7xl px-4 py-16 md:px-10 md:py-20">
         <div className="mb-10 max-w-3xl">
           <p className="text-sm uppercase tracking-[0.25em] text-stone-400">The foundation</p>
