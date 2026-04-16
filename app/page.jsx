@@ -37,18 +37,21 @@ export default function Back40LandingPage() {
       eyebrow: "Signature Line",
       description: "Topo-driven hats inspired by Arkansas trails, ridgelines, and the outdoor culture that built the brand.",
       icon: MountainIcon,
+      image: "/images/topo-row.jpg",
     },
     {
       title: "Business Merch",
       eyebrow: "For Shops & Brands",
       description: "Custom hats for local businesses, bike shops, restaurants, events, and teams that want merch with real identity.",
       icon: StoreIcon,
+      image: "/images/bad-bananas.jpg",
     },
     {
       title: "Legacy Builds",
       eyebrow: "One-Off Projects",
       description: "Story-driven pieces built from places, memories, family history, and meaningful details worth preserving.",
       icon: ShieldCheckIcon,
+      image: "/images/back40-loop.jpg",
     },
   ];
 
@@ -93,10 +96,14 @@ export default function Back40LandingPage() {
   ];
 
   const homeGallery = [
-    { title: "Hyundai Green", image: "/images/hyundaigreen.png" },
-    { title: "Hog Camo", image: "/images/hog-camo.png" },
-    { title: "AP Camo", image: "/images/apcamo.png" },
-    { title: "Lumber Lids", image: "/images/lumberlids.png" },
+    { title: "Trail Series — Dragon Scales", image: "/images/dragon-scales.jpg" },
+    { title: "Back 40 Loop", image: "/images/topo-row.jpg" },
+    { title: "Gravette Bad Bananas", image: "/images/bad-bananas.jpg" },
+    { title: "B40 Collection", image: "/images/b40-stack.jpg" },
+    { title: "Pinnacle Sports", image: "/images/pinnacle.jpg" },
+    { title: "Little Sugar — Bella Vista", image: "/images/little-sugar-held.jpg" },
+    { title: "Hubcap Kid", image: "/images/hubcap-kid.jpg" },
+    { title: "Hat Lineup", image: "/images/hat-lineup.jpg" },
   ];
 
   return (
@@ -202,7 +209,7 @@ export default function Back40LandingPage() {
                       Featured Build
                     </p>
                     <h2 className="mt-2 text-xl font-semibold text-white md:text-2xl">
-                      Patch-Forward Headwear
+                      Trail Series — Dragon Scales
                     </h2>
                   </div>
                   <div className="rounded-full border border-white/10 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-stone-300">
@@ -215,8 +222,8 @@ export default function Back40LandingPage() {
                   className="flex items-center justify-center px-3 py-4 transition hover:bg-white/[0.02] md:px-5 md:py-6"
                 >
                   <img
-                    src="/images/featured-hat.jpg"
-                    alt="Back 40 featured custom hat"
+                    src="/images/dragon-scales.jpg"
+                    alt="Back 40 Trail Series Dragon Scales hat"
                     className="w-full max-w-[320px] rounded-[1.5rem] border border-white/10 object-contain shadow-2xl md:max-w-[460px]"
                   />
                 </a>
@@ -310,14 +317,23 @@ export default function Back40LandingPage() {
             return (
               <div
                 key={item.title}
-                className="rounded-[2rem] border border-white/10 bg-stone-900/70 p-6 shadow-xl transition hover:-translate-y-1 md:p-7"
+                className="overflow-hidden rounded-[2rem] border border-white/10 bg-stone-900/70 shadow-xl transition hover:-translate-y-1"
               >
-                <p className="text-xs uppercase tracking-[0.25em] text-stone-500">{item.eyebrow}</p>
-                <div className="my-5 flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-stone-950">
-                  <Icon className="h-5 w-5 text-stone-300" />
+                <div className="aspect-[4/3] overflow-hidden">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="h-full w-full object-cover transition duration-500 hover:scale-[1.03]"
+                  />
                 </div>
-                <h3 className="text-xl font-semibold text-white md:text-2xl">{item.title}</h3>
-                <p className="mt-4 text-sm leading-7 text-stone-300">{item.description}</p>
+                <div className="p-6 md:p-7">
+                  <p className="text-xs uppercase tracking-[0.25em] text-stone-500">{item.eyebrow}</p>
+                  <div className="my-5 flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-stone-950">
+                    <Icon className="h-5 w-5 text-stone-300" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-white md:text-2xl">{item.title}</h3>
+                  <p className="mt-4 text-sm leading-7 text-stone-300">{item.description}</p>
+                </div>
               </div>
             );
           })}
@@ -447,7 +463,7 @@ export default function Back40LandingPage() {
           <section className="rounded-[2rem] border border-white/10 bg-gradient-to-r from-stone-100 to-stone-300 px-6 py-8 text-stone-950 shadow-2xl md:px-12 md:py-14">
             <div className="flex h-full flex-col justify-between gap-6">
               <div>
-                <p className="text-sm uppercase tracking-[0.2em] text-stone-700">Let’s build something</p>
+                <p className="text-sm uppercase tracking-[0.2em] text-stone-700">Let's build something</p>
                 <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">
                   Need custom hats for your brand or next project?
                 </h2>
@@ -503,12 +519,21 @@ export default function Back40LandingPage() {
       <section id="story" className="border-t border-white/10 bg-black px-4 py-16 md:px-10 md:py-20">
         <div className="mx-auto max-w-6xl">
           <div className="grid gap-10 md:grid-cols-2 md:items-center md:gap-12">
-            <div className="w-full overflow-hidden rounded-2xl border border-white/20 bg-black p-1">
-              <img
-                src="/images/papa-fuzzy.jpg"
-                alt="Papa Fuzzy"
-                className="block w-full scale-[1.02]"
-              />
+            <div className="flex flex-col gap-4">
+              <div className="w-full overflow-hidden rounded-2xl border border-white/20 bg-black p-1">
+                <img
+                  src="/images/papa-fuzzy.jpg"
+                  alt="Papa Fuzzy"
+                  className="block w-full scale-[1.02]"
+                />
+              </div>
+              <div className="w-full overflow-hidden rounded-2xl border border-white/20 bg-black p-1">
+                <img
+                  src="/images/bentonville-bicycle.jpg"
+                  alt="Back 40 at Bentonville Bicycle Co."
+                  className="block w-full object-cover rounded-2xl"
+                />
+              </div>
             </div>
 
             <div>
@@ -517,7 +542,7 @@ export default function Back40LandingPage() {
               </p>
 
               <h2 className="text-3xl font-bold tracking-tight text-white md:text-5xl">
-                Back 40 wasn’t built overnight.
+                Back 40 wasn't built overnight.
               </h2>
 
               <div className="mt-8 space-y-6 text-base leading-7 text-stone-300 md:text-lg md:leading-8">
@@ -526,17 +551,17 @@ export default function Back40LandingPage() {
                 </p>
 
                 <p>
-                  Growing up, my grandfather — <strong className="text-white">James E. McKeel, “Papa Fuzzy”</strong> —
+                  Growing up, my grandfather — <strong className="text-white">James E. McKeel, "Papa Fuzzy"</strong> —
                   always had a hat on. Every day it was a different one. He would get excited to show me when he got a
                   different one, and before long, I too became obsessed with buying hats, just like him.
                 </p>
 
                 <p>
-                  Just about every picture I have of him, he is wearing a hat - except one. The family photo. 
-                  One of his rare moments without one on. 
-                <p>
-                 
+                  Just about every picture I have of him, he is wearing a hat — except one. The family photo.
+                  One of his rare moments without one on.
                 </p>
+
+                <p>
                   He was a hard worker — a baker for most of his life — up before the sun came up, putting
                   on his white work hat and heading out the door. Then he would come home, change
                   hats, and give everything he had to his grandchildren.
@@ -547,8 +572,8 @@ export default function Back40LandingPage() {
                 </p>
 
                 <p>
-                  Back 40 comes from that same place. This brand is about more than headwear — it’s about
-                  building something with meaning. Something honest. Something that reflect the people, places,
+                  Back 40 comes from that same place. This brand is about more than headwear — it's about
+                  building something with meaning. Something honest. Something that reflects the people, places,
                   and stories that matter most.
                 </p>
 
