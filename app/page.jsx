@@ -305,11 +305,10 @@ export default function Back40LandingPage() {
               key={item.title}
               className="rounded-[2rem] border border-white/10 bg-white/5 p-6 shadow-xl md:p-7"
             >
-              <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border border-white/10 bg-stone-950 p-2">
                 <img
                   src={item.icon}
                   alt={item.title}
-                  className="h-full w-full object-contain"
+                  className="mb-6 h-24 w-24 object-contain md:h-28 md:w-28"
                 />
               </div>
               <h3 className="text-xl font-semibold text-white md:text-2xl">{item.title}</h3>
