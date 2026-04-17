@@ -37,8 +37,8 @@ export default function Back40LandingPage() {
       eyebrow: "Signature Line",
       description: "Topo-driven hats inspired by Arkansas trails, ridgelines, and the outdoor culture that built the brand.",
       icon: MountainIcon,
-      image: "/images/topo-row.jpg",
-    },
+      image: "/images/back40-loop-hero.png",
+    }
     {
       title: "Business Merch",
       eyebrow: "For Shops & Brands",
