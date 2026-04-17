@@ -59,16 +59,19 @@ export default function Back40LandingPage() {
       step: "01",
       title: "Start with the idea",
       text: "Send a logo, a concept, a business name, or even just the vibe you want. That is enough to get moving.",
+      icon: "/images/lightbulb.png",
     },
     {
       step: "02",
       title: "Shape the build",
       text: "We dial in patch style, hat choice, materials, and layout until the design feels right and fits the brand.",
+      icon: "/images/shape.png",
     },
     {
       step: "03",
       title: "Bring it to life",
       text: "Once approved, the run is built with a clean, premium finish made to be worn — not forgotten.",
+      icon: "/images/life.png",
     },
   ];
 
@@ -156,7 +159,7 @@ export default function Back40LandingPage() {
             />
 
             <p className="mb-4 text-xs font-semibold uppercase tracking-[0.28em] text-stone-400 md:text-sm">
-              Purpose-built custom headwear
+              A story worth wearing.
             </p>
 
             <h1 className="max-w-3xl text-4xl font-semibold leading-tight tracking-tight md:text-7xl">
@@ -305,11 +308,11 @@ export default function Back40LandingPage() {
               key={item.title}
               className="rounded-[2rem] border border-white/10 bg-white/5 p-6 shadow-xl md:p-7"
             >
-                <img
-                  src={item.icon}
-                  alt={item.title}
-                  className="mb-6 h-24 w-24 object-contain md:h-28 md:w-28"
-                />
+              <img
+                src={item.icon}
+                alt={item.title}
+                className="mb-6 h-24 w-24 object-contain md:h-28 md:w-28"
+              />
               <h3 className="text-xl font-semibold text-white md:text-2xl">{item.title}</h3>
               <p className="mt-4 text-sm leading-7 text-stone-300">{item.text}</p>
             </div>
@@ -442,8 +445,13 @@ export default function Back40LandingPage() {
         <div className="grid gap-4 md:grid-cols-3 md:gap-6">
           {process.map((item) => (
             <div key={item.step} className="rounded-[2rem] border border-white/10 bg-white/5 p-6 md:p-7">
+              <img
+                src={item.icon}
+                alt={item.title}
+                className="mb-5 h-24 w-24 object-contain md:h-28 md:w-28"
+              />
               <p className="text-sm font-semibold tracking-[0.25em] text-stone-500">{item.step}</p>
-              <h3 className="mt-5 text-xl font-semibold text-white md:text-2xl">{item.title}</h3>
+              <h3 className="mt-3 text-xl font-semibold text-white md:text-2xl">{item.title}</h3>
               <p className="mt-4 text-sm leading-7 text-stone-300">{item.text}</p>
             </div>
           ))}
