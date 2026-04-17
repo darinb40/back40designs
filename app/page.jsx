@@ -310,7 +310,6 @@ export default function Back40LandingPage() {
                   alt={item.title}
                   className="mb-6 h-24 w-24 object-contain md:h-28 md:w-28"
                 />
-              </div>
               <h3 className="text-xl font-semibold text-white md:text-2xl">{item.title}</h3>
               <p className="mt-4 text-sm leading-7 text-stone-300">{item.text}</p>
             </div>
