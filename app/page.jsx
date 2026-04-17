@@ -51,7 +51,7 @@ export default function Back40LandingPage() {
       eyebrow: "One-Off Projects",
       description: "Story-driven pieces built from places, memories, family history, and meaningful details worth preserving.",
       icon: ShieldCheckIcon,
-      image: "/images/back40-loop.JPG",
+      image: "/images/legacy-hat.jpg",
     },
   ];
 
