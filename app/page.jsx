@@ -44,7 +44,7 @@ export default function Back40LandingPage() {
       eyebrow: "For Shops & Brands",
       description: "Custom hats for local businesses, bike shops, restaurants, events, and teams that want merch with real identity.",
       icon: StoreIcon,
-      image: "/images/bad-bananas.jpg",
+      image: "/images/psv-hat.jpg",
     },
     {
       title: "Legacy Builds",
