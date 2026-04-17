@@ -253,13 +253,13 @@ export default function Back40LandingPage() {
               className="transition opacity-75 hover:opacity-100"
             >
               <img
-                src="/images/psv.PNG"
+                src="/images/psv.png"
                 alt="Pinnacle Sports Ventures"
-                className="h-16 w-auto object-contain md:h-20"
+                className="h-24 w-auto object-contain md:h-32"
               />
             </a>
             <a
-              href="https://www.bentonvillebicycleco.com"
+              href="https://www.bentonvillebicyclecompany.com"
               target="_blank"
               rel="noreferrer"
               className="transition opacity-75 hover:opacity-100"
@@ -267,7 +267,7 @@ export default function Back40LandingPage() {
               <img
                 src="/images/bentonville-bicycle-logo.png"
                 alt="Bentonville Bicycle Co."
-                className="h-16 w-auto object-contain md:h-20"
+                className="h-24 w-auto object-contain md:h-32"
               />
             </a>
             <a
@@ -279,7 +279,7 @@ export default function Back40LandingPage() {
               <img
                 src="/images/lonestar.png"
                 alt="LoneStar Adhesive"
-                className="h-16 w-auto object-contain md:h-20"
+                className="h-24 w-auto object-contain md:h-32"
               />
             </a>
           </div>
