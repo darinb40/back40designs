@@ -38,7 +38,7 @@ export default function Back40LandingPage() {
       description: "Topo-driven hats inspired by Arkansas trails, ridgelines, and the outdoor culture that built the brand.",
       icon: MountainIcon,
       image: "/images/back40-loop-hero.png",
-    }
+    },
     {
       title: "Business Merch",
       eyebrow: "For Shops & Brands",
@@ -593,9 +593,7 @@ export default function Back40LandingPage() {
               </h2>
 
               <div className="mt-8 space-y-6 text-base leading-7 text-stone-300 md:text-lg md:leading-8">
-                <p>
-                  It started long before I ever made my first hat.
-                </p>
+                <p>It started long before I ever made my first hat.</p>
 
                 <p>
                   Growing up, my grandfather — <strong className="text-white">James E. McKeel, "Papa Fuzzy"</strong> —
@@ -614,9 +612,7 @@ export default function Back40LandingPage() {
                   hats, and give everything he had to his grandchildren.
                 </p>
 
-                <p className="font-medium text-white">
-                  Being his first, I felt that first hand.
-                </p>
+                <p className="font-medium text-white">Being his first, I felt that first hand.</p>
 
                 <p>
                   Back 40 comes from that same place. This brand is about more than headwear — it's about
