@@ -450,7 +450,6 @@ export default function Back40LandingPage() {
                 alt={item.title}
                 className="mb-5 h-24 w-24 object-contain md:h-28 md:w-28"
               />
-              <p className="text-sm font-semibold tracking-[0.25em] text-stone-500">{item.step}</p>
               <h3 className="mt-3 text-xl font-semibold text-white md:text-2xl">{item.title}</h3>
               <p className="mt-4 text-sm leading-7 text-stone-300">{item.text}</p>
             </div>
