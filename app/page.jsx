@@ -729,7 +729,7 @@ export default function Back40LandingPage() {
                 </a>
               </div>
             </div>
-          </section>
+          </div>
         </div>
       </section>
 
