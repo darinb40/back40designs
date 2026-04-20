@@ -1,3 +1,23 @@
+export const metadata = {
+  title: "Custom Patch Hats & Branded Headwear | Back 40 Design Co.",
+  description: "Premium custom patch hats for brands, NIL athletes, and retail partners. Acrylic & leatherette patches. Fast turnaround. Northwest Arkansas.",
+  keywords: "custom patch hats, branded headwear, personalized hats, custom merch",
+  openGraph: {
+    title: "Custom Patch Hats with Real Identity | Back 40 Design Co.",
+    description: "Premium patch-forward hats for local brands, businesses, and story-driven projects.",
+    url: "https://www.back40designco.com",
+    type: "website",
+    images: [
+      {
+        url: "https://www.back40designco.com/images/dragon-scales.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Back 40 Trail Series Dragon Scales custom patch hat",
+      },
+    ],
+  },
+};
+
 const ArrowRight = ({ className = "h-4 w-4" }) => <span className={className}>→</span>;
 const InstagramIcon = ({ className = "h-4 w-4" }) => <span className={className}>◎</span>;
 const MailIcon = ({ className = "h-4 w-4" }) => <span className={className}>✉</span>;
@@ -11,6 +31,20 @@ export default function Back40LandingPage() {
   const shopLink = "https://back40-headwear.myshopify.com/collections/b40-trail-series";
   const instagramLink = "https://www.instagram.com/b40_designs/";
   const facebookLink = "https://www.facebook.com/";
+
+  const schemaMarkup = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Back 40 Designs",
+    "url": "https://www.back40designco.com",
+    "logo": "https://www.back40designco.com/images/logo.png",
+    "sameAs": ["https://www.instagram.com/b40_designs/"],
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5",
+      "reviewCount": "1"
+    }
+  };
 
   const pillars = [
     {
@@ -97,6 +131,23 @@ export default function Back40LandingPage() {
     },
   ];
 
+  const testimonials = [
+    {
+      name: "Kendall Blake Mcadams",
+      role: "Customer",
+      text: "Absolute killer communication. Amazing designs. Fantastic customer service. All around company. Highly recommend.",
+      rating: 5,
+    },
+    // Add more testimonials as you collect them from customers
+    // Template:
+    // {
+    //   name: "Customer Name",
+    //   role: "Company/Role",
+    //   text: "Their testimonial quote here",
+    //   rating: 5,
+    // },
+  ];
+
   const homeGallery = [
     { title: "Trail Series — Dragon Scales", image: "/images/dragon-scales.jpg" },
     { title: "Back 40 Loop", image: "/images/topo-row.jpg" },
@@ -110,6 +161,11 @@ export default function Back40LandingPage() {
 
   return (
     <div className="min-h-screen bg-stone-950 text-stone-100">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaMarkup) }}
+      />
+
       <header className="sticky top-0 z-40 border-b border-white/10 bg-stone-950/85 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-10">
           <div>
@@ -244,9 +300,14 @@ export default function Back40LandingPage() {
       {/* Partners & Trusted By */}
       <section className="border-b border-white/10 bg-stone-900/40">
         <div className="mx-auto max-w-7xl px-4 py-10 md:px-10 md:py-14">
-          <p className="mb-8 text-center text-xs font-semibold uppercase tracking-[0.3em] text-stone-500">
-            Partners & Trusted By
-          </p>
+          <div className="mb-8 text-center">
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-stone-500">
+              Trusted by leading brands
+            </p>
+            <p className="mt-2 text-sm text-stone-400">
+              Official partners with Pinnacle Sports Ventures, Bentonville Bicycle Co., and LoneStar Adhesive
+            </p>
+          </div>
           <div className="flex flex-wrap items-center justify-center gap-10 md:gap-20">
             <a
               href="https://pinnaclesportsventures.com"
@@ -491,6 +552,34 @@ export default function Back40LandingPage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="mx-auto max-w-7xl px-4 py-16 md:px-10 md:py-20 border-y border-white/10">
+        <div className="mb-10 max-w-3xl">
+          <p className="text-sm uppercase tracking-[0.25em] text-stone-400">Customer Reviews</p>
+          <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">
+            Real people, real feedback.
+          </h2>
+        </div>
+
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {testimonials.map((testimonial) => (
+            <div
+              key={testimonial.name}
+              className="rounded-[2rem] border border-white/10 bg-white/5 p-6 md:p-7"
+            >
+              <div className="mb-4 flex gap-1">
+                {[...Array(testimonial.rating)].map((_, i) => (
+                  <span key={i} className="text-yellow-400">★</span>
+                ))}
+              </div>
+              <p className="text-base leading-7 text-stone-300 mb-6">"{testimonial.text}"</p>
+              <p className="font-semibold text-white">{testimonial.name}</p>
+              <p className="text-sm text-stone-400">{testimonial.role}</p>
+            </div>
+          ))}
         </div>
       </section>
 
