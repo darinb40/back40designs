@@ -1,4 +1,8 @@
-export const metadata = {
+'use client';
+
+import React from 'react';
+
+const metadata = {
   title: "Back 40 Design Co. | Custom Patch Hats & Branded Headwear | Arkansas",
   description: "Custom patch hats and branded headwear in Northwest Arkansas. Acrylic & leatherette patches for local brands, retail partners, and NIL athletes. Premium quality, fast turnaround.",
   keywords: "custom patch hats, branded headwear, personalized hats, custom merch, Arkansas hats, Bella Vista",
