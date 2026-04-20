@@ -1,7 +1,7 @@
 export const metadata = {
-  title: "Custom Patch Hats & Branded Headwear | Back 40 Design Co.",
-  description: "Premium custom patch hats for brands, NIL athletes, and retail partners. Acrylic & leatherette patches. Fast turnaround. Northwest Arkansas.",
-  keywords: "custom patch hats, branded headwear, personalized hats, custom merch",
+  title: "Back 40 Design Co. | Custom Patch Hats & Branded Headwear | Arkansas",
+  description: "Custom patch hats and branded headwear in Northwest Arkansas. Acrylic & leatherette patches for local brands, retail partners, and NIL athletes. Premium quality, fast turnaround.",
+  keywords: "custom patch hats, branded headwear, personalized hats, custom merch, Arkansas hats, Bella Vista",
   openGraph: {
     title: "Custom Patch Hats with Real Identity | Back 40 Design Co.",
     description: "Premium patch-forward hats for local brands, businesses, and story-driven projects.",
@@ -25,24 +25,39 @@ const MessageSquareIcon = ({ className = "h-5 w-5" }) => <span className={classN
 const MountainIcon = ({ className = "h-5 w-5" }) => <span className={className}>△</span>;
 const ShieldCheckIcon = ({ className = "h-5 w-5" }) => <span className={className}>⬢</span>;
 const StoreIcon = ({ className = "h-5 w-5" }) => <span className={className}>▣</span>;
+const MenuIcon = ({ className = "h-5 w-5" }) => <span className={className}>☰</span>;
+const CloseIcon = ({ className = "h-5 w-5" }) => <span className={className}>✕</span>;
 
 export default function Back40LandingPage() {
+  const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+  const [email, setEmail] = React.useState("");
+
   const ctaLink = "mailto:info@back40designco.com?subject=Back40%20Project%20Inquiry";
   const shopLink = "https://back40-headwear.myshopify.com/collections/b40-trail-series";
   const instagramLink = "https://www.instagram.com/b40_designs/";
   const facebookLink = "https://www.facebook.com/";
+  const phoneNumber = "479-544-1366";
+  const phoneLink = "tel:479-544-1366";
 
   const schemaMarkup = {
     "@context": "https://schema.org",
-    "@type": "Organization",
+    "@type": "LocalBusiness",
     "name": "Back 40 Designs",
     "url": "https://www.back40designco.com",
     "logo": "https://www.back40designco.com/images/logo.png",
     "sameAs": ["https://www.instagram.com/b40_designs/"],
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Bella Vista",
+      "addressRegion": "AR",
+      "addressCountry": "US"
+    },
+    "areaServed": ["Arkansas", "Northwest Arkansas", "Bentonville", "Fayetteville"],
+    "telephone": phoneNumber,
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": "5",
-      "reviewCount": "1"
+      "reviewCount": "4"
     }
   };
 
@@ -129,23 +144,41 @@ export default function Back40LandingPage() {
       q: "Can you do one-off special projects too?",
       a: "Yes. Some of the best builds come from personal stories, landmarks, family history, and custom legacy pieces.",
     },
+    {
+      q: "How long does production take?",
+      a: "Standard production is 3-4 weeks. We also offer rush production for projects that need faster turnaround.",
+    },
+    {
+      q: "What's the minimum order?",
+      a: "No minimums. We build small runs and one-off custom pieces. Scale up as you grow.",
+    },
   ];
 
   const testimonials = [
     {
-      name: "Kendall Blake Mcadams",
-      role: "Customer",
-      text: "Absolute killer communication. Amazing designs. Fantastic customer service. All around company. Highly recommend.",
+      name: "Trey Lee",
+      role: "Business Owner",
+      text: "Ordering branded items for my business used to be a challenge until I started working with Back 40 Designs. Their communication is excellent, and the quality of the shirts and hats I've received has been outstanding. I highly recommend reaching out to them for your business needs.",
       rating: 5,
     },
-    // Add more testimonials as you collect them from customers
-    // Template:
-    // {
-    //   name: "Customer Name",
-    //   role: "Company/Role",
-    //   text: "Their testimonial quote here",
-    //   rating: 5,
-    // },
+    {
+      name: "Jonathan Woolbright",
+      role: "Woolbright Auto Glass",
+      text: "Back 40 Designs put together work shirts and ballcaps for Woolbright Auto Glass. Did a great job outfitting out team!",
+      rating: 5,
+    },
+    {
+      name: "All American PDR",
+      role: "Company",
+      text: "Consistently outstanding experience. I've ordered both hats and shirts, and the quality, along with the speed of delivery, far exceeds others in the area. I highly recommend getting your gear here.",
+      rating: 5,
+    },
+    {
+      name: "Scott Clark",
+      role: "Customer",
+      text: "Badass hats made custom by a badass individual. Highly recommend!",
+      rating: 5,
+    },
   ];
 
   const homeGallery = [
@@ -158,6 +191,14 @@ export default function Back40LandingPage() {
     { title: "Hubcap Kid", image: "/images/hubccap-kid.JPG" },
     { title: "Hat Lineup", image: "/images/hat-lineup.jpg" },
   ];
+
+  const handleEmailSignup = (e) => {
+    e.preventDefault();
+    if (email) {
+      window.location.href = `mailto:info@back40designco.com?subject=Add%20me%20to%20the%20list&body=Email:%20${email}`;
+      setEmail("");
+    }
+  };
 
   return (
     <div className="min-h-screen bg-stone-950 text-stone-100">
@@ -194,12 +235,47 @@ export default function Back40LandingPage() {
             </a>
             <a
               href={ctaLink}
-              className="inline-flex items-center gap-2 rounded-2xl bg-stone-100 px-3 py-2 text-xs font-semibold text-stone-950 transition hover:-translate-y-0.5 md:px-4 md:text-sm"
+              className="hidden items-center gap-2 rounded-2xl bg-white px-3 py-2 text-xs font-semibold text-stone-950 shadow-lg transition hover:bg-stone-100 hover:-translate-y-0.5 md:inline-flex"
             >
               Start a Project <ArrowRight className="h-4 w-4" />
             </a>
+
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden rounded-lg p-2 text-stone-300 transition hover:bg-white/5"
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? <CloseIcon className="h-5 w-5" /> : <MenuIcon className="h-5 w-5" />}
+            </button>
           </div>
         </div>
+
+        {/* Mobile Menu */}
+        {mobileMenuOpen && (
+          <div className="border-t border-white/10 bg-stone-900/95 md:hidden">
+            <nav className="flex flex-col gap-4 px-4 py-6">
+              <a href="#pillars" className="text-sm text-stone-300 transition hover:text-white" onClick={() => setMobileMenuOpen(false)}>Pillars</a>
+              <a href="#collections" className="text-sm text-stone-300 transition hover:text-white" onClick={() => setMobileMenuOpen(false)}>Collections</a>
+              <a href="#process" className="text-sm text-stone-300 transition hover:text-white" onClick={() => setMobileMenuOpen(false)}>Process</a>
+              <a href="/gallery" className="text-sm text-stone-300 transition hover:text-white" onClick={() => setMobileMenuOpen(false)}>Gallery</a>
+              <a href="#story" className="text-sm text-stone-300 transition hover:text-white" onClick={() => setMobileMenuOpen(false)}>Story</a>
+              <a
+                href={shopLink}
+                target="_blank"
+                rel="noreferrer"
+                className="text-sm text-stone-300 transition hover:text-white"
+              >
+                Shop
+              </a>
+              <a
+                href={ctaLink}
+                className="inline-flex items-center gap-2 rounded-2xl bg-white px-4 py-2 text-sm font-semibold text-stone-950 transition hover:bg-stone-100 mt-2"
+              >
+                Start a Project <ArrowRight className="h-4 w-4" />
+              </a>
+            </nav>
+          </div>
+        )}
       </header>
 
       <section className="relative overflow-hidden border-b border-white/10">
@@ -231,7 +307,7 @@ export default function Back40LandingPage() {
             <div className="mt-8 flex flex-wrap gap-3">
               <a
                 href={ctaLink}
-                className="inline-flex items-center gap-2 rounded-2xl bg-stone-100 px-5 py-3 text-sm font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5"
+                className="inline-flex items-center gap-2 rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-stone-950 shadow-lg transition hover:bg-stone-100 hover:-translate-y-0.5"
               >
                 Request a Quote <MailIcon className="h-4 w-4" />
               </a>
@@ -601,7 +677,7 @@ export default function Back40LandingPage() {
             </div>
           </div>
 
-          <section className="rounded-[2rem] border border-white/10 bg-gradient-to-r from-stone-100 to-stone-300 px-6 py-8 text-stone-950 shadow-2xl md:px-12 md:py-14">
+          <div className="rounded-[2rem] border border-white/10 bg-gradient-to-r from-stone-100 to-stone-300 px-6 py-8 text-stone-950 shadow-2xl md:px-12 md:py-14">
             <div className="flex h-full flex-col justify-between gap-6">
               <div>
                 <p className="text-sm uppercase tracking-[0.2em] text-stone-700">Let's build something</p>
@@ -654,6 +730,38 @@ export default function Back40LandingPage() {
               </div>
             </div>
           </section>
+        </div>
+      </section>
+
+      {/* Email Signup Section */}
+      <section className="border-y border-white/10 bg-stone-900/60">
+        <div className="mx-auto max-w-2xl px-4 py-16 md:px-10 md:py-20">
+          <div className="rounded-[2rem] border border-white/10 bg-stone-950 p-6 md:p-10">
+            <p className="text-sm uppercase tracking-[0.2em] text-stone-400">Stay in the loop</p>
+            <h2 className="mt-3 text-2xl font-semibold tracking-tight md:text-4xl">
+              Get design inspiration and updates.
+            </h2>
+            <p className="mt-4 text-base leading-7 text-stone-300">
+              Get early access to new collections, design tips, and stories behind our builds. No spam, just real work.
+            </p>
+
+            <form onSubmit={handleEmailSignup} className="mt-6 flex flex-col gap-3 sm:flex-row">
+              <input
+                type="email"
+                placeholder="Your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="rounded-2xl border border-white/10 bg-white/5 px-5 py-3 text-sm text-white placeholder-stone-500 transition focus:border-white/30 focus:outline-none flex-1"
+              />
+              <button
+                type="submit"
+                className="rounded-2xl bg-white px-6 py-3 text-sm font-semibold text-stone-950 shadow-lg transition hover:bg-stone-100 hover:-translate-y-0.5"
+              >
+                Sign Up
+              </button>
+            </form>
+          </div>
         </div>
       </section>
 
@@ -730,10 +838,13 @@ export default function Back40LandingPage() {
       </section>
 
       <footer className="border-t border-white/10 px-4 py-8 text-sm text-stone-500 md:px-10">
-        <div className="mx-auto flex max-w-7xl flex-col gap-3 md:flex-row md:items-center md:justify-between">
+        <div className="mx-auto flex max-w-7xl flex-col gap-6 md:flex-row md:items-center md:justify-between">
           <p>© 2026 Back 40 Designs. Custom headwear with story and identity.</p>
 
-          <div className="flex gap-5">
+          <div className="flex flex-col gap-4 sm:flex-row sm:gap-6">
+            <a href={phoneLink} className="transition hover:text-stone-300">
+              {phoneNumber}
+            </a>
             <a href={instagramLink} target="_blank" rel="noreferrer" className="transition hover:text-stone-300">
               Instagram
             </a>
