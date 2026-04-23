@@ -2,26 +2,6 @@
 
 import React from 'react';
 
-const metadata = {
-  title: "Back 40 Design Co. | Custom Patch Hats & Branded Headwear | Arkansas",
-  description: "Custom patch hats and branded headwear in Northwest Arkansas. Acrylic & leatherette patches for local brands, retail partners, and NIL athletes. Premium quality, fast turnaround.",
-  keywords: "custom patch hats, branded headwear, personalized hats, custom merch, Arkansas hats, Bella Vista",
-  openGraph: {
-    title: "Custom Patch Hats with Real Identity | Back 40 Design Co.",
-    description: "Premium patch-forward hats for local brands, businesses, and story-driven projects.",
-    url: "https://www.back40designco.com",
-    type: "website",
-    images: [
-      {
-        url: "https://www.back40designco.com/images/dragon-scales.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Back 40 Trail Series Dragon Scales custom patch hat",
-      },
-    ],
-  },
-};
-
 const ArrowRight = ({ className = "h-4 w-4" }) => <span className={className}>→</span>;
 const InstagramIcon = ({ className = "h-4 w-4" }) => <span className={className}>◎</span>;
 const MailIcon = ({ className = "h-4 w-4" }) => <span className={className}>✉</span>;
@@ -31,6 +11,24 @@ const ShieldCheckIcon = ({ className = "h-5 w-5" }) => <span className={classNam
 const StoreIcon = ({ className = "h-5 w-5" }) => <span className={className}>▣</span>;
 const MenuIcon = ({ className = "h-5 w-5" }) => <span className={className}>☰</span>;
 const CloseIcon = ({ className = "h-5 w-5" }) => <span className={className}>✕</span>;
+
+function HeavyTopoOverlay({ opacity = "opacity-55", dark = "bg-black/65" }) {
+  return (
+    <>
+      <div className={`absolute inset-0 bg-[url('/images/topo-heavy.png')] bg-cover bg-center ${opacity}`} />
+      <div className={`absolute inset-0 ${dark}`} />
+    </>
+  );
+}
+
+function LineTopoOverlay({ opacity = "opacity-20", dark = "bg-black/75" }) {
+  return (
+    <>
+      <div className={`absolute inset-0 bg-[url('/images/topo-lines.png')] bg-cover bg-center ${opacity}`} />
+      <div className={`absolute inset-0 ${dark}`} />
+    </>
+  );
+}
 
 export default function Back40LandingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
@@ -42,28 +40,6 @@ export default function Back40LandingPage() {
   const facebookLink = "https://www.facebook.com/";
   const phoneNumber = "479-544-1366";
   const phoneLink = "tel:479-544-1366";
-
-  const schemaMarkup = {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": "Back 40 Designs",
-    "url": "https://www.back40designco.com",
-    "logo": "https://www.back40designco.com/images/logo.png",
-    "sameAs": ["https://www.instagram.com/b40_designs/"],
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Bella Vista",
-      "addressRegion": "AR",
-      "addressCountry": "US"
-    },
-    "areaServed": ["Arkansas", "Northwest Arkansas", "Bentonville", "Fayetteville"],
-    "telephone": phoneNumber,
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "5",
-      "reviewCount": "4"
-    }
-  };
 
   const pillars = [
     {
@@ -217,11 +193,6 @@ export default function Back40LandingPage() {
 
   return (
     <div className="min-h-screen bg-stone-950 text-stone-100">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaMarkup) }}
-      />
-
       <header className="sticky top-0 z-40 border-b border-white/10 bg-stone-950/85 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-10">
           <div>
@@ -275,12 +246,7 @@ export default function Back40LandingPage() {
               <a href="#process" className="text-sm text-stone-300 transition hover:text-white" onClick={() => setMobileMenuOpen(false)}>Process</a>
               <a href="/gallery" className="text-sm text-stone-300 transition hover:text-white" onClick={() => setMobileMenuOpen(false)}>Gallery</a>
               <a href="#story" className="text-sm text-stone-300 transition hover:text-white" onClick={() => setMobileMenuOpen(false)}>Story</a>
-              <a
-                href={shopLink}
-                target="_blank"
-                rel="noreferrer"
-                className="text-sm text-stone-300 transition hover:text-white"
-              >
+              <a href={shopLink} target="_blank" rel="noreferrer" className="text-sm text-stone-300 transition hover:text-white">
                 Shop
               </a>
               <a
@@ -295,10 +261,9 @@ export default function Back40LandingPage() {
       </header>
 
       <section className="relative overflow-hidden border-b border-white/10">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.08),transparent_30%),radial-gradient(circle_at_bottom_left,rgba(255,255,255,0.06),transparent_26%)]" />
-        <div className="absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] [background-size:52px_52px]" />
+        <HeavyTopoOverlay opacity="opacity-55" dark="bg-black/70" />
 
-        <div className="relative mx-auto grid max-w-7xl gap-10 px-4 pb-16 pt-10 md:px-10 md:pb-28 md:pt-18 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+        <div className="relative z-10 mx-auto grid max-w-7xl gap-10 px-4 pb-16 pt-10 md:px-10 md:pb-28 md:pt-18 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
           <div>
             <img
               src="/images/logo.png"
@@ -342,7 +307,7 @@ export default function Back40LandingPage() {
               {proofPoints.map((item) => (
                 <div
                   key={item}
-                  className="rounded-2xl border border-white/10 bg-white/5 p-4 text-sm leading-6 text-stone-300"
+                  className="rounded-2xl border border-white/10 bg-black/35 p-4 text-sm leading-6 text-stone-300 backdrop-blur"
                 >
                   {item}
                 </div>
@@ -351,8 +316,8 @@ export default function Back40LandingPage() {
           </div>
 
           <div className="relative">
-            <div className="rounded-[2rem] border border-white/10 bg-gradient-to-br from-stone-900 to-black p-3 shadow-2xl md:p-6">
-              <div className="overflow-hidden rounded-[1.6rem] border border-white/10 bg-stone-950">
+            <div className="rounded-[2rem] border border-white/10 bg-black/45 p-3 shadow-2xl backdrop-blur md:p-6">
+              <div className="overflow-hidden rounded-[1.6rem] border border-white/10 bg-stone-950/80">
                 <div className="flex items-center justify-between border-b border-white/10 px-4 py-4 md:px-5">
                   <div>
                     <p className="text-[10px] uppercase tracking-[0.25em] text-stone-500 md:text-xs">
@@ -388,7 +353,7 @@ export default function Back40LandingPage() {
           </div>
         </div>
       </section>
-
+      
       <section className="border-b border-white/10 bg-stone-900/40">
         <div className="mx-auto max-w-7xl px-4 py-10 md:px-10 md:py-14">
           <div className="mb-8 text-center">
@@ -399,42 +364,16 @@ export default function Back40LandingPage() {
               Official partners with Pinnacle Sports Ventures, Bentonville Bicycle Co., and LoneStar Adhesive
             </p>
           </div>
+
           <div className="flex flex-wrap items-center justify-center gap-10 md:gap-20">
-            <a
-              href="https://pinnaclesportsventures.com"
-              target="_blank"
-              rel="noreferrer"
-              className="opacity-75 transition hover:opacity-100"
-            >
-              <img
-                src="/images/psv.png"
-                alt="Pinnacle Sports Ventures"
-                className="h-24 w-auto object-contain md:h-32"
-              />
+            <a href="https://pinnaclesportsventures.com" target="_blank" rel="noreferrer" className="opacity-75 transition hover:opacity-100">
+              <img src="/images/psv.png" alt="Pinnacle Sports Ventures" className="h-24 w-auto object-contain md:h-32" />
             </a>
-            <a
-              href="https://www.bentonvillebicyclecompany.com"
-              target="_blank"
-              rel="noreferrer"
-              className="opacity-75 transition hover:opacity-100"
-            >
-              <img
-                src="/images/bentonville-bicycle-logo.png"
-                alt="Bentonville Bicycle Co."
-                className="h-24 w-auto object-contain md:h-32"
-              />
+            <a href="https://www.bentonvillebicyclecompany.com" target="_blank" rel="noreferrer" className="opacity-75 transition hover:opacity-100">
+              <img src="/images/bentonville-bicycle-logo.png" alt="Bentonville Bicycle Co." className="h-24 w-auto object-contain md:h-32" />
             </a>
-            <a
-              href="https://lonestaradhesive.com"
-              target="_blank"
-              rel="noreferrer"
-              className="opacity-75 transition hover:opacity-100"
-            >
-              <img
-                src="/images/lonestar.png"
-                alt="LoneStar Adhesive"
-                className="h-24 w-auto object-contain md:h-32"
-              />
+            <a href="https://lonestaradhesive.com" target="_blank" rel="noreferrer" className="opacity-75 transition hover:opacity-100">
+              <img src="/images/lonestar.png" alt="LoneStar Adhesive" className="h-24 w-auto object-contain md:h-32" />
             </a>
           </div>
         </div>
@@ -456,15 +395,8 @@ export default function Back40LandingPage() {
 
         <div className="grid gap-4 md:grid-cols-3 md:gap-6">
           {pillars.map((item) => (
-            <div
-              key={item.title}
-              className="rounded-[2rem] border border-white/10 bg-white/5 p-6 shadow-xl md:p-7"
-            >
-              <img
-                src={item.icon}
-                alt={item.title}
-                className="mb-6 h-24 w-24 object-contain md:h-28 md:w-28"
-              />
+            <div key={item.title} className="rounded-[2rem] border border-white/10 bg-white/5 p-6 shadow-xl md:p-7">
+              <img src={item.icon} alt={item.title} className="mb-6 h-24 w-24 object-contain md:h-28 md:w-28" />
               <h3 className="text-xl font-semibold text-white md:text-2xl">{item.title}</h3>
               <p className="mt-4 text-sm leading-7 text-stone-300">{item.text}</p>
             </div>
@@ -472,9 +404,11 @@ export default function Back40LandingPage() {
         </div>
       </section>
 
-      <section className="border-y border-white/10 bg-stone-900/50">
-        <div className="mx-auto max-w-7xl px-4 py-16 md:px-10 md:py-20">
-          <div className="grid gap-6 rounded-[2rem] border border-white/10 bg-stone-950/70 p-6 md:grid-cols-[0.9fr_1.1fr] md:gap-8 md:p-10">
+      <section className="relative border-y border-white/10">
+        <LineTopoOverlay opacity="opacity-15" dark="bg-black/80" />
+
+        <div className="relative z-10 mx-auto max-w-7xl px-4 py-16 md:px-10 md:py-20">
+          <div className="grid gap-6 rounded-[2rem] border border-white/10 bg-stone-950/70 p-6 backdrop-blur md:grid-cols-[0.9fr_1.1fr] md:gap-8 md:p-10">
             <div>
               <p className="text-sm uppercase tracking-[0.22em] text-stone-400">What Back 40 means</p>
               <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-4xl">
@@ -541,9 +475,11 @@ export default function Back40LandingPage() {
         </div>
       </section>
 
-      <section className="border-y border-white/10 bg-stone-900/50">
-        <div className="mx-auto max-w-7xl px-4 py-16 md:px-10 md:py-20">
-          <div className="grid gap-6 rounded-[2rem] border border-white/10 bg-stone-950/70 p-6 md:grid-cols-[0.95fr_1.05fr] md:gap-8 md:p-10">
+      <section className="relative border-y border-white/10">
+        <HeavyTopoOverlay opacity="opacity-45" dark="bg-black/70" />
+
+        <div className="relative z-10 mx-auto max-w-7xl px-4 py-16 md:px-10 md:py-20">
+          <div className="grid gap-6 rounded-[2rem] border border-white/10 bg-black/45 p-6 backdrop-blur md:grid-cols-[0.95fr_1.05fr] md:gap-8 md:p-10">
             <div>
               <p className="text-sm uppercase tracking-[0.22em] text-stone-400">New Collection</p>
               <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-4xl">
@@ -589,35 +525,22 @@ export default function Back40LandingPage() {
               <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">
                 A look at past builds, collaborations, and custom work.
               </h2>
-
               <p className="mt-4 max-w-xl text-stone-300">
                 Built for brands, shops, and projects that need more than generic merch.
               </p>
             </div>
 
-            <a
-              href="/gallery"
-              className="inline-flex items-center gap-2 rounded-2xl bg-white px-6 py-3 text-sm font-semibold text-black transition hover:-translate-y-0.5"
-            >
+            <a href="/gallery" className="inline-flex items-center gap-2 rounded-2xl bg-white px-6 py-3 text-sm font-semibold text-black transition hover:-translate-y-0.5">
               See All Builds <ArrowRight className="h-4 w-4" />
             </a>
           </div>
 
           <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
             {homeGallery.map((item) => (
-              <a
-                key={item.title}
-                href="/gallery"
-                className="group overflow-hidden rounded-[2rem] border border-white/10 bg-stone-900 transition hover:-translate-y-1"
-              >
+              <a key={item.title} href="/gallery" className="group overflow-hidden rounded-[2rem] border border-white/10 bg-stone-900 transition hover:-translate-y-1">
                 <div className="aspect-[1/1.15] overflow-hidden sm:aspect-[4/5]">
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.05]"
-                  />
+                  <img src={item.image} alt={item.title} className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.05]" />
                 </div>
-
                 <div className="p-3">
                   <p className="text-base font-semibold text-white sm:text-lg">{item.title}</p>
                 </div>
@@ -638,11 +561,7 @@ export default function Back40LandingPage() {
         <div className="grid gap-4 md:grid-cols-3 md:gap-6">
           {process.map((item) => (
             <div key={item.step} className="rounded-[2rem] border border-white/10 bg-white/5 p-6 md:p-7">
-              <img
-                src={item.icon}
-                alt={item.title}
-                className="mb-5 h-24 w-24 object-contain md:h-28 md:w-28"
-              />
+              <img src={item.icon} alt={item.title} className="mb-5 h-24 w-24 object-contain md:h-28 md:w-28" />
               <h3 className="mt-3 text-xl font-semibold text-white md:text-2xl">{item.title}</h3>
               <p className="mt-4 text-sm leading-7 text-stone-300">{item.text}</p>
             </div>
@@ -650,8 +569,10 @@ export default function Back40LandingPage() {
         </div>
       </section>
 
-      <section className="border-y border-white/10 bg-stone-900/60">
-        <div className="mx-auto grid max-w-7xl gap-6 px-4 py-16 md:px-10 md:py-20 lg:grid-cols-[1.1fr_0.9fr] lg:gap-8">
+      <section className="relative border-y border-white/10">
+        <LineTopoOverlay opacity="opacity-15" dark="bg-black/80" />
+
+        <div className="relative z-10 mx-auto grid max-w-7xl gap-6 px-4 py-16 md:px-10 md:py-20 lg:grid-cols-[1.1fr_0.9fr] lg:gap-8">
           <div>
             <p className="text-sm uppercase tracking-[0.2em] text-stone-400">Why Back 40</p>
             <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">
@@ -678,7 +599,7 @@ export default function Back40LandingPage() {
                 "Perfect for owners, teams, and creators who want merch people actually wear more than once.",
               ],
             ].map(([title, text]) => (
-              <div key={title} className="rounded-[1.75rem] border border-white/10 bg-stone-950 p-5 md:p-6">
+              <div key={title} className="rounded-[1.75rem] border border-white/10 bg-stone-950/80 p-5 backdrop-blur md:p-6">
                 <h3 className="text-lg font-semibold text-white md:text-xl">{title}</h3>
                 <p className="mt-2 text-sm leading-7 text-stone-300">{text}</p>
               </div>
@@ -697,10 +618,7 @@ export default function Back40LandingPage() {
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {testimonials.map((testimonial) => (
-            <div
-              key={testimonial.name}
-              className="rounded-[2rem] border border-white/10 bg-white/5 p-6 md:p-7"
-            >
+            <div key={testimonial.name} className="rounded-[2rem] border border-white/10 bg-white/5 p-6 md:p-7">
               <div className="mb-4 flex gap-1">
                 {[...Array(testimonial.rating)].map((_, i) => (
                   <span key={i} className="text-yellow-400">★</span>
@@ -714,83 +632,73 @@ export default function Back40LandingPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-16 md:px-10 md:py-20">
-        <div className="grid gap-6 lg:grid-cols-[1fr_1fr]">
-          <div className="rounded-[2rem] border border-white/10 bg-stone-900 p-6 md:p-8">
-            <p className="text-sm uppercase tracking-[0.2em] text-stone-400">Questions</p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-tight text-white">
-              What buyers usually want to know.
-            </h2>
+      <section className="relative">
+        <HeavyTopoOverlay opacity="opacity-40" dark="bg-black/65" />
 
-            <div className="mt-8 space-y-4">
-              {faqs.map((item) => (
-                <div key={item.q} className="rounded-[1.5rem] border border-white/10 bg-stone-950 p-5">
-                  <p className="text-base font-semibold text-stone-100 md:text-lg">{item.q}</p>
-                  <p className="mt-2 text-sm leading-7 text-stone-300">{item.a}</p>
-                </div>
-              ))}
+        <div className="relative z-10 mx-auto max-w-7xl px-4 py-16 md:px-10 md:py-20">
+          <div className="grid gap-6 lg:grid-cols-[1fr_1fr]">
+            <div className="rounded-[2rem] border border-white/10 bg-stone-900/80 p-6 backdrop-blur md:p-8">
+              <p className="text-sm uppercase tracking-[0.2em] text-stone-400">Questions</p>
+              <h2 className="mt-3 text-3xl font-semibold tracking-tight text-white">
+                What buyers usually want to know.
+              </h2>
+
+              <div className="mt-8 space-y-4">
+                {faqs.map((item) => (
+                  <div key={item.q} className="rounded-[1.5rem] border border-white/10 bg-stone-950/90 p-5">
+                    <p className="text-base font-semibold text-stone-100 md:text-lg">{item.q}</p>
+                    <p className="mt-2 text-sm leading-7 text-stone-300">{item.a}</p>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
 
-          <div className="rounded-[2rem] border border-white/10 bg-gradient-to-r from-stone-100 to-stone-300 px-6 py-8 text-stone-950 shadow-2xl md:px-12 md:py-14">
-            <div className="flex h-full flex-col justify-between gap-6">
-              <div>
-                <p className="text-sm uppercase tracking-[0.2em] text-stone-700">Let's build something</p>
-                <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">
-                  Need custom hats for your brand or next project?
-                </h2>
-                <p className="mt-4 max-w-2xl text-base leading-7 text-stone-700 md:text-lg">
-                  Start with an idea, a logo, or a rough direction. Back 40 can turn that into a
-                  clean, wearable concept with real identity.
-                </p>
-              </div>
+            <div className="rounded-[2rem] border border-white/10 bg-gradient-to-r from-stone-100 to-stone-300 px-6 py-8 text-stone-950 shadow-2xl md:px-12 md:py-14">
+              <div className="flex h-full flex-col justify-between gap-6">
+                <div>
+                  <p className="text-sm uppercase tracking-[0.2em] text-stone-700">Let's build something</p>
+                  <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">
+                    Need custom hats for your brand or next project?
+                  </h2>
+                  <p className="mt-4 max-w-2xl text-base leading-7 text-stone-700 md:text-lg">
+                    Start with an idea, a logo, or a rough direction. Back 40 can turn that into a
+                    clean, wearable concept with real identity.
+                  </p>
+                </div>
 
-              <div className="grid gap-3 text-sm text-stone-800">
-                <a
-                  href={ctaLink}
-                  className="flex items-center gap-3 rounded-2xl border border-stone-700/20 bg-white/50 px-4 py-4 transition hover:bg-white/70"
-                >
-                  <MailIcon className="h-5 w-5" />
-                  <span>Email your project idea</span>
-                </a>
+                <div className="grid gap-3 text-sm text-stone-800">
+                  <a href={ctaLink} className="flex items-center gap-3 rounded-2xl border border-stone-700/20 bg-white/50 px-4 py-4 transition hover:bg-white/70">
+                    <MailIcon className="h-5 w-5" />
+                    <span>Email your project idea</span>
+                  </a>
 
-                <a
-                  href={instagramLink}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex items-center gap-3 rounded-2xl border border-stone-700/20 bg-white/50 px-4 py-4 transition hover:bg-white/70"
-                >
-                  <InstagramIcon className="h-5 w-5" />
-                  <span>See more on Instagram</span>
-                </a>
+                  <a href={instagramLink} target="_blank" rel="noreferrer" className="flex items-center gap-3 rounded-2xl border border-stone-700/20 bg-white/50 px-4 py-4 transition hover:bg-white/70">
+                    <InstagramIcon className="h-5 w-5" />
+                    <span>See more on Instagram</span>
+                  </a>
 
-                <a
-                  href={shopLink}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex items-center gap-3 rounded-2xl border border-stone-700/20 bg-white/50 px-4 py-4 transition hover:bg-white/70"
-                >
-                  <MessageSquareIcon className="h-5 w-5" />
-                  <span>Shop the Trail Series</span>
-                </a>
-              </div>
+                  <a href={shopLink} target="_blank" rel="noreferrer" className="flex items-center gap-3 rounded-2xl border border-stone-700/20 bg-white/50 px-4 py-4 transition hover:bg-white/70">
+                    <MessageSquareIcon className="h-5 w-5" />
+                    <span>Shop the Trail Series</span>
+                  </a>
+                </div>
 
-              <div className="pt-2">
-                <a
-                  href={ctaLink}
-                  className="inline-flex items-center gap-2 rounded-2xl bg-stone-950 px-6 py-3 text-sm font-semibold text-stone-100 shadow-lg transition hover:-translate-y-0.5"
-                >
-                  Request a Quote <ArrowRight className="h-4 w-4" />
-                </a>
+                <div className="pt-2">
+                  <a href={ctaLink} className="inline-flex items-center gap-2 rounded-2xl bg-stone-950 px-6 py-3 text-sm font-semibold text-stone-100 shadow-lg transition hover:-translate-y-0.5">
+                    Request a Quote <ArrowRight className="h-4 w-4" />
+                  </a>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
+      
+      <section className="relative border-y border-white/10">
+        <LineTopoOverlay opacity="opacity-15" dark="bg-black/80" />
 
-      <section className="border-y border-white/10 bg-stone-900/60">
-        <div className="mx-auto max-w-2xl px-4 py-16 md:px-10 md:py-20">
-          <div className="rounded-[2rem] border border-white/10 bg-stone-950 p-6 md:p-10">
+        <div className="relative z-10 mx-auto max-w-2xl px-4 py-16 md:px-10 md:py-20">
+          <div className="rounded-[2rem] border border-white/10 bg-stone-950/80 p-6 backdrop-blur md:p-10">
             <p className="text-sm uppercase tracking-[0.2em] text-stone-400">Stay in the loop</p>
             <h2 className="mt-3 text-2xl font-semibold tracking-tight md:text-4xl">
               Get design inspiration and updates.
@@ -808,10 +716,7 @@ export default function Back40LandingPage() {
                 required
                 className="flex-1 rounded-2xl border border-white/10 bg-white/5 px-5 py-3 text-sm text-white placeholder-stone-500 transition focus:border-white/30 focus:outline-none"
               />
-              <button
-                type="submit"
-                className="rounded-2xl bg-white px-6 py-3 text-sm font-semibold text-stone-950 shadow-lg transition hover:bg-stone-100 hover:-translate-y-0.5"
-              >
+              <button type="submit" className="rounded-2xl bg-white px-6 py-3 text-sm font-semibold text-stone-950 shadow-lg transition hover:bg-stone-100 hover:-translate-y-0.5">
                 Sign Up
               </button>
             </form>
@@ -824,18 +729,10 @@ export default function Back40LandingPage() {
           <div className="grid gap-10 md:grid-cols-2 md:items-center md:gap-12">
             <div className="flex flex-col gap-4">
               <div className="w-full overflow-hidden rounded-2xl border border-white/20 bg-black p-1">
-                <img
-                  src="/images/papa-fuzzy.jpg"
-                  alt="Papa Fuzzy"
-                  className="block w-full scale-[1.02]"
-                />
+                <img src="/images/papa-fuzzy.jpg" alt="Papa Fuzzy" className="block w-full scale-[1.02]" />
               </div>
               <div className="w-full overflow-hidden rounded-2xl border border-white/20 bg-black p-1">
-                <img
-                  src="/images/bentonville-bicycle.JPG"
-                  alt="Back 40 at Bentonville Bicycle Co."
-                  className="block w-full rounded-2xl object-cover"
-                />
+                <img src="/images/bentonville-bicycle.JPG" alt="Back 40 at Bentonville Bicycle Co." className="block w-full rounded-2xl object-cover" />
               </div>
             </div>
 
@@ -891,8 +788,10 @@ export default function Back40LandingPage() {
         </div>
       </section>
 
-      <footer className="border-t border-white/10 px-4 py-8 text-sm text-stone-500 md:px-10">
-        <div className="mx-auto flex max-w-7xl flex-col gap-6 md:flex-row md:items-center md:justify-between">
+      <footer className="relative overflow-hidden border-t border-white/10 px-4 py-8 text-sm text-stone-500 md:px-10">
+        <LineTopoOverlay opacity="opacity-10" dark="bg-black/85" />
+
+        <div className="relative z-10 mx-auto flex max-w-7xl flex-col gap-6 md:flex-row md:items-center md:justify-between">
           <p>© 2026 Back 40 Designs. Custom headwear with story and identity.</p>
 
           <div className="flex flex-col gap-4 sm:flex-row sm:gap-6">
