@@ -90,6 +90,7 @@ export default function Back40LandingPage() {
       description: "Topo-driven hats inspired by Arkansas trails, ridgelines, and the outdoor culture that built the brand.",
       icon: MountainIcon,
       image: "/images/holding-hero.jpg",
+      link: "/gallery",
     },
     {
       title: "Business Merch",
@@ -97,6 +98,15 @@ export default function Back40LandingPage() {
       description: "Custom hats for local businesses, bike shops, restaurants, events, and teams that want merch with real identity.",
       icon: StoreIcon,
       image: "/images/psv-hat.jpg",
+      link: "/gallery",
+    },
+    {
+      title: "Dealership Series",
+      eyebrow: "Front Line + Back Lot",
+      description: "A collection built for the car business — clean customer-facing pieces up front, insider-only culture in the back.",
+      icon: StoreIcon,
+      image: "/images/hat-lineup.jpg",
+      link: "/dealership-series",
     },
     {
       title: "Legacy Builds",
@@ -104,6 +114,7 @@ export default function Back40LandingPage() {
       description: "Story-driven pieces built from places, memories, family history, and meaningful details worth preserving.",
       icon: ShieldCheckIcon,
       image: "/images/legacy-hat.jpg",
+      link: "/gallery",
     },
   ];
 
@@ -223,6 +234,7 @@ export default function Back40LandingPage() {
           <nav className="hidden items-center gap-8 text-sm text-stone-300 md:flex">
             <a href="#pillars" className="transition hover:text-white">Pillars</a>
             <a href="#collections" className="transition hover:text-white">Collections</a>
+            <a href="/dealership-series" className="transition hover:text-white">Dealership Series</a>
             <a href="#process" className="transition hover:text-white">Process</a>
             <a href="/gallery" className="transition hover:text-white">Gallery</a>
             <a href="#story" className="transition hover:text-white">Story</a>
@@ -254,12 +266,12 @@ export default function Back40LandingPage() {
           </div>
         </div>
 
-        {/* Mobile Menu */}
         {mobileMenuOpen && (
           <div className="border-t border-white/10 bg-stone-900/95 md:hidden">
             <nav className="flex flex-col gap-4 px-4 py-6">
               <a href="#pillars" className="text-sm text-stone-300 transition hover:text-white" onClick={() => setMobileMenuOpen(false)}>Pillars</a>
               <a href="#collections" className="text-sm text-stone-300 transition hover:text-white" onClick={() => setMobileMenuOpen(false)}>Collections</a>
+              <a href="/dealership-series" className="text-sm text-stone-300 transition hover:text-white" onClick={() => setMobileMenuOpen(false)}>Dealership Series</a>
               <a href="#process" className="text-sm text-stone-300 transition hover:text-white" onClick={() => setMobileMenuOpen(false)}>Process</a>
               <a href="/gallery" className="text-sm text-stone-300 transition hover:text-white" onClick={() => setMobileMenuOpen(false)}>Gallery</a>
               <a href="#story" className="text-sm text-stone-300 transition hover:text-white" onClick={() => setMobileMenuOpen(false)}>Story</a>
@@ -273,7 +285,7 @@ export default function Back40LandingPage() {
               </a>
               <a
                 href={ctaLink}
-                className="inline-flex items-center gap-2 rounded-2xl bg-white px-4 py-2 text-sm font-semibold text-stone-950 transition hover:bg-stone-100 mt-2"
+                className="mt-2 inline-flex items-center gap-2 rounded-2xl bg-white px-4 py-2 text-sm font-semibold text-stone-950 transition hover:bg-stone-100"
               >
                 Start a Project <ArrowRight className="h-4 w-4" />
               </a>
@@ -377,7 +389,6 @@ export default function Back40LandingPage() {
         </div>
       </section>
 
-      {/* Partners & Trusted By */}
       <section className="border-b border-white/10 bg-stone-900/40">
         <div className="mx-auto max-w-7xl px-4 py-10 md:px-10 md:py-14">
           <div className="mb-8 text-center">
@@ -393,7 +404,7 @@ export default function Back40LandingPage() {
               href="https://pinnaclesportsventures.com"
               target="_blank"
               rel="noreferrer"
-              className="transition opacity-75 hover:opacity-100"
+              className="opacity-75 transition hover:opacity-100"
             >
               <img
                 src="/images/psv.png"
@@ -405,7 +416,7 @@ export default function Back40LandingPage() {
               href="https://www.bentonvillebicyclecompany.com"
               target="_blank"
               rel="noreferrer"
-              className="transition opacity-75 hover:opacity-100"
+              className="opacity-75 transition hover:opacity-100"
             >
               <img
                 src="/images/bentonville-bicycle-logo.png"
@@ -417,7 +428,7 @@ export default function Back40LandingPage() {
               href="https://lonestaradhesive.com"
               target="_blank"
               rel="noreferrer"
-              className="transition opacity-75 hover:opacity-100"
+              className="opacity-75 transition hover:opacity-100"
             >
               <img
                 src="/images/lonestar.png"
@@ -500,12 +511,13 @@ export default function Back40LandingPage() {
           </p>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-3 md:gap-6">
+        <div className="grid gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4">
           {collections.map((item) => {
             const Icon = item.icon;
             return (
-              <div
+              <a
                 key={item.title}
+                href={item.link}
                 className="overflow-hidden rounded-[2rem] border border-white/10 bg-stone-900/70 shadow-xl transition hover:-translate-y-1"
               >
                 <div className="aspect-[4/3] overflow-hidden">
@@ -523,9 +535,49 @@ export default function Back40LandingPage() {
                   <h3 className="text-xl font-semibold text-white md:text-2xl">{item.title}</h3>
                   <p className="mt-4 text-sm leading-7 text-stone-300">{item.description}</p>
                 </div>
-              </div>
+              </a>
             );
           })}
+        </div>
+      </section>
+
+      <section className="border-y border-white/10 bg-stone-900/50">
+        <div className="mx-auto max-w-7xl px-4 py-16 md:px-10 md:py-20">
+          <div className="grid gap-6 rounded-[2rem] border border-white/10 bg-stone-950/70 p-6 md:grid-cols-[0.95fr_1.05fr] md:gap-8 md:p-10">
+            <div>
+              <p className="text-sm uppercase tracking-[0.22em] text-stone-400">New Collection</p>
+              <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-4xl">
+                B40 Dealership Series
+              </h2>
+            </div>
+
+            <div className="space-y-5 text-sm leading-7 text-stone-300 md:text-base md:leading-8">
+              <p>
+                Built specifically for the car business, the Dealership Series splits into two lanes:
+                <span className="font-semibold text-white"> Front Line</span> for clean, customer-facing pieces
+                and <span className="font-semibold text-white"> Back Lot</span> for insider-only humor and language.
+              </p>
+              <p>
+                Front Line stays open. Back Lot is password protected for people who actually live the business.
+              </p>
+
+              <div className="flex flex-wrap gap-3 pt-2">
+                <a
+                  href="/dealership-series"
+                  className="inline-flex items-center gap-2 rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100"
+                >
+                  Explore the Series <ArrowRight className="h-4 w-4" />
+                </a>
+
+                <a
+                  href="/dealership-series/backlot"
+                  className="inline-flex items-center gap-2 rounded-2xl border border-white/15 px-5 py-3 text-sm font-semibold text-stone-100 transition hover:bg-white/5"
+                >
+                  Enter Back Lot
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -635,8 +687,7 @@ export default function Back40LandingPage() {
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section className="mx-auto max-w-7xl px-4 py-16 md:px-10 md:py-20 border-y border-white/10">
+      <section className="mx-auto max-w-7xl border-y border-white/10 px-4 py-16 md:px-10 md:py-20">
         <div className="mb-10 max-w-3xl">
           <p className="text-sm uppercase tracking-[0.25em] text-stone-400">Customer Reviews</p>
           <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">
@@ -655,7 +706,7 @@ export default function Back40LandingPage() {
                   <span key={i} className="text-yellow-400">★</span>
                 ))}
               </div>
-              <p className="text-base leading-7 text-stone-300 mb-6">"{testimonial.text}"</p>
+              <p className="mb-6 text-base leading-7 text-stone-300">"{testimonial.text}"</p>
               <p className="font-semibold text-white">{testimonial.name}</p>
               <p className="text-sm text-stone-400">{testimonial.role}</p>
             </div>
@@ -737,7 +788,6 @@ export default function Back40LandingPage() {
         </div>
       </section>
 
-      {/* Email Signup Section */}
       <section className="border-y border-white/10 bg-stone-900/60">
         <div className="mx-auto max-w-2xl px-4 py-16 md:px-10 md:py-20">
           <div className="rounded-[2rem] border border-white/10 bg-stone-950 p-6 md:p-10">
@@ -756,7 +806,7 @@ export default function Back40LandingPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="rounded-2xl border border-white/10 bg-white/5 px-5 py-3 text-sm text-white placeholder-stone-500 transition focus:border-white/30 focus:outline-none flex-1"
+                className="flex-1 rounded-2xl border border-white/10 bg-white/5 px-5 py-3 text-sm text-white placeholder-stone-500 transition focus:border-white/30 focus:outline-none"
               />
               <button
                 type="submit"
@@ -784,7 +834,7 @@ export default function Back40LandingPage() {
                 <img
                   src="/images/bentonville-bicycle.JPG"
                   alt="Back 40 at Bentonville Bicycle Co."
-                  className="block w-full object-cover rounded-2xl"
+                  className="block w-full rounded-2xl object-cover"
                 />
               </div>
             </div>
