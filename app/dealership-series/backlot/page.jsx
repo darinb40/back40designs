@@ -1,6 +1,9 @@
+'use client';
+
+import React from 'react';
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
-import { cookies } from 'next/headers';
+
+const PASSWORD = 'holdgross';
 
 const backLotItems = [
   {
@@ -23,49 +26,44 @@ const backLotItems = [
   },
 ];
 
-async function unlockBackLot(formData: FormData) {
-  'use server';
+export default function BackLotPage() {
+  const [password, setPassword] = React.useState('');
+  const [unlocked, setUnlocked] = React.useState(false);
+  const [error, setError] = React.useState('');
 
-  const password = formData.get('password');
-  const expectedPassword = process.env.BACKLOT_PASSWORD;
+  React.useEffect(() => {
+    const savedAccess = window.localStorage.getItem('b40_backlot_access');
+    if (savedAccess === 'granted') {
+      setUnlocked(true);
+    }
+  }, []);
 
-  if (!expectedPassword) {
-    redirect('/dealership-series/backlot?error=missing-config');
-  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-  if (password === expectedPassword) {
-    const cookieStore = await cookies();
+    if (password === PASSWORD) {
+      window.localStorage.setItem('b40_backlot_access', 'granted');
+      setUnlocked(true);
+      setError('');
+      return;
+    }
 
-    cookieStore.set('b40_backlot_access', 'granted', {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      path: '/',
-      maxAge: 60 * 60 * 24 * 7,
-    });
+    setError('Incorrect password. Try again.');
+  };
 
-    redirect('/dealership-series/backlot');
-  }
+  const handleLock = () => {
+    window.localStorage.removeItem('b40_backlot_access');
+    setUnlocked(false);
+    setPassword('');
+  };
 
-  redirect('/dealership-series/backlot?error=invalid');
-}
-
-export default async function BackLotPage({
-  searchParams,
-}: {
-  searchParams?: Promise<{ error?: string }>;
-}) {
-  const cookieStore = await cookies();
-  const hasAccess = cookieStore.get('b40_backlot_access')?.value === 'granted';
-  const resolvedSearchParams = searchParams ? await searchParams : undefined;
-  const error = resolvedSearchParams?.error;
-
-  if (!hasAccess) {
+  if (!unlocked) {
     return (
       <div className="min-h-screen bg-stone-950 text-stone-100">
         <section className="mx-auto flex min-h-screen max-w-7xl items-center px-4 py-16 md:px-10">
           <div className="mx-auto w-full max-w-2xl rounded-[2rem] border border-white/10 bg-stone-900/70 p-6 shadow-2xl md:p-10">
             <p className="text-sm uppercase tracking-[0.2em] text-stone-400">Back Lot Access</p>
+
             <h1 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">
               This side of the business isn&apos;t for everyone.
             </h1>
@@ -74,7 +72,7 @@ export default async function BackLotPage({
               If you know, you know.
             </p>
 
-            <form action={unlockBackLot} className="mt-8 space-y-4">
+            <form onSubmit={handleSubmit} className="mt-8 space-y-4">
               <div>
                 <label htmlFor="password" className="mb-2 block text-sm font-medium text-stone-200">
                   Enter password
@@ -83,21 +81,15 @@ export default async function BackLotPage({
                   id="password"
                   name="password"
                   type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   required
                   className="w-full rounded-2xl border border-white/10 bg-stone-950 px-5 py-3 text-sm text-white outline-none transition placeholder:text-stone-500 focus:border-white/30"
                   placeholder="Password"
                 />
               </div>
 
-              {error === 'invalid' && (
-                <p className="text-sm text-red-400">Incorrect password. Try again.</p>
-              )}
-
-              {error === 'missing-config' && (
-                <p className="text-sm text-amber-400">
-                  Back Lot password is not configured yet. Add BACKLOT_PASSWORD to your environment variables.
-                </p>
-              )}
+              {error && <p className="text-sm text-red-400">{error}</p>}
 
               <button
                 type="submit"
@@ -125,13 +117,24 @@ export default async function BackLotPage({
     <div className="min-h-screen bg-stone-950 text-stone-100">
       <section className="border-b border-white/10">
         <div className="mx-auto max-w-7xl px-4 py-16 md:px-10 md:py-20">
-          <p className="text-sm uppercase tracking-[0.2em] text-stone-400">Back Lot</p>
-          <h1 className="mt-3 text-4xl font-semibold tracking-tight md:text-6xl">
-            Insider-only access granted.
-          </h1>
-          <p className="mt-5 max-w-3xl text-base leading-7 text-stone-300 md:text-xl md:leading-8">
-            Humor, pressure, language, and real-world dealership culture — built for the people who actually live this business.
-          </p>
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div>
+              <p className="text-sm uppercase tracking-[0.2em] text-stone-400">Back Lot</p>
+              <h1 className="mt-3 text-4xl font-semibold tracking-tight md:text-6xl">
+                Insider-only access granted.
+              </h1>
+              <p className="mt-5 max-w-3xl text-base leading-7 text-stone-300 md:text-xl md:leading-8">
+                Humor, pressure, language, and real-world dealership culture — built for the people who actually live this business.
+              </p>
+            </div>
+
+            <button
+              onClick={handleLock}
+              className="rounded-2xl border border-white/15 px-5 py-3 text-sm font-semibold text-stone-100 transition hover:bg-white/5"
+            >
+              Lock Back Lot
+            </button>
+          </div>
         </div>
       </section>
 
