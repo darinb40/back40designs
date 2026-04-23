@@ -54,13 +54,13 @@ export default function DealershipSeriesPage() {
   return (
     <div className="min-h-screen bg-stone-950 text-stone-100">
 
+      {/* HERO */}
       <section className="relative overflow-hidden border-b border-white/10">
-        <div className="absolute inset-0 bg-[url('/images/frontline-showroom-bg.png')] bg-cover bg-center opacity-55" />
-        <div className="absolute inset-0 bg-black/55" />
+        <div className="absolute inset-0 bg-[url('/images/frontline-showroom-bg.png')] bg-cover bg-center" />
 
         <div className="relative z-10 mx-auto max-w-7xl px-4 pb-16 pt-14 md:px-10 md:pb-24 md:pt-20">
           <div className="max-w-4xl">
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.28em] text-stone-400 md:text-sm">
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.28em] text-stone-300 md:text-sm">
               B40 Dealership Series
             </p>
 
@@ -70,23 +70,23 @@ export default function DealershipSeriesPage() {
               Forged in the <span className="font-bold text-white">back lot</span>.
             </h1>
 
-            <p className="mt-6 max-w-3xl text-base leading-7 text-stone-300 md:text-xl md:leading-8">
+            <p className="mt-6 max-w-3xl text-base leading-7 text-stone-200 md:text-xl md:leading-8">
               The first B40 collection built specifically for the car business — split into two lanes.
               <span className="font-semibold text-white"> Front Line</span> for clean, customer-facing dealership wear.
-              <span className="font-semibold text-white"> Back Lot</span> for insider humor, language, and culture that only the floor understands.
+              <span className="font-semibold text-white"> Back Lot</span> for insider humor and culture.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
               <a
                 href="#front-line"
-                className="inline-flex items-center gap-2 rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100"
+                className="inline-flex items-center gap-2 rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-stone-950"
               >
                 View Front Line <ArrowRight className="h-4 w-4" />
               </a>
 
               <Link
                 href="/dealership-series/backlot"
-                className="inline-flex items-center gap-2 rounded-2xl border border-white/15 bg-black/30 px-5 py-3 text-sm font-semibold text-stone-100 backdrop-blur transition hover:bg-white/5"
+                className="inline-flex items-center gap-2 rounded-2xl border border-white/20 px-5 py-3 text-sm font-semibold text-white"
               >
                 Enter Back Lot <LockIcon className="h-4 w-4" />
               </Link>
@@ -95,99 +95,68 @@ export default function DealershipSeriesPage() {
         </div>
       </section>
 
+      {/* FRONT LINE */}
       <section id="front-line" className="relative border-b border-white/10">
-        <div className="absolute inset-0 bg-[url('/images/frontline-showroom-bg.png')] bg-cover bg-center />
-        <div className="absolute inset-0 bg-black/80" />
+        <div className="absolute inset-0 bg-[url('/images/frontline-showroom-bg.png')] bg-cover bg-center" />
 
         <div className="relative z-10 mx-auto max-w-7xl px-4 py-16 md:px-10 md:py-20">
           <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div>
-              <p className="text-sm uppercase tracking-[0.2em] text-stone-400">Front Line</p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">
+              <p className="text-sm uppercase tracking-[0.2em] text-stone-300">Front Line</p>
+              <h2 className="mt-3 text-3xl font-semibold md:text-5xl">
                 Customer-facing. Clean. Brand-aligned.
               </h2>
             </div>
 
-            <p className="max-w-xl leading-7 text-stone-300">
-              Built for dealership teams who represent the brand every day. These designs belong on the floor,
-              at events, and anywhere your team needs to look sharp.
+            <p className="max-w-xl text-stone-200">
+              Built for dealership teams who represent the brand every day.
             </p>
           </div>
 
-          <div className="grid gap-4 md:grid-cols-3 md:gap-6">
+          <div className="grid gap-4 md:grid-cols-3">
             {frontLineItems.map((item) => (
               <div
                 key={item.title}
-                className="rounded-[2rem] border border-white/10 bg-stone-900/75 p-6 shadow-xl backdrop-blur transition hover:-translate-y-1 md:p-7"
+                className="rounded-[2rem] border border-white/20 bg-black/40 p-6 backdrop-blur"
               >
-                <p className="text-xs uppercase tracking-[0.25em] text-stone-500">{item.eyebrow}</p>
-                <h3 className="mt-4 text-xl font-semibold text-white md:text-2xl">{item.title}</h3>
-                <p className="mt-4 text-sm leading-7 text-stone-300">{item.description}</p>
+                <p className="text-xs uppercase text-stone-300">{item.eyebrow}</p>
+                <h3 className="mt-4 text-xl text-white">{item.title}</h3>
+                <p className="mt-4 text-sm text-stone-200">{item.description}</p>
               </div>
             ))}
-          </div>
-
-          <div className="mt-8 rounded-[2rem] border border-white/10 bg-stone-950/75 p-6 backdrop-blur md:p-8">
-            <p className="text-lg font-semibold text-white">Front Line is open for full visibility.</p>
-            <p className="mt-3 max-w-3xl text-sm leading-7 text-stone-300 md:text-base">
-              Perfect for custom dealership logo hats, clean branded apparel, and team gear that feels polished,
-              professional, and wearable in front of customers.
-            </p>
           </div>
         </div>
       </section>
 
+      {/* BACK LOT */}
       <section className="relative border-y border-white/10">
-        <div className="absolute inset-0 bg-[url('/images/backlot-alley-bg.png')] bg-cover bg-center opacity-55" />
-        <div className="absolute inset-0 bg-black/55" />
+        <div className="absolute inset-0 bg-[url('/images/backlot-alley-bg.png')] bg-cover bg-center" />
 
         <div className="relative z-10 mx-auto max-w-7xl px-4 py-16 md:px-10 md:py-20">
-          <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-            <div>
-              <p className="text-sm uppercase tracking-[0.2em] text-stone-400">Back Lot</p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">
-                Insider language. Restricted access.
-              </h2>
-            </div>
-
-            <p className="max-w-xl leading-7 text-stone-300">
-              This side of the business is not for everyone. Back Lot is built for the people behind the deal —
-              the ones who know the language because they live it.
-            </p>
+          <div className="mb-10">
+            <p className="text-sm uppercase tracking-[0.2em] text-stone-300">Back Lot</p>
+            <h2 className="mt-3 text-3xl md:text-5xl">
+              Insider language. Restricted access.
+            </h2>
           </div>
 
-          <div className="grid gap-4 md:grid-cols-3 md:gap-6">
+          <div className="grid gap-4 md:grid-cols-3">
             {backLotItems.map((item) => (
               <div
                 key={item.title}
-                className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-stone-950/70 p-6 shadow-xl backdrop-blur md:p-7"
+                className="rounded-[2rem] border border-white/20 bg-black/50 p-6 backdrop-blur"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-white/[0.08] to-transparent" />
-
-                <div className="relative z-10">
-                  <p className="text-xs uppercase tracking-[0.25em] text-stone-500">{item.eyebrow}</p>
-                  <h3 className="mt-4 text-xl font-semibold text-white md:text-2xl">{item.title}</h3>
-                  <p className="mt-4 text-sm leading-7 text-stone-300">{item.description}</p>
-                </div>
-
-                <div className="absolute right-5 top-5 z-20 rounded-full border border-white/10 bg-black/50 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-stone-300">
-                  Locked
-                </div>
+                <p className="text-xs uppercase text-stone-300">{item.eyebrow}</p>
+                <h3 className="mt-4 text-xl text-white">{item.title}</h3>
+                <p className="mt-4 text-sm text-stone-200">{item.description}</p>
               </div>
             ))}
           </div>
 
-          <div className="mt-8 flex flex-wrap items-center justify-between gap-4 rounded-[2rem] border border-white/10 bg-stone-950/75 p-6 backdrop-blur md:p-8">
-            <div>
-              <p className="text-lg font-semibold text-white">This side of the lot isn&apos;t public.</p>
-              <p className="mt-2 max-w-2xl text-sm leading-7 text-stone-300 md:text-base">
-                Password-protected access gives Back Lot an exclusive, insider-only feel and lets you rotate access weekly or monthly.
-              </p>
-            </div>
-
+          <div className="mt-8">
             <Link
               href="/dealership-series/backlot"
-              className="inline-flex items-center gap-2 rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100"
+              className="inline-flex items-center gap-2 rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-black"
             >
               Enter Back Lot <LockIcon className="h-4 w-4" />
             </Link>
