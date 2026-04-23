@@ -96,7 +96,7 @@ export default function DealershipSeriesPage() {
       </section>
 
       <section id="front-line" className="relative border-b border-white/10">
-        <div className="absolute inset-0 bg-[url('/images/frontline-showroom-bg.png')] bg-cover bg-center opacity-25" />
+        <div className="absolute inset-0 bg-[url('/images/frontline-showroom-bg.png')] bg-cover bg-center />
         <div className="absolute inset-0 bg-black/80" />
 
         <div className="relative z-10 mx-auto max-w-7xl px-4 py-16 md:px-10 md:py-20">
