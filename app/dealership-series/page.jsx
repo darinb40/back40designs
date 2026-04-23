@@ -3,11 +3,11 @@
 import Link from 'next/link';
 import React from 'react';
 
-const ArrowRight = ({ className = 'h-4 w-4' }: { className?: string }) => (
+const ArrowRight = ({ className = 'h-4 w-4' }) => (
   <span className={className}>→</span>
 );
 
-const LockIcon = ({ className = 'h-4 w-4' }: { className?: string }) => (
+const LockIcon = ({ className = 'h-4 w-4' }) => (
   <span className={className}>🔒</span>
 );
 
