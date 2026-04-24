@@ -106,7 +106,39 @@ export default function GalleryPage() {
           </div>
         </div>
       </section>
+<section className="px-6 py-16 md:px-10">
+  <div className="mx-auto max-w-5xl rounded-[2rem] border border-white/10 bg-white/5 p-8 text-center md:p-12">
+    
+    <p className="text-sm uppercase tracking-[0.2em] text-stone-400">
+      Built for Business
+    </p>
 
+    <h2 className="mt-4 text-2xl font-bold tracking-tight text-white md:text-4xl">
+      See how this translates inside a dealership.
+    </h2>
+
+    <p className="mt-4 text-base text-stone-300 max-w-2xl mx-auto">
+      These same concepts are being built into a full dealership-driven line — designed for the front line and the back lot.
+    </p>
+
+    <div className="mt-8 flex flex-wrap justify-center gap-4">
+      <a
+        href="/dealership-series"
+        className="bg-white text-black px-6 py-3 rounded-full font-semibold hover:scale-[1.02] transition"
+      >
+        Enter Dealer Series →
+      </a>
+
+      <a
+        href="/collections/shop-hats"
+        className="border border-white/20 px-6 py-3 rounded-full text-white hover:bg-white/10 transition"
+      >
+        Shop Hats
+      </a>
+    </div>
+
+  </div>
+</section>
       {/* KEEP THE REST OF YOUR FILE EXACTLY THE SAME */}
 
     </main>
