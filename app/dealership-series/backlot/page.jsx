@@ -9,20 +9,17 @@ const backLotItems = [
   {
     title: 'Let Me Guess...',
     subtitle: 'Just looking, not buying today.',
-    description:
-      'An instant insider line for anyone who has worked a real showroom floor.',
+    description: 'An instant insider line for anyone who has worked a real showroom floor.',
   },
   {
     title: 'Closer High Gross',
     subtitle: 'For the real finishers.',
-    description:
-      'A Back Lot statement piece for the ones who know how to land it and hold the line.',
+    description: 'A Back Lot statement piece for the ones who know how to land it and hold the line.',
   },
   {
     title: 'No Stips',
     subtitle: 'Say less.',
-    description:
-      'For the people who understand exactly why those two words hit.',
+    description: 'For the people who understand exactly why those two words hit.',
   },
 ];
 
@@ -33,9 +30,7 @@ export default function BackLotPage() {
 
   React.useEffect(() => {
     const savedAccess = window.localStorage.getItem('b40_backlot_access');
-    if (savedAccess === 'granted') {
-      setUnlocked(true);
-    }
+    if (savedAccess === 'granted') setUnlocked(true);
   }, []);
 
   const handleSubmit = (e) => {
@@ -48,7 +43,7 @@ export default function BackLotPage() {
       return;
     }
 
-    setError('Incorrect password. Try again.');
+    setError('Access denied. Try again.');
   };
 
   const handleLock = () => {
@@ -57,24 +52,24 @@ export default function BackLotPage() {
     setPassword('');
   };
 
-  // 🔒 LOCKED VIEW
   if (!unlocked) {
     return (
       <div className="relative min-h-screen text-white">
-
-        {/* FIXED BACKGROUND IMAGE ONLY */}
         <div className="fixed inset-0 -z-10 bg-[url('/images/backlot-alley-bg.png')] bg-cover bg-center" />
 
         <section className="mx-auto flex min-h-screen max-w-7xl items-center px-4 py-16 md:px-10">
-          <div className="mx-auto w-full max-w-2xl rounded-[2rem] border border-white/20 bg-black/40 p-6 backdrop-blur md:p-10">
+          <div className="mx-auto w-full max-w-2xl rounded-[2rem] border border-white/20 bg-black/45 p-6 shadow-2xl backdrop-blur md:p-10">
+            <p className="text-xs font-semibold uppercase tracking-[0.35em] text-white/70">
+              Restricted Entry
+            </p>
 
-            <p className="text-sm uppercase tracking-[0.2em] text-white/80">Back Lot Access</p>
-
-            <h1 className="mt-3 text-3xl font-semibold md:text-5xl">
-              This side of the business isn’t for everyone.
+            <h1 className="mt-4 text-4xl font-semibold leading-tight md:text-6xl">
+              Back Lot Access
             </h1>
 
-            <p className="mt-5 text-white/80">
+            <p className="mt-5 text-base leading-7 text-white/80 md:text-lg">
+              This side of the business isn&apos;t for everyone.
+              <br />
               If you know, you know.
             </p>
 
@@ -84,66 +79,91 @@ export default function BackLotPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full rounded-2xl border border-white/20 bg-black/50 px-5 py-3 text-white"
-                placeholder="Password"
+                className="w-full rounded-2xl border border-white/20 bg-black/50 px-5 py-3 text-white outline-none placeholder:text-white/40 focus:border-white/50"
+                placeholder="Enter access code"
               />
 
-              {error && <p className="text-red-400">{error}</p>}
+              {error && <p className="text-sm text-red-300">{error}</p>}
 
-              <button className="rounded-2xl bg-white px-5 py-3 text-black font-semibold">
+              <button className="rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-black transition hover:-translate-y-0.5">
                 Unlock Back Lot
               </button>
             </form>
 
-            <div className="mt-8">
-              <Link href="/dealership-series" className="text-white/80 hover:text-white">
+            <div className="mt-8 flex flex-wrap gap-4 border-t border-white/10 pt-6">
+              <Link href="/dealership-series" className="text-sm text-white/75 hover:text-white">
                 ← Back to Dealership Series
               </Link>
-            </div>
 
+              <Link href="/" className="text-sm text-white/75 hover:text-white">
+                Back to Main Site
+              </Link>
+            </div>
           </div>
         </section>
       </div>
     );
   }
 
-  // 🔓 UNLOCKED VIEW
   return (
     <div className="relative min-h-screen text-white">
-
-      {/* FIXED BACKGROUND IMAGE ONLY */}
       <div className="fixed inset-0 -z-10 bg-[url('/images/backlot-alley-bg.png')] bg-cover bg-center" />
 
-      <section className="mx-auto max-w-7xl px-4 py-16 md:px-10">
-        <div className="flex justify-between">
-          <div>
-            <p className="uppercase text-white/70">Back Lot</p>
-            <h1 className="text-4xl md:text-6xl font-semibold">
-              Insider-only access granted.
+      <section className="mx-auto max-w-7xl px-4 py-16 md:px-10 md:py-20">
+        <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
+          <div className="max-w-4xl">
+            <p className="text-xs font-semibold uppercase tracking-[0.35em] text-white/70">
+              Access Granted
+            </p>
+
+            <h1 className="mt-4 text-4xl font-semibold leading-tight md:text-6xl">
+              Welcome to the Back Lot.
             </h1>
+
+            <p className="mt-5 max-w-3xl text-base leading-7 text-white/80 md:text-xl">
+              Humor, pressure, language, and real-world dealership culture —
+              built for the people who actually live this business.
+            </p>
           </div>
 
           <button
             onClick={handleLock}
-            className="border border-white/20 px-5 py-3 rounded-2xl"
+            className="rounded-2xl border border-white/20 bg-black/35 px-5 py-3 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/10"
           >
-            Lock
+            Lock Back Lot
           </button>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-16 md:px-10">
-        <div className="grid md:grid-cols-3 gap-6">
+      <section className="mx-auto max-w-7xl px-4 py-10 md:px-10 md:py-16">
+        <div className="grid gap-6 md:grid-cols-3">
           {backLotItems.map((item) => (
             <div
               key={item.title}
-              className="rounded-[2rem] border border-white/20 bg-black/40 p-6 backdrop-blur"
+              className="rounded-[2rem] border border-white/20 bg-black/40 p-6 shadow-2xl backdrop-blur md:p-7"
             >
-              <h2 className="text-xl font-semibold">{item.title}</h2>
-              <p className="text-white/70 mt-2">{item.subtitle}</p>
-              <p className="mt-4 text-white/80">{item.description}</p>
+              <p className="text-xs uppercase tracking-[0.25em] text-white/50">Back Lot</p>
+              <h2 className="mt-4 text-2xl font-semibold">{item.title}</h2>
+              <p className="mt-2 text-white/70">{item.subtitle}</p>
+              <p className="mt-5 text-sm leading-7 text-white/80">{item.description}</p>
             </div>
           ))}
+        </div>
+
+        <div className="mt-10 flex flex-wrap gap-4">
+          <Link
+            href="/dealership-series"
+            className="rounded-2xl border border-white/20 bg-black/35 px-5 py-3 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/10"
+          >
+            ← Back to Dealership Series
+          </Link>
+
+          <Link
+            href="/"
+            className="rounded-2xl border border-white/20 bg-black/35 px-5 py-3 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/10"
+          >
+            Back to Main Site
+          </Link>
         </div>
       </section>
     </div>
