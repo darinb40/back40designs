@@ -1,60 +1,56 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
+import Link from "next/link";
 
-const ArrowRight = ({ className = 'h-4 w-4' }) => (
+const ArrowRight = ({ className = "h-4 w-4" }) => (
   <span className={className}>→</span>
 );
 
-const LockIcon = ({ className = 'h-4 w-4' }) => (
+const LockIcon = ({ className = "h-4 w-4" }) => (
   <span className={className}>🔒</span>
 );
 
 export default function DealershipSeriesPage() {
   return (
     <div className="relative min-h-screen text-white">
-      {/* KEEPING YOUR BACKGROUND */}
       <div className="fixed inset-0 -z-10 bg-[url('/images/frontline-showroom-bg.png')] bg-cover bg-center" />
-      <div className="fixed inset-0 -z-10 bg-black/55" />
+      <div className="fixed inset-0 -z-10 bg-black/60" />
 
       {/* HERO */}
       <section className="min-h-[90vh] border-b border-white/10">
-        <div className="mx-auto flex min-h-[90vh] max-w-7xl items-center px-4 py-16 md:px-10">
-          <div className="max-w-4xl drop-shadow-2xl">
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.28em] text-white/80">
+        <div className="mx-auto flex min-h-[90vh] max-w-7xl items-center px-4 py-20 md:px-10">
+          <div className="max-w-5xl drop-shadow-2xl">
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.28em] text-white/75">
               B40 Dealership Series
             </p>
 
-            <h1 className="text-4xl font-semibold md:text-7xl">
+            <h1 className="text-4xl font-semibold tracking-tight md:text-7xl">
               Built inside the car business.
             </h1>
 
-            <p className="mt-6 max-w-3xl text-white/90 md:text-xl">
-              Sales floor. Finance. Management.
-            </p>
-
-            <p className="mt-2 max-w-3xl text-white/90 md:text-xl">
-              I’ve worn every hat—and I know which ones get worn, and which never make it past the desk.
+            <p className="mt-6 max-w-3xl text-lg leading-8 text-white/85 md:text-xl">
+              A dealership-driven headwear line built for the people on the floor,
+              at the desk, in finance, and in the service bay.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
                 href="/dealership-series/front-line"
-                className="rounded-2xl bg-white px-5 py-3 font-semibold text-black"
+                className="inline-flex items-center gap-2 rounded-2xl bg-white px-5 py-3 font-semibold text-black transition hover:scale-[1.02]"
               >
                 View Front Line <ArrowRight />
               </Link>
 
               <Link
                 href="/dealership-series/service-bay"
-                className="rounded-2xl border border-white/30 px-5 py-3"
+                className="inline-flex items-center gap-2 rounded-2xl border border-white/30 px-5 py-3 font-semibold text-white transition hover:bg-white/10"
               >
                 Enter Service Bay →
               </Link>
 
               <Link
                 href="/dealership-series/backlot"
-                className="rounded-2xl border border-white/30 px-5 py-3"
+                className="inline-flex items-center gap-2 rounded-2xl border border-white/30 px-5 py-3 font-semibold text-white transition hover:bg-white/10"
               >
                 Enter Back Lot <LockIcon />
               </Link>
@@ -63,24 +59,58 @@ export default function DealershipSeriesPage() {
         </div>
       </section>
 
-      {/* INTRO */}
-      <section className="border-b border-white/10 bg-black/45 px-4 py-20 backdrop-blur-sm md:px-10">
+      {/* CREDIBILITY BLOCK */}
+      <section className="border-b border-white/10 bg-black/50 px-4 py-20 backdrop-blur-sm md:px-10">
         <div className="mx-auto max-w-7xl">
-          <div className="max-w-3xl">
-            <p className="text-sm uppercase tracking-[0.24em] text-white/60">
-              Not vendor merch
-            </p>
+          <div className="grid gap-8 rounded-[2rem] border border-white/15 bg-white/5 p-8 shadow-2xl backdrop-blur md:grid-cols-[0.8fr_1.2fr] md:p-10">
+            <div>
+              <p className="text-sm uppercase tracking-[0.24em] text-white/60">
+                Built from experience
+              </p>
 
-            <h2 className="mt-4 text-3xl font-semibold md:text-5xl">
-              Dealership gear should feel like it came from someone who actually knows the business.
-            </h2>
+              <h2 className="mt-4 text-3xl font-semibold md:text-5xl">
+                Built by someone who’s actually been inside the store.
+              </h2>
+            </div>
 
-            <p className="mt-6 text-lg leading-8 text-white/80">
-              Most dealership apparel gets ordered because someone needed shirts or hats.
-              This line is different. It’s built around dealership language, roles,
-              culture, and the difference between something that gets worn and something
-              that ends up in a drawer.
-            </p>
+            <div className="space-y-5 text-lg leading-8 text-white/85">
+              <p>15+ years. Sales floor. Finance. Management.</p>
+
+              <p className="text-2xl font-semibold leading-9 text-white md:text-3xl">
+                I’ve worn almost every hat you can wear in a dealership—I know
+                which ones get worn, and which never make it past the desk.
+              </p>
+
+              <p>
+                I’ve desked deals, spot-delivered questionable ones, loaded up
+                trades and paid for it at the auction, chased stips, flipped
+                coins for $500, stayed two hours after close just to watch a
+                deal fall apart in finance—and I’ve gotten deals hung when no
+                one thought it was possible.
+              </p>
+
+              <p>
+                I’ve also trained and worked alongside some damn good
+                people—some of the best. That’s why I believe you should look
+                good, feel good, and be proud of what you wear.
+              </p>
+
+              <p>
+                Most dealership gear gets ordered out of necessity—and worn the
+                same way.
+              </p>
+
+              <p>
+                That’s why when I say I know what actually moves inside a
+                dealership—I know what does and what doesn’t.
+              </p>
+
+              <p className="pt-2 font-semibold text-white">
+                This was built on purpose.
+                <br />
+                For you. By one of you.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -90,7 +120,7 @@ export default function DealershipSeriesPage() {
         <div className="mx-auto max-w-7xl">
           <div className="mb-10 max-w-3xl">
             <p className="text-sm uppercase tracking-[0.24em] text-white/60">
-              Three lanes
+              Three distinct lanes
             </p>
 
             <h2 className="mt-4 text-3xl font-semibold md:text-5xl">
@@ -107,8 +137,8 @@ export default function DealershipSeriesPage() {
               <h3 className="mt-4 text-2xl font-semibold">Front Line</h3>
 
               <p className="mt-4 text-white/80">
-                Clean dealership-focused headwear built for sales teams,
-                managers, events, and customer-facing wear.
+                Clean dealership-focused headwear built for salespeople,
+                managers, events, customer-facing teams, and store branding.
               </p>
 
               <Link
@@ -127,8 +157,8 @@ export default function DealershipSeriesPage() {
               <h3 className="mt-4 text-2xl font-semibold">Service Bay</h3>
 
               <p className="mt-4 text-white/80">
-                Built for advisors, techs, service managers, and the people who
-                keep the back half of the store moving.
+                Built for advisors, techs, service managers, parts teams, and
+                the people who keep the back half of the store moving.
               </p>
 
               <Link
@@ -175,8 +205,8 @@ export default function DealershipSeriesPage() {
             </h2>
 
             <p className="mt-5 text-lg text-white/80">
-              Built for small runs, team drops, event hats, and larger dealership
-              orders from 24 to 300+ units.
+              Built for team drops, event hats, store identity pieces, and
+              dealership orders from small runs to larger bulk programs.
             </p>
           </div>
 
