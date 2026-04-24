@@ -67,7 +67,7 @@ export default function LotStretcherPage() {
         </p>
 
         <Link
-          href="/dealership-series/backlot"
+          href="/training-room"
           className="text-sm text-white/50 hover:text-white transition"
         >
           ← Back to the Back Lot
