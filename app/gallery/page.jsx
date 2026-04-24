@@ -67,7 +67,10 @@ export default function GalleryPage() {
   const selectedItem = selectedIndex !== null ? gallery[selectedIndex] : null;
 
   return (
-    <main className="min-h-screen bg-black text-white">
+     <>
+    <Header />
+       
+    <main className="min-h-screen bg-black pt-24 text-white">
       <section className="border-b border-white/10 px-6 py-16 md:px-10 md:py-24">
         <div className="mx-auto max-w-7xl">
           <a
@@ -258,6 +261,7 @@ export default function GalleryPage() {
           </div>
         </div>
       )}
-    </main>
-  );
+        </main>
+  </>
+);
 }
