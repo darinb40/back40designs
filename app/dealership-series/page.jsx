@@ -20,106 +20,125 @@ const backLotItems = [
 
 export default function DealershipSeriesPage() {
   return (
-    <div className="relative min-h-screen text-stone-100">
+    <div className="relative min-h-screen text-white">
+
+      {/* SINGLE FIXED BACKGROUND */}
       <div className="fixed inset-0 -z-10 bg-[url('/images/frontline-showroom-bg.png')] bg-cover bg-center" />
 
+      {/* HERO */}
       <section className="min-h-[90vh] border-b border-white/10">
         <div className="mx-auto flex min-h-[90vh] max-w-7xl items-center px-4 py-16 md:px-10">
           <div className="max-w-4xl drop-shadow-2xl">
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.28em] text-stone-200 md:text-sm">
+
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.28em] text-white/80">
               B40 Dealership Series
             </p>
 
-            <h1 className="max-w-4xl text-4xl font-semibold leading-tight tracking-tight text-white md:text-7xl">
+            <h1 className="text-4xl md:text-7xl font-semibold">
               Built for the showroom.
               <br />
               Forged in the back lot.
             </h1>
 
-            <p className="mt-6 max-w-3xl text-base leading-7 text-stone-100 md:text-xl md:leading-8">
+            <p className="mt-6 max-w-3xl text-white/90 md:text-xl">
               The first B40 collection built specifically for the car business — split into two lanes.
-              <span className="font-semibold text-white"> Front Line</span> for clean, customer-facing dealership wear.
-              <span className="font-semibold text-white"> Back Lot</span> for insider humor and culture.
+              <span className="font-semibold text-white"> Front Line</span> for clean dealership wear.
+              <span className="font-semibold text-white"> Back Lot</span> for insider culture.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
-              <a href="#front-line" className="inline-flex items-center gap-2 rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-stone-950 shadow-lg">
+              <a href="#front-line" className="bg-white text-black px-5 py-3 rounded-2xl font-semibold">
                 View Front Line <ArrowRight />
               </a>
 
-              <Link href="/dealership-series/backlot" className="inline-flex items-center gap-2 rounded-2xl border border-white/30 bg-black/25 px-5 py-3 text-sm font-semibold text-white shadow-lg backdrop-blur">
+              <Link href="/dealership-series/backlot" className="border border-white/30 px-5 py-3 rounded-2xl">
                 Enter Back Lot <LockIcon />
               </Link>
+
+              {/* 🔥 NEW BUTTON */}
+              <Link href="/" className="border border-white/30 px-5 py-3 rounded-2xl">
+                ← Back to Main Site
+              </Link>
             </div>
+
           </div>
         </div>
       </section>
 
+      {/* FRONT LINE */}
       <section id="front-line" className="min-h-screen border-b border-white/10">
         <div className="mx-auto flex min-h-screen max-w-7xl flex-col justify-center px-4 py-16 md:px-10">
-          <div className="mb-10 flex flex-col gap-4 drop-shadow-2xl md:flex-row md:items-end md:justify-between">
+
+          <div className="mb-10 flex flex-col gap-4 md:flex-row md:justify-between">
             <div>
-              <p className="text-sm uppercase tracking-[0.2em] text-stone-200">Front Line</p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-tight text-white md:text-5xl">
+              <p className="uppercase text-white/70">Front Line</p>
+              <h2 className="text-3xl md:text-5xl">
                 Customer-facing. Clean. Brand-aligned.
               </h2>
             </div>
 
-            <p className="max-w-xl leading-7 text-stone-100">
-              Built for dealership teams who represent the brand every day. These designs belong on the floor,
-              at events, and anywhere your team needs to look sharp.
+            <p className="max-w-xl text-white/90">
+              Built for dealership teams who represent the brand every day.
             </p>
           </div>
 
-          <div className="grid gap-4 md:grid-cols-3 md:gap-6">
+          <div className="grid md:grid-cols-3 gap-6">
             {frontLineItems.map((item) => (
-              <div key={item.title} className="rounded-[2rem] border border-white/20 bg-black/35 p-6 shadow-xl backdrop-blur md:p-7">
-                <p className="text-xs uppercase tracking-[0.25em] text-stone-300">{item.eyebrow}</p>
-                <h3 className="mt-4 text-xl font-semibold text-white md:text-2xl">{item.title}</h3>
-                <p className="mt-4 text-sm leading-7 text-stone-200">{item.description}</p>
+              <div key={item.title} className="border border-white/20 rounded-2xl p-6 bg-black/40 backdrop-blur">
+                <p className="text-sm text-white/70">{item.eyebrow}</p>
+                <h3 className="mt-3 text-xl">{item.title}</h3>
+                <p className="mt-3 text-white/80">{item.description}</p>
               </div>
             ))}
           </div>
+
         </div>
       </section>
 
+      {/* BACK LOT */}
       <section className="min-h-screen border-y border-white/10">
         <div className="mx-auto flex min-h-screen max-w-7xl flex-col justify-center px-4 py-16 md:px-10">
-          <div className="mb-10 flex flex-col gap-4 drop-shadow-2xl md:flex-row md:items-end md:justify-between">
+
+          <div className="mb-10 flex flex-col gap-4 md:flex-row md:justify-between">
             <div>
-              <p className="text-sm uppercase tracking-[0.2em] text-stone-200">Back Lot</p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-tight text-white md:text-5xl">
+              <p className="uppercase text-white/70">Back Lot</p>
+              <h2 className="text-3xl md:text-5xl">
                 Insider language. Restricted access.
               </h2>
             </div>
 
-            <p className="max-w-xl leading-7 text-stone-100">
-              This side of the business is not for everyone. Back Lot is built for the people behind the deal —
-              the ones who know the language because they live it.
+            <p className="max-w-xl text-white/90">
+              This side of the business is not for everyone.
             </p>
           </div>
 
-          <div className="grid gap-4 md:grid-cols-3 md:gap-6">
+          <div className="grid md:grid-cols-3 gap-6">
             {backLotItems.map((item) => (
-              <div key={item.title} className="relative overflow-hidden rounded-[2rem] border border-white/20 bg-black/40 p-6 shadow-xl backdrop-blur md:p-7">
-                <p className="text-xs uppercase tracking-[0.25em] text-stone-300">{item.eyebrow}</p>
-                <h3 className="mt-4 text-xl font-semibold text-white md:text-2xl">{item.title}</h3>
-                <p className="mt-4 text-sm leading-7 text-stone-200">{item.description}</p>
+              <div key={item.title} className="border border-white/20 rounded-2xl p-6 bg-black/40 backdrop-blur">
+                <h3 className="text-xl">{item.title}</h3>
+                <p className="text-white/70 mt-2">{item.description}</p>
 
-                <div className="absolute right-5 top-5 rounded-full border border-white/20 bg-black/40 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-stone-200">
+                <div className="absolute right-5 top-5 text-xs border px-2 py-1 rounded-full">
                   Locked
                 </div>
               </div>
             ))}
           </div>
 
-          <div className="mt-8">
-            <Link href="/dealership-series/backlot" className="inline-flex items-center gap-2 rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-stone-950 shadow-lg">
+          <div className="mt-8 flex gap-3">
+            <Link href="/dealership-series/backlot" className="bg-white text-black px-5 py-3 rounded-2xl font-semibold">
               Enter Back Lot <LockIcon />
             </Link>
+
+            {/* 🔥 BOTTOM EXIT BUTTON */}
+            <Link href="/" className="border border-white/30 px-5 py-3 rounded-2xl">
+              ← Back to Main Site
+            </Link>
           </div>
+
         </div>
       </section>
+
     </div>
   );
 }
