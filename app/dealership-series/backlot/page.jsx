@@ -32,37 +32,48 @@ function GlitchButton() {
   React.useEffect(() => {
     const interval = setInterval(() => {
       setGlitch(true);
-      setTimeout(() => setGlitch(false), 120);
-    }, 3500);
+      setTimeout(() => setGlitch(false), 150);
+    }, 1800); // more frequent = more chaos
 
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <div className="mt-16 flex justify-center">
+    <div className="mt-24 flex justify-center">
       <a
         href="/lot-stretcher"
-        className={`relative rotate-[-1deg] border border-white/10 bg-black/40 px-6 py-3 text-sm text-white/50 select-none transition hover:text-white/80 ${
-          glitch ? 'translate-x-[1px] -translate-y-[1px]' : ''
-        }`}
+        className={`relative px-12 py-6 md:px-16 md:py-8 
+        text-xl md:text-2xl font-black uppercase tracking-widest
+        border-2 border-red-500 
+        bg-black/70 
+        text-red-400 
+        shadow-[0_0_20px_rgba(255,0,0,0.4)]
+        transition-all duration-200 
+        hover:scale-[1.05] hover:text-white hover:border-white
+        animate-pulse
+        ${glitch ? 'translate-x-[3px] -translate-y-[3px]' : ''}`}
       >
+        {/* glitch layers */}
         <span
-          className={`absolute left-0 top-0 h-full w-full px-6 py-3 text-red-500 ${
-            glitch ? 'translate-x-[2px] opacity-60' : 'opacity-0'
-          }`}
+          className={`absolute left-0 top-0 w-full h-full px-12 py-6 md:px-16 md:py-8 
+          text-red-600 
+          ${glitch ? 'translate-x-[4px] opacity-80' : 'opacity-0'}`}
         >
-          Get the Lot Stretcher
+          GET THE LOT STRETCHER
         </span>
 
         <span
-          className={`absolute left-0 top-0 h-full w-full px-6 py-3 text-blue-400 ${
-            glitch ? '-translate-x-[2px] opacity-60' : 'opacity-0'
-          }`}
+          className={`absolute left-0 top-0 w-full h-full px-12 py-6 md:px-16 md:py-8 
+          text-white 
+          ${glitch ? '-translate-x-[4px] opacity-80' : 'opacity-0'}`}
         >
-          Get the Lot Stretcher
+          GET THE LOT STRETCHER
         </span>
 
-        <span className="relative">Get the Lot Stretcher</span>
+        {/* main text */}
+        <span className="relative">
+          GET THE LOT STRETCHER →
+        </span>
       </a>
     </div>
   );
