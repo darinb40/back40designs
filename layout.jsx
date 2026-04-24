@@ -1,5 +1,5 @@
 import "./globals.css";
-
+import Header from "../components/Header";
 export const metadata = {
   title: "Back40 Designs",
   description: "Custom hats that look sharp and mean something.",
