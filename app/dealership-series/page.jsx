@@ -47,20 +47,36 @@ export default function DealershipSeriesPage() {
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
-              <a href="#front-line" className="bg-white text-black px-5 py-3 rounded-2xl font-semibold">
-                View Front Line <ArrowRight />
-              </a>
 
-              <Link href="/dealership-series/backlot" className="border border-white/30 px-5 py-3 rounded-2xl">
-                Enter Back Lot <LockIcon />
-              </Link>
+  <a
+    href="#front-line"
+    className="bg-white text-black px-5 py-3 rounded-2xl font-semibold"
+  >
+    View Front Line <ArrowRight />
+  </a>
 
-              {/* 🔥 NEW BUTTON */}
-              <Link href="/" className="border border-white/30 px-5 py-3 rounded-2xl">
-                ← Back to Main Site
-              </Link>
-            </div>
+  <Link
+    href="/dealership-series/service-bay"
+    className="border border-white/30 px-5 py-3 rounded-2xl"
+  >
+    Enter Service Bay →
+  </Link>
 
+  <Link
+    href="/dealership-series/backlot"
+    className="border border-white/30 px-5 py-3 rounded-2xl"
+  >
+    Enter Back Lot <LockIcon />
+  </Link>
+
+  <Link
+    href="/"
+    className="border border-white/30 px-5 py-3 rounded-2xl"
+  >
+    Back to Main Site
+  </Link>
+
+</div>
           </div>
         </div>
       </section>
