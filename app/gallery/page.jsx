@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Header from "../../components/Header";
 
 export default function GalleryPage() {
   const ctaLink =
@@ -68,7 +67,6 @@ export default function GalleryPage() {
 
   return (
      <>
-    <Header />
        
     <main className="min-h-screen bg-black pt-24 text-white">
       <section className="border-b border-white/10 px-6 py-16 md:px-10 md:py-24">
