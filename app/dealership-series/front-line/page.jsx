@@ -41,7 +41,7 @@ export default function FrontLinePage() {
 
           <p className="text-xl md:text-2xl text-white/80 max-w-2xl leading-relaxed mb-8">
             Showroom clean. Lot-ready. Built for the ones who stand out front,
-            shake hands, hold gross, and make it happen.
+            shake hands, and close car deals.
           </p>
 
           <div className="flex flex-wrap gap-4">
