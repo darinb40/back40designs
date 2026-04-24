@@ -24,7 +24,8 @@ const serviceBayItems = [
 export default function ServiceBayPage() {
   return (
     <div className="relative min-h-screen text-white">
-      <div className="fixed inset-0 -z-10 bg-[url('/images/service-bay-bg.png')] bg-cover bg-center" />
+      <div className="fixed inset-0 -z-20 bg-[url('/images/service-bay-bg.png')] bg-cover bg-center opacity-85" />
+        <div className="fixed inset-0 -z-10 bg-black/20" />
 
       <section className="mx-auto flex min-h-screen max-w-7xl items-center px-4 py-16 md:px-10">
         <div className="max-w-4xl drop-shadow-2xl">
