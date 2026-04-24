@@ -13,8 +13,7 @@ export default function GalleryPage() {
     { title: "Merica", tag: "Custom Build", image: "/images/merica.png" },
     { title: "Amor Patriae Pistols", tag: "Brand Work", image: "/images/appistols.png" },
     { title: "Hyundai Bentonville", tag: "Brand Work", image: "/images/hyundai2.png" },
-    { title: "Amor Patriea", tag: "Brasnd Work", image: "/images/apolive.png" },
-
+    { title: "Amor Patriae", tag: "Brand Work", image: "/images/apolive.png" },
     { title: "MSDT", tag: "Brand Work", image: "/images/msdtblue.png" },
     { title: "Goose", tag: "Custom Build", image: "/images/goose.png" },
     { title: "AR", tag: "Custom Build", image: "/images/arletters.png" },
@@ -22,11 +21,9 @@ export default function GalleryPage() {
     { title: "All American PDR", tag: "Brand Work", image: "/images/usapdr.png" },
     { title: "Wooden Hog", tag: "Custom Build", image: "/images/woodhog.png" },
     { title: "Suicide King", tag: "Custom Build", image: "/images/suicideking.png" },
-
     { title: "Amor Patriae Camo", tag: "Brand Work", image: "/images/apcamo.png" },
     { title: "Henny Dogs Camo", tag: "Brand Work", image: "/images/hennycamo.png" },
     { title: "Slobber Hog", tag: "Custom Build", image: "/images/slobberhog.png" },
-
     { title: "Henny Dog", tag: "Brand Work", image: "/images/hennydog.png" },
     { title: "Wooden Hogs Heather Grey", tag: "Custom Build", image: "/images/hogwood.png" },
     { title: "Lumber Lids", tag: "Brand Work", image: "/images/lumberlids.png" },
@@ -34,6 +31,8 @@ export default function GalleryPage() {
   ];
 
   const [selectedIndex, setSelectedIndex] = useState(null);
+
+  const selectedItem = selectedIndex !== null ? gallery[selectedIndex] : null;
 
   const openImage = (index) => setSelectedIndex(index);
   const closeImage = () => setSelectedIndex(null);
@@ -53,6 +52,7 @@ export default function GalleryPage() {
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (selectedIndex === null) return;
+
       if (event.key === "Escape") closeImage();
       if (event.key === "ArrowLeft") showPrev();
       if (event.key === "ArrowRight") showNext();
@@ -62,110 +62,202 @@ export default function GalleryPage() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [selectedIndex]);
 
-  const selectedItem = selectedIndex !== null ? gallery[selectedIndex] : null;
-
   return (
     <main className="min-h-screen bg-black pt-24 text-white">
-
-      {/* HERO */}
       <section className="border-b border-white/10 px-6 py-16 md:px-10 md:py-24">
         <div className="mx-auto max-w-7xl">
-          <h1 className="text-4xl md:text-6xl font-bold">
-            Past work that shows what Back 40 is built to do.
-          </h1>
-        </div>
-      </section>
-
-      {/* GALLERY GRID */}
-      <section className="px-4 py-10 md:px-10 md:py-16">
-        <div className="mx-auto max-w-7xl grid grid-cols-2 md:grid-cols-4 gap-4">
-          {gallery.map((item, index) => (
-            <img
-              key={index}
-              src={item.image}
-              alt={item.title}
-              className="rounded-xl cursor-pointer hover:scale-105 transition"
-              onClick={() => openImage(index)}
-            />
-          ))}
-        </div>
-      </section>
-
-      {/* DEALER CTA (CORRECT POSITION) */}
-      <section className="px-6 py-16 md:px-10">
-        <div className="mx-auto max-w-5xl rounded-2xl border border-white/10 bg-white/5 p-8 text-center">
-          <h2 className="text-2xl md:text-4xl font-bold">
-            See how this translates inside a dealership.
-          </h2>
-          <p className="mt-4 text-stone-300">
-            These same concepts are being built into a full dealership-driven line.
+          <p className="mb-4 text-sm font-semibold uppercase tracking-[0.24em] text-stone-400">
+            Gallery
           </p>
 
-          <div className="mt-6 flex justify-center gap-4">
-            <a href="/dealership-series" className="bg-white text-black px-6 py-3 rounded-full">
-              Dealer Series →
+          <h1 className="max-w-4xl text-4xl font-bold tracking-tight text-white md:text-6xl">
+            Past work that shows what Back 40 is built to do.
+          </h1>
+
+          <p className="mt-5 max-w-2xl text-base leading-7 text-stone-300 md:text-lg">
+            A full look at custom builds created for brands, businesses, teams,
+            and story-driven projects. Clean design. Strong identity. Built to
+            be worn.
+          </p>
+        </div>
+      </section>
+
+      <section className="px-4 py-10 md:px-10 md:py-16">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-8 flex items-center justify-between gap-4">
+            <div>
+              <p className="text-sm uppercase tracking-[0.18em] text-stone-500">
+                Selected Work
+              </p>
+              <p className="mt-2 text-sm text-stone-400">
+                Click any image to view it larger.
+              </p>
+            </div>
+
+            <div className="rounded-full border border-white/10 px-4 py-2 text-xs uppercase tracking-[0.18em] text-stone-400">
+              {gallery.length} Builds
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {gallery.map((item, index) => (
+              <button
+                key={`${item.title}-${index}`}
+                type="button"
+                onClick={() => openImage(index)}
+                className="group overflow-hidden rounded-[1.6rem] border border-white/10 bg-white/5 text-left transition duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.07]"
+              >
+                <div className="relative aspect-[1/1.2] overflow-hidden bg-stone-950 sm:aspect-[4/5]">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
+                </div>
+
+                <div className="flex items-center justify-between gap-4 px-3 py-3">
+                  <div>
+                    <h2 className="text-lg font-semibold text-white">
+                      {item.title}
+                    </h2>
+                    <p className="mt-1 text-xs uppercase tracking-[0.18em] text-stone-400">
+                      {item.tag}
+                    </p>
+                  </div>
+
+                  <div className="text-stone-500 transition group-hover:text-white">
+                    ↗
+                  </div>
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="px-6 py-16 md:px-10">
+        <div className="mx-auto max-w-5xl rounded-[2rem] border border-white/10 bg-white/5 p-8 text-center md:p-12">
+          <p className="text-sm uppercase tracking-[0.2em] text-stone-400">
+            Built for Business
+          </p>
+
+          <h2 className="mt-4 text-2xl font-bold tracking-tight text-white md:text-4xl">
+            See how this translates inside a dealership.
+          </h2>
+
+          <p className="mx-auto mt-4 max-w-2xl text-base text-stone-300">
+            These same concepts are being built into a full dealership-driven
+            line — designed for the front line, with the private Back Lot kept
+            behind the gate.
+          </p>
+
+          <div className="mt-8 flex flex-wrap justify-center gap-4">
+            <a
+              href="/dealership-series"
+              className="rounded-full bg-white px-6 py-3 font-semibold text-black transition hover:scale-[1.02]"
+            >
+              Enter Dealer Series →
             </a>
-            <a href="/collections/shop-hats" className="border px-6 py-3 rounded-full">
+
+            <a
+              href="/collections/shop-hats"
+              className="rounded-full border border-white/20 px-6 py-3 text-white transition hover:bg-white/10"
+            >
               Shop Hats
             </a>
           </div>
         </div>
       </section>
 
-      {/* START PROJECT */}
-      <section className="px-6 py-16 md:px-10 text-center">
-        <h2 className="text-2xl md:text-4xl font-bold">
-          Want something built for your brand?
-        </h2>
-        <a href={ctaLink} className="mt-6 inline-block bg-white text-black px-6 py-3 rounded-full">
-          Let’s Talk
-        </a>
+      <section className="border-t border-white/10 px-6 py-16 md:px-10">
+        <div className="mx-auto flex max-w-7xl flex-col gap-6 rounded-[2rem] border border-white/10 bg-white/5 p-8 md:flex-row md:items-center md:justify-between md:p-10">
+          <div className="max-w-2xl">
+            <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-stone-400">
+              Start a Project
+            </p>
+            <h2 className="text-2xl font-bold tracking-tight text-white md:text-4xl">
+              Want something built for your brand?
+            </h2>
+            <p className="mt-3 text-base leading-7 text-stone-300">
+              Let’s create something that actually feels like yours — not
+              generic, not mass-produced, and not forgettable.
+            </p>
+          </div>
+
+          <a
+            href={ctaLink}
+            className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white px-6 py-3 text-sm font-semibold text-black transition hover:scale-[1.02]"
+          >
+            Let’s Talk
+          </a>
+        </div>
       </section>
 
-      {/* MODAL */}
-{selectedItem && (
-  <div
-    className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
-    onClick={closeImage}
-  >
-    <div
-      className="relative w-full max-w-5xl"
-      onClick={(e) => e.stopPropagation()}
-    >
+      {selectedItem && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4 md:p-8"
+          onClick={closeImage}
+        >
+          <div
+            className="relative w-full max-w-6xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="absolute left-3 top-3 z-20 rounded-full border border-white/15 bg-black/70 px-4 py-2 text-xs uppercase tracking-[0.18em] text-white backdrop-blur">
+              {selectedIndex + 1} / {gallery.length}
+            </div>
 
-      {/* CLOSE BUTTON */}
-      <button
-        onClick={closeImage}
-        className="absolute top-4 right-4 z-20 rounded-full border border-white/20 bg-black/70 px-4 py-2 text-white"
-      >
-        ✕
-      </button>
+            <button
+              type="button"
+              onClick={closeImage}
+              className="absolute right-3 top-3 z-20 rounded-full border border-white/15 bg-black/70 px-4 py-2 text-sm font-semibold text-white transition hover:bg-black"
+            >
+              ✕
+            </button>
 
-      {/* LEFT ARROW */}
-      <button
-        onClick={showPrev}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 rounded-full border border-white/20 bg-black/70 px-4 py-3 text-white"
-      >
-        ←
-      </button>
+            <button
+              type="button"
+              onClick={showPrev}
+              className="absolute left-3 top-1/2 z-20 -translate-y-1/2 rounded-full border border-white/15 bg-black/70 px-4 py-3 text-xl text-white transition hover:bg-black"
+              aria-label="Previous image"
+            >
+              ←
+            </button>
 
-      {/* RIGHT ARROW */}
-      <button
-        onClick={showNext}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 rounded-full border border-white/20 bg-black/70 px-4 py-3 text-white"
-      >
-        →
-      </button>
+            <button
+              type="button"
+              onClick={showNext}
+              className="absolute right-3 top-1/2 z-20 -translate-y-1/2 rounded-full border border-white/15 bg-black/70 px-4 py-3 text-xl text-white transition hover:bg-black"
+              aria-label="Next image"
+            >
+              →
+            </button>
 
-      {/* IMAGE */}
-      <div className="overflow-hidden rounded-2xl border border-white/10">
-        <img
-          src={selectedItem.image}
-          alt={selectedItem.title}
-          className="max-h-[80vh] w-full object-contain bg-black"
-        />
-      </div>
+            <div className="overflow-hidden rounded-[1.75rem] border border-white/10 bg-stone-950 shadow-2xl">
+              <img
+                src={selectedItem.image}
+                alt={selectedItem.title}
+                className="max-h-[78vh] w-full object-contain bg-black"
+              />
+            </div>
 
-    </div>
-  </div>
-)}
+            <div className="mt-4 flex flex-col gap-2 px-1 md:flex-row md:items-end md:justify-between">
+              <div>
+                <h2 className="text-2xl font-semibold text-white md:text-3xl">
+                  {selectedItem.title}
+                </h2>
+                <p className="mt-1 text-xs uppercase tracking-[0.18em] text-stone-400">
+                  {selectedItem.tag}
+                </p>
+              </div>
+
+              <p className="text-sm text-stone-400">
+                Use arrow keys to move through the gallery.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+    </main>
+  );
+}
