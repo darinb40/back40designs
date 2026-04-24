@@ -63,7 +63,7 @@ export default function BackLotPage() {
       <div className="relative min-h-screen text-stone-100">
 
         {/* BACKGROUND IMAGE */}
-        <div className="absolute inset-0 bg-[url('/images/backlot-alley-bg.png')] bg-cover bg-center opacity-65" />
+        <div className="absolute inset-0 bg-[url('/images/backlot-alley-bg.png')] bg-cover bg-center" />
         <div className="absolute inset-0 bg-black/55" />
 
         <section className="relative z-10 mx-auto flex min-h-screen max-w-7xl items-center px-4 py-16 md:px-10">
