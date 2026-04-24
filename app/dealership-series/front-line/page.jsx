@@ -1,7 +1,4 @@
-"use client";
-
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 
 export default function FrontLinePage() {
   const hats = [
@@ -21,7 +18,6 @@ export default function FrontLinePage() {
 
   return (
     <main className="relative min-h-screen text-white overflow-hidden">
-      {/* PAGE BACKGROUND */}
       <div
         className="fixed inset-0 -z-20 bg-cover bg-center"
         style={{
@@ -30,11 +26,9 @@ export default function FrontLinePage() {
         }}
       />
 
-      {/* DARK OVERLAYS */}
       <div className="fixed inset-0 -z-10 bg-black/55" />
       <div className="fixed inset-0 -z-10 bg-gradient-to-b from-black/85 via-black/35 to-black/90" />
 
-      {/* HERO CONTENT */}
       <section className="min-h-screen flex items-center">
         <div className="max-w-6xl mx-auto px-6 py-24 w-full">
           <p className="uppercase tracking-[0.35em] text-sm text-white/60 mb-4">
@@ -55,7 +49,7 @@ export default function FrontLinePage() {
               href="#drop"
               className="bg-white text-black px-6 py-3 rounded-2xl font-semibold inline-flex items-center gap-2"
             >
-              View the Drop <ArrowRight size={18} />
+              View the Drop <span>→</span>
             </a>
 
             <Link
@@ -68,7 +62,6 @@ export default function FrontLinePage() {
         </div>
       </section>
 
-      {/* INTRO */}
       <section className="max-w-5xl mx-auto px-6 py-24">
         <div className="border border-white/10 rounded-3xl p-8 md:p-12 bg-black/45 backdrop-blur-md shadow-2xl">
           <p className="uppercase tracking-[0.3em] text-sm text-white/50 mb-4">
@@ -88,7 +81,6 @@ export default function FrontLinePage() {
         </div>
       </section>
 
-      {/* DROP */}
       <section id="drop" className="max-w-6xl mx-auto px-6 py-24">
         <div className="mb-10">
           <p className="uppercase tracking-[0.3em] text-sm text-white/50 mb-3">
@@ -119,7 +111,6 @@ export default function FrontLinePage() {
         </div>
       </section>
 
-      {/* DETAILS */}
       <section className="max-w-5xl mx-auto px-6 py-24">
         <div className="grid md:grid-cols-2 gap-6">
           <div className="rounded-3xl border border-white/10 bg-black/45 backdrop-blur-md p-8">
@@ -148,7 +139,6 @@ export default function FrontLinePage() {
         </div>
       </section>
 
-      {/* CTA */}
       <section className="px-6 py-24 text-center">
         <div className="max-w-4xl mx-auto rounded-3xl border border-white/10 bg-black/55 backdrop-blur-md p-10 md:p-14 shadow-2xl">
           <h2 className="text-3xl md:text-4xl font-black mb-4">
@@ -163,7 +153,7 @@ export default function FrontLinePage() {
             href="/dealership-series"
             className="inline-flex items-center gap-2 bg-white text-black px-6 py-3 rounded-2xl font-semibold"
           >
-            View Full Dealership Series <ArrowRight size={18} />
+            View Full Dealership Series <span>→</span>
           </Link>
         </div>
       </section>
