@@ -78,8 +78,8 @@ export default function Back40LandingPage() {
     },
     {
       title: "Dealership Series",
-      eyebrow: "Front Line + Back Lot",
-      description: "A collection built for the car business — clean customer-facing pieces up front, insider-only culture in the back.",
+      eyebrow: "Front Line + Service Bay + Back Lot",
+      description: "A collection built for the car business — showroom clean, shop-floor tough, and insider-only where it belongs.",
       icon: StoreIcon,
       image: "/images/hat-lineup.jpg",
       link: "/dealership-series",
@@ -489,12 +489,14 @@ export default function Back40LandingPage() {
 
             <div className="space-y-5 text-sm leading-7 text-stone-300 md:text-base md:leading-8">
               <p>
-                Built specifically for the car business, the Dealership Series splits into two lanes:
-                <span className="font-semibold text-white"> Front Line</span> for clean, customer-facing pieces
-                and <span className="font-semibold text-white"> Back Lot</span> for insider-only humor and language.
+                Built specifically for the car business, the Dealership Series now splits into three lanes:
+                <span className="font-semibold text-white"> Front Line</span> for clean, customer-facing pieces,
+                <span className="font-semibold text-white"> Service Bay</span> for the ones who keep it running,
+                and <span className="font-semibold text-white"> Back Lot</span> for insider-only culture.
               </p>
-              <p>
-                Front Line stays open. Back Lot is password protected for people who actually live the business.
+
+              <p className="text-stone-400">
+                Three lanes. One business. One collection built by someone who actually knows the car world.
               </p>
 
               <div className="flex flex-wrap gap-3 pt-2">
@@ -503,13 +505,6 @@ export default function Back40LandingPage() {
                   className="inline-flex items-center gap-2 rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100"
                 >
                   Explore the Series <ArrowRight className="h-4 w-4" />
-                </a>
-
-                <a
-                  href="/dealership-series/backlot"
-                  className="inline-flex items-center gap-2 rounded-2xl border border-white/15 px-5 py-3 text-sm font-semibold text-stone-100 transition hover:bg-white/5"
-                >
-                  Enter Back Lot
                 </a>
               </div>
             </div>
