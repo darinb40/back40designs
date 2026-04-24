@@ -9,7 +9,7 @@ export default function LotStretcherPage() {
         </p>
 
         <h1 className="text-4xl md:text-6xl font-semibold leading-tight mb-6">
-          Go ask your manager.
+          Seriously?.
         </h1>
 
         <p className="text-lg text-white/60 leading-8 mb-8">
@@ -19,7 +19,7 @@ export default function LotStretcherPage() {
         </p>
 
         <p className="text-sm text-white/35 mb-10">
-          Come back after your first real Saturday.
+          Go get an up and come back after your first real Saturday.
         </p>
 
         <Link
