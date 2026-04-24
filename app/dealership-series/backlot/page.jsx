@@ -42,20 +42,22 @@ function GlitchButton() {
     <div className="mt-12 flex justify-center">
       <a
         href="/lot-stretcher"
-        className={`relative border border-white/10 bg-black/30 px-6 py-3 text-sm text-white/40 
-        select-none transition hover:text-white/60 rotate-[-1deg]
-        ${glitch ? 'translate-x-[1px] -translate-y-[1px]' : ''}`}
+        className={`relative rotate-[-1deg] border border-white/10 bg-black/50 px-6 py-3 text-sm text-white/45 select-none transition hover:text-white/70 ${
+          glitch ? 'translate-x-[1px] -translate-y-[1px]' : ''
+        }`}
       >
         <span
-          className={`absolute left-0 top-0 h-full w-full px-6 py-3 text-red-500 
-          ${glitch ? 'translate-x-[2px] opacity-60' : 'opacity-0'}`}
+          className={`absolute left-0 top-0 h-full w-full px-6 py-3 text-red-500 ${
+            glitch ? 'translate-x-[2px] opacity-60' : 'opacity-0'
+          }`}
         >
           Get the Lot Stretcher
         </span>
 
         <span
-          className={`absolute left-0 top-0 h-full w-full px-6 py-3 text-blue-400 
-          ${glitch ? '-translate-x-[2px] opacity-60' : 'opacity-0'}`}
+          className={`absolute left-0 top-0 h-full w-full px-6 py-3 text-blue-400 ${
+            glitch ? '-translate-x-[2px] opacity-60' : 'opacity-0'
+          }`}
         >
           Get the Lot Stretcher
         </span>
@@ -99,11 +101,9 @@ export default function BackLotPage() {
     return (
       <main className="relative min-h-screen overflow-hidden bg-black text-white">
         <div className="fixed inset-0 -z-20 bg-[url('/images/backlot-alley-bg.png')] bg-cover bg-center" />
-        <div className="fixed inset-0 -z-10 bg-black/35" />
-        <div className="fixed inset-0 -z-10 bg-gradient-to-b from-black/70 via-transparent to-black/80" />
 
         <section className="mx-auto flex min-h-screen max-w-7xl items-center px-5 py-12 md:px-10">
-          <div className="w-full max-w-xl border border-white/10 bg-black/40 p-6 backdrop-blur-sm md:p-9">
+          <div className="w-full max-w-xl border border-white/10 bg-black/50 p-6 backdrop-blur-sm md:p-9">
             <p className="text-[10px] font-semibold uppercase tracking-[0.45em] text-white/45">
               Restricted Entry
             </p>
@@ -126,7 +126,7 @@ export default function BackLotPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full border border-white/15 bg-black/55 px-5 py-3 text-white outline-none placeholder:text-white/30 focus:border-white/50"
+                className="w-full border border-white/15 bg-black/65 px-5 py-3 text-white outline-none placeholder:text-white/30 focus:border-white/50"
                 placeholder="Enter access code"
               />
 
@@ -161,25 +161,25 @@ export default function BackLotPage() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-black text-white">
       <div className="fixed inset-0 -z-20 bg-[url('/images/backlot-alley-bg.png')] bg-cover bg-center" />
-      <div className="fixed inset-0 -z-10 bg-black/25" />
-      <div className="fixed inset-0 -z-10 bg-gradient-to-b from-black/65 via-transparent to-black/85" />
 
       <section className="mx-auto max-w-7xl px-5 py-12 md:px-10 md:py-14">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.45em] text-white/40">
-          Back Lot
-        </p>
+        <div className="max-w-3xl bg-black/50 p-6 backdrop-blur-sm">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.45em] text-white/40">
+            Back Lot
+          </p>
 
-        <h1 className="mt-5 text-4xl font-semibold leading-tight md:text-6xl">
-          Access Granted.
-        </h1>
+          <h1 className="mt-5 text-4xl font-semibold leading-tight md:text-6xl">
+            Access Granted.
+          </h1>
 
-        <p className="mt-5 max-w-2xl text-lg leading-8 text-white/70">
-          You’re not supposed to be here.
-        </p>
+          <p className="mt-5 max-w-2xl text-lg leading-8 text-white/70">
+            You’re not supposed to be here.
+          </p>
 
-        <p className="mt-2 max-w-2xl text-sm text-white/45">
-          This is where the real conversations happen.
-        </p>
+          <p className="mt-2 max-w-2xl text-sm text-white/45">
+            This is where the real conversations happen.
+          </p>
+        </div>
       </section>
 
       <section className="mx-auto max-w-7xl px-5 py-10 md:px-10 md:py-14">
@@ -187,7 +187,7 @@ export default function BackLotPage() {
           {backLotItems.map((item) => (
             <div
               key={item.title}
-              className="border border-white/10 bg-black/30 p-5 backdrop-blur-sm"
+              className="border border-white/10 bg-black/50 p-5 backdrop-blur-sm"
             >
               <p className="text-[10px] uppercase tracking-[0.35em] text-white/30">
                 Back Lot
