@@ -11,3 +11,18 @@ img, video {
   max-width: 100%;
   height: auto;
 }
+@keyframes flicker {
+  0% { opacity: 0; }
+  10% { opacity: 1; }
+  12% { opacity: 0; }
+  15% { opacity: 1; }
+  20% { opacity: 0.3; }
+  25% { opacity: 1; }
+  30% { opacity: 0.2; }
+  35% { opacity: 1; }
+  100% { opacity: 1; }
+}
+
+.animate-flicker {
+  animation: flicker 1.2s ease-out forwards;
+}
