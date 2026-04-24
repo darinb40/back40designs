@@ -39,10 +39,10 @@ function GlitchButton() {
   }, []);
 
   return (
-    <div className="mt-12 flex justify-center">
+    <div className="mt-16 flex justify-center">
       <a
         href="/lot-stretcher"
-        className={`relative rotate-[-1deg] border border-white/10 bg-black/50 px-6 py-3 text-sm text-white/45 select-none transition hover:text-white/70 ${
+        className={`relative rotate-[-1deg] border border-white/10 bg-black/40 px-6 py-3 text-sm text-white/50 select-none transition hover:text-white/80 ${
           glitch ? 'translate-x-[1px] -translate-y-[1px]' : ''
         }`}
       >
@@ -97,22 +97,23 @@ export default function BackLotPage() {
     setPassword('');
   };
 
-  if (!unlocked) {
-    return (
-      <main className="relative min-h-screen overflow-hidden bg-black text-white">
-        <div className="fixed inset-0 -z-20 bg-[url('/images/backlot-alley-bg.png')] bg-cover bg-center" />
+  return (
+    <main className="relative min-h-screen text-white px-4 md:px-10 py-12">
+      {/* BACKGROUND */}
+      <div className="fixed inset-0 -z-20 bg-[url('/images/backlot-alley-bg.png')] bg-cover bg-center" />
 
-        <section className="mx-auto flex min-h-screen max-w-7xl items-center px-5 py-12 md:px-10">
-          <div className="w-full max-w-xl border border-white/10 bg-black/50 p-6 backdrop-blur-sm md:p-9">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.45em] text-white/45">
+      {!unlocked ? (
+        <section className="max-w-xl">
+          <div className="bg-black/50 backdrop-blur-sm border border-white/10 p-6 md:p-8">
+            <p className="text-[10px] uppercase tracking-[0.45em] text-white/45">
               Restricted Entry
             </p>
 
-            <h1 className="mt-5 text-4xl font-semibold leading-tight md:text-6xl">
+            <h1 className="mt-5 text-4xl md:text-6xl font-semibold">
               Back Lot
             </h1>
 
-            <p className="mt-5 max-w-lg text-base leading-7 text-white/70">
+            <p className="mt-5 text-white/70">
               This side of the business is not for everyone.
             </p>
 
@@ -126,111 +127,88 @@ export default function BackLotPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full border border-white/15 bg-black/65 px-5 py-3 text-white outline-none placeholder:text-white/30 focus:border-white/50"
+                className="w-full border border-white/15 bg-black/60 px-5 py-3 text-white outline-none"
                 placeholder="Enter access code"
               />
 
               {error && <p className="text-sm text-red-300">{error}</p>}
 
-              <button className="bg-white px-5 py-3 text-sm font-semibold text-black transition hover:bg-white/85">
+              <button className="bg-white px-5 py-3 text-sm font-semibold text-black">
                 Enter Back Lot
               </button>
             </form>
-
-            <div className="mt-8 flex flex-wrap gap-5 border-t border-white/10 pt-6">
-              <Link
-                href="/dealership-series"
-                className="text-sm text-white/50 transition hover:text-white"
-              >
-                ← Dealership Series
-              </Link>
-
-              <Link
-                href="/"
-                className="text-sm text-white/50 transition hover:text-white"
-              >
-                Main Site
-              </Link>
-            </div>
           </div>
         </section>
-      </main>
-    );
-  }
+      ) : (
+        <>
+          {/* HEADER */}
+          <section className="max-w-3xl">
+            <p className="text-[10px] uppercase tracking-[0.45em] text-white/40">
+              B40 // Back Lot
+            </p>
 
-  return (
-    <main className="relative min-h-screen overflow-hidden bg-black text-white">
-      <div className="fixed inset-0 -z-20 bg-[url('/images/backlot-alley-bg.png')] bg-cover bg-center" />
+            <h1 className="mt-5 text-4xl md:text-6xl font-semibold">
+              Access Granted.
+            </h1>
 
-      <section className="mx-auto max-w-7xl px-5 py-12 md:px-10 md:py-14">
-        <div className="max-w-3xl bg-black/50 p-6 backdrop-blur-sm">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.45em] text-white/40">
-            Back Lot
-          </p>
+            <p className="mt-5 text-lg text-white/80">
+              Who invited the green pea.
+            </p>
 
-          <h1 className="mt-5 text-4xl font-semibold leading-tight md:text-6xl">
-            Access Granted.
-          </h1>
+            <p className="mt-2 text-sm text-white/60">
+              Closers only. Coffee is for closers.
+            </p>
+          </section>
 
-          <p className="mt-5 max-w-2xl text-lg leading-8 text-white/70">
-            You’re not supposed to be here.
-          </p>
+          {/* CARDS */}
+          <section className="mt-12 max-w-7xl">
+            <div className="grid gap-5 md:grid-cols-3">
+              {backLotItems.map((item) => (
+                <div
+                  key={item.title}
+                  className="border border-white/10 bg-black/50 p-5 backdrop-blur-sm"
+                >
+                  <p className="text-[10px] uppercase tracking-[0.35em] text-white/30">
+                    B40 // Back Lot
+                  </p>
 
-          <p className="mt-2 max-w-2xl text-sm text-white/45">
-            This is where the real conversations happen.
-          </p>
-        </div>
-      </section>
+                  <h2 className="mt-5 text-2xl font-semibold">
+                    {item.title}
+                  </h2>
 
-      <section className="mx-auto max-w-7xl px-5 py-10 md:px-10 md:py-14">
-        <div className="grid gap-5 md:grid-cols-3">
-          {backLotItems.map((item) => (
-            <div
-              key={item.title}
-              className="border border-white/10 bg-black/50 p-5 backdrop-blur-sm"
-            >
-              <p className="text-[10px] uppercase tracking-[0.35em] text-white/30">
-                Back Lot
-              </p>
+                  <p className="mt-2 text-sm text-white/50">
+                    {item.subtitle}
+                  </p>
 
-              <h2 className="mt-5 text-2xl font-semibold leading-tight">
-                {item.title}
-              </h2>
-
-              <p className="mt-2 text-sm text-white/50">{item.subtitle}</p>
-
-              <p className="mt-6 text-sm leading-7 text-white/70">
-                {item.description}
-              </p>
+                  <p className="mt-6 text-sm text-white/70">
+                    {item.description}
+                  </p>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+          </section>
 
-        <GlitchButton />
+          <GlitchButton />
 
-        <div className="mt-10 flex flex-wrap gap-5">
-          <Link
-            href="/dealership-series"
-            className="text-sm text-white/55 transition hover:text-white"
+          {/* LINKS */}
+          <div className="mt-10 flex flex-wrap gap-5">
+            <Link href="/dealership-series" className="text-sm text-white/60 hover:text-white">
+              ← Back to Dealership Series
+            </Link>
+
+            <Link href="/" className="text-sm text-white/60 hover:text-white">
+              Main Site
+            </Link>
+          </div>
+
+          <button
+            onClick={handleExit}
+            className="mt-10 text-xs text-white/30 hover:text-white/60"
           >
-            ← Back to Dealership Series
-          </Link>
-
-          <Link
-            href="/"
-            className="text-sm text-white/55 transition hover:text-white"
-          >
-            Back to Main Site
-          </Link>
-        </div>
-
-        <button
-          onClick={handleExit}
-          className="mt-10 text-xs text-white/30 transition hover:text-white/60"
-        >
-          Exit Back Lot
-        </button>
-      </section>
+            Exit Back Lot
+          </button>
+        </>
+      )}
     </main>
   );
 }
