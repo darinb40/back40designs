@@ -53,7 +53,6 @@ export default function GalleryPage() {
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (selectedIndex === null) return;
-
       if (event.key === "Escape") closeImage();
       if (event.key === "ArrowLeft") showPrev();
       if (event.key === "ArrowRight") showNext();
@@ -67,79 +66,68 @@ export default function GalleryPage() {
 
   return (
     <main className="min-h-screen bg-black pt-24 text-white">
+
+      {/* HERO */}
       <section className="border-b border-white/10 px-6 py-16 md:px-10 md:py-24">
         <div className="mx-auto max-w-7xl">
+          <h1 className="text-4xl md:text-6xl font-bold">
+            Past work that shows what Back 40 is built to do.
+          </h1>
+        </div>
+      </section>
 
-          <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
-            <div>
-              <p className="mb-4 text-sm font-semibold uppercase tracking-[0.24em] text-stone-400">
-                Gallery
-              </p>
+      {/* GALLERY GRID */}
+      <section className="px-4 py-10 md:px-10 md:py-16">
+        <div className="mx-auto max-w-7xl grid grid-cols-2 md:grid-cols-4 gap-4">
+          {gallery.map((item, index) => (
+            <img
+              key={index}
+              src={item.image}
+              alt={item.title}
+              className="rounded-xl cursor-pointer hover:scale-105 transition"
+              onClick={() => openImage(index)}
+            />
+          ))}
+        </div>
+      </section>
 
-              <h1 className="max-w-4xl text-4xl font-bold tracking-tight text-white md:text-6xl">
-                Past work that shows what Back 40 is built to do.
-              </h1>
+      {/* DEALER CTA (CORRECT POSITION) */}
+      <section className="px-6 py-16 md:px-10">
+        <div className="mx-auto max-w-5xl rounded-2xl border border-white/10 bg-white/5 p-8 text-center">
+          <h2 className="text-2xl md:text-4xl font-bold">
+            See how this translates inside a dealership.
+          </h2>
+          <p className="mt-4 text-stone-300">
+            These same concepts are being built into a full dealership-driven line.
+          </p>
 
-              <p className="mt-5 max-w-2xl text-base leading-7 text-stone-300 md:text-lg">
-                A full look at custom builds created for brands, businesses,
-                teams, and story-driven projects. Clean design. Strong identity.
-                Built to be worn.
-              </p>
-            </div>
-
-            <div className="rounded-[1.75rem] border border-white/10 bg-white/5 p-6 md:p-7">
-              <p className="text-sm uppercase tracking-[0.18em] text-stone-400">
-                What you’re looking at
-              </p>
-              <div className="mt-4 grid gap-3 text-sm text-stone-300">
-                <div className="rounded-2xl border border-white/10 bg-black/30 px-4 py-3">
-                  Brand builds
-                </div>
-                <div className="rounded-2xl border border-white/10 bg-black/30 px-4 py-3">
-                  Custom patch concepts
-                </div>
-                <div className="rounded-2xl border border-white/10 bg-black/30 px-4 py-3">
-                  Story-driven projects
-                </div>
-              </div>
-            </div>
+          <div className="mt-6 flex justify-center gap-4">
+            <a href="/dealership-series" className="bg-white text-black px-6 py-3 rounded-full">
+              Dealer Series →
+            </a>
+            <a href="/collections/shop-hats" className="border px-6 py-3 rounded-full">
+              Shop Hats
+            </a>
           </div>
         </div>
       </section>
-<section className="px-6 py-16 md:px-10">
-  <div className="mx-auto max-w-5xl rounded-[2rem] border border-white/10 bg-white/5 p-8 text-center md:p-12">
-    
-    <p className="text-sm uppercase tracking-[0.2em] text-stone-400">
-      Built for Business
-    </p>
 
-    <h2 className="mt-4 text-2xl font-bold tracking-tight text-white md:text-4xl">
-      See how this translates inside a dealership.
-    </h2>
+      {/* START PROJECT */}
+      <section className="px-6 py-16 md:px-10 text-center">
+        <h2 className="text-2xl md:text-4xl font-bold">
+          Want something built for your brand?
+        </h2>
+        <a href={ctaLink} className="mt-6 inline-block bg-white text-black px-6 py-3 rounded-full">
+          Let’s Talk
+        </a>
+      </section>
 
-    <p className="mt-4 text-base text-stone-300 max-w-2xl mx-auto">
-      These same concepts are being built into a full dealership-driven line — designed for the front line and the back lot.
-    </p>
-
-    <div className="mt-8 flex flex-wrap justify-center gap-4">
-      <a
-        href="/dealership-series"
-        className="bg-white text-black px-6 py-3 rounded-full font-semibold hover:scale-[1.02] transition"
-      >
-        Enter Dealer Series →
-      </a>
-
-      <a
-        href="/collections/shop-hats"
-        className="border border-white/20 px-6 py-3 rounded-full text-white hover:bg-white/10 transition"
-      >
-        Shop Hats
-      </a>
-    </div>
-
-  </div>
-</section>
-      {/* KEEP THE REST OF YOUR FILE EXACTLY THE SAME */}
+      {/* MODAL */}
+      {selectedItem && (
+        <div className="fixed inset-0 bg-black/90 flex items-center justify-center">
+          <img src={selectedItem.image} className="max-h-[80vh]" />
+        </div>
+      )}
 
     </main>
   );
