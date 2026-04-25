@@ -97,25 +97,32 @@ const questions = [
 function Layout({ children, flash }) {
   return (
     <main className="relative min-h-screen overflow-hidden bg-black text-white">
+      {/* BACKGROUND IMAGE */}
       <div className="absolute inset-0">
         <img
           src="/training-room-bg.png"
           alt="B40 Training Room"
-          className="h-full w-full object-cover object-center"
+          className="h-full w-full object-cover object-center brightness-[1.25] contrast-[1.1]"
         />
       </div>
 
-      <div className="absolute inset-0 bg-black/75" />
-      <div className="absolute inset-0 animate-pulse bg-[radial-gradient(circle_at_center,rgba(220,38,38,0.22),transparent_65%)]" />
-      <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.35),rgba(0,0,0,0.9))]" />
+      {/* LIGHTER OVERLAYS SO THE ROOM STAYS VISIBLE */}
+      <div className="absolute inset-0 bg-black/40" />
 
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(220,38,38,0.14),transparent_70%)]" />
+
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40" />
+
+      {/* SMOKE / HAZE */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -left-24 top-0 h-full w-[140%] animate-[smoke_18s_linear_infinite] bg-[radial-gradient(circle,rgba(255,255,255,0.045),transparent_65%)]" />
-        <div className="absolute -right-24 bottom-0 h-full w-[140%] animate-[smoke_26s_linear_infinite_reverse] bg-[radial-gradient(circle,rgba(255,255,255,0.035),transparent_70%)]" />
+        <div className="absolute -left-24 top-0 h-full w-[140%] animate-[smoke_18s_linear_infinite] bg-[radial-gradient(circle,rgba(255,255,255,0.04),transparent_65%)]" />
+        <div className="absolute -right-24 bottom-0 h-full w-[140%] animate-[smoke_26s_linear_infinite_reverse] bg-[radial-gradient(circle,rgba(255,255,255,0.03),transparent_70%)]" />
       </div>
 
-      <div className="pointer-events-none absolute inset-0 opacity-[0.06] bg-[linear-gradient(rgba(255,255,255,0.35)_1px,transparent_1px)] bg-[size:100%_5px]" />
+      {/* SUBTLE SCAN LINES */}
+      <div className="pointer-events-none absolute inset-0 opacity-[0.035] bg-[linear-gradient(rgba(255,255,255,0.35)_1px,transparent_1px)] bg-[size:100%_5px]" />
 
+      {/* ANSWER FLASH */}
       {flash && (
         <div className="pointer-events-none absolute inset-0 z-20 animate-[redFlash_0.18s_ease-out_forwards] bg-red-600/20" />
       )}
@@ -223,10 +230,13 @@ export default function TrainingRoomPage() {
     }, 1000);
   }
 
+  const cardClass =
+    "w-full max-w-md rounded-3xl border border-white/10 bg-black/65 shadow-[0_0_60px_rgba(0,0,0,0.8)] backdrop-blur-md";
+
   if (!started) {
     return (
       <Layout flash={flash}>
-        <section className="w-full max-w-md rounded-3xl border border-white/10 bg-black/60 p-6 text-center shadow-2xl backdrop-blur-md">
+        <section className={`${cardClass} p-6 text-center`}>
           <p className="mb-4 text-[10px] uppercase tracking-[0.4em] text-red-400/70">
             Dealer Training Portal
           </p>
@@ -262,7 +272,7 @@ export default function TrainingRoomPage() {
     return (
       <Layout flash={flash}>
         <section
-          className={`w-full max-w-md rounded-3xl border border-red-500/30 bg-black/70 p-6 text-center shadow-2xl backdrop-blur-md ${
+          className={`${cardClass} p-6 text-center border-red-500/30 ${
             shake ? "animate-shake" : ""
           }`}
         >
@@ -334,7 +344,7 @@ export default function TrainingRoomPage() {
   if (finished && !passed) {
     return (
       <Layout flash={flash}>
-        <section className="w-full max-w-md rounded-3xl border border-white/10 bg-black/65 p-6 text-center shadow-2xl backdrop-blur-md">
+        <section className={`${cardClass} p-6 text-center`}>
           <p className="mb-4 text-[10px] uppercase tracking-[0.4em] text-red-400/70">
             Assessment Failed
           </p>
@@ -366,7 +376,7 @@ export default function TrainingRoomPage() {
 
   return (
     <Layout flash={flash}>
-      <section className="w-full max-w-md rounded-3xl border border-white/10 bg-black/60 p-5 shadow-2xl backdrop-blur-md">
+      <section className={`${cardClass} p-5`}>
         <p className="mb-2 text-center text-[9px] uppercase tracking-[0.3em] text-white/30">
           Session Active • Performance Tracking
         </p>
@@ -386,7 +396,7 @@ export default function TrainingRoomPage() {
 
         {showSting ? (
           <div className="flex h-[260px] items-center justify-center text-center">
-            <p className="animate-pulse text-3xl font-black leading-tight text-red-500 drop-shadow-[0_0_18px_rgba(239,68,68,0.45)]">
+            <p className="animate-flicker text-3xl font-black leading-tight text-red-500 drop-shadow-[0_0_18px_rgba(239,68,68,0.45)]">
               {q.sting}
             </p>
           </div>
