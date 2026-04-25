@@ -13,15 +13,72 @@ const LockIcon = ({ className = "h-4 w-4" }) => (
 export default function DealershipSeriesPage() {
   return (
     <main className="relative min-h-[100dvh] overflow-x-hidden bg-black text-white">
+      <style jsx global>{`
+        @keyframes b40HeadlightPass {
+          0% {
+            transform: translateX(-140%) skewX(-18deg);
+            opacity: 0;
+          }
+          14% {
+            opacity: 0;
+          }
+          28% {
+            opacity: 0.14;
+          }
+          42% {
+            opacity: 0.06;
+          }
+          56% {
+            transform: translateX(140%) skewX(-18deg);
+            opacity: 0;
+          }
+          100% {
+            transform: translateX(140%) skewX(-18deg);
+            opacity: 0;
+          }
+        }
+
+        @keyframes b40SecondHeadlightPass {
+          0% {
+            transform: translateX(140%) skewX(16deg);
+            opacity: 0;
+          }
+          46% {
+            opacity: 0;
+          }
+          60% {
+            opacity: 0.1;
+          }
+          74% {
+            opacity: 0.05;
+          }
+          88% {
+            transform: translateX(-140%) skewX(16deg);
+            opacity: 0;
+          }
+          100% {
+            transform: translateX(-140%) skewX(16deg);
+            opacity: 0;
+          }
+        }
+      `}</style>
+
       {/* Background */}
       <div className="fixed inset-0 z-0 bg-[url('/images/frontline-showroom-bg.png')] bg-cover bg-center" />
-      <div className="fixed inset-0 z-0 bg-black/70" />
+      <div className="fixed inset-0 z-0 bg-black/20" />
+      <div className="fixed inset-0 z-0 bg-gradient-to-b from-black/45 via-transparent to-black/20" />
+
+      {/* PASSING HEADLIGHTS */}
+      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+        <div className="absolute top-[18%] left-0 h-[42vh] w-[55vw] bg-gradient-to-r from-transparent via-white/15 to-transparent blur-2xl animate-[b40HeadlightPass_16s_ease-in-out_infinite]" />
+        <div className="absolute bottom-[12%] right-0 h-[32vh] w-[45vw] bg-gradient-to-r from-transparent via-amber-200/10 to-transparent blur-2xl animate-[b40SecondHeadlightPass_22s_ease-in-out_infinite]" />
+      </div>
 
       <div className="relative z-10">
         {/* HERO */}
-        <section className="min-h-[100dvh] border-b border-white/10 px-5 pb-20 pt-[calc(env(safe-area-inset-top)+5rem)] md:px-10 md:py-28">
+        <section className="min-h-[100dvh] px-5 pb-20 pt-[calc(env(safe-area-inset-top)+5rem)] md:px-10 md:py-28">
           <div className="mx-auto flex min-h-[calc(100dvh-6rem)] max-w-7xl items-center">
-            <div className="w-full max-w-4xl rounded-2xl border border-white/5 bg-black/30 p-6 drop-shadow-2xl sm:p-8">
+            <div className="w-full max-w-4xl rounded-2xl border border-white/5 bg-black/20 p-6 sm:p-8">
               <p className="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-white/70">
                 B40 DEALERSHIP SERIES
               </p>
@@ -45,14 +102,14 @@ export default function DealershipSeriesPage() {
 
                 <Link
                   href="/dealership-series/service-bay"
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-white/30 px-5 py-4 font-semibold text-white transition hover:bg-white/10 sm:w-auto"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-white/10 bg-black/20 px-5 py-4 font-semibold text-white transition hover:bg-white/10 sm:w-auto"
                 >
                   Enter Service Bay →
                 </Link>
 
                 <Link
                   href="/dealership-series/backlot"
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-white/30 px-5 py-4 font-semibold text-white transition hover:bg-white/10 sm:w-auto"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-white/10 bg-black/20 px-5 py-4 font-semibold text-white transition hover:bg-white/10 sm:w-auto"
                 >
                   Enter Back Lot <LockIcon />
                 </Link>
@@ -61,7 +118,7 @@ export default function DealershipSeriesPage() {
               <div className="mt-6">
                 <Link
                   href="/lot-stretcher"
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-white/10 px-5 py-3 text-sm font-medium text-white/35 transition hover:border-white/25 hover:text-white/60 sm:w-auto"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-white/10 bg-black/20 px-5 py-3 text-sm font-medium text-white/35 transition hover:border-white/25 hover:text-white/60 sm:w-auto"
                 >
                   Go find the lot stretcher →
                 </Link>
@@ -71,9 +128,9 @@ export default function DealershipSeriesPage() {
         </section>
 
         {/* CREDIBILITY */}
-        <section className="border-b border-white/10 px-5 py-20 md:px-10 md:py-28">
+        <section className="px-5 py-20 md:px-10 md:py-28">
           <div className="mx-auto max-w-7xl">
-            <div className="grid gap-8 rounded-2xl border border-white/10 bg-black/30 p-6 sm:p-8 md:grid-cols-[0.8fr_1.2fr] md:p-10">
+            <div className="grid gap-8 rounded-2xl border border-white/5 bg-black/20 p-6 sm:p-8 md:grid-cols-[0.8fr_1.2fr] md:p-10">
               <div>
                 <p className="text-sm uppercase tracking-[0.24em] text-white/55">
                   Built from experience
@@ -129,7 +186,7 @@ export default function DealershipSeriesPage() {
         {/* THREE LANES */}
         <section className="px-5 py-20 md:px-10 md:py-28">
           <div className="mx-auto max-w-7xl">
-            <div className="mb-10 max-w-3xl rounded-2xl border border-white/5 bg-black/30 p-6 sm:p-8">
+            <div className="mb-10 max-w-3xl rounded-2xl border border-white/5 bg-black/20 p-6 sm:p-8">
               <p className="text-sm uppercase tracking-[0.24em] text-white/55">
                 Three distinct lanes
               </p>
@@ -140,7 +197,7 @@ export default function DealershipSeriesPage() {
             </div>
 
             <div className="grid gap-6 md:grid-cols-3">
-              <div className="rounded-2xl border border-white/10 bg-black/30 p-5 md:p-7">
+              <div className="rounded-2xl border border-white/5 bg-black/20 p-5 md:p-7">
                 <p className="text-sm uppercase tracking-[0.2em] text-white/55">
                   Public Lane
                 </p>
@@ -157,7 +214,7 @@ export default function DealershipSeriesPage() {
                 </Link>
               </div>
 
-              <div className="rounded-2xl border border-white/10 bg-black/30 p-5 md:p-7">
+              <div className="rounded-2xl border border-white/5 bg-black/20 p-5 md:p-7">
                 <p className="text-sm uppercase tracking-[0.2em] text-white/55">
                   Fixed Ops
                 </p>
@@ -168,13 +225,13 @@ export default function DealershipSeriesPage() {
                 </p>
                 <Link
                   href="/dealership-series/service-bay"
-                  className="mt-5 inline-flex w-full justify-center rounded-2xl border border-white/30 px-5 py-3 font-semibold text-white"
+                  className="mt-5 inline-flex w-full justify-center rounded-2xl border border-white/10 bg-black/20 px-5 py-3 font-semibold text-white"
                 >
                   Enter Service Bay →
                 </Link>
               </div>
 
-              <div className="rounded-2xl border border-white/10 bg-black/30 p-5 md:p-7">
+              <div className="rounded-2xl border border-white/5 bg-black/20 p-5 md:p-7">
                 <p className="text-sm uppercase tracking-[0.2em] text-white/55">
                   Private Lane
                 </p>
@@ -184,7 +241,7 @@ export default function DealershipSeriesPage() {
                 </p>
                 <Link
                   href="/dealership-series/backlot"
-                  className="mt-5 inline-flex w-full justify-center rounded-2xl border border-white/30 px-5 py-3 font-semibold text-white"
+                  className="mt-5 inline-flex w-full justify-center rounded-2xl border border-white/10 bg-black/20 px-5 py-3 font-semibold text-white"
                 >
                   Enter Password <LockIcon />
                 </Link>
