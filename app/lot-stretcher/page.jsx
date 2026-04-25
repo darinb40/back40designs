@@ -36,14 +36,14 @@ export default function LotStretcherPage() {
     sequence.forEach((line, i) => {
       const timer = setTimeout(() => {
         setLines((prev) => [...prev, line]);
-      }, i * 850);
+      }, i * 1500);
 
       timers.push(timer);
     });
 
     const revealTimer = setTimeout(() => {
       setStage("reveal");
-    }, sequence.length * 850 + 1400);
+    }, sequence.length * 1500 + 1400);
 
     timers.push(revealTimer);
 
