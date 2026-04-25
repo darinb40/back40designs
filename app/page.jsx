@@ -77,14 +77,6 @@ export default function Back40LandingPage() {
       link: "/gallery",
     },
     {
-      title: "Dealership Series",
-      eyebrow: "Front Line + Service Bay + Back Lot",
-      description: "A collection built for the car business — showroom clean, shop-floor tough, and insider-only where it belongs.",
-      icon: StoreIcon,
-      image: "/images/hat-lineup.jpg",
-      link: "/dealership-series",
-    },
-    {
       title: "Legacy Builds",
       eyebrow: "One-Off Projects",
       description: "Story-driven pieces built from places, memories, family history, and meaningful details worth preserving.",
@@ -204,8 +196,8 @@ export default function Back40LandingPage() {
 
           <nav className="hidden items-center gap-8 text-sm text-stone-300 md:flex">
             <a href="#pillars" className="transition hover:text-white">Pillars</a>
+            <a href="#dealership-series" className="transition hover:text-white">Dealership Series</a>
             <a href="#collections" className="transition hover:text-white">Collections</a>
-            <a href="/dealership-series" className="transition hover:text-white">Dealership Series</a>
             <a href="#process" className="transition hover:text-white">Process</a>
             <a href="/gallery" className="transition hover:text-white">Gallery</a>
             <a href="#story" className="transition hover:text-white">Story</a>
@@ -222,14 +214,14 @@ export default function Back40LandingPage() {
             </a>
             <a
               href={ctaLink}
-              className="hidden items-center gap-2 rounded-2xl bg-white px-3 py-2 text-xs font-semibold text-stone-950 shadow-lg transition hover:bg-stone-100 hover:-translate-y-0.5 md:inline-flex"
+              className="hidden items-center gap-2 rounded-2xl bg-white px-3 py-2 text-xs font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100 md:inline-flex"
             >
               Start a Project <ArrowRight className="h-4 w-4" />
             </a>
 
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden rounded-lg p-2 text-stone-300 transition hover:bg-white/5"
+              className="rounded-lg p-2 text-stone-300 transition hover:bg-white/5 md:hidden"
               aria-label="Toggle menu"
             >
               {mobileMenuOpen ? <CloseIcon className="h-5 w-5" /> : <MenuIcon className="h-5 w-5" />}
@@ -241,8 +233,8 @@ export default function Back40LandingPage() {
           <div className="border-t border-white/10 bg-stone-900/95 md:hidden">
             <nav className="flex flex-col gap-4 px-4 py-6">
               <a href="#pillars" className="text-sm text-stone-300 transition hover:text-white" onClick={() => setMobileMenuOpen(false)}>Pillars</a>
+              <a href="#dealership-series" className="text-sm text-stone-300 transition hover:text-white" onClick={() => setMobileMenuOpen(false)}>Dealership Series</a>
               <a href="#collections" className="text-sm text-stone-300 transition hover:text-white" onClick={() => setMobileMenuOpen(false)}>Collections</a>
-              <a href="/dealership-series" className="text-sm text-stone-300 transition hover:text-white" onClick={() => setMobileMenuOpen(false)}>Dealership Series</a>
               <a href="#process" className="text-sm text-stone-300 transition hover:text-white" onClick={() => setMobileMenuOpen(false)}>Process</a>
               <a href="/gallery" className="text-sm text-stone-300 transition hover:text-white" onClick={() => setMobileMenuOpen(false)}>Gallery</a>
               <a href="#story" className="text-sm text-stone-300 transition hover:text-white" onClick={() => setMobileMenuOpen(false)}>Story</a>
@@ -288,7 +280,7 @@ export default function Back40LandingPage() {
             <div className="mt-8 flex flex-wrap gap-3">
               <a
                 href={ctaLink}
-                className="inline-flex items-center gap-2 rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-stone-950 shadow-lg transition hover:bg-stone-100 hover:-translate-y-0.5"
+                className="inline-flex items-center gap-2 rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100"
               >
                 Request a Quote <MailIcon className="h-4 w-4" />
               </a>
@@ -379,6 +371,79 @@ export default function Back40LandingPage() {
         </div>
       </section>
 
+      <section id="dealership-series" className="relative overflow-hidden border-b border-white/10">
+        <HeavyTopoOverlay opacity="opacity-55" dark="bg-black/80" />
+
+        <div className="relative z-10 mx-auto grid max-w-7xl gap-8 px-4 py-16 md:px-10 md:py-24 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+          <div>
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.32em] text-red-400 md:text-sm">
+              New Collection
+            </p>
+
+            <h2 className="max-w-3xl text-4xl font-bold leading-tight tracking-tight text-white md:text-6xl">
+              B40 Dealership Series
+            </h2>
+
+            <p className="mt-5 max-w-2xl text-base leading-7 text-stone-300 md:text-xl md:leading-8">
+              Built for the people who live inside the car business — from the clean front line,
+              to the service bay, to the back lot where the real stories happen.
+            </p>
+
+            <div className="mt-8 grid gap-3 sm:grid-cols-3">
+              {[
+                ["Front Line", "Clean, customer-facing dealership gear."],
+                ["Service Bay", "Built for the techs and the shop floor."],
+                ["Back Lot", "Insider-only car business culture."],
+              ].map(([title, text]) => (
+                <div
+                  key={title}
+                  className="rounded-2xl border border-white/10 bg-black/45 p-4 backdrop-blur"
+                >
+                  <h3 className="text-lg font-semibold text-white">{title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-stone-400">{text}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a
+                href="/dealership-series"
+                className="inline-flex items-center gap-2 rounded-2xl bg-white px-6 py-3 text-sm font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100"
+              >
+                Enter the Series <ArrowRight className="h-4 w-4" />
+              </a>
+
+              <a
+                href="/dealership-series/backlot"
+                className="inline-flex items-center gap-2 rounded-2xl border border-white/15 px-6 py-3 text-sm font-semibold text-stone-100 transition hover:bg-white/5"
+              >
+                Back Lot Access
+              </a>
+            </div>
+          </div>
+
+          <div className="rounded-[2rem] border border-white/10 bg-black/45 p-3 shadow-2xl backdrop-blur md:p-5">
+            <div className="overflow-hidden rounded-[1.5rem] border border-white/10 bg-stone-950">
+              <img
+                src="/images/hat-lineup.jpg"
+                alt="B40 Dealership Series hat lineup"
+                className="h-full w-full object-cover"
+              />
+            </div>
+
+            <div className="mt-4 rounded-2xl border border-white/10 bg-white/5 p-4">
+              <p className="text-xs uppercase tracking-[0.25em] text-stone-500">
+                Built by one of you
+              </p>
+              <p className="mt-2 text-sm leading-6 text-stone-300">
+                Sales floor. Finance. Management. Back lot. This collection was made
+                from inside the business — not from a catalog.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section id="pillars" className="mx-auto max-w-7xl px-4 py-16 md:px-10 md:py-20">
         <div className="mb-10 max-w-3xl">
           <p className="text-sm uppercase tracking-[0.25em] text-stone-400">The foundation</p>
@@ -445,7 +510,7 @@ export default function Back40LandingPage() {
           </p>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4">
+        <div className="grid gap-4 md:grid-cols-3 md:gap-6">
           {collections.map((item) => {
             const Icon = item.icon;
             return (
@@ -472,43 +537,6 @@ export default function Back40LandingPage() {
               </a>
             );
           })}
-        </div>
-      </section>
-
-      <section className="relative border-y border-white/10">
-        <HeavyTopoOverlay opacity="opacity-45" dark="bg-black/70" />
-
-        <div className="relative z-10 mx-auto max-w-7xl px-4 py-16 md:px-10 md:py-20">
-          <div className="grid gap-6 rounded-[2rem] border border-white/10 bg-black/45 p-6 backdrop-blur md:grid-cols-[0.95fr_1.05fr] md:gap-8 md:p-10">
-            <div>
-              <p className="text-sm uppercase tracking-[0.22em] text-stone-400">New Collection</p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-4xl">
-                B40 Dealership Series
-              </h2>
-            </div>
-
-            <div className="space-y-5 text-sm leading-7 text-stone-300 md:text-base md:leading-8">
-              <p>
-                Built specifically for the car business, the Dealership Series now splits into three lanes:
-                <span className="font-semibold text-white"> Front Line</span> for clean, customer-facing pieces,
-                <span className="font-semibold text-white"> Service Bay</span> for the ones who keep it running,
-                and <span className="font-semibold text-white"> Back Lot</span> for insider-only culture.
-              </p>
-
-              <p className="text-stone-400">
-                Three lanes. One business. One collection built by someone who actually knows the car world.
-              </p>
-
-              <div className="flex flex-wrap gap-3 pt-2">
-                <a
-                  href="/dealership-series"
-                  className="inline-flex items-center gap-2 rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100"
-                >
-                  Explore the Series <ArrowRight className="h-4 w-4" />
-                </a>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -711,7 +739,7 @@ export default function Back40LandingPage() {
                 required
                 className="flex-1 rounded-2xl border border-white/10 bg-white/5 px-5 py-3 text-sm text-white placeholder-stone-500 transition focus:border-white/30 focus:outline-none"
               />
-              <button type="submit" className="rounded-2xl bg-white px-6 py-3 text-sm font-semibold text-stone-950 shadow-lg transition hover:bg-stone-100 hover:-translate-y-0.5">
+              <button type="submit" className="rounded-2xl bg-white px-6 py-3 text-sm font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100">
                 Sign Up
               </button>
             </form>
