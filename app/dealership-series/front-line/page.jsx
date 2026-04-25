@@ -18,16 +18,71 @@ export default function FrontLinePage() {
 
   return (
     <main className="relative min-h-[100dvh] text-white overflow-x-hidden">
-      
+      <style jsx global>{`
+        @keyframes b40FrontHeadlightPass {
+          0% {
+            transform: translateX(-140%) skewX(-18deg);
+            opacity: 0;
+          }
+          14% {
+            opacity: 0;
+          }
+          26% {
+            opacity: 0.14;
+          }
+          40% {
+            opacity: 0.07;
+          }
+          55% {
+            transform: translateX(140%) skewX(-18deg);
+            opacity: 0;
+          }
+          100% {
+            transform: translateX(140%) skewX(-18deg);
+            opacity: 0;
+          }
+        }
+
+        @keyframes b40FrontSecondHeadlightPass {
+          0% {
+            transform: translateX(140%) skewX(16deg);
+            opacity: 0;
+          }
+          48% {
+            opacity: 0;
+          }
+          62% {
+            opacity: 0.1;
+          }
+          76% {
+            opacity: 0.05;
+          }
+          88% {
+            transform: translateX(-140%) skewX(16deg);
+            opacity: 0;
+          }
+          100% {
+            transform: translateX(-140%) skewX(16deg);
+            opacity: 0;
+          }
+        }
+      `}</style>
+
       {/* BACKGROUND */}
       <div
-        className="fixed inset-0 -z-20 bg-cover bg-center"
+        className="fixed inset-0 -z-30 bg-cover bg-center"
         style={{ backgroundImage: "url('/front-line.png')" }}
       />
 
       {/* LIGHT ATMOSPHERE */}
-      <div className="fixed inset-0 -z-10 bg-black/5" />
-      <div className="fixed inset-0 -z-10 bg-gradient-to-b from-black/40 via-transparent to-transparent" />
+      <div className="fixed inset-0 -z-20 bg-black/5" />
+      <div className="fixed inset-0 -z-20 bg-gradient-to-b from-black/40 via-transparent to-transparent" />
+
+      {/* PASSING HEADLIGHTS */}
+      <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+        <div className="absolute top-[18%] left-0 h-[42vh] w-[55vw] bg-gradient-to-r from-transparent via-white/15 to-transparent blur-2xl animate-[b40FrontHeadlightPass_16s_ease-in-out_infinite]" />
+        <div className="absolute bottom-[14%] right-0 h-[32vh] w-[45vw] bg-gradient-to-r from-transparent via-amber-200/10 to-transparent blur-2xl animate-[b40FrontSecondHeadlightPass_21s_ease-in-out_infinite]" />
+      </div>
 
       {/* HERO */}
       <section className="min-h-[100dvh] flex items-center">
