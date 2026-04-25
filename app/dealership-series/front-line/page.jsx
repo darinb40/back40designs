@@ -191,23 +191,18 @@ export default function FrontLinePage() {
             </h2>
           </div>
 
-          <div className="flex flex-col gap-16">
+          <div className="grid gap-6 md:grid-cols-3">
             {hats.map((hat) => (
-              <div key={hat.name} className="flex flex-col gap-5">
-                <div className="overflow-hidden rounded-2xl border border-white/10">
+              <div key={hat.name} className="rounded-2xl border border-white/5 bg-black/20 p-5 md:p-7">
+                <p className="text-sm uppercase tracking-[0.2em] text-white/55">Front Line</p>
+                <h3 className="mt-3 text-xl font-semibold">{hat.name}</h3>
+                <p className="mt-3 text-sm leading-6 text-white/75">{hat.text}</p>
+                <div className="mt-5 overflow-hidden rounded-xl border border-white/10">
                   <img
                     src="/images/coming-soon.PNG"
                     alt={`${hat.name} — Coming Soon`}
                     className="w-full object-cover max-h-64"
                   />
-                </div>
-                <div className="max-w-md">
-                  <h3 className="text-xl sm:text-2xl font-bold mb-2">
-                    {hat.name}
-                  </h3>
-                  <p className="text-white/65 leading-relaxed text-sm sm:text-base bg-black/25 inline-block px-4 py-3 rounded-xl border border-white/5">
-                    {hat.text}
-                  </p>
                 </div>
               </div>
             ))}
