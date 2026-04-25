@@ -34,7 +34,7 @@ function LineTopoOverlay({ opacity = "opacity-20", dark = "bg-black/75" }) {
 // Uses Formspree (free tier) — replace YOUR_FORM_ID with your actual ID from formspree.io
 // To set up: go to formspree.io, create a free account, create a form,
 // and paste the form ID (looks like "xpwzgkrb") into FORMSPREE_ID below.
-const FORMSPREE_ID = "xzdywzvy";
+const FORMSPREE_ID = "YOUR_FORM_ID";
 
 function ContactForm({ light = false }) {
   const [status, setStatus] = React.useState("idle"); // idle | sending | success | error
@@ -371,6 +371,7 @@ export default function Back40LandingPage() {
           {/* Desktop nav */}
           <nav className="hidden items-center gap-6 text-sm text-stone-300 md:flex">
             <a href="#collections" className="transition hover:text-white">Collections</a>
+            <a href="/dealership-series" className="transition hover:text-white">Dealership Series</a>
             <a href="#process" className="transition hover:text-white">Process</a>
             <a href="/gallery" className="transition hover:text-white">Gallery</a>
             <a href="#story" className="transition hover:text-white">Story</a>
@@ -408,6 +409,7 @@ export default function Back40LandingPage() {
             <nav className="flex flex-col gap-4 text-sm text-stone-300">
               {[
                 ["#collections", "Collections"],
+                ["/dealership-series", "Dealership Series"],
                 ["#process", "Process"],
                 ["/gallery", "Gallery"],
                 ["#story", "Story"],
