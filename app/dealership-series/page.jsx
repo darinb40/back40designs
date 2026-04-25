@@ -256,7 +256,7 @@ export default function DealershipSeriesPage() {
                 </p>
                 <div className="mt-5 overflow-hidden rounded-xl border border-white/10">
                   <img
-                    src="/images/coming-soon.png"
+                    src="/images/coming-soon.PNG"
                     alt="Front Line — Coming Soon"
                     className="w-full object-cover"
                   />
@@ -277,7 +277,7 @@ export default function DealershipSeriesPage() {
                 </p>
                 <div className="mt-5 overflow-hidden rounded-xl border border-white/10">
                   <img
-                    src="/images/coming-soon.png"
+                    src="/images/coming-soon.PNG"
                     alt="Service Bay — Coming Soon"
                     className="w-full object-cover"
                   />
@@ -298,7 +298,7 @@ export default function DealershipSeriesPage() {
                 </p>
                 <div className="mt-5 overflow-hidden rounded-xl border border-white/10">
                   <img
-                    src="/images/coming-soon.png"
+                    src="/images/coming-soon.PNG"
                     alt="Back Lot — Coming Soon"
                     className="w-full object-cover"
                   />
