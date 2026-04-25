@@ -12,28 +12,29 @@ const LockIcon = ({ className = "h-4 w-4" }) => (
 
 export default function DealershipSeriesPage() {
   return (
-    <div className="relative min-h-screen text-white">
+    <main className="relative min-h-[100dvh] overflow-x-hidden bg-black text-white">
+      {/* Background */}
       <div className="fixed inset-0 -z-10 bg-[url('/images/frontline-showroom-bg.png')] bg-cover bg-center" />
-      <div className="fixed inset-0 -z-10 bg-black/60" />
+      <div className="fixed inset-0 -z-10 bg-black/70" />
 
       {/* HERO */}
-      <section className="min-h-[100svh] border-b border-white/10">
-        <div className="mx-auto flex min-h-[100svh] max-w-7xl items-center px-5 py-16 md:px-10 md:py-20">
+      <section className="min-h-[100dvh] border-b border-white/10 px-5 pb-16 pt-[calc(env(safe-area-inset-top)+4rem)] md:px-10 md:py-24">
+        <div className="mx-auto flex min-h-[calc(100dvh-6rem)] max-w-7xl items-center">
           <div className="w-full max-w-5xl drop-shadow-2xl">
-            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-white/75">
-              B40 Dealership Series
+            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-white/70">
+              B40 DEALERSHIP SERIES
             </p>
 
-            <h1 className="text-3xl font-semibold tracking-tight sm:text-5xl md:text-7xl">
+            <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl md:text-7xl">
               Built inside the car business.
             </h1>
 
-            <p className="mt-4 max-w-3xl text-base leading-7 text-white/85 sm:text-lg sm:leading-8 md:mt-6 md:text-xl">
+            <p className="mt-5 max-w-3xl text-base leading-7 text-white/85 sm:text-lg sm:leading-8 md:text-xl">
               A dealership-driven headwear line built for the people on the
               floor, at the desk, in finance, and in the service bay.
             </p>
 
-            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap md:mt-8">
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <Link
                 href="/dealership-series/front-line"
                 className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-white px-5 py-3.5 font-semibold text-black transition hover:scale-[1.02] sm:w-auto"
@@ -59,7 +60,7 @@ export default function DealershipSeriesPage() {
             <div className="mt-4">
               <Link
                 href="/lot-stretcher"
-                className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-white/10 px-5 py-3 text-sm font-medium text-white/30 transition hover:border-white/20 hover:text-white/50 sm:w-auto"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-white/10 px-5 py-3 text-sm font-medium text-white/35 transition hover:border-white/25 hover:text-white/60 sm:w-auto"
               >
                 Go find the lot stretcher →
               </Link>
@@ -69,11 +70,11 @@ export default function DealershipSeriesPage() {
       </section>
 
       {/* CREDIBILITY BLOCK */}
-      <section className="border-b border-white/10 bg-black/50 px-5 py-16 backdrop-blur-sm md:px-10 md:py-20">
+      <section className="border-b border-white/10 bg-black/60 px-5 py-16 backdrop-blur-sm md:px-10 md:py-24">
         <div className="mx-auto max-w-7xl">
           <div className="grid gap-8 rounded-[2rem] border border-white/15 bg-white/5 p-6 shadow-2xl backdrop-blur sm:p-8 md:grid-cols-[0.8fr_1.2fr] md:p-10">
             <div>
-              <p className="text-sm uppercase tracking-[0.24em] text-white/60">
+              <p className="text-sm uppercase tracking-[0.24em] text-white/55">
                 Built from experience
               </p>
 
@@ -125,10 +126,10 @@ export default function DealershipSeriesPage() {
       </section>
 
       {/* THREE LANES */}
-      <section className="bg-black/55 px-5 py-16 backdrop-blur-sm md:px-10 md:py-20">
+      <section className="bg-black/65 px-5 py-16 backdrop-blur-sm md:px-10 md:py-24">
         <div className="mx-auto max-w-7xl">
           <div className="mb-8 max-w-3xl md:mb-10">
-            <p className="text-sm uppercase tracking-[0.24em] text-white/60">
+            <p className="text-sm uppercase tracking-[0.24em] text-white/55">
               Three distinct lanes
             </p>
 
@@ -138,8 +139,8 @@ export default function DealershipSeriesPage() {
           </div>
 
           <div className="grid gap-5 sm:grid-cols-2 md:grid-cols-3">
-            <div className="rounded-3xl border border-white/20 bg-black/45 p-6 backdrop-blur sm:p-7">
-              <p className="text-sm uppercase tracking-[0.2em] text-white/60">
+            <div className="rounded-3xl border border-white/15 bg-black/45 p-6 backdrop-blur sm:p-7">
+              <p className="text-sm uppercase tracking-[0.2em] text-white/55">
                 Public Lane
               </p>
 
@@ -147,21 +148,21 @@ export default function DealershipSeriesPage() {
                 Front Line
               </h3>
 
-              <p className="mt-3 text-sm leading-6 text-white/80 sm:text-base">
+              <p className="mt-3 text-sm leading-6 text-white/75 sm:text-base">
                 Clean dealership-focused headwear built for salespeople,
                 managers, events, customer-facing teams, and store branding.
               </p>
 
               <Link
                 href="/dealership-series/front-line"
-                className="mt-5 inline-flex w-full justify-center rounded-2xl bg-white px-5 py-3 font-semibold text-black sm:w-auto"
+                className="mt-5 inline-flex w-full justify-center rounded-2xl bg-white px-5 py-3 font-semibold text-black transition hover:scale-[1.02] sm:w-auto"
               >
                 View Front Line →
               </Link>
             </div>
 
-            <div className="rounded-3xl border border-white/20 bg-black/45 p-6 backdrop-blur sm:p-7">
-              <p className="text-sm uppercase tracking-[0.2em] text-white/60">
+            <div className="rounded-3xl border border-white/15 bg-black/45 p-6 backdrop-blur sm:p-7">
+              <p className="text-sm uppercase tracking-[0.2em] text-white/55">
                 Fixed Ops
               </p>
 
@@ -169,21 +170,21 @@ export default function DealershipSeriesPage() {
                 Service Bay
               </h3>
 
-              <p className="mt-3 text-sm leading-6 text-white/80 sm:text-base">
+              <p className="mt-3 text-sm leading-6 text-white/75 sm:text-base">
                 Built for advisors, techs, service managers, parts teams, and
                 the people who keep the back half of the store moving.
               </p>
 
               <Link
                 href="/dealership-series/service-bay"
-                className="mt-5 inline-flex w-full justify-center rounded-2xl border border-white/30 px-5 py-3 font-semibold text-white sm:w-auto"
+                className="mt-5 inline-flex w-full justify-center rounded-2xl border border-white/30 px-5 py-3 font-semibold text-white transition hover:bg-white/10 sm:w-auto"
               >
                 Enter Service Bay →
               </Link>
             </div>
 
-            <div className="rounded-3xl border border-white/20 bg-black/45 p-6 backdrop-blur sm:col-span-2 sm:p-7 md:col-span-1">
-              <p className="text-sm uppercase tracking-[0.2em] text-white/60">
+            <div className="rounded-3xl border border-white/15 bg-black/45 p-6 backdrop-blur sm:col-span-2 sm:p-7 md:col-span-1">
+              <p className="text-sm uppercase tracking-[0.2em] text-white/55">
                 Private Lane
               </p>
 
@@ -191,14 +192,14 @@ export default function DealershipSeriesPage() {
                 Back Lot
               </h3>
 
-              <p className="mt-3 text-sm leading-6 text-white/80 sm:text-base">
+              <p className="mt-3 text-sm leading-6 text-white/75 sm:text-base">
                 Password-protected. Not public. Not previewed. Built for select
                 dealership buyers only.
               </p>
 
               <Link
                 href="/dealership-series/backlot"
-                className="mt-5 inline-flex w-full justify-center rounded-2xl border border-white/30 px-5 py-3 font-semibold text-white sm:w-auto"
+                className="mt-5 inline-flex w-full justify-center rounded-2xl border border-white/30 px-5 py-3 font-semibold text-white transition hover:bg-white/10 sm:w-auto"
               >
                 Enter Password <LockIcon />
               </Link>
@@ -208,10 +209,10 @@ export default function DealershipSeriesPage() {
       </section>
 
       {/* BULK ORDERS */}
-      <section className="border-y border-white/10 bg-black/60 px-5 py-16 backdrop-blur-sm md:px-10 md:py-20">
+      <section className="border-y border-white/10 bg-black/70 px-5 py-16 backdrop-blur-sm md:px-10 md:py-24">
         <div className="mx-auto flex max-w-7xl flex-col gap-6 rounded-3xl border border-white/15 bg-white/5 p-6 sm:p-8 md:flex-row md:items-center md:justify-between md:p-10">
           <div className="max-w-3xl">
-            <p className="text-sm uppercase tracking-[0.24em] text-white/60">
+            <p className="text-sm uppercase tracking-[0.24em] text-white/55">
               Built for dealership orders
             </p>
 
@@ -219,7 +220,7 @@ export default function DealershipSeriesPage() {
               Designed once. Reordered easily.
             </h2>
 
-            <p className="mt-4 text-base text-white/80 sm:text-lg">
+            <p className="mt-4 text-base leading-7 text-white/80 sm:text-lg sm:leading-8">
               Built for team drops, event hats, store identity pieces, and
               dealership orders from small runs to larger bulk programs.
             </p>
@@ -227,12 +228,12 @@ export default function DealershipSeriesPage() {
 
           <a
             href="mailto:info@back40designco.com?subject=Dealer%20Series%20Order%20Inquiry"
-            className="inline-flex w-full justify-center rounded-2xl bg-white px-6 py-4 font-semibold text-black md:w-auto"
+            className="inline-flex w-full justify-center rounded-2xl bg-white px-6 py-4 font-semibold text-black transition hover:scale-[1.02] md:w-auto"
           >
             Start a Dealer Order →
           </a>
         </div>
       </section>
-    </div>
+    </main>
   );
 }
