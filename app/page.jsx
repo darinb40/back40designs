@@ -186,165 +186,181 @@ export default function Back40LandingPage() {
   return (
     <div className="min-h-screen bg-stone-950 text-stone-100">
       <header className="sticky top-0 z-40 border-b border-white/10 bg-stone-950/85 backdrop-blur">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-10">
-          <div>
-            <p className="text-base font-semibold tracking-tight md:text-lg">Back 40 Designs</p>
-            <p className="text-[10px] uppercase tracking-[0.28em] text-stone-400 md:text-xs">
-              Custom Patch Headwear
-            </p>
+  <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-10">
+    <div>
+      <p className="text-base font-semibold tracking-tight md:text-lg">Back 40 Designs</p>
+      <p className="text-[10px] uppercase tracking-[0.28em] text-stone-400 md:text-xs">
+        Custom Patch Headwear
+      </p>
+    </div>
+
+    <nav className="hidden items-center gap-8 text-sm text-stone-300 md:flex">
+      <a href="#pillars" className="transition hover:text-white">Pillars</a>
+      <a href="#dealership-series" className="transition hover:text-white">Dealership Series</a>
+      <a href="#collections" className="transition hover:text-white">Collections</a>
+      <a href="#process" className="transition hover:text-white">Process</a>
+      <a href="/gallery" className="transition hover:text-white">Gallery</a>
+      <a href="#story" className="transition hover:text-white">Story</a>
+    </nav>
+
+    <div className="flex items-center gap-2 md:gap-3">
+      <a
+        href={shopLink}
+        target="_blank"
+        rel="noreferrer"
+        className="hidden rounded-2xl border border-white/10 px-4 py-2 text-sm font-semibold text-stone-200 transition hover:bg-white/5 md:inline-flex"
+      >
+        Shop
+      </a>
+      <a
+        href={ctaLink}
+        className="hidden items-center gap-2 rounded-2xl bg-white px-3 py-2 text-xs font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100 md:inline-flex"
+      >
+        Start a Project →
+      </a>
+
+      <button
+        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        className="rounded-lg p-2 text-stone-300 transition hover:bg-white/5 md:hidden"
+      >
+        {mobileMenuOpen ? "✕" : "☰"}
+      </button>
+    </div>
+  </div>
+</header>
+
+{/* HERO */}
+<section className="relative overflow-hidden border-b border-white/10">
+  <HeavyTopoOverlay opacity="opacity-55" dark="bg-black/70" />
+
+  <div className="relative z-10 mx-auto grid max-w-7xl gap-10 px-4 pb-16 pt-10 md:px-10 md:pb-28 md:pt-18 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+    <div>
+      <img
+        src="/images/logo.png"
+        alt="Back 40 Designs"
+        className="mb-6 w-44 md:w-72 lg:w-80"
+      />
+
+      <p className="mb-4 text-xs font-semibold uppercase tracking-[0.28em] text-stone-400 md:text-sm">
+        A story worth wearing.
+      </p>
+
+      {/* 🔥 UPDATED HEADLINE */}
+      <h1 className="max-w-3xl text-4xl font-semibold leading-tight tracking-tight md:text-7xl">
+        Not just hats.
+        <br />
+        <span className="font-bold text-white">
+          Built for people who actually have something to say.
+        </span>
+      </h1>
+
+      <p className="mt-5 max-w-2xl text-base leading-7 text-stone-300 md:text-xl md:leading-8">
+        Back 40 Designs creates premium patch-forward hats for local brands, businesses,
+        and real-world stories that deserve more than generic merch.
+      </p>
+
+      {/* 🔥 BUTTON FIX */}
+      <div className="mt-8 flex flex-wrap gap-3">
+        <a
+          href={ctaLink}
+          className="inline-flex items-center gap-2 rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100"
+        >
+          Request a Quote →
+        </a>
+
+        <a
+          href={shopLink}
+          target="_blank"
+          rel="noreferrer"
+          className="inline-flex items-center gap-2 rounded-2xl border border-white/15 px-5 py-3 text-sm font-semibold text-stone-100 transition hover:bg-white/5"
+        >
+          Shop Hats
+        </a>
+      </div>
+
+      {/* 🔥 URGENCY LINE */}
+      <p className="mt-4 text-xs uppercase tracking-[0.25em] text-red-400">
+        Small batch builds. Limited runs. Once they're gone, they're gone.
+      </p>
+
+      <div className="mt-8 grid gap-3 sm:grid-cols-2">
+        {proofPoints.map((item) => (
+          <div
+            key={item}
+            className="rounded-2xl border border-white/10 bg-black/35 p-4 text-sm leading-6 text-stone-300 backdrop-blur"
+          >
+            {item}
+          </div>
+        ))}
+      </div>
+    </div>
+
+    {/* FEATURED BUILD (link added in part 2) */}
+    <div className="relative">
+      <div className="rounded-[2rem] border border-white/10 bg-black/45 p-3 shadow-2xl backdrop-blur md:p-6">
+        <div className="overflow-hidden rounded-[1.6rem] border border-white/10 bg-stone-950/80">
+
+          <div className="flex items-center justify-between border-b border-white/10 px-4 py-4 md:px-5">
+            <div>
+              <p className="text-[10px] uppercase tracking-[0.25em] text-stone-500 md:text-xs">
+                Featured Build
+              </p>
+              <h2 className="mt-2 text-xl font-semibold text-white md:text-2xl">
+                Trail Series — Dragon Scales
+              </h2>
+            </div>
+            <div className="rounded-full border border-white/10 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-stone-300">
+              Available Now
+            </div>
           </div>
 
-          <nav className="hidden items-center gap-8 text-sm text-stone-300 md:flex">
-            <a href="#pillars" className="transition hover:text-white">Pillars</a>
-            <a href="#dealership-series" className="transition hover:text-white">Dealership Series</a>
-            <a href="#collections" className="transition hover:text-white">Collections</a>
-            <a href="#process" className="transition hover:text-white">Process</a>
-            <a href="/gallery" className="transition hover:text-white">Gallery</a>
-            <a href="#story" className="transition hover:text-white">Story</a>
-          </nav>
-
-          <div className="flex items-center gap-2 md:gap-3">
-            <a
-              href={shopLink}
-              target="_blank"
-              rel="noreferrer"
-              className="hidden rounded-2xl border border-white/10 px-4 py-2 text-sm font-semibold text-stone-200 transition hover:bg-white/5 md:inline-flex"
-            >
-              Shop
-            </a>
-            <a
-              href={ctaLink}
-              className="hidden items-center gap-2 rounded-2xl bg-white px-3 py-2 text-xs font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100 md:inline-flex"
-            >
-              Start a Project <ArrowRight className="h-4 w-4" />
-            </a>
-
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="rounded-lg p-2 text-stone-300 transition hover:bg-white/5 md:hidden"
-              aria-label="Toggle menu"
-            >
-              {mobileMenuOpen ? <CloseIcon className="h-5 w-5" /> : <MenuIcon className="h-5 w-5" />}
-            </button>
-          </div>
-        </div>
-
-        {mobileMenuOpen && (
-          <div className="border-t border-white/10 bg-stone-900/95 md:hidden">
-            <nav className="flex flex-col gap-4 px-4 py-6">
-              <a href="#pillars" className="text-sm text-stone-300 transition hover:text-white" onClick={() => setMobileMenuOpen(false)}>Pillars</a>
-              <a href="#dealership-series" className="text-sm text-stone-300 transition hover:text-white" onClick={() => setMobileMenuOpen(false)}>Dealership Series</a>
-              <a href="#collections" className="text-sm text-stone-300 transition hover:text-white" onClick={() => setMobileMenuOpen(false)}>Collections</a>
-              <a href="#process" className="text-sm text-stone-300 transition hover:text-white" onClick={() => setMobileMenuOpen(false)}>Process</a>
-              <a href="/gallery" className="text-sm text-stone-300 transition hover:text-white" onClick={() => setMobileMenuOpen(false)}>Gallery</a>
-              <a href="#story" className="text-sm text-stone-300 transition hover:text-white" onClick={() => setMobileMenuOpen(false)}>Story</a>
-              <a href={shopLink} target="_blank" rel="noreferrer" className="text-sm text-stone-300 transition hover:text-white">
-                Shop
-              </a>
-              <a
-                href={ctaLink}
-                className="mt-2 inline-flex items-center gap-2 rounded-2xl bg-white px-4 py-2 text-sm font-semibold text-stone-950 transition hover:bg-stone-100"
-              >
-                Start a Project <ArrowRight className="h-4 w-4" />
-              </a>
-            </nav>
-          </div>
-        )}
-      </header>
-
-      <section className="relative overflow-hidden border-b border-white/10">
-        <HeavyTopoOverlay opacity="opacity-55" dark="bg-black/70" />
-
-        <div className="relative z-10 mx-auto grid max-w-7xl gap-10 px-4 pb-16 pt-10 md:px-10 md:pb-28 md:pt-18 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
-          <div>
+          <div className="px-3 py-4 md:px-5 md:py-6">
             <img
-              src="/images/logo.png"
-              alt="Back 40 Designs"
-              className="mb-6 w-44 md:w-72 lg:w-80"
+              src="/images/dragon-scales.jpg"
+              alt="Back 40 Trail Series Dragon Scales hat"
+              className="w-full max-w-[320px] rounded-[1.5rem] border border-white/10 object-contain shadow-2xl md:max-w-[460px] mx-auto"
             />
-
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.28em] text-stone-400 md:text-sm">
-              A story worth wearing.
-            </p>
-
-            <h1 className="max-w-3xl text-4xl font-semibold leading-tight tracking-tight md:text-7xl">
-              <span className="font-bold text-white">Custom hats</span> with{" "}
-              <span className="font-bold text-white">real identity</span>.
-            </h1>
-
-            <p className="mt-5 max-w-2xl text-base leading-7 text-stone-300 md:text-xl md:leading-8">
-              Back 40 Designs creates premium patch-forward hats for local brands, businesses,
-              events, and story-driven projects that deserve more than generic merch.
-            </p>
-
-            <div className="mt-8 flex flex-wrap gap-3">
-              <a
-                href={ctaLink}
-                className="inline-flex items-center gap-2 rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100"
-              >
-                Request a Quote <MailIcon className="h-4 w-4" />
-              </a>
-
-              <a
-                href={instagramLink}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-2xl border border-white/15 px-5 py-3 text-sm font-semibold text-stone-100 transition hover:bg-white/5"
-              >
-                See the Work <InstagramIcon className="h-4 w-4" />
-              </a>
-            </div>
-
-            <div className="mt-8 grid gap-3 sm:grid-cols-2">
-              {proofPoints.map((item) => (
-                <div
-                  key={item}
-                  className="rounded-2xl border border-white/10 bg-black/35 p-4 text-sm leading-6 text-stone-300 backdrop-blur"
-                >
-                  {item}
-                </div>
-              ))}
-            </div>
           </div>
 
-          <div className="relative">
-            <div className="rounded-[2rem] border border-white/10 bg-black/45 p-3 shadow-2xl backdrop-blur md:p-6">
-              <div className="overflow-hidden rounded-[1.6rem] border border-white/10 bg-stone-950/80">
-                <div className="flex items-center justify-between border-b border-white/10 px-4 py-4 md:px-5">
-                  <div>
-                    <p className="text-[10px] uppercase tracking-[0.25em] text-stone-500 md:text-xs">
-                      Featured Build
-                    </p>
-                    <h2 className="mt-2 text-xl font-semibold text-white md:text-2xl">
-                      Trail Series — Dragon Scales
-                    </h2>
-                  </div>
-                  <div className="rounded-full border border-white/10 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-stone-300">
-                    Back 40 Style
-                  </div>
-                </div>
-
-                <a
-                  href="/gallery"
-                  className="flex items-center justify-center px-3 py-4 transition hover:bg-white/[0.02] md:px-5 md:py-6"
-                >
-                  <img
-                    src="/images/dragon-scales.jpg"
-                    alt="Back 40 Trail Series Dragon Scales hat"
-                    className="w-full max-w-[320px] rounded-[1.5rem] border border-white/10 object-contain shadow-2xl md:max-w-[460px]"
-                  />
-                </a>
-
-                <div className="grid grid-cols-3 gap-2 px-4 pb-4 text-center text-[10px] text-stone-400 md:px-5 md:pb-5 md:text-xs">
-                  <div className="rounded-xl border border-white/10 bg-white/5 px-2 py-2">Clean Layout</div>
-                  <div className="rounded-xl border border-white/10 bg-white/5 px-2 py-2">Premium Patch</div>
-                  <div className="rounded-xl border border-white/10 bg-white/5 px-2 py-2">Built to Wear</div>
-                </div>
-              </div>
-            </div>
+          <div className="px-5 pb-4">
+            <p className="text-center text-sm text-stone-300">
+              Available now — shop the Trail Series
+            </p>
           </div>
+
         </div>
-      </section>
+      </div>
+    </div>
+  </div>
+</section>
+
+{/* 🔥 DUPLICATED EARLY CTA */}
+<section className="border-b border-white/10 bg-stone-900/40">
+  <div className="mx-auto max-w-7xl px-4 py-10 md:px-10 md:py-14 text-center">
+    <h2 className="text-2xl md:text-4xl font-semibold">
+      Ready to build something that actually gets worn?
+    </h2>
+    <p className="mt-3 text-stone-400 max-w-xl mx-auto">
+      Start with a logo, a name, or just an idea. We’ll turn it into something people don’t take off.
+    </p>
+
+    <div className="mt-6 flex flex-wrap justify-center gap-3">
+      <a
+        href={ctaLink}
+        className="rounded-2xl bg-white px-6 py-3 text-sm font-semibold text-black shadow-lg"
+      >
+        Start a Project
+      </a>
+      <a
+        href={shopLink}
+        target="_blank"
+        className="rounded-2xl border border-white/20 px-6 py-3 text-sm font-semibold text-white"
+      >
+        Shop Hats
+      </a>
+    </div>
+  </div>
+</section>
       
       <section className="border-b border-white/10 bg-stone-900/40">
         <div className="mx-auto max-w-7xl px-4 py-10 md:px-10 md:py-14">
