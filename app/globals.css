@@ -148,3 +148,64 @@ img, video {
 .animate-shake {
   animation: shake 0.25s ease-in-out;
 }
+@media print {
+  body {
+    background: #050505 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  main {
+    background: #050505 !important;
+  }
+
+  main::before {
+    content: "B40 BACK LOT CERTIFICATION";
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 72px;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    color: rgba(239, 68, 68, 0.06);
+    transform: rotate(-18deg);
+    z-index: 0;
+  }
+
+  img {
+    display: none !important;
+  }
+
+  section {
+    background: #0b0b0b !important;
+    color: white !important;
+    border: 2px solid rgba(239, 68, 68, 0.65) !important;
+    box-shadow: none !important;
+    max-width: 420px !important;
+    margin: 40px auto !important;
+  }
+
+  section * {
+    color: inherit !important;
+  }
+
+  h1,
+  h2 {
+    color: white !important;
+  }
+
+  h2,
+  .text-red-500 {
+    color: #ef4444 !important;
+  }
+
+  button {
+    display: none !important;
+  }
+
+  a {
+    display: none !important;
+  }
+}
