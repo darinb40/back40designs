@@ -145,9 +145,26 @@ export default function LotStretcherPage() {
           {new Date().toLocaleTimeString()}
         </div>
 
-        {/* B40 watermark */}
+        {/* B40 watermark text */}
         <div className="absolute top-5 left-1/2 -translate-x-1/2 text-[10px] tracking-[0.4em] text-green-400/20 uppercase">
           B40 // Back Lot Utilities
+        </div>
+
+        {/* Glitchy green logo — bottom right corner */}
+        <div className="absolute bottom-8 right-6 pointer-events-none select-none w-20 md:w-28">
+          <img
+            src="/images/logo.png"
+            alt="Back 40 Designs"
+            className="w-full mix-blend-screen animate-[b40GlitchA_3.5s_ease-in-out_infinite]"
+            style={{ filter: "saturate(0) brightness(0.5) sepia(1) hue-rotate(80deg) saturate(5)", opacity: 0.25 }}
+          />
+          <img
+            src="/images/logo.png"
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 w-full mix-blend-screen animate-[b40GlitchB_4.2s_ease-in-out_infinite]"
+            style={{ filter: "saturate(0) brightness(0.3) sepia(1) hue-rotate(100deg) saturate(8)", opacity: 0.1 }}
+          />
         </div>
 
         <div className="relative z-10 max-w-xl w-full border border-green-400/20 bg-black/75 backdrop-blur-sm p-6 shadow-2xl">
@@ -252,6 +269,16 @@ export default function LotStretcherPage() {
         B40 // Back Lot Utilities
       </div>
 
+      {/* Logo — faded bottom left */}
+      <div className="absolute bottom-8 left-6 pointer-events-none select-none w-24 md:w-36 opacity-10 mix-blend-screen">
+        <img src="/images/logo.png" alt="Back 40 Designs" className="w-full" />
+      </div>
+
+      {/* Logo — faded top right, smaller */}
+      <div className="absolute top-14 right-6 pointer-events-none select-none w-16 md:w-24 opacity-8 mix-blend-screen">
+        <img src="/images/logo.png" alt="" aria-hidden="true" className="w-full" />
+      </div>
+
       {/* Corner */}
       <div className="absolute top-5 left-5 text-[10px] tracking-[0.3em] text-red-400/30">ACCESS DENIED</div>
       <div className="absolute top-5 right-5 text-[10px] tracking-[0.3em] text-red-400/30">LOT CAM 04</div>
@@ -270,12 +297,14 @@ export default function LotStretcherPage() {
           There's no such thing as a lot stretcher.
         </p>
 
-        <p className={`text-sm text-white/30 mb-10 transition-opacity duration-700 delay-500 ${showText ? "opacity-100" : "opacity-0"}`}>
+        <p className={`text-sm text-white/40 mb-2 transition-opacity duration-700 delay-500 ${showText ? "opacity-100" : "opacity-0"}`}>
           But you already knew that, didn't you.
         </p>
 
-        <p className={`mb-10 text-[10px] tracking-[0.35em] text-white/20 font-mono transition-opacity duration-700 delay-700 ${showText ? "opacity-100" : "opacity-0"}`}>
-          NOT YET.
+        <p className={`text-sm text-white/30 mb-10 transition-opacity duration-700 delay-600 ${showText ? "opacity-100" : "opacity-0"}`}>
+          Or did you? Maybe you're not ready for the Back Lot.
+          <br />
+          <span className="tracking-[0.2em] text-white/20">Not yet.</span>
         </p>
 
         {/* Buttons */}
@@ -314,6 +343,20 @@ export default function LotStretcherPage() {
           35% { opacity: 0.08; }
           48% { transform: translateX(140%) skewX(-18deg); opacity: 0; }
           100% { transform: translateX(140%) skewX(-18deg); opacity: 0; }
+        }
+        @keyframes b40GlitchA {
+          0%, 90%, 100% { transform: translate(0, 0); opacity: 0.25; }
+          91% { transform: translate(-3px, 0); opacity: 0.4; }
+          92% { transform: translate(3px, 1px); opacity: 0.15; }
+          93% { transform: translate(0, 0); opacity: 0.25; }
+          95% { transform: translate(2px, -1px); opacity: 0.35; }
+          96% { transform: translate(0, 0); opacity: 0.25; }
+        }
+        @keyframes b40GlitchB {
+          0%, 88%, 100% { transform: translate(0, 0); opacity: 0.1; }
+          89% { transform: translate(4px, 0); opacity: 0.2; }
+          90% { transform: translate(-2px, 1px); opacity: 0.05; }
+          91% { transform: translate(0, 0); opacity: 0.1; }
         }
       `}</style>
     </main>
