@@ -224,7 +224,6 @@ export default function Back40LandingPage() {
 
   const shopLink = "https://back40-headwear.myshopify.com/collections/b40-trail-series";
   const instagramLink = "https://www.instagram.com/b40_designs/";
-  const facebookLink = "https://www.facebook.com/";
   const phoneLink = "tel:479-544-1366";
   const phoneNumber = "479-544-1366";
 
@@ -345,7 +344,7 @@ export default function Back40LandingPage() {
   ];
 
   const homeGallery = [
-    { title: "Jesters Privilege", image: "/images/jester.jpeg" },
+    { title: "Jesters Privilege", image: "/images/jester.jpg" },
     { title: "Trail Series — Dragon Scales", image: "/images/dragon-scales.jpg" },
     { title: "Back 40 Loop", image: "/images/topo-row.jpg" },
     { title: "Gravette Bad Bananas", image: "/images/bad-bananas.jpg" },
