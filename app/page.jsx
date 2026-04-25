@@ -2,16 +2,15 @@
 
 import React from 'react';
 
+// ─── Icon Components ────────────────────────────────────────────────
 const ArrowRight = ({ className = "h-4 w-4" }) => <span className={className}>→</span>;
 const InstagramIcon = ({ className = "h-4 w-4" }) => <span className={className}>◎</span>;
 const MailIcon = ({ className = "h-4 w-4" }) => <span className={className}>✉</span>;
-const MessageSquareIcon = ({ className = "h-5 w-5" }) => <span className={className}>💬</span>;
 const MountainIcon = ({ className = "h-5 w-5" }) => <span className={className}>△</span>;
 const ShieldCheckIcon = ({ className = "h-5 w-5" }) => <span className={className}>⬢</span>;
 const StoreIcon = ({ className = "h-5 w-5" }) => <span className={className}>▣</span>;
-const MenuIcon = ({ className = "h-5 w-5" }) => <span className={className}>☰</span>;
-const CloseIcon = ({ className = "h-5 w-5" }) => <span className={className}>✕</span>;
 
+// ─── Background Overlays ────────────────────────────────────────────
 function HeavyTopoOverlay({ opacity = "opacity-55", dark = "bg-black/65" }) {
   return (
     <>
@@ -30,16 +29,204 @@ function LineTopoOverlay({ opacity = "opacity-20", dark = "bg-black/75" }) {
   );
 }
 
+// ─── Contact Form Component ─────────────────────────────────────────
+// Replaces all mailto: links for the primary CTA.
+// Uses Formspree (free tier) — replace YOUR_FORM_ID with your actual ID from formspree.io
+// To set up: go to formspree.io, create a free account, create a form,
+// and paste the form ID (looks like "xpwzgkrb") into FORMSPREE_ID below.
+const FORMSPREE_ID = "YOUR_FORM_ID";
+
+function ContactForm({ light = false }) {
+  const [status, setStatus] = React.useState("idle"); // idle | sending | success | error
+  const [form, setForm] = React.useState({
+    name: "",
+    email: "",
+    phone: "",
+    projectType: "",
+    quantity: "",
+    message: "",
+  });
+
+  const handleChange = (e) => {
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus("sending");
+    try {
+      const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (res.ok) {
+        setStatus("success");
+        setForm({ name: "", email: "", phone: "", projectType: "", quantity: "", message: "" });
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
+  };
+
+  const base = light
+    ? "bg-white/60 border-stone-300/60 text-stone-900 placeholder-stone-500 focus:border-stone-600"
+    : "bg-white/5 border-white/10 text-white placeholder-stone-500 focus:border-white/30";
+
+  const inputClass = `w-full rounded-2xl border px-4 py-3 text-sm transition focus:outline-none ${base}`;
+  const labelClass = `block text-xs font-semibold uppercase tracking-[0.2em] mb-1.5 ${light ? "text-stone-600" : "text-stone-400"}`;
+
+  if (status === "success") {
+    return (
+      <div className={`rounded-[2rem] border p-8 text-center ${light ? "border-stone-300/40 bg-white/50" : "border-white/10 bg-white/5"}`}>
+        <p className="text-3xl mb-3">✓</p>
+        <p className={`text-lg font-semibold ${light ? "text-stone-900" : "text-white"}`}>
+          Message received.
+        </p>
+        <p className={`mt-2 text-sm ${light ? "text-stone-600" : "text-stone-400"}`}>
+          Darin will be in touch within 1–2 business days. You can also text or call directly at{" "}
+          <a href="tel:479-544-1366" className="underline">479-544-1366</a>.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-4">
+      {/* Row 1: Name + Email */}
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div>
+          <label className={labelClass}>Your Name *</label>
+          <input
+            type="text"
+            name="name"
+            required
+            placeholder="First and last name"
+            value={form.name}
+            onChange={handleChange}
+            className={inputClass}
+          />
+        </div>
+        <div>
+          <label className={labelClass}>Email *</label>
+          <input
+            type="email"
+            name="email"
+            required
+            placeholder="you@yourbusiness.com"
+            value={form.email}
+            onChange={handleChange}
+            className={inputClass}
+          />
+        </div>
+      </div>
+
+      {/* Row 2: Phone + Project Type */}
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div>
+          <label className={labelClass}>Phone / Text</label>
+          <input
+            type="tel"
+            name="phone"
+            placeholder="479-000-0000"
+            value={form.phone}
+            onChange={handleChange}
+            className={inputClass}
+          />
+        </div>
+        <div>
+          <label className={labelClass}>Project Type</label>
+          <select
+            name="projectType"
+            value={form.projectType}
+            onChange={handleChange}
+            className={`${inputClass} ${light ? "bg-white/60" : "bg-stone-900"}`}
+          >
+            <option value="">Select one...</option>
+            <option value="Business Merch">Business / Brand Merch</option>
+            <option value="Trail Series">Trail Series / Outdoor</option>
+            <option value="Legacy Build">Legacy / Personal Build</option>
+            <option value="Dealership Series">Dealership Series</option>
+            <option value="Event / Team">Event or Team Order</option>
+            <option value="Not Sure">Not Sure Yet</option>
+          </select>
+        </div>
+      </div>
+
+      {/* Row 3: Quantity */}
+      <div>
+        <label className={labelClass}>Estimated Quantity</label>
+        <select
+          name="quantity"
+          value={form.quantity}
+          onChange={handleChange}
+          className={`${inputClass} ${light ? "bg-white/60" : "bg-stone-900"}`}
+        >
+          <option value="">Select a range...</option>
+          <option value="1–11">1–11 (one-off / small run)</option>
+          <option value="12–24">12–24</option>
+          <option value="25–48">25–48</option>
+          <option value="49–99">49–99</option>
+          <option value="100+">100+</option>
+          <option value="Not Sure">Not sure yet</option>
+        </select>
+      </div>
+
+      {/* Row 4: Message */}
+      <div>
+        <label className={labelClass}>Tell me about the project *</label>
+        <textarea
+          name="message"
+          required
+          rows={4}
+          placeholder="Business name, what you're going for, any logo details, deadline, or whatever comes to mind..."
+          value={form.message}
+          onChange={handleChange}
+          className={`${inputClass} resize-none`}
+        />
+      </div>
+
+      {status === "error" && (
+        <p className="text-sm text-red-400">
+          Something went wrong. Text Darin directly at{" "}
+          <a href="tel:479-544-1366" className="underline">479-544-1366</a> or email{" "}
+          <a href="mailto:info@back40designco.com" className="underline">info@back40designco.com</a>.
+        </p>
+      )}
+
+      <button
+        type="submit"
+        disabled={status === "sending"}
+        className={`w-full rounded-2xl py-3.5 text-sm font-semibold shadow-lg transition hover:-translate-y-0.5 disabled:opacity-60 ${
+          light
+            ? "bg-stone-950 text-white hover:bg-stone-800"
+            : "bg-white text-stone-950 hover:bg-stone-100"
+        }`}
+      >
+        {status === "sending" ? "Sending..." : "Send Project Inquiry →"}
+      </button>
+
+      <p className={`text-center text-xs ${light ? "text-stone-500" : "text-stone-500"}`}>
+        Or text / call directly:{" "}
+        <a href="tel:479-544-1366" className={`font-semibold underline ${light ? "text-stone-700" : "text-stone-300"}`}>
+          479-544-1366
+        </a>
+      </p>
+    </form>
+  );
+}
+
+// ─── Main Page ──────────────────────────────────────────────────────
 export default function Back40LandingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
-  const [email, setEmail] = React.useState("");
 
-  const ctaLink = "mailto:info@back40designco.com?subject=Back40%20Project%20Inquiry";
   const shopLink = "https://back40-headwear.myshopify.com/collections/b40-trail-series";
   const instagramLink = "https://www.instagram.com/b40_designs/";
   const facebookLink = "https://www.facebook.com/";
-  const phoneNumber = "479-544-1366";
   const phoneLink = "tel:479-544-1366";
+  const phoneNumber = "479-544-1366";
 
   const pillars = [
     {
@@ -107,13 +294,6 @@ export default function Back40LandingPage() {
     },
   ];
 
-  const proofPoints = [
-    "Custom acrylic and leatherette patch hats",
-    "Built for local brands, events, shops, and collabs",
-    "Small-run friendly and story-driven by design",
-    "Made to feel personal, not pulled from a template",
-  ];
-
   const faqs = [
     {
       q: "What do I need to get started?",
@@ -129,7 +309,7 @@ export default function Back40LandingPage() {
     },
     {
       q: "How long does production take?",
-      a: "Standard production is 3-4 weeks. We also offer rush production for projects that need faster turnaround.",
+      a: "Standard production is 3–4 weeks. Rush production is available for projects with a tighter deadline.",
     },
     {
       q: "What's the minimum order?",
@@ -147,7 +327,7 @@ export default function Back40LandingPage() {
     {
       name: "Jonathan Woolbright",
       role: "Woolbright Auto Glass",
-      text: "Back 40 Designs put together work shirts and ballcaps for Woolbright Auto Glass. Did a great job outfitting out team!",
+      text: "Back 40 Designs put together work shirts and ballcaps for Woolbright Auto Glass. Did a great job outfitting our team!",
       rating: 5,
     },
     {
@@ -175,193 +355,199 @@ export default function Back40LandingPage() {
     { title: "Hat Lineup", image: "/images/hat-lineup.jpg" },
   ];
 
-  const handleEmailSignup = (e) => {
-    e.preventDefault();
-    if (email) {
-      window.location.href = `mailto:info@back40designco.com?subject=Add%20me%20to%20the%20list&body=Email:%20${email}`;
-      setEmail("");
-    }
-  };
-
   return (
     <div className="min-h-screen bg-stone-950 text-stone-100">
-      <header className="sticky top-0 z-40 border-b border-white/10 bg-stone-950/85 backdrop-blur">
-  <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-10">
-    <div>
-      <p className="text-base font-semibold tracking-tight md:text-lg">Back 40 Designs</p>
-      <p className="text-[10px] uppercase tracking-[0.28em] text-stone-400 md:text-xs">
-        Custom Patch Headwear
-      </p>
-    </div>
 
-    <nav className="hidden items-center gap-8 text-sm text-stone-300 md:flex">
-      <a href="#pillars" className="transition hover:text-white">Pillars</a>
-      <a href="#dealership-series" className="transition hover:text-white">Dealership Series</a>
-      <a href="#collections" className="transition hover:text-white">Collections</a>
-      <a href="#process" className="transition hover:text-white">Process</a>
-      <a href="/gallery" className="transition hover:text-white">Gallery</a>
-      <a href="#story" className="transition hover:text-white">Story</a>
-    </nav>
-
-    <div className="flex items-center gap-2 md:gap-3">
-      <a
-        href={shopLink}
-        target="_blank"
-        rel="noreferrer"
-        className="hidden rounded-2xl border border-white/10 px-4 py-2 text-sm font-semibold text-stone-200 transition hover:bg-white/5 md:inline-flex"
-      >
-        Shop
-      </a>
-      <a
-        href={ctaLink}
-        className="hidden items-center gap-2 rounded-2xl bg-white px-3 py-2 text-xs font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100 md:inline-flex"
-      >
-        Start a Project →
-      </a>
-
-      <button
-        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        className="rounded-lg p-2 text-stone-300 transition hover:bg-white/5 md:hidden"
-      >
-        {mobileMenuOpen ? "✕" : "☰"}
-      </button>
-    </div>
-  </div>
-</header>
-
-{/* HERO */}
-<section className="relative overflow-hidden border-b border-white/10">
-  <HeavyTopoOverlay opacity="opacity-55" dark="bg-black/70" />
-
-  <div className="relative z-10 mx-auto grid max-w-7xl gap-10 px-4 pb-16 pt-10 md:px-10 md:pb-28 md:pt-18 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
-    <div>
-      <img
-        src="/images/logo.png"
-        alt="Back 40 Designs"
-        className="mb-6 w-44 md:w-72 lg:w-80"
-      />
-
-      <p className="mb-4 text-xs font-semibold uppercase tracking-[0.28em] text-stone-400 md:text-sm">
-        A story worth wearing.
-      </p>
-
-      {/* 🔥 UPDATED HEADLINE */}
-      <h1 className="max-w-3xl text-4xl font-semibold leading-tight tracking-tight md:text-7xl">
-        Not just hats.
-        <br />
-        <span className="font-bold text-white">
-          Built for people who actually have something to say.
-        </span>
-      </h1>
-
-      <p className="mt-5 max-w-2xl text-base leading-7 text-stone-300 md:text-xl md:leading-8">
-        Back 40 Designs creates premium patch-forward hats for local brands, businesses,
-        and real-world stories that deserve more than generic merch.
-      </p>
-
-      {/* 🔥 BUTTON FIX */}
-      <div className="mt-8 flex flex-wrap gap-3">
-        <a
-          href={ctaLink}
-          className="inline-flex items-center gap-2 rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100"
-        >
-          Request a Quote →
-        </a>
-
-        <a
-          href={shopLink}
-          target="_blank"
-          rel="noreferrer"
-          className="inline-flex items-center gap-2 rounded-2xl border border-white/15 px-5 py-3 text-sm font-semibold text-stone-100 transition hover:bg-white/5"
-        >
-          Shop Hats
-        </a>
-      </div>
-
-      {/* 🔥 URGENCY LINE */}
-      <p className="mt-4 text-xs uppercase tracking-[0.25em] text-red-400">
-        Small batch builds. Limited runs. Once they're gone, they're gone.
-      </p>
-
-      <div className="mt-8 grid gap-3 sm:grid-cols-2">
-        {proofPoints.map((item) => (
-          <div
-            key={item}
-            className="rounded-2xl border border-white/10 bg-black/35 p-4 text-sm leading-6 text-stone-300 backdrop-blur"
-          >
-            {item}
-          </div>
-        ))}
-      </div>
-    </div>
-
-    {/* FEATURED BUILD (link added in part 2) */}
-    <div className="relative">
-      <div className="rounded-[2rem] border border-white/10 bg-black/45 p-3 shadow-2xl backdrop-blur md:p-6">
-        <div className="overflow-hidden rounded-[1.6rem] border border-white/10 bg-stone-950/80">
-
-          <div className="flex items-center justify-between border-b border-white/10 px-4 py-4 md:px-5">
-            <div>
-              <p className="text-[10px] uppercase tracking-[0.25em] text-stone-500 md:text-xs">
-                Featured Build
-              </p>
-              <h2 className="mt-2 text-xl font-semibold text-white md:text-2xl">
-                Trail Series — Dragon Scales
-              </h2>
-            </div>
-            <div className="rounded-full border border-white/10 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-stone-300">
-              Available Now
-            </div>
-          </div>
-
-          <div className="px-3 py-4 md:px-5 md:py-6">
-            <img
-              src="/images/dragon-scales.jpg"
-              alt="Back 40 Trail Series Dragon Scales hat"
-              className="w-full max-w-[320px] rounded-[1.5rem] border border-white/10 object-contain shadow-2xl md:max-w-[460px] mx-auto"
-            />
-          </div>
-
-          <div className="px-5 pb-4">
-            <p className="text-center text-sm text-stone-300">
-              Available now — shop the Trail Series
+      {/* ── HEADER ── */}
+      <header className="sticky top-0 z-40 border-b border-white/10 bg-stone-950/90 backdrop-blur">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-10 md:py-4">
+          <div>
+            <p className="text-base font-semibold tracking-tight md:text-lg">Back 40 Designs</p>
+            <p className="text-[10px] uppercase tracking-[0.28em] text-stone-400 md:text-xs">
+              Custom Patch Headwear
             </p>
           </div>
 
+          {/* Desktop nav */}
+          <nav className="hidden items-center gap-6 text-sm text-stone-300 md:flex">
+            <a href="#collections" className="transition hover:text-white">Collections</a>
+            <a href="#process" className="transition hover:text-white">Process</a>
+            <a href="/gallery" className="transition hover:text-white">Gallery</a>
+            <a href="#story" className="transition hover:text-white">Story</a>
+            <a href="#contact" className="transition hover:text-white">Contact</a>
+          </nav>
+
+          <div className="flex items-center gap-2 md:gap-3">
+            <a
+              href={shopLink}
+              target="_blank"
+              rel="noreferrer"
+              className="hidden rounded-2xl border border-white/10 px-4 py-2 text-sm font-semibold text-stone-200 transition hover:bg-white/5 md:inline-flex"
+            >
+              Shop
+            </a>
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-1.5 rounded-2xl bg-white px-3 py-2 text-xs font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100 md:px-4 md:text-sm"
+            >
+              Start a Project →
+            </a>
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="rounded-lg p-2 text-stone-300 transition hover:bg-white/5 md:hidden"
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? "✕" : "☰"}
+            </button>
+          </div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
 
-{/* 🔥 DUPLICATED EARLY CTA */}
-<section className="border-b border-white/10 bg-stone-900/40">
-  <div className="mx-auto max-w-7xl px-4 py-10 md:px-10 md:py-14 text-center">
-    <h2 className="text-2xl md:text-4xl font-semibold">
-      Ready to build something that actually gets worn?
-    </h2>
-    <p className="mt-3 text-stone-400 max-w-xl mx-auto">
-      Start with a logo, a name, or just an idea. We’ll turn it into something people don’t take off.
-    </p>
+        {/* Mobile menu */}
+        {mobileMenuOpen && (
+          <div className="border-t border-white/10 bg-stone-950 px-4 py-4 md:hidden">
+            <nav className="flex flex-col gap-4 text-sm text-stone-300">
+              {[
+                ["#collections", "Collections"],
+                ["#process", "Process"],
+                ["/gallery", "Gallery"],
+                ["#story", "Story"],
+                ["#contact", "Contact"],
+              ].map(([href, label]) => (
+                <a
+                  key={label}
+                  href={href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="border-b border-white/5 pb-3 transition hover:text-white"
+                >
+                  {label}
+                </a>
+              ))}
+              <a
+                href={shopLink}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => setMobileMenuOpen(false)}
+                className="transition hover:text-white"
+              >
+                Shop Hats ↗
+              </a>
+            </nav>
+          </div>
+        )}
+      </header>
 
-    <div className="mt-6 flex flex-wrap justify-center gap-3">
-      <a
-        href={ctaLink}
-        className="rounded-2xl bg-white px-6 py-3 text-sm font-semibold text-black shadow-lg"
-      >
-        Start a Project
-      </a>
-      <a
-        href={shopLink}
-        target="_blank"
-        className="rounded-2xl border border-white/20 px-6 py-3 text-sm font-semibold text-white"
-      >
-        Shop Hats
-      </a>
-    </div>
-  </div>
-</section>
-      
+      {/* ── HERO ── */}
+      <section className="relative overflow-hidden border-b border-white/10">
+        <HeavyTopoOverlay opacity="opacity-55" dark="bg-black/70" />
+
+        <div className="relative z-10 mx-auto grid max-w-7xl gap-10 px-4 pb-14 pt-10 md:px-10 md:pb-24 md:pt-16 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+          <div>
+            <img
+              src="/images/logo.png"
+              alt="Back 40 Designs"
+              className="mb-5 w-36 md:w-64 lg:w-72"
+            />
+
+            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-stone-400 md:text-sm">
+              A story worth wearing.
+            </p>
+
+            <h1 className="max-w-3xl text-4xl font-semibold leading-tight tracking-tight md:text-6xl lg:text-7xl">
+              Not just hats.
+              <br />
+              <span className="font-bold text-white">
+                Built for people who actually have something to say.
+              </span>
+            </h1>
+
+            <p className="mt-5 max-w-2xl text-base leading-7 text-stone-300 md:text-lg md:leading-8">
+              Back 40 Designs creates premium patch-forward hats for local brands, businesses,
+              and real-world stories that deserve more than generic merch.
+            </p>
+
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a
+                href="#contact"
+                className="inline-flex items-center gap-2 rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100"
+              >
+                Request a Quote →
+              </a>
+              <a
+                href={shopLink}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 rounded-2xl border border-white/15 px-5 py-3 text-sm font-semibold text-stone-100 transition hover:bg-white/5"
+              >
+                Shop Hats
+              </a>
+            </div>
+
+            {/* Social proof bullets — mobile friendly grid */}
+            <div className="mt-8 grid gap-3 sm:grid-cols-2">
+              {[
+                "Custom acrylic and leatherette patch hats",
+                "Built for local brands, events, shops, and collabs",
+                "Small-run friendly and story-driven by design",
+                "Made to feel personal, not pulled from a template",
+              ].map((item) => (
+                <div
+                  key={item}
+                  className="rounded-2xl border border-white/10 bg-black/35 p-4 text-sm leading-6 text-stone-300 backdrop-blur"
+                >
+                  {item}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Featured Build card */}
+          <div className="relative">
+            <div className="rounded-[2rem] border border-white/10 bg-black/45 p-3 shadow-2xl backdrop-blur md:p-5">
+              <div className="overflow-hidden rounded-[1.6rem] border border-white/10 bg-stone-950/80">
+                <div className="flex items-center justify-between border-b border-white/10 px-4 py-4">
+                  <div>
+                    <p className="text-[10px] uppercase tracking-[0.25em] text-stone-500">
+                      Featured Build
+                    </p>
+                    <h2 className="mt-1.5 text-lg font-semibold text-white md:text-2xl">
+                      Trail Series — Dragon Scales
+                    </h2>
+                  </div>
+                  <a
+                    href={shopLink}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="rounded-full border border-white/10 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-stone-300 transition hover:bg-white/10"
+                  >
+                    Shop Now
+                  </a>
+                </div>
+                <div className="px-3 py-4 md:px-5 md:py-5">
+                  <a href={shopLink} target="_blank" rel="noreferrer">
+                    <img
+                      src="/images/dragon-scales.jpg"
+                      alt="Back 40 Trail Series Dragon Scales hat"
+                      className="mx-auto w-full max-w-[280px] rounded-[1.5rem] border border-white/10 object-contain shadow-2xl transition hover:scale-[1.02] md:max-w-[420px]"
+                    />
+                  </a>
+                </div>
+                <div className="px-5 pb-4">
+                  <a
+                    href={shopLink}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="block w-full rounded-2xl border border-white/10 py-2.5 text-center text-sm font-semibold text-stone-200 transition hover:bg-white/10"
+                  >
+                    Shop the Trail Series →
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── PARTNER LOGOS ── */}
       <section className="border-b border-white/10 bg-stone-900/40">
         <div className="mx-auto max-w-7xl px-4 py-10 md:px-10 md:py-14">
           <div className="mb-8 text-center">
@@ -372,95 +558,57 @@ export default function Back40LandingPage() {
               Official partners with Pinnacle Sports Ventures, Bentonville Bicycle Co., and LoneStar Adhesive
             </p>
           </div>
-
-          <div className="flex flex-wrap items-center justify-center gap-10 md:gap-20">
-            <a href="https://pinnaclesportsventures.com" target="_blank" rel="noreferrer" className="opacity-75 transition hover:opacity-100">
-              <img src="/images/psv.png" alt="Pinnacle Sports Ventures" className="h-24 w-auto object-contain md:h-32" />
+          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-20">
+            <a href="https://pinnaclesportsventures.com" target="_blank" rel="noreferrer" className="opacity-70 transition hover:opacity-100">
+              <img src="/images/psv.png" alt="Pinnacle Sports Ventures" className="h-16 w-auto object-contain md:h-28" />
             </a>
-            <a href="https://www.bentonvillebicyclecompany.com" target="_blank" rel="noreferrer" className="opacity-75 transition hover:opacity-100">
-              <img src="/images/bentonville-bicycle-logo.png" alt="Bentonville Bicycle Co." className="h-24 w-auto object-contain md:h-32" />
+            <a href="https://www.bentonvillebicyclecompany.com" target="_blank" rel="noreferrer" className="opacity-70 transition hover:opacity-100">
+              <img src="/images/bentonville-bicycle-logo.png" alt="Bentonville Bicycle Co." className="h-16 w-auto object-contain md:h-28" />
             </a>
-            <a href="https://lonestaradhesive.com" target="_blank" rel="noreferrer" className="opacity-75 transition hover:opacity-100">
-              <img src="/images/lonestar.png" alt="LoneStar Adhesive" className="h-24 w-auto object-contain md:h-32" />
+            <a href="https://lonestaradhesive.com" target="_blank" rel="noreferrer" className="opacity-70 transition hover:opacity-100">
+              <img src="/images/lonestar.png" alt="LoneStar Adhesive" className="h-16 w-auto object-contain md:h-28" />
             </a>
           </div>
         </div>
       </section>
 
+      {/* ── DEALERSHIP SERIES ── */}
       <section id="dealership-series" className="relative overflow-hidden border-b border-white/10">
         <HeavyTopoOverlay opacity="opacity-55" dark="bg-black/80" />
-
         <div className="relative z-10 mx-auto grid max-w-7xl gap-8 px-4 py-16 md:px-10 md:py-24 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
           <div>
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.32em] text-red-400 md:text-sm">
-              New Collection
-            </p>
-
-            <h2 className="max-w-3xl text-4xl font-bold leading-tight tracking-tight text-white md:text-6xl">
-              B40 Dealership Series
-            </h2>
-
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.32em] text-red-400 md:text-sm">New Collection</p>
+            <h2 className="max-w-3xl text-4xl font-bold leading-tight tracking-tight text-white md:text-6xl">B40 Dealership Series</h2>
             <p className="mt-5 max-w-2xl text-base leading-7 text-stone-300 md:text-xl md:leading-8">
-              Built for the people who live inside the car business — from the clean front line,
-              to the service bay, to the back lot where the real stories happen.
+              Built for the people who live inside the car business — from the clean front line, to the service bay, to the back lot where the real stories happen.
             </p>
-
             <div className="mt-8 grid gap-3 sm:grid-cols-3">
-              {[
-                ["Front Line", "Clean, customer-facing dealership gear."],
-                ["Service Bay", "Built for the techs and the shop floor."],
-                ["Back Lot", "Insider-only car business culture."],
-              ].map(([title, text]) => (
-                <div
-                  key={title}
-                  className="rounded-2xl border border-white/10 bg-black/45 p-4 backdrop-blur"
-                >
+              {[["Front Line","Clean, customer-facing dealership gear."],["Service Bay","Built for the techs and the shop floor."],["Back Lot","Insider-only car business culture."]].map(([title, text]) => (
+                <div key={title} className="rounded-2xl border border-white/10 bg-black/45 p-4 backdrop-blur">
                   <h3 className="text-lg font-semibold text-white">{title}</h3>
                   <p className="mt-2 text-sm leading-6 text-stone-400">{text}</p>
                 </div>
               ))}
             </div>
-
             <div className="mt-8 flex flex-wrap gap-3">
-              <a
-                href="/dealership-series"
-                className="inline-flex items-center gap-2 rounded-2xl bg-white px-6 py-3 text-sm font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100"
-              >
-                Enter the Series <ArrowRight className="h-4 w-4" />
-              </a>
-
-              <a
-                href="/dealership-series/backlot"
-                className="inline-flex items-center gap-2 rounded-2xl border border-white/15 px-6 py-3 text-sm font-semibold text-stone-100 transition hover:bg-white/5"
-              >
-                Back Lot Access
-              </a>
+              <a href="/dealership-series" className="inline-flex items-center gap-2 rounded-2xl bg-white px-6 py-3 text-sm font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100">Enter the Series →</a>
+              <a href="/dealership-series/backlot" className="inline-flex items-center gap-2 rounded-2xl border border-white/15 px-6 py-3 text-sm font-semibold text-stone-100 transition hover:bg-white/5">Back Lot Access</a>
             </div>
           </div>
-
           <div className="rounded-[2rem] border border-white/10 bg-black/45 p-3 shadow-2xl backdrop-blur md:p-5">
             <div className="overflow-hidden rounded-[1.5rem] border border-white/10 bg-stone-950">
-              <img
-                src="/images/hat-lineup.jpg"
-                alt="B40 Dealership Series hat lineup"
-                className="h-full w-full object-cover"
-              />
+              <img src="/images/hat-lineup.jpg" alt="B40 Dealership Series hat lineup" className="h-full w-full object-cover" />
             </div>
-
             <div className="mt-4 rounded-2xl border border-white/10 bg-white/5 p-4">
-              <p className="text-xs uppercase tracking-[0.25em] text-stone-500">
-                Built by one of you
-              </p>
-              <p className="mt-2 text-sm leading-6 text-stone-300">
-                Sales floor. Finance. Management. Back lot. This collection was made
-                from inside the business — not from a catalog.
-              </p>
+              <p className="text-xs uppercase tracking-[0.25em] text-stone-500">Built by one of you</p>
+              <p className="mt-2 text-sm leading-6 text-stone-300">Sales floor. Finance. Management. Back lot. This collection was made from inside the business — not from a catalog.</p>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="pillars" className="mx-auto max-w-7xl px-4 py-16 md:px-10 md:py-20">
+      {/* ── PILLARS ── */}
+      <section id="pillars" className="mx-auto max-w-7xl px-4 py-14 md:px-10 md:py-20">
         <div className="mb-10 max-w-3xl">
           <p className="text-sm uppercase tracking-[0.25em] text-stone-400">The foundation</p>
           <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">
@@ -473,11 +621,10 @@ export default function Back40LandingPage() {
             <strong className="text-white">identity</strong>.
           </p>
         </div>
-
         <div className="grid gap-4 md:grid-cols-3 md:gap-6">
           {pillars.map((item) => (
             <div key={item.title} className="rounded-[2rem] border border-white/10 bg-white/5 p-6 shadow-xl md:p-7">
-              <img src={item.icon} alt={item.title} className="mb-6 h-24 w-24 object-contain md:h-28 md:w-28" />
+              <img src={item.icon} alt={item.title} className="mb-6 h-20 w-20 object-contain md:h-28 md:w-28" />
               <h3 className="text-xl font-semibold text-white md:text-2xl">{item.title}</h3>
               <p className="mt-4 text-sm leading-7 text-stone-300">{item.text}</p>
             </div>
@@ -485,10 +632,10 @@ export default function Back40LandingPage() {
         </div>
       </section>
 
+      {/* ── BRAND MEANING CALLOUT ── */}
       <section className="relative border-y border-white/10">
         <LineTopoOverlay opacity="opacity-15" dark="bg-black/80" />
-
-        <div className="relative z-10 mx-auto max-w-7xl px-4 py-16 md:px-10 md:py-20">
+        <div className="relative z-10 mx-auto max-w-7xl px-4 py-14 md:px-10 md:py-20">
           <div className="grid gap-6 rounded-[2rem] border border-white/10 bg-stone-950/70 p-6 backdrop-blur md:grid-cols-[0.9fr_1.1fr] md:gap-8 md:p-10">
             <div>
               <p className="text-sm uppercase tracking-[0.22em] text-stone-400">What Back 40 means</p>
@@ -496,7 +643,6 @@ export default function Back40LandingPage() {
                 Merch should feel like it belongs to your brand.
               </h2>
             </div>
-
             <div className="space-y-5 text-sm leading-7 text-stone-300 md:text-base md:leading-8">
               <p>
                 Back 40 is built around the idea that the best hats carry something with them — a
@@ -511,7 +657,8 @@ export default function Back40LandingPage() {
         </div>
       </section>
 
-      <section id="collections" className="mx-auto max-w-7xl px-4 py-16 md:px-10 md:py-20">
+      {/* ── COLLECTIONS ── */}
+      <section id="collections" className="mx-auto max-w-7xl px-4 py-14 md:px-10 md:py-20">
         <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
             <p className="text-sm uppercase tracking-[0.2em] text-stone-400">Collections</p>
@@ -519,13 +666,11 @@ export default function Back40LandingPage() {
               Built for brands, stories, and repeatable merch wins.
             </h2>
           </div>
-
           <p className="max-w-xl leading-7 text-stone-300">
             Whether you need a signature hat for your business or a one-off project with a story
             behind it, Back 40 is built to make it wearable.
           </p>
         </div>
-
         <div className="grid gap-4 md:grid-cols-3 md:gap-6">
           {collections.map((item) => {
             const Icon = item.icon;
@@ -542,13 +687,13 @@ export default function Back40LandingPage() {
                     className="h-full w-full object-cover transition duration-500 hover:scale-[1.03]"
                   />
                 </div>
-                <div className="p-6 md:p-7">
+                <div className="p-5 md:p-7">
                   <p className="text-xs uppercase tracking-[0.25em] text-stone-500">{item.eyebrow}</p>
-                  <div className="my-5 flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-stone-950">
+                  <div className="my-4 flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-stone-950">
                     <Icon className="h-5 w-5 text-stone-300" />
                   </div>
                   <h3 className="text-xl font-semibold text-white md:text-2xl">{item.title}</h3>
-                  <p className="mt-4 text-sm leading-7 text-stone-300">{item.description}</p>
+                  <p className="mt-3 text-sm leading-7 text-stone-300">{item.description}</p>
                 </div>
               </a>
             );
@@ -556,6 +701,7 @@ export default function Back40LandingPage() {
         </div>
       </section>
 
+      {/* ── GALLERY ── */}
       <section id="work" className="bg-stone-950">
         <div className="mx-auto max-w-7xl px-4 py-14 md:px-10 md:py-20">
           <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
@@ -568,20 +714,19 @@ export default function Back40LandingPage() {
                 Built for brands, shops, and projects that need more than generic merch.
               </p>
             </div>
-
-            <a href="/gallery" className="inline-flex items-center gap-2 rounded-2xl bg-white px-6 py-3 text-sm font-semibold text-black transition hover:-translate-y-0.5">
+            <a href="/gallery" className="inline-flex w-fit items-center gap-2 rounded-2xl bg-white px-6 py-3 text-sm font-semibold text-black transition hover:-translate-y-0.5">
               See All Builds <ArrowRight className="h-4 w-4" />
             </a>
           </div>
-
-          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+          {/* Mobile: 2-col grid. Desktop: 4-col grid */}
+          <div className="grid grid-cols-2 gap-3 xl:grid-cols-4">
             {homeGallery.map((item) => (
-              <a key={item.title} href="/gallery" className="group overflow-hidden rounded-[2rem] border border-white/10 bg-stone-900 transition hover:-translate-y-1">
-                <div className="aspect-[1/1.15] overflow-hidden sm:aspect-[4/5]">
+              <a key={item.title} href="/gallery" className="group overflow-hidden rounded-[1.5rem] border border-white/10 bg-stone-900 transition hover:-translate-y-1 md:rounded-[2rem]">
+                <div className="aspect-square overflow-hidden">
                   <img src={item.image} alt={item.title} className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.05]" />
                 </div>
                 <div className="p-3">
-                  <p className="text-base font-semibold text-white sm:text-lg">{item.title}</p>
+                  <p className="text-sm font-semibold text-white leading-snug md:text-base">{item.title}</p>
                 </div>
               </a>
             ))}
@@ -589,29 +734,30 @@ export default function Back40LandingPage() {
         </div>
       </section>
 
-      <section id="process" className="mx-auto max-w-7xl px-4 py-16 md:px-10 md:py-20">
+      {/* ── PROCESS ── */}
+      <section id="process" className="mx-auto max-w-7xl px-4 py-14 md:px-10 md:py-20">
         <div className="mb-10 max-w-3xl">
           <p className="text-sm uppercase tracking-[0.2em] text-stone-400">Process</p>
           <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">
             Simple, clean, and built around custom work.
           </h2>
         </div>
-
         <div className="grid gap-4 md:grid-cols-3 md:gap-6">
           {process.map((item) => (
             <div key={item.step} className="rounded-[2rem] border border-white/10 bg-white/5 p-6 md:p-7">
-              <img src={item.icon} alt={item.title} className="mb-5 h-24 w-24 object-contain md:h-28 md:w-28" />
-              <h3 className="mt-3 text-xl font-semibold text-white md:text-2xl">{item.title}</h3>
+              <img src={item.icon} alt={item.title} className="mb-5 h-20 w-20 object-contain md:h-28 md:w-28" />
+              <p className="text-xs font-bold uppercase tracking-[0.3em] text-stone-500">{item.step}</p>
+              <h3 className="mt-2 text-xl font-semibold text-white md:text-2xl">{item.title}</h3>
               <p className="mt-4 text-sm leading-7 text-stone-300">{item.text}</p>
             </div>
           ))}
         </div>
       </section>
 
+      {/* ── WHY BACK 40 ── */}
       <section className="relative border-y border-white/10">
         <LineTopoOverlay opacity="opacity-15" dark="bg-black/80" />
-
-        <div className="relative z-10 mx-auto grid max-w-7xl gap-6 px-4 py-16 md:px-10 md:py-20 lg:grid-cols-[1.1fr_0.9fr] lg:gap-8">
+        <div className="relative z-10 mx-auto grid max-w-7xl gap-6 px-4 py-14 md:px-10 md:py-20 lg:grid-cols-[1.1fr_0.9fr] lg:gap-8">
           <div>
             <p className="text-sm uppercase tracking-[0.2em] text-stone-400">Why Back 40</p>
             <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">
@@ -622,21 +768,11 @@ export default function Back40LandingPage() {
               a business, a memory, or a brand identity people actually care about.
             </p>
           </div>
-
           <div className="grid gap-4">
             {[
-              [
-                "Intentional Design",
-                "Each concept is built to feel original, not pulled from a generic catalog or filler template.",
-              ],
-              [
-                "Strong Patch Aesthetic",
-                "Acrylic and leatherette patch styles give every build a clean, premium, signature look.",
-              ],
-              [
-                "Built for Real Brands",
-                "Perfect for owners, teams, and creators who want merch people actually wear more than once.",
-              ],
+              ["Intentional Design", "Each concept is built to feel original, not pulled from a generic catalog or filler template."],
+              ["Strong Patch Aesthetic", "Acrylic and leatherette patch styles give every build a clean, premium, signature look."],
+              ["Built for Real Brands", "Perfect for owners, teams, and creators who want merch people actually wear more than once."],
             ].map(([title, text]) => (
               <div key={title} className="rounded-[1.75rem] border border-white/10 bg-stone-950/80 p-5 backdrop-blur md:p-6">
                 <h3 className="text-lg font-semibold text-white md:text-xl">{title}</h3>
@@ -647,41 +783,43 @@ export default function Back40LandingPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl border-y border-white/10 px-4 py-16 md:px-10 md:py-20">
+      {/* ── TESTIMONIALS ── */}
+      <section className="mx-auto max-w-7xl border-b border-white/10 px-4 py-14 md:px-10 md:py-20">
         <div className="mb-10 max-w-3xl">
           <p className="text-sm uppercase tracking-[0.25em] text-stone-400">Customer Reviews</p>
           <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">
             Real people, real feedback.
           </h2>
         </div>
-
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {testimonials.map((testimonial) => (
-            <div key={testimonial.name} className="rounded-[2rem] border border-white/10 bg-white/5 p-6 md:p-7">
+          {testimonials.map((t) => (
+            <div key={t.name} className="rounded-[2rem] border border-white/10 bg-white/5 p-6 md:p-7">
               <div className="mb-4 flex gap-1">
-                {[...Array(testimonial.rating)].map((_, i) => (
-                  <span key={i} className="text-yellow-400">★</span>
+                {[...Array(t.rating)].map((_, i) => (
+                  <span key={i} className="text-yellow-400 text-lg">★</span>
                 ))}
               </div>
-              <p className="mb-6 text-base leading-7 text-stone-300">"{testimonial.text}"</p>
-              <p className="font-semibold text-white">{testimonial.name}</p>
-              <p className="text-sm text-stone-400">{testimonial.role}</p>
+              <p className="mb-6 text-sm leading-7 text-stone-300 md:text-base">"{t.text}"</p>
+              <p className="font-semibold text-white">{t.name}</p>
+              <p className="text-sm text-stone-400">{t.role}</p>
             </div>
           ))}
         </div>
       </section>
 
-      <section className="relative">
+      {/* ── FAQ + CONTACT FORM ── */}
+      <section id="contact" className="relative">
         <HeavyTopoOverlay opacity="opacity-40" dark="bg-black/65" />
 
-        <div className="relative z-10 mx-auto max-w-7xl px-4 py-16 md:px-10 md:py-20">
+        <div className="relative z-10 mx-auto max-w-7xl px-4 py-14 md:px-10 md:py-20">
           <div className="grid gap-6 lg:grid-cols-[1fr_1fr]">
+
+            {/* FAQ */}
             <div className="rounded-[2rem] border border-white/10 bg-stone-900/80 p-6 backdrop-blur md:p-8">
               <p className="text-sm uppercase tracking-[0.2em] text-stone-400">Questions</p>
               <h2 className="mt-3 text-3xl font-semibold tracking-tight text-white">
                 What buyers usually want to know.
               </h2>
-
               <div className="mt-8 space-y-4">
                 {faqs.map((item) => (
                   <div key={item.q} className="rounded-[1.5rem] border border-white/10 bg-stone-950/90 p-5">
@@ -692,78 +830,28 @@ export default function Back40LandingPage() {
               </div>
             </div>
 
-            <div className="rounded-[2rem] border border-white/10 bg-gradient-to-r from-stone-100 to-stone-300 px-6 py-8 text-stone-950 shadow-2xl md:px-12 md:py-14">
-              <div className="flex h-full flex-col justify-between gap-6">
-                <div>
-                  <p className="text-sm uppercase tracking-[0.2em] text-stone-700">Let's build something</p>
-                  <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">
-                    Need custom hats for your brand or next project?
-                  </h2>
-                  <p className="mt-4 max-w-2xl text-base leading-7 text-stone-700 md:text-lg">
-                    Start with an idea, a logo, or a rough direction. Back 40 can turn that into a
-                    clean, wearable concept with real identity.
-                  </p>
-                </div>
-
-                <div className="grid gap-3 text-sm text-stone-800">
-                  <a href={ctaLink} className="flex items-center gap-3 rounded-2xl border border-stone-700/20 bg-white/50 px-4 py-4 transition hover:bg-white/70">
-                    <MailIcon className="h-5 w-5" />
-                    <span>Email your project idea</span>
-                  </a>
-
-                  <a href={instagramLink} target="_blank" rel="noreferrer" className="flex items-center gap-3 rounded-2xl border border-stone-700/20 bg-white/50 px-4 py-4 transition hover:bg-white/70">
-                    <InstagramIcon className="h-5 w-5" />
-                    <span>See more on Instagram</span>
-                  </a>
-
-                  <a href={shopLink} target="_blank" rel="noreferrer" className="flex items-center gap-3 rounded-2xl border border-stone-700/20 bg-white/50 px-4 py-4 transition hover:bg-white/70">
-                    <MessageSquareIcon className="h-5 w-5" />
-                    <span>Shop the Trail Series</span>
-                  </a>
-                </div>
-
-                <div className="pt-2">
-                  <a href={ctaLink} className="inline-flex items-center gap-2 rounded-2xl bg-stone-950 px-6 py-3 text-sm font-semibold text-stone-100 shadow-lg transition hover:-translate-y-0.5">
-                    Request a Quote <ArrowRight className="h-4 w-4" />
-                  </a>
-                </div>
-              </div>
+            {/* Contact Form — replaces the old mailto card */}
+            <div className="rounded-[2rem] border border-white/10 bg-gradient-to-br from-stone-100 to-stone-200 px-6 py-8 text-stone-950 shadow-2xl md:px-10 md:py-10">
+              <p className="text-sm uppercase tracking-[0.2em] text-stone-600">Let's build something</p>
+              <h2 className="mt-2 text-2xl font-semibold tracking-tight md:text-3xl">
+                Start your project here.
+              </h2>
+              <p className="mt-2 text-sm leading-6 text-stone-600 mb-6">
+                Fill out the form and Darin will be in touch within 1–2 business days. Prefer to talk?
+                Call or text directly at{" "}
+                <a href={phoneLink} className="font-semibold text-stone-900 underline">
+                  {phoneNumber}
+                </a>.
+              </p>
+              <ContactForm light={true} />
             </div>
-          </div>
-        </div>
-      </section>
-      
-      <section className="relative border-y border-white/10">
-        <LineTopoOverlay opacity="opacity-15" dark="bg-black/80" />
 
-        <div className="relative z-10 mx-auto max-w-2xl px-4 py-16 md:px-10 md:py-20">
-          <div className="rounded-[2rem] border border-white/10 bg-stone-950/80 p-6 backdrop-blur md:p-10">
-            <p className="text-sm uppercase tracking-[0.2em] text-stone-400">Stay in the loop</p>
-            <h2 className="mt-3 text-2xl font-semibold tracking-tight md:text-4xl">
-              Get design inspiration and updates.
-            </h2>
-            <p className="mt-4 text-base leading-7 text-stone-300">
-              Get early access to new collections, design tips, and stories behind our builds. No spam, just real work.
-            </p>
-
-            <form onSubmit={handleEmailSignup} className="mt-6 flex flex-col gap-3 sm:flex-row">
-              <input
-                type="email"
-                placeholder="Your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className="flex-1 rounded-2xl border border-white/10 bg-white/5 px-5 py-3 text-sm text-white placeholder-stone-500 transition focus:border-white/30 focus:outline-none"
-              />
-              <button type="submit" className="rounded-2xl bg-white px-6 py-3 text-sm font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100">
-                Sign Up
-              </button>
-            </form>
           </div>
         </div>
       </section>
 
-      <section id="story" className="border-t border-white/10 bg-black px-4 py-16 md:px-10 md:py-20">
+      {/* ── STORY ── */}
+      <section id="story" className="border-t border-white/10 bg-black px-4 py-14 md:px-10 md:py-20">
         <div className="mx-auto max-w-6xl">
           <div className="grid gap-10 md:grid-cols-2 md:items-center md:gap-12">
             <div className="flex flex-col gap-4">
@@ -774,49 +862,40 @@ export default function Back40LandingPage() {
                 <img src="/images/bentonville-bicycle.JPG" alt="Back 40 at Bentonville Bicycle Co." className="block w-full rounded-2xl object-cover" />
               </div>
             </div>
-
             <div>
               <p className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-stone-400">
                 Built from something real
               </p>
-
               <h2 className="text-3xl font-bold tracking-tight text-white md:text-5xl">
                 Back 40 wasn't built overnight.
               </h2>
-
               <div className="mt-8 space-y-6 text-base leading-7 text-stone-300 md:text-lg md:leading-8">
                 <p>It started long before I ever made my first hat.</p>
-
                 <p>
-                  Growing up, my grandfather — <strong className="text-white">James E. McKeel, "Papa Fuzzy"</strong> —
-                  always had a hat on. Every day it was a different one. He would get excited to show me when he got a
-                  different one, and before long, I too became obsessed with buying hats, just like him.
+                  Growing up, my grandfather —{" "}
+                  <strong className="text-white">James E. McKeel, "Papa Fuzzy"</strong> — always had a hat on.
+                  Every day it was a different one. He would get excited to show me when he got a new one,
+                  and before long, I too became obsessed with buying hats, just like him.
                 </p>
-
                 <p>
                   Just about every picture I have of him, he is wearing a hat — except one. The family photo.
                   One of his rare moments without one on.
                 </p>
-
                 <p>
                   He was a hard worker — a baker for most of his life — up before the sun came up, putting
                   on his white work hat and heading out the door. Then he would come home, change
                   hats, and give everything he had to his grandchildren.
                 </p>
-
                 <p className="font-medium text-white">Being his first, I felt that first hand.</p>
-
                 <p>
                   Back 40 comes from that same place. This brand is about more than headwear — it's about
                   building something with meaning. Something honest. Something that reflects the people, places,
                   and stories that matter most.
                 </p>
-
                 <p className="font-semibold uppercase tracking-[0.14em] text-white">
                   Every hat, every patch, and every design carries that mindset.
                 </p>
               </div>
-
               <div className="mt-8 rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur md:mt-10 md:p-6">
                 <p className="text-lg font-semibold text-white">
                   More than a hat. <span className="font-bold">A story worth wearing.</span>
@@ -827,28 +906,24 @@ export default function Back40LandingPage() {
         </div>
       </section>
 
+      {/* ── FOOTER ── */}
       <footer className="relative overflow-hidden border-t border-white/10 px-4 py-8 text-sm text-stone-500 md:px-10">
         <LineTopoOverlay opacity="opacity-10" dark="bg-black/85" />
-
-        <div className="relative z-10 mx-auto flex max-w-7xl flex-col gap-6 md:flex-row md:items-center md:justify-between">
-          <p>© 2026 Back 40 Designs. Custom headwear with story and identity.</p>
-
-          <div className="flex flex-col gap-4 sm:flex-row sm:gap-6">
-            <a href={phoneLink} className="transition hover:text-stone-300">
-              {phoneNumber}
-            </a>
-            <a href={instagramLink} target="_blank" rel="noreferrer" className="transition hover:text-stone-300">
-              Instagram
-            </a>
-            <a href={facebookLink} target="_blank" rel="noreferrer" className="transition hover:text-stone-300">
-              Facebook
-            </a>
-            <a href={ctaLink} className="transition hover:text-stone-300">
-              Email
-            </a>
+        <div className="relative z-10 mx-auto flex max-w-7xl flex-col gap-5 md:flex-row md:items-center md:justify-between">
+          <div className="flex flex-col gap-1">
+            <p className="font-semibold text-stone-300">Back 40 Designs</p>
+            <p>© 2026 Back 40 Designs. Custom headwear with story and identity.</p>
+          </div>
+          <div className="flex flex-wrap gap-4 sm:gap-6">
+            <a href={phoneLink} className="transition hover:text-stone-300">{phoneNumber}</a>
+            <a href="mailto:info@back40designco.com" className="transition hover:text-stone-300">Email</a>
+            <a href={instagramLink} target="_blank" rel="noreferrer" className="transition hover:text-stone-300">Instagram</a>
+            <a href={facebookLink} target="_blank" rel="noreferrer" className="transition hover:text-stone-300">Facebook</a>
+            <a href={shopLink} target="_blank" rel="noreferrer" className="transition hover:text-stone-300">Shop</a>
           </div>
         </div>
       </footer>
+
     </div>
   );
 }
