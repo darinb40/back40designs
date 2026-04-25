@@ -27,15 +27,11 @@ const serviceBayItems = [
 export default function ServiceBayPage() {
   return (
     <div className="relative min-h-[100dvh] overflow-x-hidden text-white">
-      
-      {/* Background */}
-      <div className="fixed inset-0 -z-10 bg-[url('/images/service-bay-bg.png')] bg-cover bg-center opacity-85" />
-      <div className="fixed inset-0 -z-0 bg-black/20" />
+      <div className="fixed inset-0 -z-20 bg-[url('/images/service-bay-bg.png')] bg-cover bg-center opacity-85" />
+      <div className="fixed inset-0 -z-10 bg-black/20" />
 
-      {/* HERO */}
       <section className="mx-auto flex min-h-[100dvh] max-w-7xl items-center px-5 pb-20 pt-[calc(env(safe-area-inset-top)+5rem)] md:px-10 md:py-28">
         <div className="max-w-4xl drop-shadow-2xl">
-          
           <p className="mb-4 text-xs font-semibold uppercase tracking-[0.35em] text-white/75">
             B40 Dealership Series
           </p>
@@ -51,7 +47,6 @@ export default function ServiceBayPage() {
           </p>
 
           <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
-            
             <Link
               href="/dealership-series"
               className="inline-flex w-full justify-center rounded-2xl bg-white px-5 py-4 text-sm font-semibold text-black sm:w-auto"
@@ -61,45 +56,36 @@ export default function ServiceBayPage() {
 
             <Link
               href="/"
-              className="inline-flex w-full justify-center rounded-2xl border border-white/30 px-5 py-4 text-sm font-semibold text-white sm:w-auto"
+              className="inline-flex w-full justify-center rounded-2xl border border-white/30 bg-black/35 px-5 py-4 text-sm font-semibold text-white backdrop-blur sm:w-auto"
             >
               Back to Main Site
             </Link>
-
           </div>
         </div>
       </section>
 
-      {/* CONTENT */}
       <section className="mx-auto max-w-7xl px-5 py-20 md:px-10 md:py-28">
-        <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3">
-          
+        <div className="grid gap-6 md:grid-cols-3">
           {serviceBayItems.map((item) => (
             <div
               key={item.title}
-              className="p-2"
+              className="rounded-2xl border border-white/10 bg-black/25 p-5 shadow-2xl backdrop-blur-[2px] md:p-7"
             >
               <p className="text-xs uppercase tracking-[0.25em] text-white/60">
                 Service Bay
               </p>
 
-              <h2 className="mt-3 text-2xl font-semibold">
-                {item.title}
-              </h2>
+              <h2 className="mt-4 text-2xl font-semibold">{item.title}</h2>
 
-              <p className="mt-2 text-white/75">
-                {item.subtitle}
-              </p>
+              <p className="mt-2 text-white/75">{item.subtitle}</p>
 
-              <p className="mt-4 text-sm leading-7 text-white/85">
+              <p className="mt-5 text-sm leading-7 text-white/85">
                 {item.description}
               </p>
             </div>
           ))}
-
         </div>
       </section>
-
     </div>
   );
 }
