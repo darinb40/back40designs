@@ -17,111 +17,116 @@ export default function FrontLinePage() {
   ];
 
   return (
-    <main className="relative min-h-screen text-white overflow-hidden">
-      {/* BACKGROUND IMAGE */}
+    <main className="relative min-h-[100dvh] text-white overflow-x-hidden">
+      
+      {/* BACKGROUND */}
       <div
         className="fixed inset-0 -z-20 bg-cover bg-center"
-        style={{
-          backgroundImage: "url('/front-line.png')",
-        }}
+        style={{ backgroundImage: "url('/front-line.png')" }}
       />
 
-      {/* VERY LIGHT DARKEN */}
+      {/* LIGHT ATMOSPHERE */}
       <div className="fixed inset-0 -z-10 bg-black/5" />
-
-      {/* TOP GRADIENT FOR TEXT READABILITY */}
       <div className="fixed inset-0 -z-10 bg-gradient-to-b from-black/40 via-transparent to-transparent" />
 
       {/* HERO */}
-      <section className="min-h-screen flex items-center">
-        <div className="max-w-6xl mx-auto px-6 py-24 w-full">
-          <p className="uppercase tracking-[0.35em] text-sm text-white/70 mb-4">
-            Back 40 Designs · Dealership Series
-          </p>
+      <section className="min-h-[100dvh] flex items-center">
+        <div className="w-full px-5 sm:px-6 pt-[calc(env(safe-area-inset-top)+5rem)] pb-20">
 
-          <h1 className="text-5xl md:text-7xl font-black tracking-tight mb-6">
-            Front Line
-          </h1>
+          <div className="bg-black/20 border border-white/5 rounded-2xl p-5 inline-block">
+            <p className="uppercase tracking-[0.35em] text-xs text-white/70 mb-3">
+              Back 40 Designs · Dealership Series
+            </p>
 
-          <p className="text-xl md:text-2xl text-white/85 max-w-2xl leading-relaxed mb-8">
-            Showroom clean. Lot-ready. Built for the ones who stand out front,
-            shake hands, and close car deals.
-          </p>
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-black tracking-tight mb-4">
+              Front Line
+            </h1>
 
-          <div className="flex flex-wrap gap-4">
+            <p className="text-lg sm:text-xl text-white/85 max-w-xl leading-relaxed mb-6">
+              Showroom clean. Lot-ready. Built for the ones who stand out front,
+              shake hands, and close car deals.
+            </p>
+          </div>
+
+          <div className="mt-6 flex flex-col gap-3 w-full">
             <a
               href="#drop"
-              className="bg-white text-black px-6 py-3 rounded-2xl font-semibold inline-flex items-center gap-2"
+              className="w-full sm:w-auto bg-white text-black px-6 py-3 rounded-2xl font-semibold text-center"
             >
-              View the Drop <span>→</span>
+              View the Drop →
             </a>
 
             <Link
               href="/dealership-series"
-              className="border border-white/30 px-6 py-3 rounded-2xl text-white/80 hover:text-white bg-black/20 backdrop-blur-sm"
+              className="w-full sm:w-auto text-center border border-white/10 px-6 py-3 rounded-2xl text-white/80 bg-black/20"
             >
               Back to Dealership Series
             </Link>
           </div>
+
         </div>
       </section>
 
       {/* INTRO */}
-      <section className="max-w-5xl mx-auto px-6 py-24">
-        <div className="border border-white/10 rounded-3xl p-8 md:p-12 bg-black/30 backdrop-blur-md">
-          <p className="uppercase tracking-[0.3em] text-sm text-white/50 mb-4">
-            Corporate safe. Sales floor sharp.
-          </p>
+      <section className="px-5 sm:px-6 py-20 md:py-28">
+        <div className="max-w-3xl">
+          <div className="bg-black/20 border border-white/5 rounded-2xl p-6">
+            <p className="uppercase tracking-[0.3em] text-xs text-white/50 mb-3">
+              Corporate safe. Sales floor sharp.
+            </p>
 
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            Built for the front row.
-          </h2>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
+              Built for the front row.
+            </h2>
 
-          <p className="text-white/75 text-lg leading-relaxed">
-            Front Line is the clean side of the Dealership Series — polished
-            enough to wear with customers, sharp enough to stand apart from
-            generic store gear, and still made by someone who actually knows
-            the car business.
-          </p>
+            <p className="text-white/75 text-base sm:text-lg leading-relaxed">
+              Front Line is the clean side of the Dealership Series — polished
+              enough to wear with customers, sharp enough to stand apart from
+              generic store gear, and still made by someone who actually knows
+              the car business.
+            </p>
+          </div>
         </div>
       </section>
 
       {/* DROP */}
-      <section id="drop" className="max-w-6xl mx-auto px-6 py-24">
+      <section id="drop" className="px-5 sm:px-6 py-20 md:py-28">
         <div className="mb-10">
-          <p className="uppercase tracking-[0.3em] text-sm text-white/50 mb-3">
+          <p className="uppercase tracking-[0.3em] text-xs text-white/50 mb-2">
             Launch Drop
           </p>
 
-          <h2 className="text-4xl md:text-5xl font-black">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black">
             Front Line Hats
           </h2>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="flex flex-col gap-10">
           {hats.map((hat) => (
-            <div
-              key={hat.name}
-              className="rounded-3xl border border-white/10 bg-black/30 backdrop-blur-md p-6 min-h-[360px] flex flex-col justify-between"
-            >
-              <div className="h-52 rounded-2xl border border-white/10 bg-white/[0.05] flex items-center justify-center text-white/30 mb-6">
+            <div key={hat.name} className="flex flex-col gap-4">
+
+              <div className="h-52 rounded-2xl border border-white/10 bg-white/[0.05] flex items-center justify-center text-white/30">
                 Hat Image
               </div>
 
-              <div>
-                <h3 className="text-2xl font-bold mb-3">{hat.name}</h3>
-                <p className="text-white/65 leading-relaxed">{hat.text}</p>
+              <div className="bg-black/20 border border-white/5 rounded-2xl p-5">
+                <h3 className="text-xl sm:text-2xl font-bold mb-2">{hat.name}</h3>
+                <p className="text-white/65 leading-relaxed text-sm sm:text-base">
+                  {hat.text}
+                </p>
               </div>
+
             </div>
           ))}
         </div>
       </section>
 
       {/* DETAILS */}
-      <section className="max-w-5xl mx-auto px-6 py-24">
-        <div className="grid md:grid-cols-2 gap-6">
-          <div className="rounded-3xl border border-white/10 bg-black/30 backdrop-blur-md p-8">
-            <h3 className="text-2xl font-bold mb-4">
+      <section className="px-5 sm:px-6 py-20 md:py-28">
+        <div className="flex flex-col gap-6 max-w-3xl">
+
+          <div className="bg-black/20 border border-white/5 rounded-2xl p-6">
+            <h3 className="text-xl sm:text-2xl font-bold mb-3">
               Not generic dealership gear.
             </h3>
 
@@ -132,8 +137,8 @@ export default function FrontLinePage() {
             </p>
           </div>
 
-          <div className="rounded-3xl border border-white/10 bg-black/30 backdrop-blur-md p-8">
-            <h3 className="text-2xl font-bold mb-4">
+          <div className="bg-black/20 border border-white/5 rounded-2xl p-6">
+            <h3 className="text-xl sm:text-2xl font-bold mb-3">
               Clean enough to sell in.
             </h3>
 
@@ -143,28 +148,32 @@ export default function FrontLinePage() {
               understand the business.
             </p>
           </div>
+
         </div>
       </section>
 
       {/* CTA */}
-      <section className="px-6 py-24 text-center">
-        <div className="max-w-4xl mx-auto rounded-3xl border border-white/10 bg-black/30 backdrop-blur-md p-10 md:p-14">
-          <h2 className="text-3xl md:text-4xl font-black mb-4">
+      <section className="px-5 sm:px-6 py-20 md:py-28 text-center">
+        <div className="max-w-xl mx-auto bg-black/20 border border-white/5 rounded-2xl p-8">
+
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-black mb-3">
             Built by one of you.
           </h2>
 
-          <p className="text-white/65 max-w-2xl mx-auto mb-8">
+          <p className="text-white/65 mb-6">
             Dealership gear does not have to feel like an afterthought.
           </p>
 
           <Link
             href="/dealership-series"
-            className="inline-flex items-center gap-2 bg-white text-black px-6 py-3 rounded-2xl font-semibold"
+            className="w-full sm:w-auto inline-flex justify-center bg-white text-black px-6 py-3 rounded-2xl font-semibold"
           >
-            View Full Dealership Series <span>→</span>
+            View Full Dealership Series →
           </Link>
+
         </div>
       </section>
+
     </main>
   );
 }
