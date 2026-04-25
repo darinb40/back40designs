@@ -771,7 +771,7 @@ export default function Back40LandingPage() {
             </p>
             <div className="mt-8 overflow-hidden rounded-[2rem] border border-white/10 shadow-2xl">
               <img
-                src="/images/jester.jpeg"
+                src="/images/jester.jpg"
                 alt="Jesters Privilege — custom commission by Back 40 Designs"
                 className="w-full object-cover"
               />
