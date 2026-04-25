@@ -1,278 +1,312 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+
+const questions = [
+  {
+    question: (
+      <>
+        How many times have you said
+        <br />
+        “they’re not buying today”
+        <br />
+        this week?
+      </>
+    ),
+    answers: [
+      { text: "Once or twice", points: 3 },
+      { text: "A few times", points: 2 },
+      { text: "Every day", points: 1 },
+      { text: "I said it this morning", points: 0 },
+    ],
+    sting: "That’s why this hat exists.",
+  },
+  {
+    question: (
+      <>
+        When was the last time
+        <br />
+        you let a customer leave
+        <br />
+        without a T.O?
+      </>
+    ),
+    answers: [
+      { text: "Today", points: 0 },
+      { text: "This week", points: 1 },
+      { text: "Last month", points: 2 },
+      { text: "What’s a T.O?", points: 0 },
+    ],
+    sting: "That one cost you.",
+  },
+  {
+    question: (
+      <>
+        Be honest…
+        <br />
+        how fast do you move
+        <br />
+        when a fresh up hits the lot?
+      </>
+    ),
+    answers: [
+      { text: "I’m already halfway there", points: 3 },
+      { text: "Controlled, professional walk", points: 2 },
+      { text: "I wait to see who grabs it", points: 1 },
+      { text: "I suddenly have something to do", points: 0 },
+    ],
+    sting: "They saw you hesitate.",
+  },
+  {
+    question: (
+      <>
+        Be honest…
+        <br />
+        what do you blame first
+        <br />
+        when a deal falls apart?
+      </>
+    ),
+    answers: [
+      { text: "The customer", points: 1 },
+      { text: "The bank", points: 1 },
+      { text: "Finance", points: 1 },
+      { text: "Anything but me", points: 0 },
+    ],
+    sting: "Interesting.",
+  },
+  {
+    question: (
+      <>
+        Do you actually know
+        <br />
+        what a lot stretcher is?
+      </>
+    ),
+    answers: [
+      { text: "Yes", points: 3 },
+      { text: "I think so", points: 2 },
+      { text: "I’ve heard it", points: 1 },
+      { text: "No", points: 0 },
+    ],
+    sting: "Be honest.",
+  },
+];
 
 export default function TrainingRoomPage() {
-  const router = useRouter();
   const [started, setStarted] = useState(false);
-  const [answers, setAnswers] = useState({ q1: "", q2: "", q3: "" });
-  const [error, setError] = useState("");
+  const [current, setCurrent] = useState(0);
+  const [score, setScore] = useState(0);
+  const [showSting, setShowSting] = useState(false);
+  const [finished, setFinished] = useState(false);
 
-  const questions = [
-    {
-      id: "q1",
-      question: "1. A customer picks up a B40 hat… then puts it back. You:",
-      options: [
-        ["A", "Tackle them and secure the hat"],
-        ["B", "Whisper “don’t leave me” to the display"],
-        ["C", "Sprint to the break room"],
-        ["D", "Say, “That one usually finds the right person.”"],
-      ],
-    },
-    {
-      id: "q2",
-      question: "2. Customer: “Why is this one more?” You:",
-      options: [
-        ["A", "“Because inflation… probably.”"],
-        ["B", "“I don’t make the rules, man.”"],
-        ["C", "“We spun a wheel this morning.”"],
-        ["D", "“Because it’s not for everyone.”"],
-      ],
-    },
-    {
-      id: "q3",
-      question: "3. Customer is still holding the hat. You:",
-      options: [
-        ["A", "Slowly back away and avoid eye contact"],
-        ["B", "Start folding shirts aggressively"],
-        ["C", "Yell “DECISION TIME” from across the room"],
-        ["D", "Say, “If it’s still in your hand, there’s a reason.”"],
-      ],
-    },
-  ];
+  const maxScore = questions.length * 3;
+  const passed = score >= 9;
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  function handleAnswer(points) {
+    setScore((prev) => prev + points);
+    setShowSting(true);
 
-    if (answers.q1 === "D" && answers.q2 === "D" && answers.q3 === "D") {
-      router.push("/dealership-series/backlot");
-    } else {
-      setError("Incorrect. Please review the training material and try again.");
-    }
-  };
+    setTimeout(() => {
+      setShowSting(false);
+
+      if (current + 1 < questions.length) {
+        setCurrent((prev) => prev + 1);
+      } else {
+        setFinished(true);
+      }
+    }, 900);
+  }
+
+  if (!started) {
+    return (
+      <main className="min-h-screen bg-black text-white flex items-center justify-center px-6">
+        <div className="max-w-xl text-center">
+          <p className="text-[10px] uppercase tracking-[0.45em] text-red-400/50 mb-6">
+            Dealer Training Portal
+          </p>
+
+          <h1 className="text-5xl md:text-7xl font-black tracking-tight mb-6">
+            Training Room
+          </h1>
+
+          <p className="text-white/45 text-sm leading-relaxed mb-10">
+            This isn’t training.
+            <br />
+            This is honesty.
+            <br />
+            Back Lot access requires self-awareness.
+          </p>
+
+          <button
+            onClick={() => setStarted(true)}
+            className="border border-red-400/30 bg-red-400/5 px-6 py-3 text-xs text-red-200/80 hover:text-white hover:border-red-300/70 transition uppercase tracking-[0.25em]"
+          >
+            begin assessment
+          </button>
+        </div>
+      </main>
+    );
+  }
+
+  if (finished && passed) {
+    return (
+      <main className="min-h-screen bg-black text-white flex items-center justify-center px-4 py-10">
+        <div className="w-full max-w-5xl">
+          <div className="border border-red-500/50 bg-zinc-950 p-6 md:p-10 text-center shadow-2xl relative overflow-hidden">
+            <div className="absolute inset-0 opacity-[0.06] bg-[linear-gradient(rgba(255,255,255,0.25)_1px,transparent_1px)] bg-[size:100%_5px]" />
+
+            <div className="relative z-10">
+              <p className="text-[10px] uppercase tracking-[0.45em] text-red-400/70 mb-4">
+                B40 Back Lot Utilities
+              </p>
+
+              <h1 className="text-4xl md:text-7xl font-black tracking-tight mb-8">
+                BACK LOT CERTIFICATION
+              </h1>
+
+              <p className="text-white/60 text-sm md:text-base leading-relaxed mb-8">
+                This certifies that the individual viewing this screen
+                <br className="hidden md:block" />
+                has demonstrated a working understanding of:
+              </p>
+
+              <div className="max-w-xl mx-auto text-left space-y-3 text-white/75 mb-8">
+                <p>☑ Missed opportunities</p>
+                <p>☑ Poor assumptions</p>
+                <p>☑ Questionable effort</p>
+                <p>☑ And the reality of the back lot</p>
+              </div>
+
+              <div className="inline-block border-2 border-red-500 px-8 py-3 text-red-500 font-black text-3xl rotate-[-4deg] mb-8">
+                APPROVED
+              </div>
+
+              <p className="text-xs uppercase tracking-[0.35em] text-white/35 mb-3">
+                Designation
+              </p>
+
+              <h2 className="text-4xl md:text-6xl font-black text-red-500 mb-8">
+                CERTIFIED SALES ASSOCIATE
+              </h2>
+
+              <p className="text-2xl md:text-3xl font-black mb-3">
+                BACK LOT ACCESS GRANTED
+              </p>
+
+              <p className="text-white/50 text-sm leading-relaxed mb-8">
+                Alright.
+                <br />
+                You might actually survive back there.
+                <br />
+                Don’t touch anything with a sold tag on it.
+              </p>
+
+              <p className="text-[10px] uppercase tracking-[0.3em] text-white/25 mb-8">
+                Valid until your next bad TO
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <button
+                  onClick={() => window.print()}
+                  className="border border-red-400/30 px-5 py-3 text-xs text-red-300 hover:text-white hover:border-red-300 transition uppercase tracking-widest"
+                >
+                  screenshot / print certificate
+                </button>
+
+                <Link
+                  href="/dealership-series/backlot"
+                  className="border border-white/20 px-5 py-3 text-xs text-white/70 hover:text-white hover:border-white/50 transition uppercase tracking-widest"
+                >
+                  enter back lot
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    );
+  }
+
+  if (finished && !passed) {
+    return (
+      <main className="min-h-screen bg-black text-white flex items-center justify-center px-6">
+        <div className="max-w-xl text-center">
+          <p className="text-[10px] uppercase tracking-[0.45em] text-red-400/50 mb-6">
+            Assessment Failed
+          </p>
+
+          <h1 className="text-5xl md:text-7xl font-black mb-6">
+            Not Yet.
+          </h1>
+
+          <p className="text-white/45 text-sm leading-relaxed mb-10">
+            You’re not ready for the Back Lot.
+            <br />
+            Go train.
+          </p>
+
+          <button
+            onClick={() => {
+              setStarted(false);
+              setCurrent(0);
+              setScore(0);
+              setFinished(false);
+            }}
+            className="border border-red-400/30 bg-red-400/5 px-6 py-3 text-xs text-red-200/80 hover:text-white hover:border-red-300/70 transition uppercase tracking-[0.25em]"
+          >
+            try again
+          </button>
+        </div>
+      </main>
+    );
+  }
+
+  const q = questions[current];
 
   return (
-    <main className="min-h-screen bg-[#b9d9ee] text-slate-900 flex items-center justify-center px-4 py-8">
-      <div className="w-full max-w-7xl rounded-[28px] border-[14px] border-[#123b5c] bg-[#eef6fb] shadow-2xl overflow-hidden">
+    <main className="min-h-screen bg-black text-white flex items-center justify-center px-6">
+      <div className="max-w-xl w-full text-center">
+        <p className="text-[10px] uppercase tracking-[0.4em] text-red-400/50 mb-4">
+          Question {current + 1} / {questions.length}
+        </p>
 
-        {/* Browser Bar */}
-        <div className="h-16 bg-slate-100 border-b border-slate-300 flex items-center px-6 gap-4">
-          <div className="flex gap-2">
-            <span className="w-3 h-3 rounded-full bg-red-500" />
-            <span className="w-3 h-3 rounded-full bg-yellow-400" />
-            <span className="w-3 h-3 rounded-full bg-green-500" />
-          </div>
-
-          <div className="ml-6 flex-1 h-9 bg-white rounded-md border border-slate-200 flex items-center px-4 text-slate-400 text-sm">
-            B40 Dealer Training Portal / Required Certification
-          </div>
-
-          <div className="text-slate-400 text-2xl">☰</div>
+        <div className="h-2 w-full bg-white/10 mb-10 overflow-hidden">
+          <div
+            className="h-full bg-red-500 transition-all duration-500"
+            style={{ width: `${((current + 1) / questions.length) * 100}%` }}
+          />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[260px_1fr] min-h-[720px]">
+        {showSting ? (
+          <div className="min-h-[360px] flex items-center justify-center">
+            <p className="text-4xl md:text-6xl font-black text-red-500 animate-flicker">
+              {q.sting}
+            </p>
+          </div>
+        ) : (
+          <>
+            <h1 className="text-3xl md:text-5xl font-black leading-tight mb-10">
+              {q.question}
+            </h1>
 
-          {/* Sidebar */}
-          <aside className="bg-[#0f3a5c] text-white p-8 flex flex-col">
-            <div className="mb-12">
-              <div className="text-5xl font-black tracking-tight">B40</div>
-              <p className="text-sm tracking-[0.18em] uppercase mt-2">
-                Dealer Training Portal
-              </p>
+            <div className="grid gap-4">
+              {q.answers.map((answer, index) => (
+                <button
+                  key={answer.text}
+                  onClick={() => handleAnswer(answer.points)}
+                  className="text-left border border-white/15 bg-white/[0.03] hover:bg-red-500/10 hover:border-red-400/50 transition p-4"
+                >
+                  <span className="text-red-400 mr-3">
+                    {String.fromCharCode(65 + index)})
+                  </span>
+                  <span className="text-white/75">{answer.text}</span>
+                </button>
+              ))}
             </div>
-
-            <nav className="space-y-3 text-sm font-semibold">
-              <div className="bg-blue-700 px-5 py-4 rounded-md">Dashboard</div>
-              <div className="opacity-70 px-5 py-4">Training Modules</div>
-              <div className="opacity-70 px-5 py-4">Certifications</div>
-              <div className="opacity-70 px-5 py-4">Resources</div>
-              <div className="opacity-70 px-5 py-4">Support</div>
-            </nav>
-
-            <div className="mt-auto text-xs text-white/60">
-              © 2026 B40 Systems
-              <br />
-              All rights reserved.
-            </div>
-          </aside>
-
-          {/* Main Dashboard */}
-          <section className="p-6 md:p-10">
-            <div className="grid grid-cols-1 xl:grid-cols-[1fr_370px] gap-8">
-
-              {/* Center */}
-              <div>
-                <p className="text-blue-700 font-bold uppercase tracking-wide mb-2">
-                  Sales Process Certification
-                </p>
-
-                <h1 className="text-4xl md:text-5xl font-black uppercase tracking-tight text-[#0b2740] mb-4">
-                  Module 01: Product Value Recognition
-                </h1>
-
-                <div className="inline-flex items-center gap-2 border border-blue-400 bg-white px-4 py-2 rounded-md text-blue-700 font-bold mb-6">
-                  REQUIRED CERTIFICATION
-                </div>
-
-                <div className="bg-white border border-slate-300 rounded-lg p-5 mb-5">
-                  <div className="flex justify-between text-sm font-bold mb-3">
-                    <span>Module Progress</span>
-                    <span className="text-blue-700">
-                      {started ? "33% Complete" : "0% Complete"}
-                    </span>
-                  </div>
-                  <div className="h-3 bg-slate-200 rounded-full overflow-hidden">
-                    <div
-                      className="h-full bg-blue-700 transition-all duration-500"
-                      style={{ width: started ? "33%" : "0%" }}
-                    />
-                  </div>
-                </div>
-
-                <div className="bg-white border border-slate-300 rounded-lg overflow-hidden">
-                  <div className="grid grid-cols-3 border-b border-slate-300 text-sm font-bold">
-                    <div className="bg-blue-700 text-white px-5 py-4">
-                      Assessment
-                    </div>
-                    <div className="px-5 py-4 text-slate-500 border-l border-slate-300">
-                      Materials
-                    </div>
-                    <div className="px-5 py-4 text-slate-500 border-l border-slate-300">
-                      Notes
-                    </div>
-                  </div>
-
-                  {!started ? (
-                    <div className="p-8">
-                      <h2 className="text-2xl font-black mb-4">
-                        Welcome to Required Training
-                      </h2>
-
-                      <p className="text-slate-600 mb-6 max-w-2xl">
-                        Please complete this mandatory certification before
-                        accessing Back Lot operations and tools.
-                      </p>
-
-                      <div className="bg-slate-100 border border-slate-300 p-4 text-sm mb-8">
-                        <strong>Training Reminder:</strong> This module may not
-                        reflect real-world Saturdays.
-                      </div>
-
-                      <button
-                        onClick={() => setStarted(true)}
-                        className="bg-blue-700 text-white px-8 py-3 font-bold rounded hover:bg-blue-800 transition"
-                      >
-                        Begin Assessment
-                      </button>
-                    </div>
-                  ) : (
-                    <form onSubmit={handleSubmit} className="p-6 space-y-8">
-                      {questions.map((q) => (
-                        <div key={q.id} className="border-b border-slate-200 pb-6">
-                          <p className="text-xl font-black mb-4">{q.question}</p>
-
-                          <div className="space-y-3">
-                            {q.options.map(([key, text]) => (
-                              <label
-                                key={key}
-                                className="flex gap-3 items-start bg-slate-100 hover:bg-blue-50 border border-slate-200 rounded-md p-4 cursor-pointer"
-                              >
-                                <input
-                                  type="radio"
-                                  name={q.id}
-                                  value={key}
-                                  onChange={(e) =>
-                                    setAnswers({
-                                      ...answers,
-                                      [q.id]: e.target.value,
-                                    })
-                                  }
-                                  className="mt-1"
-                                />
-                                <span>
-                                  <strong>{key})</strong> {text}
-                                </span>
-                              </label>
-                            ))}
-                          </div>
-                        </div>
-                      ))}
-
-                      {error && (
-                        <p className="text-red-600 text-sm font-bold text-center">
-                          {error}
-                        </p>
-                      )}
-
-                      <button
-                        type="submit"
-                        className="w-full bg-blue-700 text-white py-4 font-black rounded hover:bg-blue-800 transition"
-                      >
-                        Submit Assessment
-                      </button>
-                    </form>
-                  )}
-                </div>
-              </div>
-
-              {/* Right Sidebar */}
-              <div className="space-y-5">
-                <div className="bg-white border border-blue-200 rounded-lg p-5">
-                  <h3 className="font-black uppercase mb-4">Vehicle Module</h3>
-
-                  <div className="relative bg-sky-50 border border-sky-100 rounded-md h-44 flex items-end justify-center overflow-hidden">
-                    <div className="absolute top-8 w-28 h-16 bg-neutral-800 rounded-t-full border-4 border-neutral-700 rotate-[-4deg] flex items-center justify-center text-white font-black">
-                      B40
-                    </div>
-
-                    <div className="w-64 h-20 bg-yellow-400 rounded-t-[60px] rounded-b-md relative mb-8 shadow-md">
-                      <div className="absolute top-4 left-16 w-28 h-8 bg-slate-800 rounded-t-full" />
-                      <div className="absolute bottom-[-18px] left-8 w-12 h-12 bg-slate-900 rounded-full border-4 border-white" />
-                      <div className="absolute bottom-[-18px] right-8 w-12 h-12 bg-slate-900 rounded-full border-4 border-white" />
-                    </div>
-                  </div>
-
-                  <div className="border-t border-slate-300 mt-4 pt-4">
-                    <p className="font-black">B40 Product Line</p>
-                    <p className="text-sm text-slate-600">
-                      Quality. Purpose. Culture.
-                    </p>
-                    <p className="text-yellow-400 mt-2">★★★★★</p>
-                  </div>
-                </div>
-
-                <div className="bg-white border border-blue-200 rounded-lg p-5">
-                  <h3 className="font-black uppercase mb-4">Module Status</h3>
-                  <p className="text-sm">
-                    Status:{" "}
-                    <span className="text-blue-700 font-bold">
-                      {started ? "In Progress" : "Not Started"}
-                    </span>
-                  </p>
-                  <p className="text-sm">Required: Yes</p>
-                  <p className="text-sm">Attempts: 0</p>
-                  <p className="text-sm">Passing Score: 100%</p>
-                </div>
-
-                <div className="bg-white border border-blue-200 rounded-lg p-5">
-                  <h3 className="font-black uppercase mb-3">Compliance Notice</h3>
-                  <p className="text-sm text-slate-600">
-                    Failure to complete this module may result in restricted
-                    system access.
-                  </p>
-                </div>
-
-                <div className="bg-white border border-blue-200 rounded-lg p-5">
-                  <h3 className="font-black uppercase mb-3">System Notice</h3>
-                  <p className="text-sm text-slate-600">
-                    This training system is monitored. All activity is recorded.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </section>
-        </div>
+          </>
+        )}
       </div>
     </main>
   );
