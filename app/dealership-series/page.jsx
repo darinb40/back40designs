@@ -3,11 +3,11 @@
 import Link from "next/link";
 
 const ArrowRight = ({ className = "h-4 w-4" }) => (
-    <span className={className}>→</span>span>
+    <span className={className}>→</span>
   );
 
 const LockIcon = ({ className = "h-4 w-4" }) => (
-    <span className={className}>🔒</span>span>
+    <span className={className}>🔒</span>
   );
 
 export default function DealershipSeriesPage() {
