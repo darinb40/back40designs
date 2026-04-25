@@ -27,11 +27,15 @@ const serviceBayItems = [
 export default function ServiceBayPage() {
   return (
     <main className="relative min-h-[100dvh] overflow-x-hidden bg-black text-white">
+      
+      {/* Background */}
       <div className="fixed inset-0 -z-20 bg-[url('/images/service-bay-bg.png')] bg-cover bg-center opacity-85" />
       <div className="fixed inset-0 -z-10 bg-black/20" />
 
+      {/* HERO (full screen — correct) */}
       <section className="mx-auto flex min-h-[100dvh] max-w-7xl items-center px-5 pb-20 pt-[calc(env(safe-area-inset-top)+5rem)] md:px-10 md:py-28">
         <div className="w-full max-w-4xl drop-shadow-2xl">
+          
           <p className="mb-4 text-xs font-semibold uppercase tracking-[0.35em] text-white/75">
             B40 Dealership Series
           </p>
@@ -47,6 +51,7 @@ export default function ServiceBayPage() {
           </p>
 
           <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
+            
             <Link
               href="/dealership-series"
               className="inline-flex w-full justify-center rounded-2xl bg-white px-5 py-4 text-sm font-semibold text-black transition hover:scale-[1.02] sm:w-auto"
@@ -60,12 +65,15 @@ export default function ServiceBayPage() {
             >
               Back to Main Site
             </Link>
+
           </div>
         </div>
       </section>
 
+      {/* CONTENT (NOT full screen — FIXED) */}
       <section className="mx-auto max-w-7xl px-5 py-20 md:px-10 md:py-28">
         <div className="grid gap-5 sm:grid-cols-2 md:grid-cols-3">
+          
           {serviceBayItems.map((item) => (
             <div
               key={item.title}
@@ -75,17 +83,23 @@ export default function ServiceBayPage() {
                 Service Bay
               </p>
 
-              <h2 className="mt-4 text-2xl font-semibold">{item.title}</h2>
+              <h2 className="mt-4 text-2xl font-semibold">
+                {item.title}
+              </h2>
 
-              <p className="mt-2 text-white/70">{item.subtitle}</p>
+              <p className="mt-2 text-white/70">
+                {item.subtitle}
+              </p>
 
               <p className="mt-5 text-sm leading-7 text-white/80">
                 {item.description}
               </p>
             </div>
           ))}
+
         </div>
       </section>
+
     </main>
   );
 }
