@@ -193,7 +193,7 @@ export default function FrontLinePage() {
               <div key={hat.name} className="flex flex-col gap-5">
                 <div className="overflow-hidden rounded-2xl border border-white/10">
                   <img
-                    src="/images/coming-soon.png"
+                    src="/images/coming-soon.PNG"
                     alt={`${hat.name} — Coming Soon`}
                     className="w-full object-cover"
                   />
