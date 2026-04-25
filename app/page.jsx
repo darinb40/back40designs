@@ -345,6 +345,7 @@ export default function Back40LandingPage() {
   ];
 
   const homeGallery = [
+    { title: "Jesters Privilege", image: "/images/jester.jpeg" },
     { title: "Trail Series — Dragon Scales", image: "/images/dragon-scales.jpg" },
     { title: "Back 40 Loop", image: "/images/topo-row.jpg" },
     { title: "Gravette Bad Bananas", image: "/images/bad-bananas.jpg" },
@@ -352,7 +353,6 @@ export default function Back40LandingPage() {
     { title: "Pinnacle Sports", image: "/images/pinnacle.JPG" },
     { title: "Little Sugar — Bella Vista", image: "/images/little-sugar-held.jpg" },
     { title: "Hubcap Kid", image: "/images/hubccap-kid.JPG" },
-    { title: "Hat Lineup", image: "/images/hat-lineup.jpg" },
   ];
 
   return (
@@ -759,7 +759,7 @@ export default function Back40LandingPage() {
       {/* ── WHY BACK 40 ── */}
       <section className="relative border-y border-white/10">
         <LineTopoOverlay opacity="opacity-15" dark="bg-black/80" />
-        <div className="relative z-10 mx-auto grid max-w-7xl gap-6 px-4 py-14 md:px-10 md:py-20 lg:grid-cols-[1.1fr_0.9fr] lg:gap-8">
+        <div className="relative z-10 mx-auto grid max-w-7xl gap-6 px-4 py-14 md:px-10 md:py-20 lg:grid-cols-2 lg:gap-10 lg:items-start">
           <div>
             <p className="text-sm uppercase tracking-[0.2em] text-stone-400">Why Back 40</p>
             <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">
@@ -769,6 +769,17 @@ export default function Back40LandingPage() {
               The best custom gear feels personal. Back 40 focuses on hats that connect to a place,
               a business, a memory, or a brand identity people actually care about.
             </p>
+            <div className="mt-8 overflow-hidden rounded-[2rem] border border-white/10 shadow-2xl">
+              <img
+                src="/images/jester.jpeg"
+                alt="Jesters Privilege — custom commission by Back 40 Designs"
+                className="w-full object-cover"
+              />
+              <div className="border-t border-white/10 bg-black/60 px-5 py-3 backdrop-blur">
+                <p className="text-xs uppercase tracking-[0.2em] text-stone-500">Custom Commission</p>
+                <p className="mt-0.5 text-sm font-semibold text-stone-200">Jesters Privilege — Legacy Build</p>
+              </div>
+            </div>
           </div>
           <div className="grid gap-4">
             {[
