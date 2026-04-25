@@ -34,7 +34,7 @@ function LineTopoOverlay({ opacity = "opacity-20", dark = "bg-black/75" }) {
 // Uses Formspree (free tier) — replace YOUR_FORM_ID with your actual ID from formspree.io
 // To set up: go to formspree.io, create a free account, create a form,
 // and paste the form ID (looks like "xpwzgkrb") into FORMSPREE_ID below.
-const FORMSPREE_ID = "YOUR_FORM_ID";
+const FORMSPREE_ID = "xzdywzvy";
 
 function ContactForm({ light = false }) {
   const [status, setStatus] = React.useState("idle"); // idle | sending | success | error
