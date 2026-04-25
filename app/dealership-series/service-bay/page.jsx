@@ -26,15 +26,15 @@ const serviceBayItems = [
 
 export default function ServiceBayPage() {
   return (
-    <main className="relative min-h-[100dvh] overflow-x-hidden bg-black text-white">
+    <div className="relative min-h-[100dvh] overflow-x-hidden text-white">
       
       {/* Background */}
-      <div className="fixed inset-0 -z-20 bg-[url('/images/service-bay-bg.png')] bg-cover bg-center opacity-85" />
-      <div className="fixed inset-0 -z-10 bg-black/20" />
+      <div className="fixed inset-0 -z-10 bg-[url('/images/service-bay-bg.png')] bg-cover bg-center opacity-85" />
+      <div className="fixed inset-0 -z-0 bg-black/20" />
 
-      {/* HERO (full screen — correct) */}
+      {/* HERO */}
       <section className="mx-auto flex min-h-[100dvh] max-w-7xl items-center px-5 pb-20 pt-[calc(env(safe-area-inset-top)+5rem)] md:px-10 md:py-28">
-        <div className="w-full max-w-4xl drop-shadow-2xl">
+        <div className="max-w-4xl drop-shadow-2xl">
           
           <p className="mb-4 text-xs font-semibold uppercase tracking-[0.35em] text-white/75">
             B40 Dealership Series
@@ -54,14 +54,14 @@ export default function ServiceBayPage() {
             
             <Link
               href="/dealership-series"
-              className="inline-flex w-full justify-center rounded-2xl bg-white px-5 py-4 text-sm font-semibold text-black transition hover:scale-[1.02] sm:w-auto"
+              className="inline-flex w-full justify-center rounded-2xl bg-white px-5 py-4 text-sm font-semibold text-black sm:w-auto"
             >
               ← Back to Dealership Series
             </Link>
 
             <Link
               href="/"
-              className="inline-flex w-full justify-center rounded-2xl border border-white/30 bg-black/35 px-5 py-4 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/10 sm:w-auto"
+              className="inline-flex w-full justify-center rounded-2xl border border-white/30 px-5 py-4 text-sm font-semibold text-white sm:w-auto"
             >
               Back to Main Site
             </Link>
@@ -70,28 +70,28 @@ export default function ServiceBayPage() {
         </div>
       </section>
 
-      {/* CONTENT (NOT full screen — FIXED) */}
+      {/* CONTENT */}
       <section className="mx-auto max-w-7xl px-5 py-20 md:px-10 md:py-28">
-        <div className="grid gap-5 sm:grid-cols-2 md:grid-cols-3">
+        <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3">
           
           {serviceBayItems.map((item) => (
             <div
               key={item.title}
-              className="rounded-[2rem] border border-white/20 bg-black/40 p-6 shadow-2xl backdrop-blur sm:p-7"
+              className="p-2"
             >
-              <p className="text-xs uppercase tracking-[0.25em] text-white/50">
+              <p className="text-xs uppercase tracking-[0.25em] text-white/60">
                 Service Bay
               </p>
 
-              <h2 className="mt-4 text-2xl font-semibold">
+              <h2 className="mt-3 text-2xl font-semibold">
                 {item.title}
               </h2>
 
-              <p className="mt-2 text-white/70">
+              <p className="mt-2 text-white/75">
                 {item.subtitle}
               </p>
 
-              <p className="mt-5 text-sm leading-7 text-white/80">
+              <p className="mt-4 text-sm leading-7 text-white/85">
                 {item.description}
               </p>
             </div>
@@ -100,6 +100,6 @@ export default function ServiceBayPage() {
         </div>
       </section>
 
-    </main>
+    </div>
   );
 }
