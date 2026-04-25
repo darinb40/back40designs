@@ -224,6 +224,7 @@ export default function Back40LandingPage() {
 
   const shopLink = "https://back40-headwear.myshopify.com/collections/b40-trail-series";
   const instagramLink = "https://www.instagram.com/b40_designs/";
+  const facebookLink = "https://www.facebook.com/";
   const phoneLink = "tel:479-544-1366";
   const phoneNumber = "479-544-1366";
 
