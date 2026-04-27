@@ -161,7 +161,7 @@ export default function ServiceBayPage() {
               <p className="mt-5 text-sm leading-7 text-white/85">{item.description}</p>
               <div className="mt-5 overflow-hidden rounded-xl border border-white/10">
                 <img
-                  src="/images/coming-soon.PNG"
+                  src="/images/pos.png"
                   alt={`${item.title} — Coming Soon`}
                   className="w-full object-cover max-h-64"
                 />
