@@ -1,36 +1,121 @@
 'use client';
 
-import Link from 'next/link';
 import React from 'react';
+import Link from 'next/link';
 
 const serviceBayItems = [
   {
-    title: 'No Comebacks',
-    subtitle: 'Do it right the first time.',
-    description: 'Built for the techs who know the job is not done until it leaves clean.',
+    title: "I Don't Work For Free",
+    slug: "free-work",
+    image: "/images/free-work.png",
+    subtitle: "Flat rate. Every flag hour counts.",
+    description: "Built for the techs who know exactly what their time is worth and aren't shy about it.",
+    patch: "Acrylic patch",
+    hat: "Richardson 112 — Olive / Black",
+    badge: "Pre-Order",
+    lane: "Service Bay",
   },
   {
-    title: 'Flat Rate',
-    subtitle: 'Clock is running.',
-    description: 'For the ones who know every minute, every flag hour, and every repair order matters.',
+    title: "Who Traded For This Piece of $#!T?",
+    slug: "pos",
+    image: "/images/pos.png",
+    subtitle: "Someone upfront made a bad call.",
+    description: "For the tech who pulls a car into the bay and immediately knows the whole story.",
+    patch: "Acrylic patch",
+    hat: "Richardson 112 — Olive / Black",
+    badge: "Pre-Order",
+    lane: "Service Bay",
   },
   {
-    title: 'Diag First',
-    subtitle: "Don't guess. Test.",
-    description: 'A clean shop-floor piece for the gearheads who solve the problem before they turn the wrench.',
+    title: "Cross Threaded Is Threaded",
+    slug: "cross-thread",
+    image: "/images/cross-thread.png",
+    subtitle: "It's in there. That's what matters.",
+    description: "Shop floor logic. You either get it or you don't.",
+    patch: "Acrylic patch",
+    hat: "Richardson 112 — Olive / Black",
+    badge: "Pre-Order",
+    lane: "Service Bay",
   },
 ];
 
 export default function ServiceBayPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+  const [lightbox, setLightbox] = React.useState(null);
+
   const shopLink = "https://back40-headwear.myshopify.com/collections/b40-trail-series";
+  const preOrderLink = "/dealership-series/pre-order";
 
   return (
     <div className="relative min-h-[100dvh] overflow-x-hidden text-white">
 
+      <style jsx global>{`
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        @keyframes scaleIn {
+          from { opacity: 0; transform: scale(0.92); }
+          to { opacity: 1; transform: scale(1); }
+        }
+      `}</style>
+
       {/* Background */}
       <div className="fixed inset-0 -z-20 bg-[url('/images/service-bay-bg.png')] bg-cover bg-center opacity-85" />
       <div className="fixed inset-0 -z-10 bg-black/20" />
+
+      {/* ── LIGHTBOX ── */}
+      {lightbox !== null && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm px-4"
+          style={{ animation: "fadeIn 0.2s ease" }}
+          onClick={() => setLightbox(null)}
+        >
+          <div
+            className="relative max-w-2xl w-full"
+            style={{ animation: "scaleIn 0.25s ease" }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img
+              src={serviceBayItems[lightbox].image}
+              alt={serviceBayItems[lightbox].title}
+              className="w-full rounded-2xl border border-white/10 shadow-2xl"
+            />
+            <div className="mt-4 flex items-center justify-between px-1">
+              <div>
+                <p className="text-sm font-semibold text-white">{serviceBayItems[lightbox].title}</p>
+                <p className="text-xs text-white/50">{serviceBayItems[lightbox].patch} · {serviceBayItems[lightbox].hat}</p>
+              </div>
+              <button
+                onClick={() => setLightbox(null)}
+                className="text-white/40 hover:text-white text-xs uppercase tracking-widest transition"
+              >
+                Close ✕
+              </button>
+            </div>
+            <div className="mt-4 flex gap-3">
+              <button
+                onClick={() => setLightbox(lightbox > 0 ? lightbox - 1 : serviceBayItems.length - 1)}
+                className="flex-1 rounded-xl border border-white/10 bg-white/5 py-2.5 text-xs uppercase tracking-widest text-white/60 hover:text-white hover:bg-white/10 transition"
+              >
+                ← Prev
+              </button>
+              <Link
+                href={preOrderLink}
+                className="flex-1 rounded-xl bg-white py-2.5 text-xs uppercase tracking-widest text-black font-semibold text-center hover:bg-stone-100 transition"
+              >
+                Pre-Order This Hat
+              </Link>
+              <button
+                onClick={() => setLightbox(lightbox < serviceBayItems.length - 1 ? lightbox + 1 : 0)}
+                className="flex-1 rounded-xl border border-white/10 bg-white/5 py-2.5 text-xs uppercase tracking-widest text-white/60 hover:text-white hover:bg-white/10 transition"
+              >
+                Next →
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* ── HEADER ── */}
       <header className="sticky top-0 z-40 border-b border-white/10 bg-black/80 backdrop-blur">
@@ -44,7 +129,6 @@ export default function ServiceBayPage() {
             </div>
           </Link>
 
-          {/* Desktop nav */}
           <nav className="hidden items-center gap-6 text-sm text-stone-300 md:flex">
             <Link href="/#collections" className="transition hover:text-white">Collections</Link>
             <Link href="/dealership-series" className="text-white font-semibold">Dealership Series</Link>
@@ -64,10 +148,10 @@ export default function ServiceBayPage() {
               Shop
             </a>
             <Link
-              href="/#contact"
+              href={preOrderLink}
               className="inline-flex items-center gap-1.5 rounded-2xl bg-white px-3 py-2 text-xs font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100 md:px-4 md:text-sm"
             >
-              Start a Project →
+              Pre-Order →
             </Link>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -79,7 +163,6 @@ export default function ServiceBayPage() {
           </div>
         </div>
 
-        {/* Mobile menu */}
         {mobileMenuOpen && (
           <div className="border-t border-white/10 bg-black/90 px-4 py-4 md:hidden">
             <nav className="flex flex-col gap-4 text-sm text-stone-300">
@@ -115,59 +198,120 @@ export default function ServiceBayPage() {
       </header>
 
       {/* ── HERO ── */}
-      <section className="mx-auto flex min-h-[100dvh] max-w-7xl items-center px-5 pb-20 pt-10 md:px-10 md:py-28">
+      <section className="mx-auto flex min-h-[60dvh] max-w-7xl items-center px-5 pb-10 pt-10 md:px-10 md:py-20">
         <div className="max-w-4xl rounded-2xl border border-white/5 bg-black/30 p-6 sm:p-8 drop-shadow-2xl">
-          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.35em] text-white/75">
-            B40 Dealership Series
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.35em] text-white/60">
+            Back Forty Service Department
           </p>
-          <h1 className="text-4xl font-semibold leading-tight sm:text-5xl md:text-7xl">
+          <h1 className="text-4xl font-semibold leading-tight sm:text-5xl md:text-6xl">
             Built for the ones in the bay.
           </h1>
-          <p className="mt-6 max-w-3xl text-base leading-7 text-white/85 sm:text-lg sm:leading-8 md:text-xl">
+          <p className="mt-5 max-w-2xl text-base leading-7 text-white/80 sm:text-lg">
             No spotlight. No applause. Just work that has to be done right.
             Service Bay is for the techs, parts crews, and gearheads who keep
             the whole place running.
           </p>
-          <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
+          <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-yellow-400/30 bg-yellow-400/10 px-4 py-1.5">
+            <span className="h-1.5 w-1.5 rounded-full bg-yellow-400 animate-pulse" />
+            <p className="text-xs font-semibold uppercase tracking-widest text-yellow-400">
+              First run — 24 units per design
+            </p>
+          </div>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link
-              href="/dealership-series"
-              className="inline-flex w-full justify-center rounded-2xl bg-white px-5 py-4 text-sm font-semibold text-black sm:w-auto"
+              href={preOrderLink}
+              className="inline-flex w-full justify-center rounded-2xl bg-white px-6 py-3.5 text-sm font-semibold text-black transition hover:bg-stone-100 sm:w-auto"
             >
-              ← Back to Dealership Series
+              Pre-Order Now →
             </Link>
             <Link
-              href="/"
-              className="inline-flex w-full justify-center rounded-2xl border border-white/30 px-5 py-4 text-sm font-semibold text-white sm:w-auto"
+              href="/dealership-series"
+              className="inline-flex w-full justify-center rounded-2xl border border-white/20 px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-white/10 sm:w-auto"
             >
-              Back to Main Site
+              ← Back to Dealership Series
             </Link>
           </div>
         </div>
       </section>
 
-      {/* ── CARDS ── */}
-      <section className="mx-auto max-w-7xl px-5 py-20 md:px-10 md:py-28">
+      {/* ── HAT CARDS ── */}
+      <section className="mx-auto max-w-7xl px-5 py-10 md:px-10 md:py-16">
+        <div className="mb-8">
+          <p className="text-sm uppercase tracking-[0.2em] text-white/40">The Collection</p>
+          <h2 className="mt-2 text-3xl font-semibold sm:text-4xl">Service Bay Hats</h2>
+        </div>
+
         <div className="grid gap-6 md:grid-cols-3">
-          {serviceBayItems.map((item) => (
+          {serviceBayItems.map((item, index) => (
             <div
               key={item.title}
-              className="rounded-2xl border border-white/10 bg-black/30 p-5 md:p-7"
+              className="group rounded-2xl border border-white/10 bg-black/30 overflow-hidden backdrop-blur transition hover:-translate-y-1"
             >
-              <p className="text-xs uppercase tracking-[0.25em] text-white/60">
-                Service Bay
-              </p>
-              <h2 className="mt-4 text-2xl font-semibold">{item.title}</h2>
-              <p className="mt-2 text-white/75">{item.subtitle}</p>
-              <p className="mt-5 text-sm leading-7 text-white/85">{item.description}</p>
-              <div className="mt-5 overflow-hidden rounded-xl border border-white/10">
+              {/* Image — clickable */}
+              <div
+                className="relative overflow-hidden cursor-zoom-in"
+                onClick={() => setLightbox(index)}
+              >
                 <img
-                  src="/images/pos.png"
-                  alt={`${item.title} — Coming Soon`}
-                  className="w-full object-cover max-h-64"
+                  src={item.image}
+                  alt={item.title}
+                  className="w-full object-cover max-h-64 transition duration-500 group-hover:scale-[1.03]"
                 />
+                <div className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/30 transition duration-300">
+                  <span className="opacity-0 group-hover:opacity-100 transition duration-300 text-xs uppercase tracking-widest text-white bg-black/50 px-3 py-1.5 rounded-full border border-white/20">
+                    Tap to expand
+                  </span>
+                </div>
+                <div className="absolute top-3 right-3">
+                  <span className="rounded-full bg-yellow-400/20 border border-yellow-400/40 px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-yellow-400">
+                    {item.badge}
+                  </span>
+                </div>
+              </div>
+
+              {/* Content */}
+              <div className="p-5 md:p-6">
+                <p className="text-xs uppercase tracking-[0.25em] text-white/40 mb-2">{item.lane}</p>
+                <h3 className="text-lg font-semibold text-white leading-snug">{item.title}</h3>
+                <p className="mt-1 text-sm text-white/60 italic">{item.subtitle}</p>
+                <p className="mt-3 text-sm leading-6 text-white/70">{item.description}</p>
+
+                <div className="mt-4 pt-4 border-t border-white/10 grid grid-cols-2 gap-2">
+                  <div>
+                    <p className="text-[10px] uppercase tracking-widest text-white/30">Patch</p>
+                    <p className="text-xs text-white/60 mt-0.5">{item.patch}</p>
+                  </div>
+                  <div>
+                    <p className="text-[10px] uppercase tracking-widest text-white/30">Hat</p>
+                    <p className="text-xs text-white/60 mt-0.5">{item.hat}</p>
+                  </div>
+                </div>
+
+                <Link
+                  href={preOrderLink}
+                  className="mt-5 inline-flex w-full justify-center rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-black transition hover:bg-stone-100"
+                >
+                  Pre-Order This Hat →
+                </Link>
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Bottom CTA */}
+        <div className="mt-12 rounded-2xl border border-white/10 bg-black/30 p-6 sm:p-8 text-center backdrop-blur">
+          <p className="text-xs uppercase tracking-[0.3em] text-white/40 mb-2">Limited First Run</p>
+          <h3 className="text-2xl font-semibold text-white mb-2">Want all three?</h3>
+          <p className="text-sm text-white/60 mb-6 max-w-md mx-auto">
+            First run is 24 units per design. Pre-order locks your spot before they're gone.
+            We build when the orders are in.
+          </p>
+          <Link
+            href={preOrderLink}
+            className="inline-flex items-center gap-2 rounded-2xl bg-white px-8 py-3.5 text-sm font-semibold text-black transition hover:bg-stone-100 hover:-translate-y-0.5"
+          >
+            Pre-Order the Service Bay Collection →
+          </Link>
         </div>
       </section>
 
