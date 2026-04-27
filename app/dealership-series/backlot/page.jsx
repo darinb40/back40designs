@@ -314,7 +314,7 @@ export default function BackLotPage() {
                   <p className="mt-4 text-sm text-white/70">{item.description}</p>
                   <div className="mt-5 overflow-hidden rounded-xl border border-white/10">
                     <img
-                      src="/images/coming-soon.PNG"
+                      src="/images/hold-gross.png"
                       alt={`${item.title} — Coming Soon`}
                       className="w-full object-cover max-h-64"
                     />
