@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 
 const FORMSPREE_ID = "xzdywzvy";
+const CONTEST_FORMSPREE_ID = "xjgjqrly";
 
 const hats = [
   // ── FRONT LINE ──
@@ -160,10 +161,14 @@ function ContactForm({ selectedHat }) {
         <p className="text-sm text-stone-400 mb-1">
           Darin will follow up with a payment link within 24 hours.
         </p>
-        <p className="text-sm text-stone-400">
+        <p className="text-sm text-stone-400 mb-3">
           Questions? Call or text{" "}
           <a href="tel:479-544-1366" className="underline text-stone-300">479-544-1366</a>
         </p>
+        <div className="mt-4 rounded-2xl border border-red-400/20 bg-red-400/5 p-4">
+          <p className="text-xs font-semibold uppercase tracking-widest text-red-400 mb-1">Don't forget</p>
+          <p className="text-sm text-stone-300">When your hat arrives, post it, tag @b40_designs and your dealership, then <a href="#contest" className="underline">submit your contest entry</a> to win 40 hats for your store.</p>
+        </div>
       </div>
     );
   }
@@ -246,6 +251,108 @@ function ContactForm({ selectedHat }) {
         Questions? Text{" "}
         <a href="tel:479-544-1366" className="underline text-stone-400">479-544-1366</a>
       </p>
+    </form>
+  );
+}
+
+function ContestEntryForm() {
+  const [status, setStatus] = React.useState("idle");
+  const [form, setForm] = React.useState({
+    name: "",
+    email: "",
+    phone: "",
+    dealership: "",
+    instagramHandle: "",
+    postUrl: "",
+    orderConfirmation: "",
+  });
+
+  const handleChange = (e) => {
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus("sending");
+    try {
+      const res = await fetch(`https://formspree.io/f/${CONTEST_FORMSPREE_ID}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({ ...form, source: "B40 Dealership Outfit Contest" }),
+      });
+      if (res.ok) {
+        setStatus("success");
+        setForm({ name: "", email: "", phone: "", dealership: "", instagramHandle: "", postUrl: "", orderConfirmation: "" });
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
+  };
+
+  const inputClass = "w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-stone-500 transition focus:border-white/30 focus:outline-none";
+  const labelClass = "block text-xs font-semibold uppercase tracking-[0.2em] mb-1.5 text-stone-400";
+
+  if (status === "success") {
+    return (
+      <div className="rounded-[2rem] border border-white/10 bg-white/5 p-8 text-center">
+        <p className="text-4xl mb-4">✓</p>
+        <p className="text-xl font-semibold text-white mb-2">You're in.</p>
+        <p className="text-sm text-stone-400">Entry received. Winner announced June 1st.</p>
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div>
+          <label className={labelClass}>Your Name *</label>
+          <input type="text" name="name" required placeholder="First and last name" value={form.name} onChange={handleChange} className={inputClass} />
+        </div>
+        <div>
+          <label className={labelClass}>Email *</label>
+          <input type="email" name="email" required placeholder="you@yourbusiness.com" value={form.email} onChange={handleChange} className={inputClass} />
+        </div>
+      </div>
+
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div>
+          <label className={labelClass}>Dealership Name *</label>
+          <input type="text" name="dealership" required placeholder="Your dealership" value={form.dealership} onChange={handleChange} className={inputClass} />
+        </div>
+        <div>
+          <label className={labelClass}>Instagram Handle *</label>
+          <input type="text" name="instagramHandle" required placeholder="@yourhandle" value={form.instagramHandle} onChange={handleChange} className={inputClass} />
+        </div>
+      </div>
+
+      <div>
+        <label className={labelClass}>Link to Your Post *</label>
+        <input type="url" name="postUrl" required placeholder="https://instagram.com/p/..." value={form.postUrl} onChange={handleChange} className={inputClass} />
+      </div>
+
+      <div>
+        <label className={labelClass}>Order Confirmation Info *</label>
+        <input type="text" name="orderConfirmation" required placeholder="Name or email used on your pre-order" value={form.orderConfirmation} onChange={handleChange} className={inputClass} />
+        <p className="mt-1 text-xs text-stone-600">Used to verify your purchase. Must have an active pre-order to enter.</p>
+      </div>
+
+      {status === "error" && (
+        <p className="text-sm text-red-400">
+          Something went wrong. Text Darin at{" "}
+          <a href="tel:479-544-1366" className="underline">479-544-1366</a>
+        </p>
+      )}
+
+      <button
+        type="submit"
+        disabled={status === "sending"}
+        className="w-full rounded-2xl bg-white py-3.5 text-sm font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100 disabled:opacity-60"
+      >
+        {status === "sending" ? "Submitting..." : "Submit My Entry →"}
+      </button>
     </form>
   );
 }
@@ -398,6 +505,19 @@ export default function PreOrderPage() {
             </div>
           </div>
 
+          {/* Giveaway callout */}
+          <div className="mt-6 rounded-2xl border border-red-400/20 bg-red-400/5 backdrop-blur-sm p-5">
+            <p className="text-xs font-semibold uppercase tracking-widest text-red-400 mb-1">B40 Dealership Drop Giveaway</p>
+            <p className="text-lg font-semibold text-white">One store gets outfitted. Up to 40 hats. On us.</p>
+            <p className="mt-2 text-sm text-stone-400">
+              Buy a hat. Post it. Tag your store and <span className="text-stone-300">@b40_designs</span>. That's your entry.
+              Winner announced June 1st.
+            </p>
+            <a href="#contest" className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-red-400 hover:text-red-300 transition">
+              See how to enter →
+            </a>
+          </div>
+
           {/* Pricing */}
           <div className="mt-8 grid gap-3 sm:grid-cols-3">
             {[
@@ -534,6 +654,64 @@ export default function PreOrderPage() {
               {selectedHat ? `Ordering: ${selectedHat}` : "Reserve your hat"}
             </h2>
             <ContactForm selectedHat={selectedHat} />
+          </div>
+
+        </div>
+      </section>
+
+      {/* ── CONTEST SECTION ── */}
+      <section id="contest" className="mx-auto max-w-7xl px-5 pb-20 md:px-10">
+        <div className="grid gap-8 lg:grid-cols-[1fr_1.2fr]">
+
+          {/* Left — rules */}
+          <div className="rounded-[2rem] border border-red-400/20 bg-black/30 backdrop-blur-sm p-6 md:p-8">
+            <p className="text-xs uppercase tracking-[0.25em] text-red-400 mb-3">B40 Dealership Drop Giveaway</p>
+            <h2 className="text-2xl font-semibold text-white mb-2">One store gets outfitted.</h2>
+            <p className="text-sm text-stone-400 mb-6">Up to 40 hats. On us. Winner announced June 1st.</p>
+
+            <div className="space-y-5">
+              {[
+                ["01", "Buy a hat", "Place a pre-order for any hat in the B40 Dealership Series."],
+                ["02", "Post it", "When your hat arrives, post a photo on Instagram."],
+                ["03", "Tag your store", "Tag @b40_designs and your dealership in the post."],
+                ["04", "Submit your entry", "Fill out the form with your post link and order info."],
+              ].map(([step, title, desc]) => (
+                <div key={step} className="flex gap-4">
+                  <p className="text-xs font-bold text-red-400/60 mt-0.5 w-5 shrink-0">{step}</p>
+                  <div>
+                    <p className="text-sm font-semibold text-white">{title}</p>
+                    <p className="mt-0.5 text-sm text-stone-400">{desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-8 pt-6 border-t border-white/10 space-y-2">
+              <p className="text-xs uppercase tracking-widest text-stone-500 mb-3">Entry rules</p>
+              {[
+                "Must have an active pre-order to enter",
+                "Tag @b40_designs and your dealership in post",
+                "One entry per purchase",
+                "Bonus entry for tagging your dealership's account",
+                "Contest closes May 31, 2026",
+                "Winner announced June 1st",
+                "Prize: up to 40 B40 hats for your dealership staff",
+              ].map((rule) => (
+                <p key={rule} className="text-xs text-stone-500 flex gap-2">
+                  <span className="text-red-400/60">—</span> {rule}
+                </p>
+              ))}
+            </div>
+          </div>
+
+          {/* Right — entry form */}
+          <div className="rounded-[2rem] border border-red-400/20 bg-gradient-to-br from-stone-100 to-stone-200 px-6 py-8 text-stone-950 md:px-8 md:py-10">
+            <p className="text-xs uppercase tracking-[0.25em] text-stone-500 mb-2">Contest Entry</p>
+            <h2 className="text-2xl font-semibold text-stone-950 mb-2">Submit your entry.</h2>
+            <p className="text-sm text-stone-600 mb-6">
+              Already ordered and posted? Fill this out to lock in your spot.
+            </p>
+            <ContestEntryForm />
           </div>
 
         </div>
