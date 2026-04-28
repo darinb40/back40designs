@@ -268,16 +268,15 @@ export default function PreOrderPage() {
   const hatsWithImages = hats.filter((h) => h.image);
 
   return (
-    <div className="relative min-h-[100dvh] overflow-x-hidden text-white bg-stone-950">
+    <div className="relative min-h-[100dvh] overflow-x-hidden text-white">
 
       <style jsx global>{`
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes scaleIn { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: scale(1); } }
       `}</style>
 
-      {/* Subtle topo background */}
-      <div className="fixed inset-0 -z-10 bg-[url('/images/topo-heavy.png')] bg-cover bg-center opacity-10" />
-      <div className="fixed inset-0 -z-10 bg-stone-950/90" />
+      {/* Background */}
+      <div className="fixed inset-0 -z-10 bg-[url('/images/pre-order-page.png')] bg-cover bg-center" />
 
       {/* ── LIGHTBOX ── */}
       {lightbox !== null && (
@@ -330,7 +329,7 @@ export default function PreOrderPage() {
       )}
 
       {/* ── HEADER ── */}
-      <header className="sticky top-0 z-40 border-b border-white/10 bg-stone-950/90 backdrop-blur">
+      <header className="sticky top-0 z-40 border-b border-white/10 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-10 md:py-4">
           <Link href="/">
             <div>
@@ -354,7 +353,7 @@ export default function PreOrderPage() {
           </div>
         </div>
         {mobileMenuOpen && (
-          <div className="border-t border-white/10 bg-stone-950 px-4 py-4 md:hidden">
+          <div className="border-t border-white/10 px-4 py-4 md:hidden">
             <nav className="flex flex-col gap-4 text-sm text-stone-300">
               {[
                 ["/dealership-series", "Dealership Series"],
@@ -406,7 +405,7 @@ export default function PreOrderPage() {
               ["Leather Patch", "$30", "Clean, premium finish"],
               ["Bulk 12+", "$35 / $27", "Acrylic / Leather"],
             ].map(([label, price, sub]) => (
-              <div key={label} className="rounded-2xl border border-white/10 bg-white/5 p-4">
+              <div key={label} className="rounded-2xl border border-white/10 bg-black/30 backdrop-blur-sm p-4">
                 <p className="text-xs uppercase tracking-widest text-stone-500">{label}</p>
                 <p className="mt-1 text-2xl font-semibold text-white">{price}</p>
                 <p className="mt-0.5 text-xs text-stone-400">{sub}</p>
@@ -435,7 +434,7 @@ export default function PreOrderPage() {
             {hats.filter((h) => h.lane === lane).map((hat, i) => {
               const imgIndex = hatsWithImages.findIndex((h) => h.title === hat.title);
               return (
-                <div key={hat.title} className="group rounded-2xl border border-white/10 bg-white/5 overflow-hidden transition hover:-translate-y-1">
+                <div key={hat.title} className="group rounded-2xl border border-white/10 bg-black/30 backdrop-blur-sm overflow-hidden transition hover:-translate-y-1">
                   {/* Image */}
                   <div
                     className={`relative overflow-hidden ${hat.image ? "cursor-zoom-in" : ""}`}
@@ -497,7 +496,7 @@ export default function PreOrderPage() {
         <div className="grid gap-8 lg:grid-cols-[1fr_1.2fr]">
 
           {/* Left — info */}
-          <div className="rounded-[2rem] border border-white/10 bg-white/5 p-6 md:p-8">
+          <div className="rounded-[2rem] border border-white/10 bg-black/30 backdrop-blur-sm p-6 md:p-8">
             <p className="text-xs uppercase tracking-[0.25em] text-stone-500 mb-3">How it works</p>
             <h2 className="text-2xl font-semibold text-white mb-6">Reserve your hat.</h2>
             <div className="space-y-5">
@@ -555,4 +554,3 @@ export default function PreOrderPage() {
     </div>
   );
 }
-
