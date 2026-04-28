@@ -506,14 +506,19 @@ export default function PreOrderPage() {
           </div>
 
           {/* Giveaway callout */}
-          <div className="mt-6 rounded-2xl border border-red-400/20 bg-red-400/5 backdrop-blur-sm p-5">
-            <p className="text-xs font-semibold uppercase tracking-widest text-red-400 mb-1">B40 Dealership Drop Giveaway</p>
-            <p className="text-lg font-semibold text-white">One store gets outfitted. Up to 40 hats. On us.</p>
-            <p className="mt-2 text-sm text-stone-400">
-              Buy a hat. Post it. Tag your store and <span className="text-stone-300">@b40_designs</span>. That's your entry.
+          <div className="mt-8 rounded-2xl border border-red-400/30 bg-red-400/10 backdrop-blur-sm p-6 md:p-8">
+            <p className="text-xs font-semibold uppercase tracking-widest text-red-400 mb-3">B40 Dealership Drop Giveaway</p>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight mb-3">
+              One store gets outfitted.
+              <br />
+              <span className="text-red-400">Up to 40 hats. On us.</span>
+            </h2>
+            <p className="text-base sm:text-lg text-stone-300 mb-5">
+              Buy a hat. Post it. Tag your store and <span className="text-white font-semibold">@b40_designs</span>. That's your entry.
+              <br />
               Winner announced June 1st.
             </p>
-            <a href="#contest" className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-red-400 hover:text-red-300 transition">
+            <a href="#contest" className="inline-flex items-center gap-2 rounded-2xl bg-red-500 px-6 py-3 text-sm font-semibold text-white hover:bg-red-400 transition hover:-translate-y-0.5">
               See how to enter →
             </a>
           </div>
