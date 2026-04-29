@@ -1,10 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 export default function GalleryPage() {
-  const ctaLink =
-    "mailto:info@back40designco.com?subject=Back40%20Project%20Inquiry";
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const shopLink = "https://back40-headwear.myshopify.com/collections/b40-trail-series";
+  const instagramLink = "https://www.instagram.com/b40_designs/";
+  const ctaLink = "mailto:info@back40designco.com?subject=Back40%20Project%20Inquiry";
 
   const gallery = [
     { title: "Hyundai Green", tag: "Brand Work", image: "/images/hyundaigreen.png" },
@@ -52,7 +56,6 @@ export default function GalleryPage() {
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (selectedIndex === null) return;
-
       if (event.key === "Escape") closeImage();
       if (event.key === "ArrowLeft") showPrev();
       if (event.key === "ArrowRight") showNext();
@@ -63,17 +66,99 @@ export default function GalleryPage() {
   }, [selectedIndex]);
 
   return (
-    <main className="min-h-screen bg-black pt-24 text-white">
+    <main className="min-h-screen bg-black text-white">
+
+      {/* ── HEADER ── */}
+      <header className="sticky top-0 z-40 border-b border-white/10 bg-black/80 backdrop-blur">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-10 md:py-4">
+          <Link href="/">
+            <div>
+              <p className="text-base font-semibold tracking-tight md:text-lg">Back 40 Designs</p>
+              <p className="text-[10px] uppercase tracking-[0.28em] text-stone-400 md:text-xs">
+                Custom Patch Headwear
+              </p>
+            </div>
+          </Link>
+
+          {/* Desktop nav */}
+          <nav className="hidden items-center gap-6 text-sm text-stone-300 md:flex">
+            <Link href="/#collections" className="transition hover:text-white">Collections</Link>
+            <Link href="/dealership-series" className="transition hover:text-white">Dealership Series</Link>
+            <Link href="/#process" className="transition hover:text-white">Process</Link>
+            <Link href="/gallery" className="text-white font-semibold">Gallery</Link>
+            <Link href="/#story" className="transition hover:text-white">Story</Link>
+            <Link href="/#contact" className="transition hover:text-white">Contact</Link>
+          </nav>
+
+          <div className="flex items-center gap-2 md:gap-3">
+            <a
+              href={shopLink}
+              target="_blank"
+              rel="noreferrer"
+              className="hidden rounded-2xl border border-white/10 px-4 py-2 text-sm font-semibold text-stone-200 transition hover:bg-white/5 md:inline-flex"
+            >
+              Shop
+            </a>
+            <Link
+              href="/#contact"
+              className="inline-flex items-center gap-1.5 rounded-2xl bg-white px-3 py-2 text-xs font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100 md:px-4 md:text-sm"
+            >
+              Start a Project →
+            </Link>
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="rounded-lg p-2 text-stone-300 transition hover:bg-white/5 md:hidden"
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? "✕" : "☰"}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile menu */}
+        {mobileMenuOpen && (
+          <div className="border-t border-white/10 bg-black/90 px-4 py-4 md:hidden">
+            <nav className="flex flex-col gap-4 text-sm text-stone-300">
+              {[
+                ["/#collections", "Collections"],
+                ["/dealership-series", "Dealership Series"],
+                ["/#process", "Process"],
+                ["/gallery", "Gallery"],
+                ["/#story", "Story"],
+                ["/#contact", "Contact"],
+              ].map(([href, label]) => (
+                <Link
+                  key={label}
+                  href={href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="border-b border-white/5 pb-3 transition hover:text-white"
+                >
+                  {label}
+                </Link>
+              ))}
+              <a
+                href={shopLink}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => setMobileMenuOpen(false)}
+                className="transition hover:text-white"
+              >
+                Shop Hats ↗
+              </a>
+            </nav>
+          </div>
+        )}
+      </header>
+
+      {/* ── HERO ── */}
       <section className="border-b border-white/10 px-6 py-16 md:px-10 md:py-24">
         <div className="mx-auto max-w-7xl">
           <p className="mb-4 text-sm font-semibold uppercase tracking-[0.24em] text-stone-400">
             Gallery
           </p>
-
           <h1 className="max-w-4xl text-4xl font-bold tracking-tight text-white md:text-6xl">
             Past work that shows what Back 40 is built to do.
           </h1>
-
           <p className="mt-5 max-w-2xl text-base leading-7 text-stone-300 md:text-lg">
             A full look at custom builds created for brands, businesses, teams,
             and story-driven projects. Clean design. Strong identity. Built to
@@ -82,6 +167,7 @@ export default function GalleryPage() {
         </div>
       </section>
 
+      {/* ── GRID ── */}
       <section className="px-4 py-10 md:px-10 md:py-16">
         <div className="mx-auto max-w-7xl">
           <div className="mb-8 flex items-center justify-between gap-4">
@@ -93,7 +179,6 @@ export default function GalleryPage() {
                 Click any image to view it larger.
               </p>
             </div>
-
             <div className="rounded-full border border-white/10 px-4 py-2 text-xs uppercase tracking-[0.18em] text-stone-400">
               {gallery.length} Builds
             </div>
@@ -115,20 +200,12 @@ export default function GalleryPage() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
                 </div>
-
                 <div className="flex items-center justify-between gap-4 px-3 py-3">
                   <div>
-                    <h2 className="text-lg font-semibold text-white">
-                      {item.title}
-                    </h2>
-                    <p className="mt-1 text-xs uppercase tracking-[0.18em] text-stone-400">
-                      {item.tag}
-                    </p>
+                    <h2 className="text-lg font-semibold text-white">{item.title}</h2>
+                    <p className="mt-1 text-xs uppercase tracking-[0.18em] text-stone-400">{item.tag}</p>
                   </div>
-
-                  <div className="text-stone-500 transition group-hover:text-white">
-                    ↗
-                  </div>
+                  <div className="text-stone-500 transition group-hover:text-white">↗</div>
                 </div>
               </button>
             ))}
@@ -136,22 +213,20 @@ export default function GalleryPage() {
         </div>
       </section>
 
+      {/* ── DEALER CTA ── */}
       <section className="px-6 py-16 md:px-10">
         <div className="mx-auto max-w-5xl rounded-[2rem] border border-white/10 bg-white/5 p-8 text-center md:p-12">
           <p className="text-sm uppercase tracking-[0.2em] text-stone-400">
             Built for Business
           </p>
-
           <h2 className="mt-4 text-2xl font-bold tracking-tight text-white md:text-4xl">
             See how this translates inside a dealership.
           </h2>
-
           <p className="mx-auto mt-4 max-w-2xl text-base text-stone-300">
             These same concepts are being built into a full dealership-driven
             line — designed for the front line, with the private Back Lot kept
             behind the gate.
           </p>
-
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <a
               href="/dealership-series"
@@ -159,7 +234,6 @@ export default function GalleryPage() {
             >
               Enter Dealer Series →
             </a>
-
             <a
               href="/collections/shop-hats"
               className="rounded-full border border-white/20 px-6 py-3 text-white transition hover:bg-white/10"
@@ -170,6 +244,7 @@ export default function GalleryPage() {
         </div>
       </section>
 
+      {/* ── START A PROJECT ── */}
       <section className="border-t border-white/10 px-6 py-16 md:px-10">
         <div className="mx-auto flex max-w-7xl flex-col gap-6 rounded-[2rem] border border-white/10 bg-white/5 p-8 md:flex-row md:items-center md:justify-between md:p-10">
           <div className="max-w-2xl">
@@ -180,20 +255,20 @@ export default function GalleryPage() {
               Want something built for your brand?
             </h2>
             <p className="mt-3 text-base leading-7 text-stone-300">
-              Let’s create something that actually feels like yours — not
+              Let's create something that actually feels like yours — not
               generic, not mass-produced, and not forgettable.
             </p>
           </div>
-
           <a
             href={ctaLink}
             className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white px-6 py-3 text-sm font-semibold text-black transition hover:scale-[1.02]"
           >
-            Let’s Talk
+            Let's Talk
           </a>
         </div>
       </section>
 
+      {/* ── LIGHTBOX ── */}
       {selectedItem && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4 md:p-8"
@@ -250,7 +325,6 @@ export default function GalleryPage() {
                   {selectedItem.tag}
                 </p>
               </div>
-
               <p className="text-sm text-stone-400">
                 Use arrow keys to move through the gallery.
               </p>
@@ -258,6 +332,7 @@ export default function GalleryPage() {
           </div>
         </div>
       )}
+
     </main>
   );
 }
