@@ -205,7 +205,7 @@ export default function DealershipSeriesPage() {
                 <h3 className="mt-3 text-xl font-semibold">Front Line</h3>
                 <p className="mt-3 text-sm leading-6 text-white/75">
                   Clean dealership-focused headwear built for salespeople,
-                  managers, events, and customer-facing teams.
+                  managers, and customer-facing teams.
                 </p>
                 <div className="mt-5 h-56 overflow-hidden rounded-xl border border-white/10 md:h-64">
                   <img
