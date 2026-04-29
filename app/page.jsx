@@ -364,7 +364,7 @@ export default function Back40LandingPage() {
                 Back 40
               </span>
               <span className="text-[9px] uppercase tracking-[0.35em] text-stone-400 md:text-[10px]">
-                Design Co.
+                Headwear.
               </span>
             </div>
           </a>
