@@ -359,84 +359,87 @@ export default function Back40LandingPage() {
     <div className="min-h-screen bg-stone-950 text-stone-100">
 
       {/* ── HEADER ── */}
-      <header className="sticky top-0 z-40 border-b border-white/10 bg-stone-950/90 backdrop-blur">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-10 md:py-4">
-          <div>
-            <p className="text-base font-semibold tracking-tight md:text-lg">Back 40 Designs</p>
-            <p className="text-[10px] uppercase tracking-[0.28em] text-stone-400 md:text-xs">
-              Custom Patch Headwear
-            </p>
-          </div>
+<header className="sticky top-0 z-40 border-b border-white/10 bg-stone-950/90 backdrop-blur">
+  <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-10 md:py-4">
 
-          {/* Desktop nav */}
-          <nav className="hidden items-center gap-6 text-sm text-stone-300 md:flex">
-            <a href="#collections" className="transition hover:text-white">Collections</a>
-            <a href="/dealership-series" className="transition hover:text-white">Dealership Series</a>
-            <a href="#process" className="transition hover:text-white">Process</a>
-            <a href="/gallery" className="transition hover:text-white">Gallery</a>
-            <a href="#story" className="transition hover:text-white">Story</a>
-            <a href="#contact" className="transition hover:text-white">Contact</a>
-          </nav>
+    {/* Logo */}
+    <a href="/">
+      <div className="flex flex-col leading-none">
+        <span
+          className="text-xl font-black uppercase tracking-[0.12em] text-white md:text-2xl"
+          style={{ fontFamily: "'Bebas Neue', 'Arial Narrow', sans-serif" }}
+        >
+          Back 40
+        </span>
+        <span className="text-[9px] uppercase tracking-[0.35em] text-stone-400 md:text-[10px]">
+          Design Co.
+        </span>
+      </div>
+    </a>
 
-          <div className="flex items-center gap-2 md:gap-3">
-            <a
-              href={shopLink}
+    {/* Desktop nav */}
+    <nav className="hidden items-center gap-6 text-sm text-stone-300 md:flex">
+      <a href={shopLink} target="_blank" rel="noreferrer" className="transition hover:text-white">Shop</a>
+      <a href="/trail-series" className="transition hover:text-white">Trail Series</a>
+      <a href="/dealership-series" className="transition hover:text-white">Dealership Series</a>
+      <a href="/gallery" className="transition hover:text-white">Gallery</a>
+      <a href="#contact" className="transition hover:text-white">Custom Orders</a>
+    </nav>
+
+    <div className="flex items-center gap-2 md:gap-3">
+      
+        href="#contact"
+        className="inline-flex items-center gap-1.5 rounded-2xl bg-white px-3 py-2 text-xs font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100 md:px-4 md:text-sm"
+      >
+        Start a Project →
+      </a>
+      <button
+        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        className="rounded-lg p-2 text-stone-300 transition hover:bg-white/5 md:hidden"
+        aria-label="Toggle menu"
+      >
+        {mobileMenuOpen ? "✕" : "☰"}
+      </button>
+    </div>
+  </div>
+
+  {/* Mobile menu */}
+  {mobileMenuOpen && (
+    <div className="border-t border-white/10 bg-stone-950 px-4 py-4 md:hidden">
+      <nav className="flex flex-col gap-4 text-sm text-stone-300">
+        {[
+          [shopLink, "Shop", true],
+          ["/trail-series", "Trail Series", false],
+          ["/dealership-series", "Dealership Series", false],
+          ["/gallery", "Gallery", false],
+          ["#contact", "Custom Orders", false],
+        ].map(([href, label, external]) =>
+          external ? (
+            
+              key={label}
+              href={href}
               target="_blank"
               rel="noreferrer"
-              className="hidden rounded-2xl border border-white/10 px-4 py-2 text-sm font-semibold text-stone-200 transition hover:bg-white/5 md:inline-flex"
+              onClick={() => setMobileMenuOpen(false)}
+              className="border-b border-white/5 pb-3 transition hover:text-white"
             >
-              Shop
+              {label} ↗
             </a>
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-1.5 rounded-2xl bg-white px-3 py-2 text-xs font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100 md:px-4 md:text-sm"
+          ) : (
+            
+              key={label}
+              href={href}
+              onClick={() => setMobileMenuOpen(false)}
+              className="border-b border-white/5 pb-3 transition hover:text-white"
             >
-              Start a Project →
+              {label}
             </a>
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="rounded-lg p-2 text-stone-300 transition hover:bg-white/5 md:hidden"
-              aria-label="Toggle menu"
-            >
-              {mobileMenuOpen ? "✕" : "☰"}
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile menu */}
-        {mobileMenuOpen && (
-          <div className="border-t border-white/10 bg-stone-950 px-4 py-4 md:hidden">
-            <nav className="flex flex-col gap-4 text-sm text-stone-300">
-              {[
-                ["#collections", "Collections"],
-                ["/dealership-series", "Dealership Series"],
-                ["#process", "Process"],
-                ["/gallery", "Gallery"],
-                ["#story", "Story"],
-                ["#contact", "Contact"],
-              ].map(([href, label]) => (
-                <a
-                  key={label}
-                  href={href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="border-b border-white/5 pb-3 transition hover:text-white"
-                >
-                  {label}
-                </a>
-              ))}
-              <a
-                href={shopLink}
-                target="_blank"
-                rel="noreferrer"
-                onClick={() => setMobileMenuOpen(false)}
-                className="transition hover:text-white"
-              >
-                Shop Hats ↗
-              </a>
-            </nav>
-          </div>
+          )
         )}
-      </header>
+      </nav>
+    </div>
+  )}
+</header>
 
       {/* ── HERO ── */}
       <section className="relative overflow-hidden border-b border-white/10">
