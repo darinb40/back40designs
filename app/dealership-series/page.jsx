@@ -185,7 +185,7 @@ export default function DealershipSeriesPage() {
           </div>
         </section>
         {/* ── THREE LANES ── */}
-        <section className="px-5 py-10 md:px-10 md:py-14">
+        <section className="px-5 pb-10 pt-0 md:px-10 md:pb-14 md:pt-0">
           <div className="mx-auto max-w-7xl">
             <div className="mb-6 max-w-3xl rounded-2xl border border-white/5 bg-black/20 p-6 sm:p-8">
               <p className="text-sm uppercase tracking-[0.24em] text-white/55">
