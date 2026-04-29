@@ -184,56 +184,6 @@ export default function DealershipSeriesPage() {
             </div>
           </div>
         </section>
-
-        {/* ── CREDIBILITY ── */}
-        <section className="px-5 py-16 md:px-10 md:py-20">
-          <div className="mx-auto max-w-7xl">
-            <div className="grid gap-8 rounded-2xl border border-white/5 bg-black/20 p-6 sm:p-8 md:grid-cols-[0.8fr_1.2fr] md:p-10">
-              <div>
-                <p className="text-sm uppercase tracking-[0.24em] text-white/55">
-                  Built from experience
-                </p>
-                <h2 className="mt-4 text-2xl font-semibold sm:text-3xl md:text-5xl">
-                  Built by someone who's actually been inside the store.
-                </h2>
-              </div>
-
-              <div className="space-y-4 text-base leading-7 text-white/85 sm:text-lg">
-                <p>15+ years. Sales floor. Finance. Management.</p>
-                <p className="text-xl font-semibold text-white">
-                  I've worn almost every hat you can wear in a dealership — I know
-                  which ones get worn, and which never make it past the desk.
-                </p>
-                <p>
-                  I've desked deals, spot-delivered questionable ones, loaded up
-                  trades and paid for it at the auction, chased stips, flipped
-                  coins for $500, stayed two hours after close just to watch a
-                  deal fall apart in finance — and I've gotten deals hung when no
-                  one thought it was possible.
-                </p>
-                <p>
-                  I've also trained and worked alongside some damn good
-                  people — some of the best. That's why I believe you should look
-                  good, feel good, and be proud of what you wear.
-                </p>
-                <p>
-                  Most dealership gear gets ordered out of necessity — and worn
-                  the same way.
-                </p>
-                <p>
-                  That's why when I say I know what actually moves inside a
-                  dealership — I know what does and what doesn't.
-                </p>
-                <p className="pt-2 font-semibold text-white">
-                  This was built on purpose.
-                  <br />
-                  For you. By one of you.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* ── THREE LANES ── */}
         <section className="px-5 py-16 md:px-10 md:py-20">
           <div className="mx-auto max-w-7xl">
@@ -313,7 +263,56 @@ export default function DealershipSeriesPage() {
             </div>
           </div>
         </section>
+        
+{/* ── CREDIBILITY ── */}
+        <section className="px-5 py-16 md:px-10 md:py-20">
+          <div className="mx-auto max-w-7xl">
+            <div className="grid gap-8 rounded-2xl border border-white/5 bg-black/20 p-6 sm:p-8 md:grid-cols-[0.8fr_1.2fr] md:p-10">
+              <div>
+                <p className="text-sm uppercase tracking-[0.24em] text-white/55">
+                  Built from experience
+                </p>
+                <h2 className="mt-4 text-2xl font-semibold sm:text-3xl md:text-5xl">
+                  Built by someone who's actually been inside the store.
+                </h2>
+              </div>
 
+              <div className="space-y-4 text-base leading-7 text-white/85 sm:text-lg">
+                <p>15+ years. Sales floor. Finance. Management.</p>
+                <p className="text-xl font-semibold text-white">
+                  I've worn almost every hat you can wear in a dealership — I know
+                  which ones get worn, and which never make it past the desk.
+                </p>
+                <p>
+                  I've desked deals, spot-delivered questionable ones, loaded up
+                  trades and paid for it at the auction, chased stips, flipped
+                  coins for $500, stayed two hours after close just to watch a
+                  deal fall apart in finance — and I've gotten deals hung when no
+                  one thought it was possible.
+                </p>
+                <p>
+                  I've also trained and worked alongside some damn good
+                  people — some of the best. That's why I believe you should look
+                  good, feel good, and be proud of what you wear.
+                </p>
+                <p>
+                  Most dealership gear gets ordered out of necessity — and worn
+                  the same way.
+                </p>
+                <p>
+                  That's why when I say I know what actually moves inside a
+                  dealership — I know what does and what doesn't.
+                </p>
+                <p className="pt-2 font-semibold text-white">
+                  This was built on purpose.
+                  <br />
+                  For you. By one of you.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+        
         {/* ── FOOTER ── */}
         <footer className="border-t border-white/10 px-5 py-8 text-sm text-white/40 md:px-10">
           <div className="mx-auto flex max-w-7xl flex-col gap-4 md:flex-row md:items-center md:justify-between">
