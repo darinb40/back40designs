@@ -130,12 +130,12 @@ export default function DealershipSeriesPage() {
                 </a>
               </nav>
             </div>
-          )}
+          )}  
         </header>
 
         {/* ── HERO ── */}
-        <section className="min-h-[100dvh] px-5 pb-20 pt-10 md:px-10 md:py-28">
-          <div className="mx-auto flex min-h-[calc(100dvh-6rem)] max-w-7xl items-center">
+        <section className="px-5 pb-16 pt-10 md:px-10 md:pb-24 md:pt-20">
+          <div className="mx-auto flex max-w-7xl items-center">
             <div className="w-full max-w-4xl rounded-2xl border border-white/5 bg-black/20 p-6 sm:p-8">
               <p className="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-white/70">
                 B40 DEALERSHIP SERIES
