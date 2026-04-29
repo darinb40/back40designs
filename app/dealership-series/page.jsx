@@ -130,7 +130,7 @@ export default function DealershipSeriesPage() {
                 </a>
               </nav>
             </div>
-          )}  
+          )}
         </header>
 
         {/* ── HERO ── */}
@@ -184,6 +184,7 @@ export default function DealershipSeriesPage() {
             </div>
           </div>
         </section>
+
         {/* ── THREE LANES ── */}
         <section className="px-5 pb-10 pt-0 md:px-10 md:pb-14 md:pt-0">
           <div className="mx-auto max-w-7xl">
@@ -197,74 +198,85 @@ export default function DealershipSeriesPage() {
             </div>
 
             <div className="grid gap-6 md:grid-cols-3">
-              <div className="rounded-2xl border border-white/5 bg-black/20 p-5 md:p-7">
+
+              {/* Card 1 - Front Line */}
+              <div className="flex flex-col rounded-2xl border border-white/5 bg-black/20 p-5 md:p-7">
                 <p className="text-sm uppercase tracking-[0.2em] text-white/55">Public Lane</p>
                 <h3 className="mt-3 text-xl font-semibold">Front Line</h3>
                 <p className="mt-3 text-sm leading-6 text-white/75">
                   Clean dealership-focused headwear built for salespeople,
                   managers, events, and customer-facing teams.
                 </p>
-                <div className="mt-5 overflow-hidden rounded-xl border border-white/10">
+                <div className="mt-5 h-56 overflow-hidden rounded-xl border border-white/10 md:h-64">
                   <img
                     src="/images/coming-soon.PNG"
                     alt="Front Line — Coming Soon"
-                    className="w-full object-cover"
+                    className="h-full w-full object-cover"
                   />
                 </div>
-                <Link
-                  href="/dealership-series/front-line"
-                  className="mt-4 inline-flex w-full justify-center rounded-2xl bg-white px-5 py-3 font-semibold text-black transition hover:bg-stone-100"
-                >
-                  View Front Line →
-                </Link>
+                <div className="mt-4 flex-1 flex items-end">
+                  <Link
+                    href="/dealership-series/front-line"
+                    className="inline-flex w-full justify-center rounded-2xl bg-white px-5 py-3 font-semibold text-black transition hover:bg-stone-100"
+                  >
+                    View Front Line →
+                  </Link>
+                </div>
               </div>
 
-              <div className="rounded-2xl border border-white/5 bg-black/20 p-5 md:p-7">
+              {/* Card 2 - Service Bay */}
+              <div className="flex flex-col rounded-2xl border border-white/5 bg-black/20 p-5 md:p-7">
                 <p className="text-sm uppercase tracking-[0.2em] text-white/55">Fixed Ops</p>
                 <h3 className="mt-3 text-xl font-semibold">Service Bay</h3>
                 <p className="mt-3 text-sm leading-6 text-white/75">
                   Built for advisors, techs, and the people who keep the store moving.
                 </p>
-                <div className="mt-5 overflow-hidden rounded-xl border border-white/10">
+                <div className="mt-5 h-56 overflow-hidden rounded-xl border border-white/10 md:h-64">
                   <img
                     src="/images/cross-thread.png"
                     alt="Service Bay — Coming Soon"
-                    className="w-full object-cover"
+                    className="h-full w-full object-cover"
                   />
                 </div>
-                <Link
-                  href="/dealership-series/service-bay"
-                  className="mt-4 inline-flex w-full justify-center rounded-2xl border border-white/10 bg-black/20 px-5 py-3 font-semibold text-white transition hover:bg-white/10"
-                >
-                  Enter Service Bay →
-                </Link>
+                <div className="mt-4 flex-1 flex items-end">
+                  <Link
+                    href="/dealership-series/service-bay"
+                    className="inline-flex w-full justify-center rounded-2xl border border-white/10 bg-black/20 px-5 py-3 font-semibold text-white transition hover:bg-white/10"
+                  >
+                    Enter Service Bay →
+                  </Link>
+                </div>
               </div>
 
-              <div className="rounded-2xl border border-white/5 bg-black/20 p-5 md:p-7">
+              {/* Card 3 - Back Lot */}
+              <div className="flex flex-col rounded-2xl border border-white/5 bg-black/20 p-5 md:p-7">
                 <p className="text-sm uppercase tracking-[0.2em] text-white/55">Private Lane</p>
                 <h3 className="mt-3 text-xl font-semibold">Back Lot</h3>
                 <p className="mt-3 text-sm leading-6 text-white/75">
                   Password-protected. Built for select dealership buyers only.
                 </p>
-                <div className="mt-5 overflow-hidden rounded-xl border border-white/10">
+                <div className="mt-5 h-56 overflow-hidden rounded-xl border border-white/10 md:h-64">
                   <img
                     src="/images/coming-soon.PNG"
                     alt="Back Lot — Coming Soon"
-                    className="w-full object-cover"
+                    className="h-full w-full object-cover"
                   />
                 </div>
-                <Link
-                  href="/dealership-series/backlot"
-                  className="mt-4 inline-flex w-full justify-center rounded-2xl border border-white/10 bg-black/20 px-5 py-3 font-semibold text-white transition hover:bg-white/10"
-                >
-                  Enter Password <LockIcon />
-                </Link>
+                <div className="mt-4 flex-1 flex items-end">
+                  <Link
+                    href="/dealership-series/backlot"
+                    className="inline-flex w-full justify-center rounded-2xl border border-white/10 bg-black/20 px-5 py-3 font-semibold text-white transition hover:bg-white/10"
+                  >
+                    Enter Password <LockIcon />
+                  </Link>
+                </div>
               </div>
+
             </div>
           </div>
         </section>
-        
-{/* ── CREDIBILITY ── */}
+
+        {/* ── CREDIBILITY ── */}
         <section className="px-5 py-10 md:px-10 md:py-14">
           <div className="mx-auto max-w-7xl">
             <div className="grid gap-8 rounded-2xl border border-white/5 bg-black/20 p-6 sm:p-8 md:grid-cols-[0.8fr_1.2fr] md:p-10">
@@ -312,7 +324,7 @@ export default function DealershipSeriesPage() {
             </div>
           </div>
         </section>
-        
+
         {/* ── FOOTER ── */}
         <footer className="border-t border-white/10 px-5 py-8 text-sm text-white/40 md:px-10">
           <div className="mx-auto flex max-w-7xl flex-col gap-4 md:flex-row md:items-center md:justify-between">
