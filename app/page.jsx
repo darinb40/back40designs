@@ -1,4 +1,4 @@
-'use client';
+  'use client';
 
 import React from 'react';
 
@@ -30,14 +30,10 @@ function LineTopoOverlay({ opacity = "opacity-20", dark = "bg-black/75" }) {
 }
 
 // ─── Contact Form Component ─────────────────────────────────────────
-// Replaces all mailto: links for the primary CTA.
-// Uses Formspree (free tier) — replace YOUR_FORM_ID with your actual ID from formspree.io
-// To set up: go to formspree.io, create a free account, create a form,
-// and paste the form ID (looks like "xpwzgkrb") into FORMSPREE_ID below.
 const FORMSPREE_ID = "YOUR_FORM_ID";
 
 function ContactForm({ light = false }) {
-  const [status, setStatus] = React.useState("idle"); // idle | sending | success | error
+  const [status, setStatus] = React.useState("idle");
   const [form, setForm] = React.useState({
     name: "",
     email: "",
@@ -86,7 +82,7 @@ function ContactForm({ light = false }) {
           Message received.
         </p>
         <p className={`mt-2 text-sm ${light ? "text-stone-600" : "text-stone-400"}`}>
-          Darin will be in touch within 1–2 business days. You can also text or call directly at{" "}
+          Darin will be in touch within 1-2 business days. You can also text or call directly at{" "}
           <a href="tel:479-544-1366" className="underline">479-544-1366</a>.
         </p>
       </div>
@@ -95,7 +91,6 @@ function ContactForm({ light = false }) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      {/* Row 1: Name + Email */}
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <label className={labelClass}>Your Name *</label>
@@ -123,7 +118,6 @@ function ContactForm({ light = false }) {
         </div>
       </div>
 
-      {/* Row 2: Phone + Project Type */}
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <label className={labelClass}>Phone / Text</label>
@@ -155,7 +149,6 @@ function ContactForm({ light = false }) {
         </div>
       </div>
 
-      {/* Row 3: Quantity */}
       <div>
         <label className={labelClass}>Estimated Quantity</label>
         <select
@@ -165,16 +158,15 @@ function ContactForm({ light = false }) {
           className={`${inputClass} ${light ? "bg-white/60" : "bg-stone-900"}`}
         >
           <option value="">Select a range...</option>
-          <option value="1–11">1–11 (one-off / small run)</option>
-          <option value="12–24">12–24</option>
-          <option value="25–48">25–48</option>
-          <option value="49–99">49–99</option>
+          <option value="1-11">1-11 (one-off / small run)</option>
+          <option value="12-24">12-24</option>
+          <option value="25-48">25-48</option>
+          <option value="49-99">49-99</option>
           <option value="100+">100+</option>
           <option value="Not Sure">Not sure yet</option>
         </select>
       </div>
 
-      {/* Row 4: Message */}
       <div>
         <label className={labelClass}>Tell me about the project *</label>
         <textarea
@@ -205,7 +197,7 @@ function ContactForm({ light = false }) {
             : "bg-white text-stone-950 hover:bg-stone-100"
         }`}
       >
-        {status === "sending" ? "Sending..." : "Send Project Inquiry →"}
+        {status === "sending" ? "Sending..." : "Send Project Inquiry"}
       </button>
 
       <p className={`text-center text-xs ${light ? "text-stone-500" : "text-stone-500"}`}>
@@ -253,7 +245,7 @@ export default function Back40LandingPage() {
       description: "Topo-driven hats inspired by Arkansas trails, ridgelines, and the outdoor culture that built the brand.",
       icon: MountainIcon,
       image: "/images/holding-hero.jpg",
-      link: "/gallery",
+      link: "/trail-series",
     },
     {
       title: "Business Merch",
@@ -309,7 +301,7 @@ export default function Back40LandingPage() {
     },
     {
       q: "How long does production take?",
-      a: "Standard production is 3–4 weeks. Rush production is available for projects with a tighter deadline.",
+      a: "Standard production is 3-4 weeks. Rush production is available for projects with a tighter deadline.",
     },
     {
       q: "What's the minimum order?",
@@ -359,87 +351,95 @@ export default function Back40LandingPage() {
     <div className="min-h-screen bg-stone-950 text-stone-100">
 
       {/* ── HEADER ── */}
-<header className="sticky top-0 z-40 border-b border-white/10 bg-stone-950/90 backdrop-blur">
-  <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-10 md:py-4">
+      <header className="sticky top-0 z-40 border-b border-white/10 bg-stone-950/90 backdrop-blur">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-10 md:py-4">
 
-    {/* Logo */}
-    <a href="/">
-      <div className="flex flex-col leading-none">
-        <span
-          className="text-xl font-black uppercase tracking-[0.12em] text-white md:text-2xl"
-          style={{ fontFamily: "'Bebas Neue', 'Arial Narrow', sans-serif" }}
-        >
-          Back 40
-        </span>
-        <span className="text-[9px] uppercase tracking-[0.35em] text-stone-400 md:text-[10px]">
-          Design Co.
-        </span>
-      </div>
-    </a>
+          {/* Logo */}
+          <a href="/">
+            <div className="flex flex-col leading-none">
+              <span
+                className="text-xl font-black uppercase tracking-[0.12em] text-white md:text-2xl"
+                style={{ fontFamily: "'Bebas Neue', 'Arial Narrow', sans-serif" }}
+              >
+                Back 40
+              </span>
+              <span className="text-[9px] uppercase tracking-[0.35em] text-stone-400 md:text-[10px]">
+                Design Co.
+              </span>
+            </div>
+          </a>
 
-    {/* Desktop nav */}
-    <nav className="hidden items-center gap-6 text-sm text-stone-300 md:flex">
-      <a href={shopLink} target="_blank" rel="noreferrer" className="transition hover:text-white">Shop</a>
-      <a href="/trail-series" className="transition hover:text-white">Trail Series</a>
-      <a href="/dealership-series" className="transition hover:text-white">Dealership Series</a>
-      <a href="/gallery" className="transition hover:text-white">Gallery</a>
-      <a href="#contact" className="transition hover:text-white">Custom Orders</a>
-    </nav>
+          {/* Desktop nav */}
+          <nav className="hidden items-center gap-6 text-sm text-stone-300 md:flex">
+            <a href={shopLink} target="_blank" rel="noreferrer" className="transition hover:text-white">Shop</a>
+            <a href="/trail-series" className="transition hover:text-white">Trail Series</a>
+            <a href="/dealership-series" className="transition hover:text-white">Dealership Series</a>
+            <a href="/gallery" className="transition hover:text-white">Gallery</a>
+            <a href="#contact" className="transition hover:text-white">Custom Orders</a>
+          </nav>
 
-    <div className="flex items-center gap-2 md:gap-3">
-      >
-        href="#contact"
-        className="inline-flex items-center gap-1.5 rounded-2xl bg-white px-3 py-2 text-xs font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100 md:px-4 md:text-sm"
-      >
-        Start a Project →
-      </a>
-      <button
-        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        className="rounded-lg p-2 text-stone-300 transition hover:bg-white/5 md:hidden"
-        aria-label="Toggle menu"
-      >
-        {mobileMenuOpen ? "✕" : "☰"}
-      </button>
-    </div>
-  </div>
-
-  {/* Mobile menu */}
-  {mobileMenuOpen && (
-    <div className="border-t border-white/10 bg-stone-950 px-4 py-4 md:hidden">
-      <nav className="flex flex-col gap-4 text-sm text-stone-300">
-        {[
-          [shopLink, "Shop", true],
-          ["/trail-series", "Trail Series", false],
-          ["/dealership-series", "Dealership Series", false],
-          ["/gallery", "Gallery", false],
-          ["#contact", "Custom Orders", false],
-        ].map(([href, label, external]) =>
-          external ? (
-            
-              key={label}
-              href={href}
-              target="_blank"
-              rel="noreferrer"
-              onClick={() => setMobileMenuOpen(false)}
-              className="border-b border-white/5 pb-3 transition hover:text-white"
+          <div className="flex items-center gap-2 md:gap-3">
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-1.5 rounded-2xl bg-white px-3 py-2 text-xs font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100 md:px-4 md:text-sm"
             >
-              {label} ↗
+              Start a Project
             </a>
-          ) : (
-            
-              key={label}
-              href={href}
-              onClick={() => setMobileMenuOpen(false)}
-              className="border-b border-white/5 pb-3 transition hover:text-white"
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="rounded-lg p-2 text-stone-300 transition hover:bg-white/5 md:hidden"
+              aria-label="Toggle menu"
             >
-              {label}
-            </a>
-          )
+              {mobileMenuOpen ? "✕" : "☰"}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile menu */}
+        {mobileMenuOpen && (
+          <div className="border-t border-white/10 bg-stone-950 px-4 py-4 md:hidden">
+            <nav className="flex flex-col gap-4 text-sm text-stone-300">
+              <a
+                href={shopLink}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => setMobileMenuOpen(false)}
+                className="border-b border-white/5 pb-3 transition hover:text-white"
+              >
+                Shop
+              </a>
+              <a
+                href="/trail-series"
+                onClick={() => setMobileMenuOpen(false)}
+                className="border-b border-white/5 pb-3 transition hover:text-white"
+              >
+                Trail Series
+              </a>
+              <a
+                href="/dealership-series"
+                onClick={() => setMobileMenuOpen(false)}
+                className="border-b border-white/5 pb-3 transition hover:text-white"
+              >
+                Dealership Series
+              </a>
+              <a
+                href="/gallery"
+                onClick={() => setMobileMenuOpen(false)}
+                className="border-b border-white/5 pb-3 transition hover:text-white"
+              >
+                Gallery
+              </a>
+              <a
+                href="#contact"
+                onClick={() => setMobileMenuOpen(false)}
+                className="border-b border-white/5 pb-3 transition hover:text-white"
+              >
+                Custom Orders
+              </a>
+            </nav>
+          </div>
         )}
-      </nav>
-    </div>
-  )}
-</header>
+      </header>
 
       {/* ── HERO ── */}
       <section className="relative overflow-hidden border-b border-white/10">
@@ -475,7 +475,7 @@ export default function Back40LandingPage() {
                 href="#contact"
                 className="inline-flex items-center gap-2 rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100"
               >
-                Request a Quote →
+                Request a Quote
               </a>
               <a
                 href={shopLink}
@@ -487,7 +487,6 @@ export default function Back40LandingPage() {
               </a>
             </div>
 
-            {/* Social proof bullets — mobile friendly grid */}
             <div className="mt-8 grid gap-3 sm:grid-cols-2">
               {[
                 "Custom acrylic and leatherette patch hats",
@@ -543,7 +542,7 @@ export default function Back40LandingPage() {
                     rel="noreferrer"
                     className="block w-full rounded-2xl border border-white/10 py-2.5 text-center text-sm font-semibold text-stone-200 transition hover:bg-white/10"
                   >
-                    Shop the Trail Series →
+                    Shop the Trail Series
                   </a>
                 </div>
               </div>
@@ -588,7 +587,11 @@ export default function Back40LandingPage() {
               Built for the people who live inside the car business — from the clean front line, to the service bay, to the back lot where the real stories happen.
             </p>
             <div className="mt-8 grid gap-3 sm:grid-cols-3">
-              {[["Front Line","Clean, customer-facing dealership gear."],["Service Bay","Built for the techs and the shop floor."],["Back Lot","Insider-only car business culture."]].map(([title, text]) => (
+              {[
+                ["Front Line", "Clean, customer-facing dealership gear."],
+                ["Service Bay", "Built for the techs and the shop floor."],
+                ["Back Lot", "Insider-only car business culture."],
+              ].map(([title, text]) => (
                 <div key={title} className="rounded-2xl border border-white/10 bg-black/45 p-4 backdrop-blur">
                   <h3 className="text-lg font-semibold text-white">{title}</h3>
                   <p className="mt-2 text-sm leading-6 text-stone-400">{text}</p>
@@ -596,7 +599,7 @@ export default function Back40LandingPage() {
               ))}
             </div>
             <div className="mt-8 flex flex-wrap gap-3">
-              <a href="/dealership-series" className="inline-flex items-center gap-2 rounded-2xl bg-white px-6 py-3 text-sm font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100">Enter the Series →</a>
+              <a href="/dealership-series" className="inline-flex items-center gap-2 rounded-2xl bg-white px-6 py-3 text-sm font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100">Enter the Series</a>
               <a href="/dealership-series/backlot" className="inline-flex items-center gap-2 rounded-2xl border border-white/15 px-6 py-3 text-sm font-semibold text-stone-100 transition hover:bg-white/5">Back Lot Access</a>
             </div>
           </div>
@@ -723,7 +726,6 @@ export default function Back40LandingPage() {
               See All Builds <ArrowRight className="h-4 w-4" />
             </a>
           </div>
-          {/* Mobile: 2-col grid. Desktop: 4-col grid */}
           <div className="grid grid-cols-2 gap-3 xl:grid-cols-4">
             {homeGallery.map((item) => (
               <a key={item.title} href="/gallery" className="group overflow-hidden rounded-[1.5rem] border border-white/10 bg-stone-900 transition hover:-translate-y-1 md:rounded-[2rem]">
@@ -826,7 +828,6 @@ export default function Back40LandingPage() {
       {/* ── FAQ + CONTACT FORM ── */}
       <section id="contact" className="relative">
         <HeavyTopoOverlay opacity="opacity-40" dark="bg-black/65" />
-
         <div className="relative z-10 mx-auto max-w-7xl px-4 py-14 md:px-10 md:py-20">
           <div className="grid gap-6 lg:grid-cols-[1fr_1fr]">
 
@@ -846,14 +847,14 @@ export default function Back40LandingPage() {
               </div>
             </div>
 
-            {/* Contact Form — replaces the old mailto card */}
+            {/* Contact Form */}
             <div className="rounded-[2rem] border border-white/10 bg-gradient-to-br from-stone-100 to-stone-200 px-6 py-8 text-stone-950 shadow-2xl md:px-10 md:py-10">
               <p className="text-sm uppercase tracking-[0.2em] text-stone-600">Let's build something</p>
               <h2 className="mt-2 text-2xl font-semibold tracking-tight md:text-3xl">
                 Start your project here.
               </h2>
               <p className="mt-2 text-sm leading-6 text-stone-600 mb-6">
-                Fill out the form and Darin will be in touch within 1–2 business days. Prefer to talk?
+                Fill out the form and Darin will be in touch within 1-2 business days. Prefer to talk?
                 Call or text directly at{" "}
                 <a href={phoneLink} className="font-semibold text-stone-900 underline">
                   {phoneNumber}
