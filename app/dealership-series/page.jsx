@@ -134,7 +134,7 @@ export default function DealershipSeriesPage() {
         </header>
 
         {/* ── HERO ── */}
-        <section className="px-5 pb-16 pt-10 md:px-10 md:pb-24 md:pt-20">
+        <section className="px-5 pb-10 pt-8 md:px-10 md:pb-16 md:pt-14">
           <div className="mx-auto flex max-w-7xl items-center">
             <div className="w-full max-w-4xl rounded-2xl border border-white/5 bg-black/20 p-6 sm:p-8">
               <p className="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-white/70">
@@ -185,9 +185,9 @@ export default function DealershipSeriesPage() {
           </div>
         </section>
         {/* ── THREE LANES ── */}
-        <section className="px-5 py-16 md:px-10 md:py-20">
+        <section className="px-5 py-10 md:px-10 md:py-14">
           <div className="mx-auto max-w-7xl">
-            <div className="mb-10 max-w-3xl rounded-2xl border border-white/5 bg-black/20 p-6 sm:p-8">
+            <div className="mb-6 max-w-3xl rounded-2xl border border-white/5 bg-black/20 p-6 sm:p-8">
               <p className="text-sm uppercase tracking-[0.24em] text-white/55">
                 Three distinct lanes
               </p>
@@ -265,7 +265,7 @@ export default function DealershipSeriesPage() {
         </section>
         
 {/* ── CREDIBILITY ── */}
-        <section className="px-5 py-16 md:px-10 md:py-20">
+        <section className="px-5 py-10 md:px-10 md:py-14">
           <div className="mx-auto max-w-7xl">
             <div className="grid gap-8 rounded-2xl border border-white/5 bg-black/20 p-6 sm:p-8 md:grid-cols-[0.8fr_1.2fr] md:p-10">
               <div>
