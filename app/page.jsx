@@ -391,7 +391,7 @@ export default function Back40LandingPage() {
         href="#contact"
         className="inline-flex items-center gap-1.5 rounded-2xl bg-white px-3 py-2 text-xs font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100 md:px-4 md:text-sm"
       >
-        Start a Project &#8594;
+        Start a Project →
       </a>
       <button
         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
