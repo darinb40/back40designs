@@ -486,6 +486,7 @@ export default function Back40LandingPage() {
                 Shop Hats
               </a>
             </div>
+            </section>
 
             <div className="mt-8 grid gap-3 sm:grid-cols-2">
               {[
