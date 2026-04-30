@@ -442,68 +442,68 @@ export default function Back40LandingPage() {
       </header>
 
       {/* ── HERO ── */}
-<section className="relative overflow-hidden border-b border-white/10">
-     <div className="absolute inset-0 bg-[url('/images/welcome-bg.png')] bg-cover bg-[center_30%]" />
-      <div className="absolute inset-0 bg-black/35" />
+      <section className="relative overflow-hidden border-b border-white/10">
+        <div className="absolute inset-0 bg-[url('/images/welcome-bg.png')] bg-cover bg-[center_30%]" />
+        <div className="absolute inset-0 bg-black/35" />
 
-          <div className="relative z-10 mx-auto max-w-7xl px-4 pb-14 pt-10 md:px-10 md:pb-24 md:pt-16">
-            <img
-              src="/images/logo.png"
-              alt="Back 40 Designs"
-              className="mb-5 w-36 md:w-64 lg:w-72"
-            />
+        <div className="relative z-10 mx-auto max-w-7xl px-4 pb-14 pt-10 md:px-10 md:pb-24 md:pt-16">
+          <img
+            src="/images/logo.png"
+            alt="Back 40 Designs"
+            className="mb-5 w-36 md:w-64 lg:w-72"
+          />
 
-            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-stone-400 md:text-sm">
-              A story worth wearing.
-            </p>
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-stone-400 md:text-sm">
+            A story worth wearing.
+          </p>
 
-            <h1 className="max-w-3xl text-4xl font-semibold leading-tight tracking-tight md:text-6xl lg:text-7xl">
-              Not just hats.
-              <br />
-              <span className="font-bold text-white">
-                Built for people who actually have something to say.
-              </span>
-            </h1>
+          <h1 className="max-w-3xl text-4xl font-semibold leading-tight tracking-tight md:text-6xl lg:text-7xl">
+            Not just hats.
+            <br />
+            <span className="font-bold text-white">
+              Built for people who actually have something to say.
+            </span>
+          </h1>
 
-            <p className="mt-5 max-w-2xl text-base leading-7 text-stone-300 md:text-lg md:leading-8">
-              Back 40 Designs creates premium patch-forward hats for local brands, businesses,
-              and real-world stories that deserve more than generic merch.
-            </p>
+          <p className="mt-5 max-w-2xl text-base leading-7 text-stone-300 md:text-lg md:leading-8">
+            Back 40 Designs creates premium patch-forward hats for local brands, businesses,
+            and real-world stories that deserve more than generic merch.
+          </p>
 
-            <div className="mt-8 flex flex-wrap gap-3">
-              <a
-                href="#contact"
-                className="inline-flex items-center gap-2 rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100"
-              >
-                Request a Quote
-              </a>
-              <a
-                href={shopLink}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-2xl border border-white/15 px-5 py-3 text-sm font-semibold text-stone-100 transition hover:bg-white/5"
-              >
-                Shop Hats
-              </a>
-            </div>
-            </section>
-
-            <div className="mt-8 grid gap-3 sm:grid-cols-2">
-              {[
-                "Custom acrylic and leatherette patch hats",
-                "Built for local brands, events, shops, and collabs",
-                "Small-run friendly and story-driven by design",
-                "Made to feel personal, not pulled from a template",
-              ].map((item) => (
-                <div
-                  key={item}
-                  className="rounded-2xl border border-white/10 bg-black/35 p-4 text-sm leading-6 text-stone-300 backdrop-blur"
-                >
-                  {item}
-                </div>
-              ))}
-            </div>
+          <div className="mt-8 flex flex-wrap gap-3">
+            
+              href="#contact"
+              className="inline-flex items-center gap-2 rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100"
+            >
+              Request a Quote
+            </a>
+            
+              href={shopLink}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 rounded-2xl border border-white/15 px-5 py-3 text-sm font-semibold text-stone-100 transition hover:bg-white/5"
+            >
+              Shop Hats
+            </a>
           </div>
+
+          <div className="mt-8 grid gap-3 sm:grid-cols-2">
+            {[
+              "Custom acrylic and leatherette patch hats",
+              "Built for local brands, events, shops, and collabs",
+              "Small-run friendly and story-driven by design",
+              "Made to feel personal, not pulled from a template",
+            ].map((item) => (
+              <div
+                key={item}
+                className="rounded-2xl border border-white/10 bg-black/35 p-4 text-sm leading-6 text-stone-300 backdrop-blur"
+              >
+                {item}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* ── PARTNER LOGOS ── */}
       <section className="border-b border-white/10 bg-stone-900/40">
