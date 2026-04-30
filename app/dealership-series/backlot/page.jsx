@@ -226,7 +226,7 @@ export default function BackLotPage() {
       `}</style>
 
       {/* Background */}
-      <div className="fixed inset-0 -z-30 bg-[url('/images/backlot-alley-bg.png')] bg-cover bg-center animate-[b40Drift_25s_ease-in-out_infinite]" />
+      <div className="fixed inset-0 -z-30 bg-[url('/images/back-lot.png')] bg-cover bg-center animate-[b40Drift_25s_ease-in-out_infinite]" />
       <div className="fixed inset-0 -z-20 bg-black/10" />
       <div
         className="pointer-events-none fixed inset-0 -z-10 opacity-[0.07] mix-blend-soft-light"
