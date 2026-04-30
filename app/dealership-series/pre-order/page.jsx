@@ -9,30 +9,30 @@ const CONTEST_FORMSPREE_ID = "xjgjqrly";
 const hats = [
   // ── FRONT LINE ──
   {
-    title: "Funded",
+    title: "Sticker is Quicker",
     lane: "Front Line",
     image: null,
-    subtitle: "Another one.",
+    subtitle: "How many hats would you buy if all your customers paid sticker?",
     patchType: "acrylic",
     hat: "Richardson 112",
     price: 40,
     bulkPrice: 35,
   },
   {
-    title: "Put It On The Board",
+    title: "Board It!",
     lane: "Front Line",
     image: null,
-    subtitle: "Say less.",
+    subtitle: "The moment every salesperson lives for. When the deal sticks and the board gets another name on it.",
     patchType: "acrylic",
     hat: "Richardson 112",
     price: 40,
     bulkPrice: 35,
   },
   {
-    title: "No Stips",
+    title: "We Fina C",
     lane: "Front Line",
     image: null,
-    subtitle: "Clean deal. No excuses.",
+    subtitle: "We finna see. Every F&I manager, desk guy, and closer knows exactly what this means.",
     patchType: "acrylic",
     hat: "Richardson 112",
     price: 40,
@@ -436,27 +436,30 @@ export default function PreOrderPage() {
       )}
 
       {/* ── HEADER ── */}
-      <header className="sticky top-0 z-40 border-b border-white/10 backdrop-blur">
+      <header className="sticky top-0 z-40 border-b border-white/10 bg-stone-950/90 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-10 md:py-4">
           <Link href="/">
-  <div className="flex flex-col leading-none">
-    <span
-      className="text-xl font-black uppercase tracking-[0.12em] text-white md:text-2xl"
-      style={{ fontFamily: "'Bebas Neue', 'Arial Narrow', sans-serif" }}
-    >
-      Back 40
-    </span>
-    <span className="text-[9px] uppercase tracking-[0.35em] text-stone-400 md:text-[10px]">
-      Headwear.
-    </span>
-  </div>
-</Link>
+            <div className="flex flex-col leading-none">
+              <span
+                className="text-xl font-black uppercase tracking-[0.12em] text-white md:text-2xl"
+                style={{ fontFamily: "'Bebas Neue', 'Arial Narrow', sans-serif" }}
+              >
+                Back 40
+              </span>
+              <span className="text-[9px] uppercase tracking-[0.35em] text-stone-400 md:text-[10px]">
+                Headwear.
+              </span>
+            </div>
+          </Link>
+
           <nav className="hidden items-center gap-6 text-sm text-stone-300 md:flex">
             <Link href="/dealership-series" className="text-white font-semibold">Dealership Series</Link>
             <Link href="/dealership-series/service-bay" className="transition hover:text-white">Service Bay</Link>
             <Link href="/dealership-series/front-line" className="transition hover:text-white">Front Line</Link>
+            <Link href="/trail-series" className="transition hover:text-white">Trail Series</Link>
             <Link href="/#contact" className="transition hover:text-white">Contact</Link>
           </nav>
+
           <div className="flex items-center gap-2">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -466,13 +469,15 @@ export default function PreOrderPage() {
             </button>
           </div>
         </div>
+
         {mobileMenuOpen && (
-          <div className="border-t border-white/10 px-4 py-4 md:hidden">
+          <div className="border-t border-white/10 bg-black/90 px-4 py-4 md:hidden">
             <nav className="flex flex-col gap-4 text-sm text-stone-300">
               {[
                 ["/dealership-series", "Dealership Series"],
                 ["/dealership-series/service-bay", "Service Bay"],
                 ["/dealership-series/front-line", "Front Line"],
+                ["/trail-series", "Trail Series"],
                 ["/#contact", "Contact"],
               ].map(([href, label]) => (
                 <Link key={label} href={href} onClick={() => setMobileMenuOpen(false)} className="border-b border-white/5 pb-3 transition hover:text-white">
@@ -497,7 +502,6 @@ export default function PreOrderPage() {
             First run. Limited units. We build when the orders are in.
           </p>
 
-          {/* Deadline callout */}
           <div className="mt-6 inline-flex flex-wrap gap-4">
             <div className="flex items-center gap-2 rounded-full border border-red-400/30 bg-red-400/10 px-4 py-2">
               <span className="h-1.5 w-1.5 rounded-full bg-red-400 animate-pulse" />
@@ -512,7 +516,6 @@ export default function PreOrderPage() {
             </div>
           </div>
 
-          {/* Giveaway callout */}
           <div className="mt-8 rounded-2xl border border-red-400/30 bg-red-400/10 backdrop-blur-sm p-6 md:p-8">
             <p className="text-xs font-semibold uppercase tracking-widest text-red-400 mb-3">B40 Dealership Drop Giveaway</p>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight mb-3">
@@ -530,7 +533,6 @@ export default function PreOrderPage() {
             </a>
           </div>
 
-          {/* Pricing */}
           <div className="mt-8 grid gap-3 sm:grid-cols-3">
             {[
               ["Acrylic Patch", "$40", "Tri-layer, full detail"],
@@ -563,11 +565,10 @@ export default function PreOrderPage() {
           </div>
 
           <div className="grid gap-5 md:grid-cols-3">
-            {hats.filter((h) => h.lane === lane).map((hat, i) => {
+            {hats.filter((h) => h.lane === lane).map((hat) => {
               const imgIndex = hatsWithImages.findIndex((h) => h.title === hat.title);
               return (
                 <div key={hat.title} className="group rounded-2xl border border-white/10 bg-black/30 backdrop-blur-sm overflow-hidden transition hover:-translate-y-1">
-                  {/* Image */}
                   <div
                     className={`relative overflow-hidden ${hat.image ? "cursor-zoom-in" : ""}`}
                     onClick={() => hat.image && setLightbox(imgIndex)}
@@ -600,7 +601,6 @@ export default function PreOrderPage() {
                     </div>
                   </div>
 
-                  {/* Content */}
                   <div className="p-5">
                     <p className="text-xs uppercase tracking-[0.2em] text-stone-500 mb-1">{hat.lane}</p>
                     <h3 className="text-base font-semibold text-white leading-snug">{hat.title}</h3>
@@ -627,7 +627,6 @@ export default function PreOrderPage() {
       <section ref={formRef} className="mx-auto max-w-7xl px-5 pb-20 md:px-10">
         <div className="grid gap-8 lg:grid-cols-[1fr_1.2fr]">
 
-          {/* Left — info */}
           <div className="rounded-[2rem] border border-white/10 bg-black/30 backdrop-blur-sm p-6 md:p-8">
             <p className="text-xs uppercase tracking-[0.25em] text-stone-500 mb-3">How it works</p>
             <h2 className="text-2xl font-semibold text-white mb-6">Reserve your hat.</h2>
@@ -659,7 +658,6 @@ export default function PreOrderPage() {
             </div>
           </div>
 
-          {/* Right — form */}
           <div className="rounded-[2rem] border border-white/10 bg-gradient-to-br from-stone-100 to-stone-200 px-6 py-8 text-stone-950 md:px-8 md:py-10">
             <p className="text-xs uppercase tracking-[0.25em] text-stone-500 mb-2">Pre-Order Form</p>
             <h2 className="text-2xl font-semibold text-stone-950 mb-6">
@@ -675,7 +673,6 @@ export default function PreOrderPage() {
       <section id="contest" className="mx-auto max-w-7xl px-5 pb-20 md:px-10">
         <div className="grid gap-8 lg:grid-cols-[1fr_1.2fr]">
 
-          {/* Left — rules */}
           <div className="rounded-[2rem] border border-red-400/20 bg-black/30 backdrop-blur-sm p-6 md:p-8">
             <p className="text-xs uppercase tracking-[0.25em] text-red-400 mb-3">B40 Dealership Drop Giveaway</p>
             <h2 className="text-2xl font-semibold text-white mb-2">One store gets outfitted.</h2>
@@ -716,7 +713,6 @@ export default function PreOrderPage() {
             </div>
           </div>
 
-          {/* Right — entry form */}
           <div className="rounded-[2rem] border border-red-400/20 bg-gradient-to-br from-stone-100 to-stone-200 px-6 py-8 text-stone-950 md:px-8 md:py-10">
             <p className="text-xs uppercase tracking-[0.25em] text-stone-500 mb-2">Contest Entry</p>
             <h2 className="text-2xl font-semibold text-stone-950 mb-2">Submit your entry.</h2>
@@ -736,6 +732,7 @@ export default function PreOrderPage() {
           <div className="flex flex-wrap gap-4 sm:gap-6">
             <a href="tel:479-544-1366" className="transition hover:text-stone-300">479-544-1366</a>
             <Link href="/dealership-series" className="transition hover:text-stone-300">Dealership Series</Link>
+            <Link href="/trail-series" className="transition hover:text-stone-300">Trail Series</Link>
             <Link href="/" className="transition hover:text-stone-300">Back to Home</Link>
           </div>
         </div>
