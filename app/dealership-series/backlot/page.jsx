@@ -64,7 +64,7 @@ function SiteHeader({ mobileMenuOpen, setMobileMenuOpen, shopLink }) {
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-10 md:py-4">
         <Link href="/">
   <img
-    src="/images/logo.png"
+    src="/images/b402026.png"
     alt="Back 40 Designs"
     className="h-10 w-auto md:h-12"
   />
