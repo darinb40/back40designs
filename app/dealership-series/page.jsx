@@ -55,17 +55,11 @@ export default function DealershipSeriesPage() {
         <header className="sticky top-0 z-40 border-b border-white/10 bg-black/80 backdrop-blur">
           <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-10 md:py-4">
             <Link href="/">
-  <div className="flex flex-col leading-none">
-    <span
-      className="text-xl font-black uppercase tracking-[0.12em] text-white md:text-2xl"
-      style={{ fontFamily: "'Bebas Neue', 'Arial Narrow', sans-serif" }}
-    >
-      Back 40
-    </span>
-    <span className="text-[9px] uppercase tracking-[0.35em] text-stone-400 md:text-[10px]">
-      Headwear.
-    </span>
-  </div>
+  <img
+    src="/images/logo.png"
+    alt="Back 40 Designs"
+    className="h-10 w-auto md:h-12"
+  />
 </Link>
 
             {/* Desktop nav */}
