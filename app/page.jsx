@@ -505,53 +505,6 @@ export default function Back40LandingPage() {
             </div>
           </div>
 
-          {/* Featured Build card */}
-          <div className="relative">
-            <div className="rounded-[2rem] border border-white/10 bg-black/45 p-3 shadow-2xl backdrop-blur md:p-5">
-              <div className="overflow-hidden rounded-[1.6rem] border border-white/10 bg-stone-950/80">
-                <div className="flex items-center justify-between border-b border-white/10 px-4 py-4">
-                  <div>
-                    <p className="text-[10px] uppercase tracking-[0.25em] text-stone-500">
-                      Featured Build
-                    </p>
-                    <h2 className="mt-1.5 text-lg font-semibold text-white md:text-2xl">
-                      Trail Series — Dragon Scales
-                    </h2>
-                  </div>
-                  <a
-                    href={shopLink}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="rounded-full border border-white/10 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-stone-300 transition hover:bg-white/10"
-                  >
-                    Shop Now
-                  </a>
-                </div>
-                <div className="px-3 py-4 md:px-5 md:py-5">
-                  <a href={shopLink} target="_blank" rel="noreferrer">
-                    <img
-                      src="/images/dragon-scales.jpg"
-                      alt="Back 40 Trail Series Dragon Scales hat"
-                      className="mx-auto w-full max-w-[280px] rounded-[1.5rem] border border-white/10 object-contain shadow-2xl transition hover:scale-[1.02] md:max-w-[420px]"
-                    />
-                  </a>
-                </div>
-                <div className="px-5 pb-4">
-                  <a
-                    href={shopLink}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="block w-full rounded-2xl border border-white/10 py-2.5 text-center text-sm font-semibold text-stone-200 transition hover:bg-white/10"
-                  >
-                    Shop the Trail Series
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* ── PARTNER LOGOS ── */}
       <section className="border-b border-white/10 bg-stone-900/40">
         <div className="mx-auto max-w-7xl px-4 py-10 md:px-10 md:py-14">
