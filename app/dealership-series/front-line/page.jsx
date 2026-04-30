@@ -10,16 +10,16 @@ export default function FrontLinePage() {
 
   const hats = [
     {
-      name: "Closer",
-      text: "Clean. Confident. Made for the one who knows how to finish.",
+      name: "Sticker is Quicker",
+      text: "How many hats would you buy if all your customers paid sticker?",
     },
     {
-      name: "House Mouse",
-      text: "For the steady operator who knows the desk, the floor, and the game.",
+      name: "Board It!",
+      text: "The moment every salesperson lives for. When the deal sticks and the board gets another name on it.",
     },
     {
-      name: "First Pencil",
-      text: "Sharp enough for the showroom. Insider enough for the sales floor.",
+      name: "We Fina C",
+      text: "We finna see. Every F&I manager, desk guy, and closer knows exactly what this means.",
     },
   ];
 
