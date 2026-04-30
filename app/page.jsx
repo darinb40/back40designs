@@ -357,7 +357,7 @@ export default function Back40LandingPage() {
           {/* Logo */}
           <a href="/">
   <img
-    src="/images/logo.png"
+    src="/images/b402026.png"
     alt="Back 40 Designs"
     className="h-10 w-auto md:h-12"
   />
