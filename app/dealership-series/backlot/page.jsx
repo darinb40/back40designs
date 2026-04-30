@@ -63,13 +63,12 @@ function SiteHeader({ mobileMenuOpen, setMobileMenuOpen, shopLink }) {
     <header className="sticky top-0 z-40 border-b border-white/10 bg-black/80 backdrop-blur">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-10 md:py-4">
         <Link href="/">
-          <div>
-            <p className="text-base font-semibold tracking-tight md:text-lg">Back 40 Designs</p>
-            <p className="text-[10px] uppercase tracking-[0.28em] text-stone-400 md:text-xs">
-              Custom Patch Headwear
-            </p>
-          </div>
-        </Link>
+  <img
+    src="/images/logo.png"
+    alt="Back 40 Designs"
+    className="h-10 w-auto md:h-12"
+  />
+</Link>
 
         {/* Desktop nav */}
         <nav className="hidden items-center gap-6 text-sm text-stone-300 md:flex">
