@@ -117,7 +117,7 @@ export default function Back40LoopPage() {
 
       {/* ── HERO ── */}
       <section className="relative h-[100vh] w-full">
-        <img src="/images/back-40-loop-hero.jpg" alt="Back 40 Loop Trail" className="absolute inset-0 h-full w-full object-cover" />
+        <img src="/images/back-40.PNG" alt="Back 40 Loop Trail" className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-black/50" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/80" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/20 to-transparent" />
@@ -175,7 +175,7 @@ export default function Back40LoopPage() {
             <div className="relative">
               <div className="absolute -inset-4 bg-[#cc0000]/10 blur-2xl rounded-full" />
               <img
-                src="/images/back40-loop.PNG"
+                src="/images/back-40.PNG"
                 alt="Back 40 Loop Hat"
                 className="relative w-full rounded-xl object-cover shadow-2xl"
               />
