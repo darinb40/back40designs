@@ -532,7 +532,7 @@ export default function Back40LandingPage() {
 
       {/* ── DEALERSHIP SERIES ── */}
       <section id="dealership-series" className="relative overflow-hidden border-b border-white/10">
-  <div className="absolute inset-0 bg-[url('/images/dealership-bg.jpg')] bg-cover bg-center" />
+  <div className="absolute inset-0 bg-[url('/images/firefly-dealership.png')] bg-cover bg-center" />
   <div className="absolute inset-0 bg-black/60" />
         <div className="relative z-10 mx-auto grid max-w-7xl gap-8 px-4 py-16 md:px-10 md:py-24 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
           <div>
