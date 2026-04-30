@@ -7,19 +7,19 @@ const PASSWORD = 'holdgross';
 
 const backLotItems = [
   {
-    title: 'Let Me Guess...',
-    subtitle: 'Just looking.',
-    description: 'The line every salesperson has heard five hundred times before lunch.',
+    title: 'Hold Gross',
+    subtitle: 'No discounts given.',
+    description: 'For the ones who know the difference between a deal and a donation. Hold the line.',
   },
   {
-    title: 'Closer High Gross',
-    subtitle: 'Finish strong. Hold the line.',
-    description: 'For the ones who know the deal is not done until it survives the desk, finance, and the ride home.',
+    title: 'Let Me Guess / Just Looking / Not Buying Today',
+    subtitle: 'The line every closer has heard.',
+    description: 'Three sentences. One customer. Said it on a Tuesday and drove home in a new car.',
   },
   {
-    title: 'No Stips',
-    subtitle: 'Say less.',
-    description: 'Two words that hit different when you have ever chased paperwork after delivery.',
+    title: 'Switch and Get Rich',
+    subtitle: 'Different unit. Better gross.',
+    description: 'The one you picked is solid — but let me show you something that actually fits you better. *cough*',
   },
 ];
 
@@ -63,12 +63,12 @@ function SiteHeader({ mobileMenuOpen, setMobileMenuOpen, shopLink }) {
     <header className="sticky top-0 z-40 border-b border-white/10 bg-black/80 backdrop-blur">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-10 md:py-4">
         <Link href="/">
-  <img
-    src="/images/b402026.png"
-    alt="Back 40 Designs"
-    className="h-10 w-auto md:h-12"
-  />
-</Link>
+          <img
+            src="/images/b402026.png"
+            alt="Back 40 Designs"
+            className="h-10 w-auto md:h-12"
+          />
+        </Link>
 
         {/* Desktop nav */}
         <nav className="hidden items-center gap-6 text-sm text-stone-300 md:flex">
