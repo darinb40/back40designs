@@ -1,4 +1,4 @@
-  'use client';
+'use client';
 
 import React from 'react';
 
@@ -471,13 +471,13 @@ export default function Back40LandingPage() {
           </p>
 
           <div className="mt-8 flex flex-wrap gap-3">
-            
+            <a
               href="#contact"
               className="inline-flex items-center gap-2 rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100"
             >
               Request a Quote
             </a>
-            
+            <a
               href={shopLink}
               target="_blank"
               rel="noreferrer"
