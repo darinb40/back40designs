@@ -117,7 +117,7 @@ export default function Back40LoopPage() {
 
       {/* ── HERO ── */}
       <section className="relative h-[100vh] w-full">
-        <img src="/images/back-40.PNG" alt="Back 40 Loop Trail" className="absolute inset-0 h-full w-full object-cover" />
+        <img src="/images/back-40-loop-hero.jpg" alt="Back 40 Loop Trail" className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-black/50" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/80" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/20 to-transparent" />
@@ -248,9 +248,9 @@ export default function Back40LoopPage() {
           </h2>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
             {[
-              { name: "Back 40 Loop", sub: "Red, White & Blue", href: "/trail/back-40-loop-rwb", img: "/images/back40-loop-rwb-hat.jpg" },
-              { name: "Little Sugar Trail", sub: "Bella Vista, AR", href: "/trail/little-sugar", img: "/images/little-sugar-hat.jpg" },
-              { name: "Dragon Scales", sub: "Slaughter Pen, Bentonville", href: "/trail/dragon-scales", img: "/images/dragon-scales-hat.jpg" },
+              { name: "Back 40 Loop", sub: "Red, White & Blue", href: "/trail/back-40-loop-rwb", img: "/images/back-40-rwb.PNG" },
+              { name: "Little Sugar Trail", sub: "Bella Vista, AR", href: "/trail/little-sugar", img: "/images/little-sugar.PNG" },
+              { name: "Dragon Scales", sub: "Slaughter Pen, Bentonville", href: "/trail/dragon-scales", img: "/images/dragon-scales.PNG" },
             ].map(({ name, sub, href, img }) => (
               <Link key={name} href={href} className="group overflow-hidden rounded-xl border border-white/10 bg-white/5 transition hover:border-[#c6a36b]/50">
                 <div className="aspect-square overflow-hidden">
@@ -283,4 +283,3 @@ export default function Back40LoopPage() {
     </main>
   );
 }
-
