@@ -39,7 +39,7 @@ export default function DealershipSeriesPage() {
       `}</style>
 
       {/* Background */}
-      <div className="fixed inset-0 z-0 bg-[url('/images/frontline-showroom-bg.png')] bg-cover bg-center" />
+      <div className="fixed inset-0 z-0 bg-[url('/images/firefly-dealership.png')] bg-cover bg-center" />
       <div className="fixed inset-0 z-0 bg-black/20" />
       <div className="fixed inset-0 z-0 bg-gradient-to-b from-black/45 via-transparent to-black/20" />
 
