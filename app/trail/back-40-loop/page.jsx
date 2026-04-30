@@ -175,7 +175,7 @@ export default function Back40LoopPage() {
             <div className="relative">
               <div className="absolute -inset-4 bg-[#cc0000]/10 blur-2xl rounded-full" />
               <img
-                src="/images/back40-loop-hat.jpg"
+                src="/images/back40-loop.PNG"
                 alt="Back 40 Loop Hat"
                 className="relative w-full rounded-xl object-cover shadow-2xl"
               />
