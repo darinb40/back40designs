@@ -453,7 +453,7 @@ export default function Back40LandingPage() {
             className="mb-5 w-36 md:w-64 lg:w-72"
           />
 
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-stone-400 md:text-sm">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-stone-950 md:text-sm">
             A story worth wearing.
           </p>
 
