@@ -356,18 +356,12 @@ export default function Back40LandingPage() {
 
           {/* Logo */}
           <a href="/">
-            <div className="flex flex-col leading-none">
-              <span
-                className="text-xl font-black uppercase tracking-[0.12em] text-white md:text-2xl"
-                style={{ fontFamily: "'Bebas Neue', 'Arial Narrow', sans-serif" }}
-              >
-                Back 40
-              </span>
-              <span className="text-[9px] uppercase tracking-[0.35em] text-stone-400 md:text-[10px]">
-                Design Co.
-              </span>
-            </div>
-          </a>
+  <img
+    src="/images/logo.png"
+    alt="Back 40 Designs"
+    className="h-10 w-auto md:h-12"
+  />
+</a>
 
           {/* Desktop nav */}
           <nav className="hidden items-center gap-6 text-sm text-stone-300 md:flex">
