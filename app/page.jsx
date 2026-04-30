@@ -442,8 +442,9 @@ export default function Back40LandingPage() {
       </header>
 
       {/* ── HERO ── */}
-      <section className="relative overflow-hidden border-b border-white/10">
-        <HeavyTopoOverlay opacity="opacity-55" dark="bg-black/70" />
+<section className="relative overflow-hidden border-b border-white/10">
+  <div className="absolute inset-0 bg-[url('/images/welcome-bg.jpg')] bg-cover bg-center" />
+  <div className="absolute inset-0 bg-black/70" />
 
         <div className="relative z-10 mx-auto grid max-w-7xl gap-10 px-4 pb-14 pt-10 md:px-10 md:pb-24 md:pt-16 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
           <div>
