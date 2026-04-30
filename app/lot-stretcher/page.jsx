@@ -14,36 +14,21 @@ export default function LotStretcherPage() {
 
   const sequence = [
     "Initializing lot search...",
-    "Checking detail bay...",
-    "Scanning back row...",
-    "Walking to service...",
-    "Searching trade row...",
+    "Checking back row... not there.",
     "Asking floor manager...",
-    "Floor manager unavailable. On a smoke break.",
-    "Sent to dealership across the street...",
-    "Checking their back lot...",
-    "Got laughed at.",
-    "Sent back to dealership...",
-    "Pulling CarFax on lot stretcher...",
-    "No records found.",
-    "Contacting previous owner...",
-    "Previous owner: also looking for lot stretcher.",
-    "Running credit on request...",
-    "Credit declined.",
-    "Finding desk manager...",
-    "Verifying approval...",
-    "Manager approval not found.",
-    "Contacting GSM...",
-    "GSM response received: \"Who hired this guy?\"",
-    "Escalating to GM...",
-    "GM response received.",
-    "Re-running job qualifications...",
-    "Failure confirmed.",
+    "Floor manager unavailable. Smoke break.",
+    "Sent to dealer next door...",
+    "Dealer next door sent you to the one down the street...",
+    "⚠ SIGNAL LOST — ATTEMPTING RECONNECT...",
+    "That dealer sent you back here.",
+    "Barging into GM meeting...",
+    "Got yelled at. Escorted out.",
+    "Questioning all life choices...",
+    "Still no lot stretcher.",
     "ERROR: USER NOT QUALIFIED",
   ];
 
-  // Progress stall happens at line 13 (roughly 50%)
-  const STALL_AT_LINE = 13;
+  const STALL_AT_LINE = 6;
   const STALL_DURATION = 5000;
 
   useEffect(() => {
@@ -60,17 +45,14 @@ export default function LotStretcherPage() {
       }, delay);
       timers.push(timer);
 
-      // Add stall after line STALL_AT_LINE
       if (i === STALL_AT_LINE) {
         totalDelay += 1500;
-        // Trigger stall
         const stallTimer = setTimeout(() => {
           setStalled(true);
           setProgress(Math.round((STALL_AT_LINE / sequence.length) * 100));
         }, totalDelay);
         timers.push(stallTimer);
         totalDelay += STALL_DURATION;
-        // Resume after stall
         const resumeTimer = setTimeout(() => {
           setStalled(false);
         }, totalDelay);
@@ -102,7 +84,6 @@ export default function LotStretcherPage() {
     }
   }, [stage]);
 
-  // Auto scroll terminal to bottom
   useEffect(() => {
     if (bottomRef.current) {
       bottomRef.current.scrollIntoView({ behavior: "smooth" });
@@ -122,22 +103,18 @@ export default function LotStretcherPage() {
     return (
       <main className="relative min-h-screen overflow-hidden bg-black text-green-400 font-mono flex items-center justify-center px-6">
 
-        {/* Scanline overlay */}
         <div className="absolute inset-0 pointer-events-none opacity-20">
           <div className="absolute inset-0 bg-[linear-gradient(rgba(34,197,94,0.08)_1px,transparent_1px)] bg-[size:100%_4px]" />
         </div>
 
-        {/* Error red wash */}
         {hasError && (
           <div className="absolute inset-0 bg-red-500/10 pointer-events-none animate-pulse" />
         )}
 
-        {/* Stall orange wash */}
         {stalled && (
           <div className="absolute inset-0 bg-orange-500/8 pointer-events-none" />
         )}
 
-        {/* Corner labels */}
         <div className="absolute top-5 left-5 text-[10px] tracking-[0.3em] text-green-400/30">LOT CAM 04</div>
         <div className="absolute top-5 right-5 text-[10px] tracking-[0.3em] text-green-400/30">BACK ROW</div>
         <div className="absolute bottom-5 left-5 text-[10px] tracking-[0.3em] text-green-400/20">ACCESS CHECK</div>
@@ -145,21 +122,19 @@ export default function LotStretcherPage() {
           {new Date().toLocaleTimeString()}
         </div>
 
-        {/* B40 watermark text */}
         <div className="absolute top-5 left-1/2 -translate-x-1/2 text-[10px] tracking-[0.4em] text-green-400/20 uppercase">
           B40 // Back Lot Utilities
         </div>
 
-        {/* Glitchy green logo — bottom right corner */}
         <div className="absolute bottom-8 right-6 pointer-events-none select-none w-20 md:w-28">
           <img
-            src="/images/logo.png"
+            src="/images/b402026.png"
             alt="Back 40 Designs"
             className="w-full mix-blend-screen animate-[b40GlitchA_3.5s_ease-in-out_infinite]"
             style={{ filter: "saturate(0) brightness(0.5) sepia(1) hue-rotate(80deg) saturate(5)", opacity: 0.25 }}
           />
           <img
-            src="/images/logo.png"
+            src="/images/b402026.png"
             alt=""
             aria-hidden="true"
             className="absolute inset-0 w-full mix-blend-screen animate-[b40GlitchB_4.2s_ease-in-out_infinite]"
@@ -167,12 +142,12 @@ export default function LotStretcherPage() {
           />
         </div>
 
-        <div className="relative z-10 max-w-xl w-full border border-green-400/20 bg-black/75 backdrop-blur-sm p-6 shadow-2xl">
+        <div className="relative z-10 max-w-2xl w-full border border-green-400/20 bg-black/75 backdrop-blur-sm p-6 shadow-2xl">
           <div className="flex items-center justify-between border-b border-green-400/20 pb-4 mb-6">
-            <p className="text-[10px] md:text-xs uppercase tracking-[0.3em] opacity-60">
+            <p className="text-xs md:text-sm uppercase tracking-[0.3em] opacity-60">
               B40 SYSTEM // LOT SEARCH v0.40
             </p>
-            <p className="text-[10px] text-green-300/60">
+            <p className="text-xs text-green-300/60">
               {stalled ? (
                 <span className="text-orange-400 animate-pulse">● PROCESS INTERRUPTED</span>
               ) : hasError ? (
@@ -183,17 +158,17 @@ export default function LotStretcherPage() {
             </p>
           </div>
 
-          {/* Terminal lines — scrollable */}
-          <div className="min-h-[320px] max-h-[320px] overflow-y-auto space-y-2 text-sm pr-1">
+          <div className="min-h-[340px] max-h-[340px] overflow-y-auto space-y-3 text-lg md:text-xl pr-1">
             {lines.map((line, i) => {
               const isError = line.includes("ERROR");
               const isWarning =
-                line.includes("not found") ||
-                line.includes("laughed") ||
-                line.includes("Who hired") ||
-                line.includes("declined") ||
-                line.includes("smoke break") ||
-                line.includes("also looking");
+                line.includes("not there") ||
+                line.includes("SIGNAL LOST") ||
+                line.includes("sent you back") ||
+                line.includes("yelled at") ||
+                line.includes("Smoke break") ||
+                line.includes("life choices") ||
+                line.includes("Still no");
               return (
                 <p key={i} className={
                   isError ? "text-red-400 font-bold" :
@@ -206,17 +181,16 @@ export default function LotStretcherPage() {
               );
             })}
             {stalled && (
-              <p className="text-orange-400 font-bold animate-pulse">
+              <p className="text-orange-400 font-bold animate-pulse text-lg md:text-xl">
                 ⚠ PROCESS INTERRUPTED — ATTEMPTING TO RESUME...
               </p>
             )}
-            <p className="text-green-400 animate-pulse">▌</p>
+            <p className="text-green-400 animate-pulse text-xl">▌</p>
             <div ref={bottomRef} />
           </div>
 
-          {/* Progress bar */}
           <div className="mt-6">
-            <div className="flex justify-between text-[10px] uppercase tracking-[0.25em] mb-2">
+            <div className="flex justify-between text-xs uppercase tracking-[0.25em] mb-2">
               <span className={stalled ? "text-orange-400" : "text-green-400/50"}>
                 {stalled ? "INTERRUPTED" : "Process"}
               </span>
@@ -235,13 +209,13 @@ export default function LotStretcherPage() {
               />
             </div>
             {stalled && (
-              <p className="mt-2 text-[10px] text-orange-400/70 animate-pulse tracking-widest uppercase">
+              <p className="mt-2 text-xs text-orange-400/70 animate-pulse tracking-widest uppercase">
                 System stalled. Please wait...
               </p>
             )}
           </div>
 
-          <p className="mt-4 text-xs text-green-400/40">
+          <p className="mt-4 text-sm text-green-400/40">
             Please wait while the system determines if you know what a lot stretcher is...
           </p>
         </div>
@@ -253,33 +227,25 @@ export default function LotStretcherPage() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-black text-white flex items-center justify-center px-6">
 
-      {/* Red radial glow */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(239,68,68,0.18),transparent_55%)]" />
-
-      {/* Scanlines */}
       <div className="absolute inset-0 opacity-[0.06] bg-[linear-gradient(rgba(255,255,255,0.25)_1px,transparent_1px)] bg-[size:100%_5px]" />
 
-      {/* Passing headlights */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute top-[20%] left-0 h-[30vh] w-[55vw] bg-gradient-to-r from-transparent via-red-400/10 to-transparent blur-2xl animate-[b40HeadlightPass_14s_ease-in-out_infinite]" />
       </div>
 
-      {/* B40 watermark top */}
       <div className="absolute top-5 left-1/2 -translate-x-1/2 text-[10px] tracking-[0.4em] text-white/15 uppercase">
         B40 // Back Lot Utilities
       </div>
 
-      {/* Logo — faded bottom left */}
       <div className="absolute bottom-8 left-6 pointer-events-none select-none w-24 md:w-36 opacity-10 mix-blend-screen">
-        <img src="/images/logo.png" alt="Back 40 Designs" className="w-full" />
+        <img src="/images/b402026.png" alt="Back 40 Designs" className="w-full" />
       </div>
 
-      {/* Logo — faded top right, smaller */}
       <div className="absolute top-14 right-6 pointer-events-none select-none w-16 md:w-24 opacity-8 mix-blend-screen">
-        <img src="/images/logo.png" alt="" aria-hidden="true" className="w-full" />
+        <img src="/images/b402026.png" alt="" aria-hidden="true" className="w-full" />
       </div>
 
-      {/* Corner */}
       <div className="absolute top-5 left-5 text-[10px] tracking-[0.3em] text-red-400/30">ACCESS DENIED</div>
       <div className="absolute top-5 right-5 text-[10px] tracking-[0.3em] text-red-400/30">LOT CAM 04</div>
 
@@ -307,9 +273,7 @@ export default function LotStretcherPage() {
           <span className="tracking-[0.2em] text-white/20">Not yet.</span>
         </p>
 
-        {/* Buttons */}
         <div className={`flex flex-col sm:flex-row gap-4 justify-center items-center transition-opacity duration-700 delay-700 ${showText ? "opacity-100" : "opacity-0"}`}>
-
           <Link
             href="/training-room"
             className="w-full sm:w-auto border border-red-400/40 bg-red-400/8 px-6 py-3 text-xs text-red-300/80 hover:text-white hover:border-red-300/80 hover:bg-red-400/15 transition uppercase tracking-[0.25em] font-mono shadow-[0_0_20px_rgba(239,68,68,0.15)]"
@@ -317,14 +281,12 @@ export default function LotStretcherPage() {
             Go Train →
           </Link>
 
-          {/* Share button */}
           <button
             onClick={handleCopy}
             className="w-full sm:w-auto border border-white/10 bg-white/5 px-6 py-3 text-xs text-white/50 hover:text-white hover:border-white/30 hover:bg-white/10 transition uppercase tracking-[0.25em] font-mono"
           >
             {copied ? "✓ Link Copied" : "Send to a Green Pea →"}
           </button>
-
         </div>
 
         <div className={`mt-10 transition-opacity duration-700 delay-1000 ${showText ? "opacity-100" : "opacity-0"}`}>
