@@ -559,7 +559,7 @@ export default function Back40LandingPage() {
           </div>
           <div className="rounded-[2rem] border border-white/10 bg-black/45 p-3 shadow-2xl backdrop-blur md:p-5">
             <div className="overflow-hidden rounded-[1.5rem] border border-white/10 bg-stone-950">
-              <img src="/images/hat-lineup.jpg" alt="B40 Dealership Series hat lineup" className="h-full w-full object-cover" />
+              <img src="/images/firefly-dealership.png" alt="B40 Dealership Series hat lineup" className="h-full w-full object-cover" />
             </div>
             <div className="mt-4 rounded-2xl border border-white/10 bg-white/5 p-4">
               <p className="text-xs uppercase tracking-[0.25em] text-stone-500">Built by one of you</p>
