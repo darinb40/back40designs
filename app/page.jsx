@@ -258,15 +258,25 @@ export default function Back40LandingPage() {
               Shop the Trail Series
             </a>
           </div>
-          <div className="mt-8 grid gap-3 sm:grid-cols-2">
-            {[
-              "Custom acrylic and leatherette patch hats",
-              "Built for local brands, events, shops, and collabs",
-              "Small-run friendly and story-driven by design",
-              "Made to feel personal, not pulled from a template",
-            ].map((item) => (
-              <div key={item} className="rounded-2xl border border-white/10 bg-black/35 p-4 text-sm leading-6 text-stone-300 backdrop-blur">{item}</div>
-            ))}
+          <div className="mt-8 w-full overflow-hidden">
+            <div className="flex animate-marquee whitespace-nowrap">
+              {[...Array(3)].map((_, i) => (
+                <span key={i} className="inline-flex items-center gap-6 pr-6 text-sm font-semibold uppercase tracking-[0.2em] text-white/60">
+                  <span>A Story Worth Wearing</span>
+                  <span className="text-[#c6a36b]">·</span>
+                  <span>Custom Acrylic & Leatherette Patch Hats</span>
+                  <span className="text-[#c6a36b]">·</span>
+                  <span>Built for Local Brands</span>
+                  <span className="text-[#c6a36b]">·</span>
+                  <span>Small-Run Friendly</span>
+                  <span className="text-[#c6a36b]">·</span>
+                  <span>Made to Feel Personal</span>
+                  <span className="text-[#c6a36b]">·</span>
+                  <span>Purpose Built in NWA</span>
+                  <span className="text-[#c6a36b]">·</span>
+                </span>
+              ))}
+            </div>
           </div>
         </div>
       </section>
