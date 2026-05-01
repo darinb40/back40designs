@@ -169,7 +169,7 @@ export default function Back40LoopPage() {
                 { stat: "6", label: "World-Class Builders" },
                 { stat: "1,950ft", label: "Elevation Change" },
               ].map(({ stat, label }) => (
-                <div key={label} className="rounded-xl border border-white/10 bg-black/40 px-4 py-8 text-center backdrop-blur-sm">
+                <div key={label} className="rounded-xl border border-[#c6a36b]/15 bg-[#c6a36b]/5 px-4 py-8 text-center backdrop-blur-sm">
                   <p className="text-4xl font-black text-white md:text-5xl" style={{ fontFamily: "'Bebas Neue', 'Arial Narrow', sans-serif" }}>{stat}</p>
                   <p className="mt-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#c6a36b]">{label}</p>
                 </div>
