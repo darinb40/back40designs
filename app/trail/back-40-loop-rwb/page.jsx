@@ -133,7 +133,7 @@ export default function Back40LoopRWBPage() {
             <p className="mb-10 max-w-sm text-sm leading-6 text-white/60 md:text-base">
               Same legendary trail. Different story. This one's for the riders who bleed red, white, and blue on every descent.
             </p>
-            <a href="#get-yours" className="inline-flex items-center justify-center gap-2 bg-[#cc0000] px-6 py-3 text-sm font-bold uppercase tracking-[0.15em] text-white transition hover:bg-[#ff0000]">
+            <a href="#get-yours" className="inline-flex items-center justify-center gap-2 bg-[#c6a36b] px-6 py-3 text-sm font-bold uppercase tracking-[0.15em] text-black transition hover:bg-[#d4b07a]">
               Get Yours — $35 ↓
             </a>
           </div>
