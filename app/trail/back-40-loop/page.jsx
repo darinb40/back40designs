@@ -116,7 +116,7 @@ export default function Back40LoopPage() {
       {/* ── HERO ── */}
       <section className="relative h-[100vh] w-full">
         <img src="/images/back-40.PNG" alt="Back 40 Loop" className="absolute inset-0 h-full w-full object-cover" />
-        <div className="absolute inset-0 bg-black/60" />
+        <div className="absolute inset-0 bg-black/30" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/80" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/20 to-transparent" />
         <div className="relative z-10 flex h-full flex-col justify-center px-6 pt-20 md:px-16 md:pt-0">
