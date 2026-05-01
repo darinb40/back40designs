@@ -19,6 +19,14 @@ export default function Back40LoopPage() {
   return (
     <main className="relative w-full overflow-hidden bg-black text-white">
 
+      {/* ── SHOPIFY CENTERING OVERRIDE ── */}
+      <style>{`
+        .shopify-buy__product { text-align: center !important; margin: 0 auto !important; }
+        .shopify-buy__btn-wrapper { display: flex !important; justify-content: center !important; }
+        .shopify-buy__product__title { text-align: center !important; }
+        .shopify-buy__product__price { text-align: center !important; }
+      `}</style>
+
       {/* ── SHOPIFY BUY BUTTON SCRIPT ── */}
       <Script src="https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js" strategy="afterInteractive" onLoad={() => {
         if (window.ShopifyBuy && window.ShopifyBuy.UI) {
@@ -29,7 +37,7 @@ export default function Back40LoopPage() {
           window.ShopifyBuy.UI.onReady(client).then((ui) => {
             ui.createComponent('product', {
               id: '10285941981316',
-              node: document.getElementById('product-component-back40loop'),
+              node: document.getElementById('product-component-1777645011909'),
               moneyFormat: '%24%7B%7Bamount%7D%7D',
               options: {
                 product: {
@@ -37,9 +45,9 @@ export default function Back40LoopPage() {
                     button: {
                       "font-family": "Open Sans, sans-serif",
                       "font-weight": "bold",
-                      "background-color": "#cc0000",
-                      ":hover": { "background-color": "#ff0000" },
-                      ":focus": { "background-color": "#ff0000" },
+                      "background-color": "#c6a36b",
+                      ":hover": { "background-color": "#d4b07a" },
+                      ":focus": { "background-color": "#d4b07a" },
                       "padding": "14px 32px",
                       "font-size": "14px",
                       "letter-spacing": "0.1em",
@@ -52,8 +60,8 @@ export default function Back40LoopPage() {
                 cart: {
                   styles: {
                     button: {
-                      "background-color": "#cc0000",
-                      ":hover": { "background-color": "#ff0000" },
+                      "background-color": "#c6a36b",
+                      ":hover": { "background-color": "#d4b07a" },
                     }
                   },
                   text: { total: "Subtotal", button: "Checkout" },
@@ -61,8 +69,8 @@ export default function Back40LoopPage() {
                 toggle: {
                   styles: {
                     toggle: {
-                      "background-color": "#cc0000",
-                      ":hover": { "background-color": "#ff0000" },
+                      "background-color": "#c6a36b",
+                      ":hover": { "background-color": "#d4b07a" },
                     }
                   }
                 }
@@ -248,7 +256,7 @@ export default function Back40LoopPage() {
             Every hat is built by hand in Northwest Arkansas. No two runs are the same.
           </p>
           {/* Shopify Buy Button mounts here */}
-          <div id="product-component-back40loop" className="flex justify-center" />
+          <div id="product-component-1777645011909" className="flex justify-center" />
         </div>
       </section>
 
