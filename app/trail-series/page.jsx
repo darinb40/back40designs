@@ -91,7 +91,7 @@ export default function TrailSeriesPage() {
 
       {/* ── HERO ── */}
       <section className="relative h-[100vh] w-full">
-        <img src="/trail-series-bg.png" alt="Trail Series" className="absolute inset-0 h-full w-full object-cover" />
+        <img src="/trail-series-bg.png" alt="Trail Series" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: "70% center" }} />
         <div className="absolute inset-0 bg-black/20" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/60" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/10 to-transparent" />
@@ -170,10 +170,10 @@ export default function TrailSeriesPage() {
           <h2 className="mb-12 text-3xl font-black uppercase md:text-5xl" style={{ fontFamily: "'Bebas Neue', 'Arial Narrow', sans-serif" }}>
             Pick Your Trail.
           </h2>
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-2">
+          <div className="grid grid-cols-2 gap-6 lg:grid-cols-4">
             {hats.map(({ name, sub, tagline, description, href, img }) => (
               <Link key={href} href={href} className="group overflow-hidden rounded-2xl border border-white/10 bg-white/5 transition hover:border-[#c6a36b]/50">
-                <div className="aspect-square overflow-hidden">
+                <div className="aspect-[4/3] overflow-hidden">
                   <img src={img} alt={name} className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]" />
                 </div>
                 <div className="p-6">
@@ -223,3 +223,4 @@ export default function TrailSeriesPage() {
     </main>
   );
 }
+
