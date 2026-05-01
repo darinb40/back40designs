@@ -258,26 +258,39 @@ export default function Back40LandingPage() {
               Shop the Trail Series
             </a>
           </div>
-          <div className="mt-8 w-full overflow-hidden">
-            <div className="flex animate-marquee whitespace-nowrap">
-              {[...Array(3)].map((_, i) => (
-                <span key={i} className="inline-flex items-center gap-6 pr-6 text-sm font-semibold uppercase tracking-[0.2em] text-white/60">
-                  <span>A Story Worth Wearing</span>
-                  <span className="text-[#c6a36b]">·</span>
-                  <span>Custom Acrylic & Leatherette Patch Hats</span>
-                  <span className="text-[#c6a36b]">·</span>
-                  <span>Built for Local Brands</span>
-                  <span className="text-[#c6a36b]">·</span>
-                  <span>Small-Run Friendly</span>
-                  <span className="text-[#c6a36b]">·</span>
-                  <span>Made to Feel Personal</span>
-                  <span className="text-[#c6a36b]">·</span>
-                  <span>Purpose Built in NWA</span>
-                  <span className="text-[#c6a36b]">·</span>
-                </span>
-              ))}
-            </div>
-          </div>
+        </div>
+      </section>
+
+      {/* ── SCROLLING MARQUEE BANNER ── */}
+      <section className="w-full overflow-hidden border-y border-[#c6a36b]/20 bg-black py-4">
+        <style>{`
+          @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-33.333%); }
+          }
+          .marquee-track {
+            display: flex;
+            width: max-content;
+            animation: marquee 20s linear infinite;
+          }
+        `}</style>
+        <div className="marquee-track">
+          {[...Array(6)].map((_, i) => (
+            <span key={i} className="inline-flex items-center gap-8 px-8 text-xs font-black uppercase tracking-[0.3em] text-white/70">
+              <span>A Story Worth Wearing</span>
+              <span className="text-[#c6a36b] text-base">·</span>
+              <span>Custom Acrylic & Leatherette Patch Hats</span>
+              <span className="text-[#c6a36b] text-base">·</span>
+              <span>Built for Local Brands</span>
+              <span className="text-[#c6a36b] text-base">·</span>
+              <span>Small-Run Friendly</span>
+              <span className="text-[#c6a36b] text-base">·</span>
+              <span>Made to Feel Personal</span>
+              <span className="text-[#c6a36b] text-base">·</span>
+              <span>Purpose Built in NWA</span>
+              <span className="text-[#c6a36b] text-base">·</span>
+            </span>
+          ))}
         </div>
       </section>
 
