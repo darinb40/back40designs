@@ -201,7 +201,7 @@ export default function Back40LandingPage() {
       <header className="sticky top-0 z-40 border-b border-white/10 bg-stone-950/90 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-10 md:py-4">
           <a href="/">
-            <img src="/images/b402026.png" alt="Back 40 Designs" className="h-10 w-auto md:h-12" />
+            <img src="/images/welcome-page-logo.PNG" alt="Back 40 Designs" className="h-10 w-auto md:h-12 opacity-85" />
           </a>
           <nav className="hidden items-center gap-6 text-sm text-stone-300 md:flex">
             <a href="/trail-series" className="transition hover:text-white">Shop</a>
