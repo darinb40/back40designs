@@ -1,211 +1,175 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
+
+const trailHats = [
+  { name: "Back 40 Loop", sub: "Bella Vista, AR", href: "/trail/back-40-loop", img: "/images/back-40.PNG" },
+  { name: "Back 40 Loop", sub: "Red, White & Blue", href: "/trail/back-40-loop-rwb", img: "/images/back-40-rwb.PNG" },
+  { name: "Little Sugar Trail", sub: "Bella Vista, AR", href: "/trail/little-sugar", img: "/images/little-sugar.PNG" },
+  { name: "Dragon Scales", sub: "Slaughter Pen, Bentonville", href: "/trail/dragon-scales", img: "/images/dragon-scales.PNG" },
+];
+
+const brandWork = [
+  { name: "B40 OG Flat Bill", img: "/images/b40-flat-bill.PNG" },
+  { name: "Bearded Buffalo", img: "/images/buffalo.PNG" },
+  { name: "Wicked Guud Dogs", img: "/images/WICKED.PNG" },
+  { name: "Hyundai Bentonville", img: "/images/hyundaigreen.png" },
+  { name: "Hyundai Bentonville", img: "/images/hyundai2.png" },
+  { name: "Amor Patriae Pistols", img: "/images/appistols.png" },
+  { name: "Amor Patriae", img: "/images/apolive.png" },
+  { name: "Amor Patriae Camo", img: "/images/apcamo.png" },
+  { name: "MSDT", img: "/images/msdtblue.png" },
+  { name: "Red Pig Hat Co", img: "/images/redpig.png" },
+  { name: "All American PDR", img: "/images/usapdr.png" },
+  { name: "Henny Dogs Camo", img: "/images/hennycamo.png" },
+  { name: "Henny Dog", img: "/images/hennydog.png" },
+  { name: "Lumber Lids", img: "/images/lumberlids.png" },
+];
+
+const customBuilds = [
+  { name: "All Eyes On Me", img: "/images/all-eyes.PNG" },
+  { name: "Hyundai Hogs", img: "/images/Hyundai-hog.PNG" },
+  { name: "Jesters Privilege", img: "/images/jester.PNG" },
+  { name: "JA > Speed", img: "/images/ja.PNG" },
+  { name: "Wood & Wild", img: "/images/goose.png" },
+  { name: "AR Letters", img: "/images/arletters.png" },
+  { name: "Wooden Hog", img: "/images/woodhog.png" },
+  { name: "Wooden Hogs Heather Grey", img: "/images/hogwood.png" },
+  { name: "Suicide King", img: "/images/suicideking.png" },
+];
 
 export default function GalleryPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  const shopLink = "https://back40-headwear.myshopify.com/collections/b40-trail-series";
-  const instagramLink = "https://www.instagram.com/b40_designs/";
-  const ctaLink = "mailto:info@back40designco.com?subject=Back40%20Project%20Inquiry";
-
-  const gallery = [
-    { title: "Hyundai Green", tag: "Brand Work", image: "/images/hyundaigreen.png" },
-    { title: "Hog Green Camo", tag: "Custom Build", image: "/images/hog-camo.png" },
-    { title: "Hog Brown Camo", tag: "Custom Build", image: "/images/cog-camo1.png" },
-    { title: "Merica", tag: "Custom Build", image: "/images/merica.png" },
-    { title: "Amor Patriae Pistols", tag: "Brand Work", image: "/images/appistols.png" },
-    { title: "Hyundai Bentonville", tag: "Brand Work", image: "/images/hyundai2.png" },
-    { title: "Amor Patriae", tag: "Brand Work", image: "/images/apolive.png" },
-    { title: "MSDT", tag: "Brand Work", image: "/images/msdtblue.png" },
-    { title: "Goose", tag: "Custom Build", image: "/images/goose.png" },
-    { title: "AR", tag: "Custom Build", image: "/images/arletters.png" },
-    { title: "Red Pig Hat Co", tag: "Brand Work", image: "/images/redpig.png" },
-    { title: "All American PDR", tag: "Brand Work", image: "/images/usapdr.png" },
-    { title: "Wooden Hog", tag: "Custom Build", image: "/images/woodhog.png" },
-    { title: "Suicide King", tag: "Custom Build", image: "/images/suicideking.png" },
-    { title: "Amor Patriae Camo", tag: "Brand Work", image: "/images/apcamo.png" },
-    { title: "Henny Dogs Camo", tag: "Brand Work", image: "/images/hennycamo.png" },
-    { title: "Slobber Hog", tag: "Custom Build", image: "/images/slobberhog.png" },
-    { title: "Henny Dog", tag: "Brand Work", image: "/images/hennydog.png" },
-    { title: "Wooden Hogs Heather Grey", tag: "Custom Build", image: "/images/hogwood.png" },
-    { title: "Lumber Lids", tag: "Brand Work", image: "/images/lumberlids.png" },
-    { title: "Arkansas", tag: "Custom Build", image: "/images/ark.png" },
-  ];
-
-  const [selectedIndex, setSelectedIndex] = useState(null);
-
-  const selectedItem = selectedIndex !== null ? gallery[selectedIndex] : null;
-
-  const openImage = (index) => setSelectedIndex(index);
-  const closeImage = () => setSelectedIndex(null);
-
-  const showPrev = () => {
-    setSelectedIndex((prev) =>
-      prev === null ? null : prev === 0 ? gallery.length - 1 : prev - 1
-    );
-  };
-
-  const showNext = () => {
-    setSelectedIndex((prev) =>
-      prev === null ? null : prev === gallery.length - 1 ? 0 : prev + 1
-    );
-  };
-
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (selectedIndex === null) return;
-      if (event.key === "Escape") closeImage();
-      if (event.key === "ArrowLeft") showPrev();
-      if (event.key === "ArrowRight") showNext();
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [selectedIndex]);
+  const [lightboxImg, setLightboxImg] = useState(null);
+  const [lightboxName, setLightboxName] = useState("");
 
   return (
-    <main className="min-h-screen bg-black text-white">
+    <main className="relative w-full overflow-hidden bg-black text-white">
+
+      {/* ── LIGHTBOX ── */}
+      {lightboxImg && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm p-4"
+          onClick={() => setLightboxImg(null)}
+        >
+          <div className="relative max-w-3xl w-full" onClick={(e) => e.stopPropagation()}>
+            <img src={lightboxImg} alt={lightboxName} className="w-full rounded-xl shadow-2xl" />
+            <p className="mt-4 text-center text-sm font-semibold uppercase tracking-[0.2em] text-[#c6a36b]">{lightboxName}</p>
+            <button onClick={() => setLightboxImg(null)} className="absolute -top-4 -right-4 rounded-full bg-white/10 px-3 py-1 text-xs text-white hover:bg-white/20">✕ Close</button>
+          </div>
+        </div>
+      )}
 
       {/* ── HEADER ── */}
-      <header className="sticky top-0 z-40 border-b border-white/10 bg-black/80 backdrop-blur">
+      <header className="fixed top-0 left-0 right-0 z-40 border-b border-white/10 bg-black/90 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-10 md:py-4">
           <Link href="/">
-            <div>
-              <p className="text-base font-semibold tracking-tight md:text-lg">Back 40 Designs</p>
-              <p className="text-[10px] uppercase tracking-[0.28em] text-stone-400 md:text-xs">
-                Custom Patch Headwear
-              </p>
-            </div>
+            <img src="/images/b402026.png" alt="Back 40 Designs" className="h-10 w-auto md:h-12" />
           </Link>
-
-          {/* Desktop nav */}
           <nav className="hidden items-center gap-6 text-sm text-stone-300 md:flex">
-            <Link href="/#collections" className="transition hover:text-white">Collections</Link>
+            <Link href="/trail-series" className="transition hover:text-white">Shop</Link>
+            <Link href="/trail-series" className="transition hover:text-white">Trail Series</Link>
             <Link href="/dealership-series" className="transition hover:text-white">Dealership Series</Link>
-            <Link href="/#process" className="transition hover:text-white">Process</Link>
-            <Link href="/gallery" className="text-white font-semibold">Gallery</Link>
-            <Link href="/#story" className="transition hover:text-white">Story</Link>
-            <Link href="/#contact" className="transition hover:text-white">Contact</Link>
+            <Link href="/gallery" className="text-[#c6a36b] font-semibold border-b border-[#c6a36b] pb-0.5">Gallery</Link>
+            <Link href="/custom-orders" className="transition hover:text-white">Custom Orders</Link>
           </nav>
-
           <div className="flex items-center gap-2 md:gap-3">
-            <a
-              href={shopLink}
-              target="_blank"
-              rel="noreferrer"
-              className="hidden rounded-2xl border border-white/10 px-4 py-2 text-sm font-semibold text-stone-200 transition hover:bg-white/5 md:inline-flex"
-            >
-              Shop
-            </a>
-            <Link
-              href="/#contact"
-              className="inline-flex items-center gap-1.5 rounded-2xl bg-white px-3 py-2 text-xs font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100 md:px-4 md:text-sm"
-            >
+            <Link href="/custom-orders" className="inline-flex items-center gap-1.5 rounded-2xl bg-[#c6a36b] px-3 py-2 text-xs font-semibold text-black shadow-lg transition hover:-translate-y-0.5 hover:bg-[#d4b07a] md:px-4 md:text-sm">
               Start a Project →
             </Link>
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="rounded-lg p-2 text-stone-300 transition hover:bg-white/5 md:hidden"
-              aria-label="Toggle menu"
-            >
+            <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="rounded-lg p-2 text-stone-300 transition hover:bg-white/5 md:hidden">
               {mobileMenuOpen ? "✕" : "☰"}
             </button>
           </div>
         </div>
-
-        {/* Mobile menu */}
         {mobileMenuOpen && (
           <div className="border-t border-white/10 bg-black/90 px-4 py-4 md:hidden">
             <nav className="flex flex-col gap-4 text-sm text-stone-300">
               {[
-                ["/#collections", "Collections"],
+                ["/trail-series", "Shop"],
+                ["/trail-series", "Trail Series"],
                 ["/dealership-series", "Dealership Series"],
-                ["/#process", "Process"],
                 ["/gallery", "Gallery"],
-                ["/#story", "Story"],
-                ["/#contact", "Contact"],
+                ["/custom-orders", "Custom Orders"],
               ].map(([href, label]) => (
-                <Link
-                  key={label}
-                  href={href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="border-b border-white/5 pb-3 transition hover:text-white"
-                >
-                  {label}
-                </Link>
+                <Link key={label} href={href} onClick={() => setMobileMenuOpen(false)} className="border-b border-white/5 pb-3 transition hover:text-white">{label}</Link>
               ))}
-              <a
-                href={shopLink}
-                target="_blank"
-                rel="noreferrer"
-                onClick={() => setMobileMenuOpen(false)}
-                className="transition hover:text-white"
-              >
-                Shop Hats ↗
-              </a>
             </nav>
           </div>
         )}
       </header>
 
       {/* ── HERO ── */}
-      <section className="border-b border-white/10 px-6 py-16 md:px-10 md:py-24">
-        <div className="mx-auto max-w-7xl">
-          <p className="mb-4 text-sm font-semibold uppercase tracking-[0.24em] text-stone-400">
-            Gallery
-          </p>
-          <h1 className="max-w-4xl text-4xl font-bold tracking-tight text-white md:text-6xl">
-            Past work that shows what Back 40 is built to do.
+      <section className="relative pt-24 pb-16 px-6 md:px-16 md:pt-32 md:pb-20">
+        <div className="mx-auto max-w-5xl">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.35em] text-[#c6a36b]">Back 40 Designs</p>
+          <h1 className="mb-6 text-5xl font-black uppercase leading-tight md:text-7xl" style={{ fontFamily: "'Bebas Neue', 'Arial Narrow', sans-serif" }}>
+            Built to Be<br />Worn.
           </h1>
-          <p className="mt-5 max-w-2xl text-base leading-7 text-stone-300 md:text-lg">
-            A full look at custom builds created for brands, businesses, teams,
-            and story-driven projects. Clean design. Strong identity. Built to
-            be worn.
+          <p className="max-w-xl text-sm leading-7 text-white/60 md:text-base">
+            Every hat here started with a story. A brand, a place, a memory, or a moment worth putting on a patch. This is what Back 40 builds.
           </p>
         </div>
       </section>
 
-      {/* ── GRID ── */}
-      <section className="px-4 py-10 md:px-10 md:py-16">
-        <div className="mx-auto max-w-7xl">
-          <div className="mb-8 flex items-center justify-between gap-4">
+      {/* ── TRAIL SERIES ── */}
+      <section className="relative overflow-hidden px-6 py-16 md:px-16 md:py-20">
+        <div className="absolute inset-0 bg-[url('/images/trail-b40.png')] bg-cover bg-center bg-fixed" />
+        <div className="absolute inset-0 bg-black/70" />
+        <div className="relative z-10 mx-auto max-w-6xl">
+          <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div>
-              <p className="text-sm uppercase tracking-[0.18em] text-stone-500">
-                Selected Work
-              </p>
-              <p className="mt-2 text-sm text-stone-400">
-                Click any image to view it larger.
-              </p>
+              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.35em] text-[#c6a36b]">Available Now</p>
+              <h2 className="text-4xl font-black uppercase md:text-5xl" style={{ fontFamily: "'Bebas Neue', 'Arial Narrow', sans-serif" }}>
+                B40 Trail Series
+              </h2>
+              <p className="mt-2 text-sm text-white/50">4 trails. 4 hats. Each one built to wear a story.</p>
             </div>
-            <div className="rounded-full border border-white/10 px-4 py-2 text-xs uppercase tracking-[0.18em] text-stone-400">
-              {gallery.length} Builds
-            </div>
+            <Link href="/trail-series" className="inline-flex w-fit items-center gap-2 bg-[#c6a36b] px-5 py-2.5 text-xs font-bold uppercase tracking-[0.15em] text-black transition hover:bg-[#d4b07a]">
+              Shop All Trail Hats →
+            </Link>
           </div>
-
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {gallery.map((item, index) => (
-              <button
-                key={`${item.title}-${index}`}
-                type="button"
-                onClick={() => openImage(index)}
-                className="group overflow-hidden rounded-[1.6rem] border border-white/10 bg-white/5 text-left transition duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.07]"
-              >
-                <div className="relative aspect-[1/1.2] overflow-hidden bg-stone-950 sm:aspect-[4/5]">
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+            {trailHats.map(({ name, sub, href, img }) => (
+              <Link key={href} href={href} className="group overflow-hidden rounded-xl border border-white/10 bg-black/40 backdrop-blur-sm transition hover:border-[#c6a36b]/50">
+                <div className="aspect-square overflow-hidden">
+                  <img src={img} alt={name} className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.05]" />
                 </div>
-                <div className="flex items-center justify-between gap-4 px-3 py-3">
-                  <div>
-                    <h2 className="text-lg font-semibold text-white">{item.title}</h2>
-                    <p className="mt-1 text-xs uppercase tracking-[0.18em] text-stone-400">{item.tag}</p>
-                  </div>
-                  <div className="text-stone-500 transition group-hover:text-white">↗</div>
+                <div className="p-3">
+                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#c6a36b]">{name}</p>
+                  <p className="mt-0.5 text-xs text-white/40">{sub}</p>
+                  <p className="mt-2 text-xs font-semibold text-white/70 group-hover:text-[#c6a36b] transition">Get Yours → $35</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── BRAND WORK ── */}
+      <section className="bg-black px-6 py-16 md:px-16 md:py-20">
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-10">
+            <p className="mb-2 text-xs font-semibold uppercase tracking-[0.35em] text-[#c6a36b]">Portfolio</p>
+            <h2 className="text-4xl font-black uppercase md:text-5xl" style={{ fontFamily: "'Bebas Neue', 'Arial Narrow', sans-serif" }}>
+              Brand Work
+            </h2>
+            <p className="mt-2 text-sm text-white/50">Custom hats built for businesses, shops, and brands.</p>
+          </div>
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-4 lg:grid-cols-4">
+            {brandWork.map(({ name, img }) => (
+              <button
+                key={name + img}
+                onClick={() => { setLightboxImg(img); setLightboxName(name); }}
+                className="group overflow-hidden rounded-xl border border-white/10 bg-white/5 text-left transition hover:border-[#c6a36b]/50 hover:-translate-y-0.5"
+              >
+                <div className="aspect-square overflow-hidden">
+                  <img src={img} alt={name} className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.05]" />
+                </div>
+                <div className="p-3">
+                  <p className="text-xs font-bold uppercase tracking-[0.15em] text-white/80">{name}</p>
+                  <p className="mt-0.5 text-xs text-white/30">Brand Work</p>
                 </div>
               </button>
             ))}
@@ -213,125 +177,65 @@ export default function GalleryPage() {
         </div>
       </section>
 
-      {/* ── DEALER CTA ── */}
-      <section className="px-6 py-16 md:px-10">
-        <div className="mx-auto max-w-5xl rounded-[2rem] border border-white/10 bg-white/5 p-8 text-center md:p-12">
-          <p className="text-sm uppercase tracking-[0.2em] text-stone-400">
-            Built for Business
-          </p>
-          <h2 className="mt-4 text-2xl font-bold tracking-tight text-white md:text-4xl">
-            See how this translates inside a dealership.
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-base text-stone-300">
-            These same concepts are being built into a full dealership-driven
-            line — designed for the front line, with the private Back Lot kept
-            behind the gate.
-          </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <a
-              href="/dealership-series"
-              className="rounded-full bg-white px-6 py-3 font-semibold text-black transition hover:scale-[1.02]"
-            >
-              Enter Dealer Series →
-            </a>
-            <a
-              href="/collections/shop-hats"
-              className="rounded-full border border-white/20 px-6 py-3 text-white transition hover:bg-white/10"
-            >
-              Shop Hats
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* ── START A PROJECT ── */}
-      <section className="border-t border-white/10 px-6 py-16 md:px-10">
-        <div className="mx-auto flex max-w-7xl flex-col gap-6 rounded-[2rem] border border-white/10 bg-white/5 p-8 md:flex-row md:items-center md:justify-between md:p-10">
-          <div className="max-w-2xl">
-            <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-stone-400">
-              Start a Project
-            </p>
-            <h2 className="text-2xl font-bold tracking-tight text-white md:text-4xl">
-              Want something built for your brand?
+      {/* ── CUSTOM BUILDS ── */}
+      <section className="bg-[#080808] px-6 py-16 md:px-16 md:py-20">
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-10">
+            <p className="mb-2 text-xs font-semibold uppercase tracking-[0.35em] text-[#c6a36b]">Portfolio</p>
+            <h2 className="text-4xl font-black uppercase md:text-5xl" style={{ fontFamily: "'Bebas Neue', 'Arial Narrow', sans-serif" }}>
+              Custom Builds
             </h2>
-            <p className="mt-3 text-base leading-7 text-stone-300">
-              Let's create something that actually feels like yours — not
-              generic, not mass-produced, and not forgettable.
-            </p>
+            <p className="mt-2 text-sm text-white/50">One-off pieces built from personal stories, places, and moments worth wearing.</p>
           </div>
-          <a
-            href={ctaLink}
-            className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white px-6 py-3 text-sm font-semibold text-black transition hover:scale-[1.02]"
-          >
-            Let's Talk
-          </a>
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-4 lg:grid-cols-4">
+            {customBuilds.map(({ name, img }) => (
+              <button
+                key={name + img}
+                onClick={() => { setLightboxImg(img); setLightboxName(name); }}
+                className="group overflow-hidden rounded-xl border border-white/10 bg-white/5 text-left transition hover:border-[#c6a36b]/50 hover:-translate-y-0.5"
+              >
+                <div className="aspect-square overflow-hidden">
+                  <img src={img} alt={name} className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.05]" />
+                </div>
+                <div className="p-3">
+                  <p className="text-xs font-bold uppercase tracking-[0.15em] text-white/80">{name}</p>
+                  <p className="mt-0.5 text-xs text-white/30">Custom Build</p>
+                </div>
+              </button>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* ── LIGHTBOX ── */}
-      {selectedItem && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4 md:p-8"
-          onClick={closeImage}
-        >
-          <div
-            className="relative w-full max-w-6xl"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="absolute left-3 top-3 z-20 rounded-full border border-white/15 bg-black/70 px-4 py-2 text-xs uppercase tracking-[0.18em] text-white backdrop-blur">
-              {selectedIndex + 1} / {gallery.length}
-            </div>
+      {/* ── CTA ── */}
+      <section className="bg-black px-6 py-20 md:px-16 md:py-28">
+        <div className="mx-auto max-w-4xl rounded-2xl border border-white/10 bg-white/5 p-8 md:p-14 text-center">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.3em] text-[#c6a36b]">Start a Project</p>
+          <h2 className="mb-6 text-4xl font-black uppercase leading-tight md:text-5xl" style={{ fontFamily: "'Bebas Neue', 'Arial Narrow', sans-serif" }}>
+            Want something built<br />for your brand?
+          </h2>
+          <p className="mb-8 mx-auto max-w-xl text-sm leading-7 text-white/60 md:text-base">
+            Every build starts with a story. Send a logo, a concept, or even just a direction and we'll take it from there.
+          </p>
+          <Link href="/custom-orders" className="inline-flex items-center gap-2 bg-[#c6a36b] px-8 py-4 text-sm font-bold uppercase tracking-[0.15em] text-black transition hover:bg-[#d4b07a]">
+            Start a Project →
+          </Link>
+        </div>
+      </section>
 
-            <button
-              type="button"
-              onClick={closeImage}
-              className="absolute right-3 top-3 z-20 rounded-full border border-white/15 bg-black/70 px-4 py-2 text-sm font-semibold text-white transition hover:bg-black"
-            >
-              ✕
-            </button>
-
-            <button
-              type="button"
-              onClick={showPrev}
-              className="absolute left-3 top-1/2 z-20 -translate-y-1/2 rounded-full border border-white/15 bg-black/70 px-4 py-3 text-xl text-white transition hover:bg-black"
-              aria-label="Previous image"
-            >
-              ←
-            </button>
-
-            <button
-              type="button"
-              onClick={showNext}
-              className="absolute right-3 top-1/2 z-20 -translate-y-1/2 rounded-full border border-white/15 bg-black/70 px-4 py-3 text-xl text-white transition hover:bg-black"
-              aria-label="Next image"
-            >
-              →
-            </button>
-
-            <div className="overflow-hidden rounded-[1.75rem] border border-white/10 bg-stone-950 shadow-2xl">
-              <img
-                src={selectedItem.image}
-                alt={selectedItem.title}
-                className="max-h-[78vh] w-full object-contain bg-black"
-              />
-            </div>
-
-            <div className="mt-4 flex flex-col gap-2 px-1 md:flex-row md:items-end md:justify-between">
-              <div>
-                <h2 className="text-2xl font-semibold text-white md:text-3xl">
-                  {selectedItem.title}
-                </h2>
-                <p className="mt-1 text-xs uppercase tracking-[0.18em] text-stone-400">
-                  {selectedItem.tag}
-                </p>
-              </div>
-              <p className="text-sm text-stone-400">
-                Use arrow keys to move through the gallery.
-              </p>
-            </div>
+      {/* ── FOOTER ── */}
+      <footer className="border-t border-white/10 px-5 py-8 text-sm text-white/40 md:px-10">
+        <div className="mx-auto flex max-w-7xl flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <p>© 2026 Back 40 Designs. Custom headwear with story and identity.</p>
+          <div className="flex flex-wrap gap-4 sm:gap-6">
+            <a href="tel:479-544-1366" className="transition hover:text-white">479-544-1366</a>
+            <a href="mailto:info@back40designco.com" className="transition hover:text-white">Email</a>
+            <a href="https://www.instagram.com/b40_designs/" target="_blank" rel="noreferrer" className="transition hover:text-white">Instagram</a>
+            <Link href="/trail-series" className="transition hover:text-white">Shop</Link>
+            <Link href="/" className="transition hover:text-white">Back to Home</Link>
           </div>
         </div>
-      )}
+      </footer>
 
     </main>
   );
