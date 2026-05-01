@@ -242,7 +242,7 @@ export default function Back40LandingPage() {
         <div className="absolute inset-0 bg-black/35" />
         <div className="relative z-10 mx-auto max-w-7xl px-4 pb-14 pt-10 md:px-10 md:pb-24 md:pt-16">
           <img src="/images/welcome-page-logo.PNG" alt="Back 40 Designs" className="mb-3 w-28 md:w-44 lg:w-52" />
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-stone-950 md:text-sm">A story worth wearing.</p>
+          <p className="mb-3 text-xs font-black uppercase tracking-[0.28em] text-[#c6a36b] md:text-sm" style={{ marginTop: "-4px" }}>A story worth wearing.</p>
           <h1 className="max-w-3xl text-4xl font-semibold leading-tight tracking-tight md:text-6xl lg:text-7xl">
             Not just hats.<br />
             <span className="font-bold text-white">Built for people who actually have something to say.</span>
