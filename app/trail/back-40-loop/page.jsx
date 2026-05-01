@@ -147,21 +147,34 @@ export default function Back40LoopPage() {
         </div>
       </section>
 
-      {/* ── TRAIL STATS ── */}
-      <section className="bg-[#cc0000] px-6 py-8 md:px-16">
-        <div className="mx-auto max-w-5xl">
-          <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
-            {[
-              { stat: "40", label: "Miles of Trail" },
-              { stat: "2016", label: "Year Opened" },
-              { stat: "6", label: "World-Class Builders" },
-              { stat: "1,950ft", label: "Elevation Change" },
-            ].map(({ stat, label }) => (
-              <div key={label} className="text-center">
-                <p className="text-3xl font-black text-white md:text-4xl" style={{ fontFamily: "'Bebas Neue', 'Arial Narrow', sans-serif" }}>{stat}</p>
-                <p className="mt-1 text-xs font-semibold uppercase tracking-[0.2em] text-white/70">{label}</p>
-              </div>
-            ))}
+      {/* ── TRAIL ENVIRONMENT / PARALLAX STATS ── */}
+      <section className="relative overflow-hidden" style={{ minHeight: "420px" }}>
+        <div className="absolute inset-0 w-full h-full" style={{ backgroundImage: "url('/images/trail-b40.png')", backgroundSize: "cover", backgroundPosition: "center", backgroundAttachment: "fixed" }} />
+        <div className="absolute inset-0 bg-black/65" />
+        <div className="absolute inset-0 opacity-10">
+          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0,80 Q200,40 400,90 T800,70 T1200,85 T1600,60" stroke="#c6a36b" strokeWidth="1" fill="none"/>
+            <path d="M0,160 Q200,120 400,170 T800,150 T1200,165 T1600,140" stroke="#c6a36b" strokeWidth="1" fill="none"/>
+            <path d="M0,240 Q200,200 400,250 T800,230 T1200,245 T1600,220" stroke="#c6a36b" strokeWidth="1" fill="none"/>
+            <path d="M0,320 Q200,280 400,330 T800,310 T1200,325 T1600,300" stroke="#c6a36b" strokeWidth="1" fill="none"/>
+          </svg>
+        </div>
+        <div className="relative z-10 px-6 py-20 md:px-16 md:py-24">
+          <div className="mx-auto max-w-5xl">
+            <p className="mb-10 text-center text-xs font-semibold uppercase tracking-[0.4em] text-[#c6a36b]">Trail Stats — Back 40 Loop</p>
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+              {[
+                { stat: "40", label: "Miles of Trail" },
+                { stat: "2016", label: "Year Opened" },
+                { stat: "6", label: "World-Class Builders" },
+                { stat: "1,950ft", label: "Elevation Change" },
+              ].map(({ stat, label }) => (
+                <div key={label} className="rounded-xl border border-white/10 bg-black/40 px-4 py-8 text-center backdrop-blur-sm">
+                  <p className="text-4xl font-black text-white md:text-5xl" style={{ fontFamily: "'Bebas Neue', 'Arial Narrow', sans-serif" }}>{stat}</p>
+                  <p className="mt-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#c6a36b]">{label}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
