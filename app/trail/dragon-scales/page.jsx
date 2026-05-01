@@ -138,7 +138,7 @@ export default function DragonScalesPage() {
       </section>
 
       {/* ── TRAIL ENVIRONMENT / PARALLAX STATS ── */}
-      <section className="relative overflow-hidden" style={{ minHeight: "420px" }}>
+      <section className="relative overflow-hidden" style={{ minHeight: "360px" }}>
         <div className="absolute inset-0 w-full h-full" style={{ backgroundImage: "url('/images/trail-b40.png')", backgroundSize: "cover", backgroundPosition: "center", backgroundAttachment: "fixed" }} />
         <div className="absolute inset-0 bg-black/65" />
         <div className="absolute inset-0 opacity-10">
@@ -149,12 +149,12 @@ export default function DragonScalesPage() {
             <path d="M0,320 Q200,280 400,330 T800,310 T1200,325 T1600,300" stroke="#c6a36b" strokeWidth="1" fill="none"/>
           </svg>
         </div>
-        <div className="relative z-10 px-6 py-20 md:px-16 md:py-24">
+        <div className="relative z-10 px-6 py-14 md:px-16 md:py-16">
           <div className="mx-auto max-w-5xl">
             <p className="mb-10 text-center text-xs font-semibold uppercase tracking-[0.4em] text-[#c6a36b]">Trail Stats — Dragon Scales</p>
             <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
               {[
-                { stat: "⬛", label: "Black Diamond" },
+                { stat: "◆", label: "Black Diamond" },
                 { stat: "1,352ft", label: "Trail Length" },
                 { stat: "131ft", label: "Descent" },
                 { stat: "Bentonville", label: "Slaughter Pen" },
