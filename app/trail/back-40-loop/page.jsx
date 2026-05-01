@@ -58,21 +58,11 @@ export default function Back40LoopPage() {
                   text: { button: "Get Yours — $35" },
                 },
                 cart: {
-                  styles: {
-                    button: {
-                      "background-color": "#c6a36b",
-                      ":hover": { "background-color": "#d4b07a" },
-                    }
-                  },
+                  styles: { button: { "background-color": "#c6a36b", ":hover": { "background-color": "#d4b07a" } } },
                   text: { total: "Subtotal", button: "Checkout" },
                 },
                 toggle: {
-                  styles: {
-                    toggle: {
-                      "background-color": "#c6a36b",
-                      ":hover": { "background-color": "#d4b07a" },
-                    }
-                  }
+                  styles: { toggle: { "background-color": "#c6a36b", ":hover": { "background-color": "#d4b07a" } } }
                 }
               },
             });
@@ -125,10 +115,10 @@ export default function Back40LoopPage() {
 
       {/* ── HERO ── */}
       <section className="relative h-[100vh] w-full">
-        <img src="/images/back-40-loop-hero.jpg" alt="Back 40 Loop Trail" className="absolute inset-0 h-full w-full object-cover" />
-        <div className="absolute inset-0 bg-black/50" />
+        <img src="/images/back-40.PNG" alt="Back 40 Loop" className="absolute inset-0 h-full w-full object-cover" />
+        <div className="absolute inset-0 bg-black/60" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/80" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/20 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/20 to-transparent" />
         <div className="relative z-10 flex h-full flex-col justify-center px-6 pt-20 md:px-16 md:pt-0">
           <div className="max-w-xl">
             <p className="mb-3 text-xs font-semibold uppercase tracking-[0.35em] text-[#c6a36b]">
@@ -156,7 +146,7 @@ export default function Back40LoopPage() {
       </section>
 
       {/* ── TRAIL ENVIRONMENT / PARALLAX STATS ── */}
-      <section className="relative overflow-hidden" style={{ minHeight: "420px" }}>
+      <section className="relative overflow-hidden" style={{ minHeight: "360px" }}>
         <div className="absolute inset-0 w-full h-full" style={{ backgroundImage: "url('/images/trail-b40.png')", backgroundSize: "cover", backgroundPosition: "center", backgroundAttachment: "fixed" }} />
         <div className="absolute inset-0 bg-black/65" />
         <div className="absolute inset-0 opacity-10">
@@ -167,7 +157,7 @@ export default function Back40LoopPage() {
             <path d="M0,320 Q200,280 400,330 T800,310 T1200,325 T1600,300" stroke="#c6a36b" strokeWidth="1" fill="none"/>
           </svg>
         </div>
-        <div className="relative z-10 px-6 py-20 md:px-16 md:py-24">
+        <div className="relative z-10 px-6 py-14 md:px-16 md:py-16">
           <div className="mx-auto max-w-5xl">
             <p className="mb-10 text-center text-xs font-semibold uppercase tracking-[0.4em] text-[#c6a36b]">Trail Stats — Back 40 Loop</p>
             <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
@@ -191,10 +181,8 @@ export default function Back40LoopPage() {
       <section className="bg-black px-6 py-16 md:px-16 md:py-24">
         <div className="mx-auto max-w-6xl">
           <div className="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-20 md:items-center">
-
-            {/* Hat image */}
             <div className="relative">
-              <div className="absolute -inset-4 bg-[#cc0000]/10 blur-2xl rounded-full" />
+              <div className="absolute -inset-4 bg-[#c6a36b]/10 blur-2xl rounded-full" />
               <img
                 src="/images/back-40.PNG"
                 alt="Back 40 Loop Hat"
@@ -205,12 +193,10 @@ export default function Back40LoopPage() {
                 <p className="text-xs text-white/60">Bella Vista, Arkansas</p>
               </div>
             </div>
-
-            {/* Story text */}
             <div>
               <p className="mb-4 text-xs font-semibold uppercase tracking-[0.35em] text-[#c6a36b]">The Story</p>
               <h2 className="mb-6 text-4xl font-black uppercase leading-tight md:text-5xl" style={{ fontFamily: "'Bebas Neue', 'Arial Narrow', sans-serif" }}>
-                The Trail That<br />Started It All
+                The Trail That<br />Started It All.
               </h2>
               <div className="space-y-4 text-sm leading-7 text-white/60 md:text-base">
                 <p>
@@ -223,8 +209,6 @@ export default function Back40LoopPage() {
                   This hat is a nod to the trail that built the culture. If you've ridden it, you already know. If you haven't, this is your invitation.
                 </p>
               </div>
-
-              {/* Details */}
               <div className="mt-8 grid grid-cols-2 gap-4">
                 {[
                   { label: "Patch", value: "Layered Acrylic" },
@@ -255,8 +239,8 @@ export default function Back40LoopPage() {
           <p className="mb-8 text-sm leading-6 text-white/50">
             Every hat is built by hand in Northwest Arkansas. No two runs are the same.
           </p>
-          {/* Shopify Buy Button mounts here */}
-          <div id="product-component-1777645011909" className="flex justify-center" />
+          <div id="product-component-1777645011909" className="flex justify-center w-full" style={{ textAlign: "center" }}>
+          </div>
         </div>
       </section>
 
@@ -269,11 +253,11 @@ export default function Back40LoopPage() {
           </h2>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
             {[
-              { name: "Back 40 Loop", sub: "Red, White & Blue", href: "/trail/back-40-loop-rwb", img: "/images/back-40-rwb.PNG" },
+              { name: "Back 40 Loop", sub: "Red, White & Blue", href: "/trail/back-40-rwb", img: "/images/back-40-rwb.PNG" },
               { name: "Little Sugar Trail", sub: "Bella Vista, AR", href: "/trail/little-sugar", img: "/images/little-sugar.PNG" },
               { name: "Dragon Scales", sub: "Slaughter Pen, Bentonville", href: "/trail/dragon-scales", img: "/images/dragon-scales.PNG" },
             ].map(({ name, sub, href, img }) => (
-              <Link key={name} href={href} className="group overflow-hidden rounded-xl border border-white/10 bg-white/5 transition hover:border-[#c6a36b]/50">
+              <Link key={sub} href={href} className="group overflow-hidden rounded-xl border border-white/10 bg-white/5 transition hover:border-[#c6a36b]/50">
                 <div className="aspect-square overflow-hidden">
                   <img src={img} alt={name} className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.05]" />
                 </div>
