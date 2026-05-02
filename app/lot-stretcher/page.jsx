@@ -91,7 +91,7 @@ export default function LotStretcherPage() {
   }, [lines]);
 
   const handleCopy = () => {
-    navigator.clipboard.writeText("https://back40designco.com/lot-stretcher");
+    navigator.clipboard.writeText(window.location.origin + "/lot-stretcher");
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
   };
