@@ -218,41 +218,48 @@ export default function GreenPeaGuidePage() {
         @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,400;0,500;1,400&display=swap');
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
-        body { background: #080808; color: white; font-family: 'DM Mono', monospace; overflow-x: hidden; }
+        body {
+          background: #080808;
+          color: white;
+          font-family: 'DM Mono', monospace;
+          overflow-x: hidden;
+          font-size: 15px;
+          line-height: 1.7;
+        }
         @keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.4} }
         @keyframes fadeUp { from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)} }
         .fade-up { animation: fadeUp 0.5s ease forwards; }
         .tab-btn {
-          flex: 1; padding: 12px 8px;
+          flex: 1; padding: 14px 10px;
           font-family: 'DM Mono', monospace;
-          font-size: 9px; letter-spacing: 0.18em;
+          font-size: 11px; letter-spacing: 0.14em;
           text-transform: uppercase; border: none;
           cursor: pointer; transition: all 0.15s ease;
           -webkit-tap-highlight-color: transparent;
           white-space: nowrap;
         }
         .rule-card {
-          display: grid; grid-template-columns: 44px 1fr;
-          gap: 1.25rem; padding: 1.75rem 0;
-          border-bottom: 1px solid rgba(255,255,255,0.04);
+          display: grid; grid-template-columns: 52px 1fr;
+          gap: 1.25rem; padding: 2rem 0;
+          border-bottom: 1px solid rgba(255,255,255,0.06);
           align-items: start;
         }
         .rule-card:last-child { border-bottom: none; }
         .glossary-card {
-          padding: 1.25rem; border: 1px solid rgba(255,255,255,0.05);
-          border-radius: 3px; background: #0f0f0f;
+          padding: 1.35rem; border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 8px; background: #0f0f0f;
           transition: border-color 0.15s ease;
         }
-        .glossary-card:hover { border-color: rgba(220,38,38,0.2); }
+        .glossary-card:hover { border-color: rgba(220,38,38,0.25); }
         .objection-card {
-          padding: 1.5rem; border: 1px solid rgba(255,255,255,0.05);
-          border-radius: 3px; background: #0f0f0f;
+          padding: 1.5rem; border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 8px; background: #0f0f0f;
           transition: border-color 0.15s ease;
         }
-        .objection-card:hover { border-color: rgba(220,38,38,0.15); }
+        .objection-card:hover { border-color: rgba(220,38,38,0.18); }
         .stat-card {
-          padding: 1.25rem; border: 1px solid rgba(255,255,255,0.05);
-          border-radius: 3px; background: #0f0f0f;
+          padding: 1.35rem; border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 8px; background: #0f0f0f;
           display: flex; gap: 1rem; align-items: flex-start;
         }
       `}</style>
@@ -270,35 +277,35 @@ export default function GreenPeaGuidePage() {
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, #080808 25%, transparent 100%)" }} />
 
         <div style={{ position: "relative", zIndex: 2, maxWidth: "900px" }} className="fade-up">
-          <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", border: "1px solid rgba(220,38,38,0.25)", background: "rgba(220,38,38,0.08)", borderRadius: "100px", padding: "5px 14px", marginBottom: "1.25rem" }}>
+          <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", border: "1px solid rgba(220,38,38,0.25)", background: "rgba(220,38,38,0.08)", borderRadius: "100px", padding: "6px 14px", marginBottom: "1.25rem" }}>
             <div style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#dc2626", animation: "pulse 2s infinite" }} />
-            <span style={{ fontSize: "10px", letterSpacing: "0.3em", textTransform: "uppercase", color: "#dc2626" }}>B40 // Back Lot — Classified</span>
+            <span style={{ fontSize: "11px", letterSpacing: "0.22em", textTransform: "uppercase", color: "#dc2626" }}>B40 // Back Lot — Classified</span>
           </div>
           <h1 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(3.5rem, 12vw, 8rem)", lineHeight: 0.95, letterSpacing: "0.02em", color: "white", marginBottom: "1.25rem" }}>
             The Green<br /><span style={{ color: "#dc2626" }}>Pea Guide.</span>
           </h1>
-          <p style={{ fontSize: "clamp(13px, 2vw, 16px)", lineHeight: 1.75, color: "rgba(255,255,255,0.5)", maxWidth: "520px" }}>
+          <p style={{ fontSize: "clamp(16px, 2vw, 19px)", lineHeight: 1.75, color: "rgba(255,255,255,0.75)", maxWidth: "620px" }}>
             Everything nobody told you when you walked in.{" "}
-            <span style={{ color: "rgba(255,255,255,0.8)", fontStyle: "italic" }}>Read it. Learn it. Don't get sent to find the lot stretcher.</span>
+            <span style={{ color: "rgba(255,255,255,0.95)", fontStyle: "italic" }}>Read it. Learn it. Don't get sent to find the lot stretcher.</span>
           </p>
         </div>
       </section>
 
       {/* ── LLTB CALLOUT ── */}
-      <div style={{ background: "rgba(220,38,38,0.06)", borderTop: "1px solid rgba(220,38,38,0.1)", borderBottom: "1px solid rgba(220,38,38,0.1)", padding: "1.5rem", textAlign: "center" }}>
-        <p style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(1.2rem, 4vw, 2rem)", color: "white", letterSpacing: "0.08em" }}>
+      <div style={{ background: "rgba(220,38,38,0.06)", borderTop: "1px solid rgba(220,38,38,0.1)", borderBottom: "1px solid rgba(220,38,38,0.1)", padding: "1.75rem 1.5rem", textAlign: "center" }}>
+        <p style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(1.5rem, 4vw, 2.25rem)", color: "white", letterSpacing: "0.08em" }}>
           L · L · T · B
         </p>
-        <p style={{ fontSize: "11px", letterSpacing: "0.15em", textTransform: "uppercase", color: "rgba(255,255,255,0.4)", marginTop: "4px" }}>
+        <p style={{ fontSize: "13px", letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(255,255,255,0.65)", marginTop: "4px" }}>
           Like &nbsp;·&nbsp; Listen &nbsp;·&nbsp; Trust &nbsp;·&nbsp; Buy
         </p>
-        <p style={{ fontSize: "12px", color: "rgba(255,255,255,0.35)", marginTop: "8px", fontStyle: "italic", maxWidth: "500px", margin: "8px auto 0" }}>
+        <p style={{ fontSize: "15px", color: "rgba(255,255,255,0.7)", marginTop: "10px", fontStyle: "italic", maxWidth: "600px", margin: "10px auto 0" }}>
           The customer must like you before they will listen to you, before they trust you, before they will buy from you.
         </p>
       </div>
 
       {/* ── TABS ── */}
-      <div style={{ position: "sticky", top: 0, zIndex: 30, background: "#080808", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
+      <div style={{ position: "sticky", top: 0, zIndex: 30, background: "#080808", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
         <div style={{ display: "flex", width: "100%", maxWidth: "900px", margin: "0 auto", overflowX: "auto" }}>
           {[
             { id: "patterns", label: "The Numbers" },
@@ -311,8 +318,8 @@ export default function GreenPeaGuidePage() {
               className="tab-btn"
               onClick={() => setActiveSection(tab.id)}
               style={{
-                background: activeSection === tab.id ? "rgba(220,38,38,0.1)" : "transparent",
-                color: activeSection === tab.id ? "#dc2626" : "rgba(255,255,255,0.3)",
+                background: activeSection === tab.id ? "rgba(220,38,38,0.12)" : "transparent",
+                color: activeSection === tab.id ? "#dc2626" : "rgba(255,255,255,0.55)",
                 borderBottom: activeSection === tab.id ? "2px solid #dc2626" : "2px solid transparent",
               }}
             >
@@ -323,34 +330,34 @@ export default function GreenPeaGuidePage() {
       </div>
 
       {/* ── CONTENT ── */}
-      <div style={{ maxWidth: "900px", margin: "0 auto", padding: "2.5rem 1.5rem 6rem", width: "100%" }}>
+      <div style={{ maxWidth: "900px", margin: "0 auto", padding: "2.75rem 1.5rem 6rem", width: "100%" }}>
 
         {/* THE NUMBERS */}
         {activeSection === "patterns" && (
           <div>
             <div style={{ marginBottom: "2rem" }}>
-              <p style={{ fontSize: "10px", letterSpacing: "0.3em", textTransform: "uppercase", color: "rgba(255,255,255,0.2)", marginBottom: "0.5rem" }}>Customer Buying Patterns</p>
-              <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(2rem, 6vw, 3.5rem)", color: "white", letterSpacing: "0.04em" }}>
+              <p style={{ fontSize: "12px", letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(255,255,255,0.45)", marginBottom: "0.5rem" }}>Customer Buying Patterns</p>
+              <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(2.4rem, 6vw, 3.8rem)", color: "white", letterSpacing: "0.04em" }}>
                 Know the Game Before You Play It.
               </h2>
-              <p style={{ fontSize: "12px", color: "rgba(255,255,255,0.3)", lineHeight: 1.7, marginTop: "0.5rem", maxWidth: "560px" }}>
+              <p style={{ fontSize: "16px", color: "rgba(255,255,255,0.72)", lineHeight: 1.8, marginTop: "0.5rem", maxWidth: "620px" }}>
                 These numbers don't lie. Most salespeople never bother to learn them. You just did.
               </p>
             </div>
-            <div style={{ display: "grid", gap: "8px", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))" }}>
+            <div style={{ display: "grid", gap: "10px", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))" }}>
               {buyingPatterns.map((item) => (
                 <div key={item.stat} className="stat-card">
-                  <span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "2.2rem", color: "#dc2626", lineHeight: 1, letterSpacing: "0.03em", flexShrink: 0 }}>
+                  <span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "2.6rem", color: "#dc2626", lineHeight: 1, letterSpacing: "0.03em", flexShrink: 0 }}>
                     {item.stat}
                   </span>
-                  <p style={{ fontSize: "11px", lineHeight: 1.7, color: "rgba(255,255,255,0.5)", marginTop: "4px" }}>
+                  <p style={{ fontSize: "15px", lineHeight: 1.7, color: "rgba(255,255,255,0.78)", marginTop: "2px" }}>
                     {item.text}
                   </p>
                 </div>
               ))}
             </div>
-            <div style={{ marginTop: "2rem", padding: "1.5rem", border: "1px solid rgba(220,38,38,0.15)", borderRadius: "3px", background: "rgba(220,38,38,0.04)" }}>
-              <p style={{ fontSize: "13px", color: "rgba(255,255,255,0.6)", lineHeight: 1.8, fontStyle: "italic" }}>
+            <div style={{ marginTop: "2rem", padding: "1.5rem", border: "1px solid rgba(220,38,38,0.18)", borderRadius: "8px", background: "rgba(220,38,38,0.05)" }}>
+              <p style={{ fontSize: "16px", color: "rgba(255,255,255,0.78)", lineHeight: 1.8, fontStyle: "italic" }}>
                 "Most customers put up a wall while some will flat out lie about their actual intentions. Do not take offense. Consumers are programmed to protect their assets. Use this to your advantage and be ahead of your competition."
               </p>
             </div>
@@ -361,25 +368,25 @@ export default function GreenPeaGuidePage() {
         {activeSection === "survival" && (
           <div>
             <div style={{ marginBottom: "2.5rem" }}>
-              <p style={{ fontSize: "10px", letterSpacing: "0.3em", textTransform: "uppercase", color: "rgba(255,255,255,0.2)", marginBottom: "0.5rem" }}>20 Rules</p>
-              <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(2rem, 6vw, 3.5rem)", color: "white", letterSpacing: "0.04em" }}>
+              <p style={{ fontSize: "12px", letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(255,255,255,0.45)", marginBottom: "0.5rem" }}>20 Rules</p>
+              <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(2.4rem, 6vw, 3.8rem)", color: "white", letterSpacing: "0.04em" }}>
                 First 90 Days Survival Guide
               </h2>
-              <p style={{ fontSize: "12px", color: "rgba(255,255,255,0.3)", lineHeight: 1.7, marginTop: "0.5rem", maxWidth: "500px" }}>
+              <p style={{ fontSize: "16px", color: "rgba(255,255,255,0.72)", lineHeight: 1.8, marginTop: "0.5rem", maxWidth: "620px" }}>
                 Nobody hands you this when you get hired. Figure it out or don't. Most don't.
               </p>
             </div>
             <div>
               {survivalRules.map((rule) => (
                 <div key={rule.number} className="rule-card">
-                  <p style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "1.8rem", color: "#dc2626", letterSpacing: "0.05em", lineHeight: 1, opacity: 0.45 }}>
+                  <p style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "2.15rem", color: "#dc2626", letterSpacing: "0.05em", lineHeight: 1, opacity: 0.65 }}>
                     {rule.number}
                   </p>
                   <div>
-                    <p style={{ fontFamily: "'DM Mono', monospace", fontWeight: "500", fontSize: "13px", color: "white", marginBottom: "0.5rem", letterSpacing: "0.03em", lineHeight: 1.4 }}>
+                    <p style={{ fontFamily: "'DM Mono', monospace", fontWeight: "500", fontSize: "17px", color: "white", marginBottom: "0.65rem", letterSpacing: "0.01em", lineHeight: 1.45 }}>
                       {rule.title}
                     </p>
-                    <p style={{ fontSize: "12px", lineHeight: 1.8, color: "rgba(255,255,255,0.45)" }}>
+                    <p style={{ fontSize: "15.5px", lineHeight: 1.85, color: "rgba(255,255,255,0.78)" }}>
                       {rule.body}
                     </p>
                   </div>
@@ -393,22 +400,22 @@ export default function GreenPeaGuidePage() {
         {activeSection === "glossary" && (
           <div>
             <div style={{ marginBottom: "2.5rem" }}>
-              <p style={{ fontSize: "10px", letterSpacing: "0.3em", textTransform: "uppercase", color: "rgba(255,255,255,0.2)", marginBottom: "0.5rem" }}>{glossaryTerms.length} Terms</p>
-              <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(2rem, 6vw, 3.5rem)", color: "white", letterSpacing: "0.04em" }}>
+              <p style={{ fontSize: "12px", letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(255,255,255,0.45)", marginBottom: "0.5rem" }}>{glossaryTerms.length} Terms</p>
+              <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(2.4rem, 6vw, 3.8rem)", color: "white", letterSpacing: "0.04em" }}>
                 Dealer Glossary
               </h2>
-              <p style={{ fontSize: "12px", color: "rgba(255,255,255,0.3)", lineHeight: 1.7, marginTop: "0.5rem", maxWidth: "500px" }}>
+              <p style={{ fontSize: "16px", color: "rgba(255,255,255,0.72)", lineHeight: 1.8, marginTop: "0.5rem", maxWidth: "620px" }}>
                 Words you'll hear on day one. Know what they mean before someone uses them against you.
               </p>
             </div>
-            <div style={{ display: "grid", gap: "8px", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))" }}>
+            <div style={{ display: "grid", gap: "10px", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))" }}>
               {glossaryTerms.map((item) => (
                 <div key={item.term} className="glossary-card">
-                  <div style={{ display: "flex", alignItems: "baseline", gap: "8px", marginBottom: "0.4rem", flexWrap: "wrap" }}>
-                    <span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "1.4rem", color: "#dc2626", letterSpacing: "0.05em", lineHeight: 1 }}>{item.term}</span>
-                    <span style={{ fontSize: "9px", letterSpacing: "0.15em", textTransform: "uppercase", color: "rgba(255,255,255,0.25)" }}>{item.full}</span>
+                  <div style={{ display: "flex", alignItems: "baseline", gap: "8px", marginBottom: "0.55rem", flexWrap: "wrap" }}>
+                    <span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "1.8rem", color: "#dc2626", letterSpacing: "0.05em", lineHeight: 1 }}>{item.term}</span>
+                    <span style={{ fontSize: "11px", letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(255,255,255,0.45)" }}>{item.full}</span>
                   </div>
-                  <p style={{ fontSize: "11px", lineHeight: 1.75, color: "rgba(255,255,255,0.45)" }}>{item.definition}</p>
+                  <p style={{ fontSize: "15px", lineHeight: 1.8, color: "rgba(255,255,255,0.78)" }}>{item.definition}</p>
                 </div>
               ))}
             </div>
@@ -419,27 +426,27 @@ export default function GreenPeaGuidePage() {
         {activeSection === "objections" && (
           <div>
             <div style={{ marginBottom: "2.5rem" }}>
-              <p style={{ fontSize: "10px", letterSpacing: "0.3em", textTransform: "uppercase", color: "rgba(255,255,255,0.2)", marginBottom: "0.5rem" }}>{objections.length} Objections</p>
-              <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(2rem, 6vw, 3.5rem)", color: "white", letterSpacing: "0.04em" }}>
+              <p style={{ fontSize: "12px", letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(255,255,255,0.45)", marginBottom: "0.5rem" }}>{objections.length} Objections</p>
+              <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(2.4rem, 6vw, 3.8rem)", color: "white", letterSpacing: "0.04em" }}>
                 Objection Playbook
               </h2>
-              <p style={{ fontSize: "12px", color: "rgba(255,255,255,0.3)", lineHeight: 1.7, marginTop: "0.5rem", maxWidth: "500px" }}>
+              <p style={{ fontSize: "16px", color: "rgba(255,255,255,0.72)", lineHeight: 1.8, marginTop: "0.5rem", maxWidth: "620px" }}>
                 You will hear every one of these. Probably this week. Have your answer ready before they finish the sentence.
               </p>
             </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
               {objections.map((item, i) => (
                 <div key={i} className="objection-card">
-                  <p style={{ fontSize: "9px", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(220,38,38,0.6)", marginBottom: "0.4rem" }}>
+                  <p style={{ fontSize: "11px", letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(220,38,38,0.75)", marginBottom: "0.45rem" }}>
                     Objection
                   </p>
-                  <p style={{ fontFamily: "'DM Mono', monospace", fontWeight: "500", fontSize: "13px", color: "white", marginBottom: "0.75rem", lineHeight: 1.4 }}>
+                  <p style={{ fontFamily: "'DM Mono', monospace", fontWeight: "500", fontSize: "17px", color: "white", marginBottom: "0.85rem", lineHeight: 1.5 }}>
                     "{item.objection}"
                   </p>
-                  <p style={{ fontSize: "9px", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(255,255,255,0.2)", marginBottom: "0.4rem" }}>
+                  <p style={{ fontSize: "11px", letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(255,255,255,0.4)", marginBottom: "0.45rem" }}>
                     Response
                   </p>
-                  <p style={{ fontSize: "12px", lineHeight: 1.8, color: "rgba(255,255,255,0.5)", fontStyle: "italic" }}>
+                  <p style={{ fontSize: "15.5px", lineHeight: 1.85, color: "rgba(255,255,255,0.78)", fontStyle: "italic" }}>
                     {item.response}
                   </p>
                 </div>
@@ -451,31 +458,33 @@ export default function GreenPeaGuidePage() {
       </div>
 
       {/* ── BOTTOM CTA ── */}
-      <div style={{ borderTop: "1px solid rgba(255,255,255,0.05)", padding: "2.5rem 1.5rem", maxWidth: "900px", margin: "0 auto", width: "100%", display: "flex", flexWrap: "wrap", gap: "1rem", alignItems: "center", justifyContent: "space-between" }}>
+      <div style={{ borderTop: "1px solid rgba(255,255,255,0.08)", padding: "2.5rem 1.5rem", maxWidth: "900px", margin: "0 auto", width: "100%", display: "flex", flexWrap: "wrap", gap: "1rem", alignItems: "center", justifyContent: "space-between" }}>
         <div>
-          <p style={{ fontSize: "10px", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(255,255,255,0.2)", marginBottom: "4px" }}>You made it this far</p>
-          <p style={{ fontSize: "13px", color: "rgba(255,255,255,0.5)" }}>Now go play bingo in your next meeting.</p>
+          <p style={{ fontSize: "12px", letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(255,255,255,0.42)", marginBottom: "4px" }}>You made it this far</p>
+          <p style={{ fontSize: "15px", color: "rgba(255,255,255,0.72)" }}>Now go play bingo in your next meeting.</p>
         </div>
         <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-          <Link href="/dealership-series/bingo" style={{ display: "inline-flex", alignItems: "center", background: "white", color: "#080808", padding: "10px 20px", borderRadius: "3px", fontFamily: "'DM Mono', monospace", fontSize: "10px", fontWeight: "500", letterSpacing: "0.2em", textTransform: "uppercase", textDecoration: "none" }}>
+          <Link href="/dealership-series/bingo" style={{ display: "inline-flex", alignItems: "center", background: "white", color: "#080808", padding: "12px 20px", borderRadius: "8px", fontFamily: "'DM Mono', monospace", fontSize: "12px", fontWeight: "500", letterSpacing: "0.16em", textTransform: "uppercase", textDecoration: "none" }}>
             Get My Bingo Card →
           </Link>
-          <Link href="/dealership-series" style={{ display: "inline-flex", alignItems: "center", background: "transparent", color: "rgba(255,255,255,0.3)", padding: "10px 20px", borderRadius: "3px", border: "1px solid rgba(255,255,255,0.08)", fontFamily: "'DM Mono', monospace", fontSize: "10px", letterSpacing: "0.2em", textTransform: "uppercase", textDecoration: "none" }}>
+          <Link href="/lot-stretcher" style={{ display: "inline-flex", alignItems: "center", background: "transparent", color: "rgba(255,255,255,0.65)", padding: "12px 20px", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.12)", fontFamily: "'DM Mono', monospace", fontSize: "12px", letterSpacing: "0.16em", textTransform: "uppercase", textDecoration: "none" }}>
+            Find Lot Stretcher →
+          </Link>
+          <Link href="/dealership-series" style={{ display: "inline-flex", alignItems: "center", background: "transparent", color: "rgba(255,255,255,0.55)", padding: "12px 20px", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.1)", fontFamily: "'DM Mono', monospace", fontSize: "12px", letterSpacing: "0.16em", textTransform: "uppercase", textDecoration: "none" }}>
             Dealership Series
           </Link>
         </div>
       </div>
 
       {/* ── FOOTER ── */}
-      <footer style={{ borderTop: "1px solid rgba(255,255,255,0.05)", padding: "1.5rem", display: "flex", flexWrap: "wrap", gap: "1rem", alignItems: "center", justifyContent: "space-between", maxWidth: "900px", margin: "0 auto", width: "100%" }}>
-        <p style={{ fontSize: "10px", color: "rgba(255,255,255,0.15)", letterSpacing: "0.1em" }}>© 2026 Back 40 Designs</p>
+      <footer style={{ borderTop: "1px solid rgba(255,255,255,0.08)", padding: "1.5rem", display: "flex", flexWrap: "wrap", gap: "1rem", alignItems: "center", justifyContent: "space-between", maxWidth: "900px", margin: "0 auto", width: "100%" }}>
+        <p style={{ fontSize: "12px", color: "rgba(255,255,255,0.28)", letterSpacing: "0.08em" }}>© 2026 Back 40 Designs</p>
         <div style={{ display: "flex", gap: "1.5rem" }}>
-          <Link href="/dealership-series/bingo" style={{ fontSize: "10px", color: "rgba(255,255,255,0.15)", letterSpacing: "0.15em", textTransform: "uppercase", textDecoration: "none" }}>Bingo</Link>
-          <Link href="/" style={{ fontSize: "10px", color: "rgba(255,255,255,0.15)", letterSpacing: "0.15em", textTransform: "uppercase", textDecoration: "none" }}>Home</Link>
+          <Link href="/dealership-series/bingo" style={{ fontSize: "12px", color: "rgba(255,255,255,0.35)", letterSpacing: "0.12em", textTransform: "uppercase", textDecoration: "none" }}>Bingo</Link>
+          <Link href="/" style={{ fontSize: "12px", color: "rgba(255,255,255,0.35)", letterSpacing: "0.12em", textTransform: "uppercase", textDecoration: "none" }}>Home</Link>
         </div>
       </footer>
 
     </>
   );
 }
-
