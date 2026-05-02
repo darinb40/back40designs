@@ -66,7 +66,7 @@ export default function DealershipSeriesPage() {
 
               <div className="relative group">
                 <Link href="/dealership-series" className="text-white font-semibold">Dealership Series</Link>
-                <div className="absolute left-0 top-full mt-3 hidden w-60 flex-col rounded-xl border border-white/10 bg-black/95 p-2 backdrop-blur-md shadow-2xl group-hover:flex">
+                <div className="absolute left-0 top-full mt-0 hidden w-60 flex-col rounded-xl border border-white/10 bg-black/95 p-2 pt-5 backdrop-blur-md shadow-2xl group-hover:flex before:absolute before:inset-x-0 before:-top-3 before:h-3 before:content-['']">
                   <Link href="/dealership-series/front-line" className="rounded-lg px-4 py-3 transition hover:bg-white/5 hover:text-white">Front Line</Link>
                   <Link href="/dealership-series/service-bay" className="rounded-lg px-4 py-3 transition hover:bg-white/5 hover:text-white">Service Bay</Link>
                   <Link href="/dealership-series/backlot" className="rounded-lg px-4 py-3 transition hover:bg-white/5 hover:text-white">Back Lot 🔒</Link>
