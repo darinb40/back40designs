@@ -16,43 +16,21 @@ export default function DealershipSeriesPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
 
   const shopLink = "https://back40-headwear.myshopify.com/collections/b40-trail-series";
-  const instagramLink = "https://www.instagram.com/b40_designs/";
 
   return (
     <main className="relative min-h-[100dvh] overflow-x-hidden bg-black text-white">
-      
-      <style jsx global>{`
-        @keyframes b40HeadlightPass {
-          0% { transform: translateX(-140%) skewX(-18deg); opacity: 0; }
-          28% { opacity: 0.14; }
-          42% { opacity: 0.06; }
-          56% { transform: translateX(140%) skewX(-18deg); opacity: 0; }
-        }
-        @keyframes b40SecondHeadlightPass {
-          0% { transform: translateX(140%) skewX(16deg); opacity: 0; }
-          60% { opacity: 0.1; }
-          74% { opacity: 0.05; }
-          88% { transform: translateX(-140%) skewX(16deg); opacity: 0; }
-        }
-      `}</style>
 
       {/* BACKGROUND */}
       <div className="fixed inset-0 z-0 bg-[url('/images/firefly-dealership.png')] bg-cover bg-center" />
       <div className="fixed inset-0 z-0 bg-black/20" />
       <div className="fixed inset-0 z-0 bg-gradient-to-b from-black/45 via-transparent to-black/20" />
 
-      {/* LIGHT EFFECTS */}
-      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-        <div className="absolute top-[18%] left-0 h-[42vh] w-[55vw] bg-gradient-to-r from-transparent via-white/15 to-transparent blur-2xl animate-[b40HeadlightPass_16s_ease-in-out_infinite]" />
-        <div className="absolute bottom-[12%] right-0 h-[32vh] w-[45vw] bg-gradient-to-r from-transparent via-amber-200/10 to-transparent blur-2xl animate-[b40SecondHeadlightPass_22s_ease-in-out_infinite]" />
-      </div>
-
       <div className="relative z-10">
 
         {/* HEADER */}
         <header className="sticky top-0 z-40 border-b border-white/10 bg-black/80 backdrop-blur">
           <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-10 md:py-4">
-            
+
             <Link href="/">
               <img src="/images/b402026.png" className="h-10 md:h-12" />
             </Link>
@@ -62,7 +40,6 @@ export default function DealershipSeriesPage() {
 
               <Link href="/#collections" className="hover:text-white">Collections</Link>
 
-              {/* DROPDOWN */}
               <div className="relative group">
                 <Link href="/dealership-series" className="text-white font-semibold">
                   Dealership Series
@@ -152,6 +129,32 @@ export default function DealershipSeriesPage() {
           <h1 className="text-5xl md:text-7xl font-bold">
             Built inside the car business.
           </h1>
+
+          {/* 🔥 LOOP ENTRY (NEW) */}
+          <div className="mt-8 max-w-xl">
+            <p className="text-sm text-white/60 mb-4">
+              New to the car business?
+            </p>
+
+            <Link
+              href="/dealership-series/green-pea-guide"
+              className="inline-flex items-center gap-2 bg-white text-black px-5 py-3 rounded-2xl font-semibold hover:bg-stone-100 transition"
+            >
+              Start Here → Green Pea Guide
+            </Link>
+
+            <p className="text-xs text-white/30 mt-4">
+              Or go find the lot stretcher if you think you're ready.
+            </p>
+
+            <Link
+              href="/lot-stretcher"
+              className="inline-flex items-center gap-2 mt-2 text-white/50 hover:text-white transition"
+            >
+              Go find it →
+            </Link>
+          </div>
+
         </section>
 
       </div>
