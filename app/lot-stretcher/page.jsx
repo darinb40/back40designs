@@ -295,6 +295,16 @@ export default function LotStretcherPage() {
           </Link>
         </div>
 
+        {/* Easter egg — bingo card */}
+        <div className={`mt-4 transition-opacity duration-700 delay-1000 ${showText ? "opacity-100" : "opacity-0"}`}>
+          <Link
+            href="/dealership-series/bingo"
+            className="text-[10px] text-white/10 hover:text-white/35 tracking-[0.3em] uppercase font-mono transition"
+          >
+            you made it this far... 🎴
+          </Link>
+        </div>
+
       </div>
 
       <style jsx global>{`
