@@ -13,6 +13,7 @@ const LockIcon = ({ className = "h-4 w-4" }) => (
 
 export default function DealershipSeriesPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+  const [mobileDropdownOpen, setMobileDropdownOpen] = React.useState(false);
 
   const shopLink = "https://back40-headwear.myshopify.com/collections/b40-trail-series";
   const instagramLink = "https://www.instagram.com/b40_designs/";
@@ -55,18 +56,42 @@ export default function DealershipSeriesPage() {
         <header className="sticky top-0 z-40 border-b border-white/10 bg-black/80 backdrop-blur">
           <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-10 md:py-4">
             <Link href="/">
-  <img
-    src="/images/b402026.png"
-    alt="Back 40 Designs"
-    className="h-10 w-auto md:h-12"
-  />
-</Link>
+              <img
+                src="/images/b402026.png"
+                alt="Back 40 Designs"
+                className="h-10 w-auto md:h-12"
+              />
+            </Link>
 
             {/* Desktop nav */}
             <nav className="hidden items-center gap-6 text-sm text-stone-300 md:flex">
               <Link href="/#collections" className="transition hover:text-white">Collections</Link>
-              <Link href="/dealership-series" className="text-white font-semibold">Dealership Series</Link>
-             <Link href="/trail-series" className="transition hover:text-white">Trail Series</Link>
+
+              <div className="relative group">
+                <Link href="/dealership-series" className="text-white font-semibold">
+                  Dealership Series
+                </Link>
+
+                <div className="absolute left-0 top-full mt-3 hidden w-60 flex-col rounded-xl border border-white/10 bg-black/95 p-2 backdrop-blur-md shadow-2xl group-hover:flex">
+                  <Link href="/dealership-series/front-line" className="rounded-lg px-4 py-3 transition hover:bg-white/5 hover:text-white">
+                    Front Line
+                  </Link>
+                  <Link href="/dealership-series/service-bay" className="rounded-lg px-4 py-3 transition hover:bg-white/5 hover:text-white">
+                    Service Bay
+                  </Link>
+                  <Link href="/dealership-series/backlot" className="rounded-lg px-4 py-3 transition hover:bg-white/5 hover:text-white">
+                    Back Lot 🔒
+                  </Link>
+                  <Link href="/dealership-series/green-pea-guide" className="rounded-lg px-4 py-3 transition hover:bg-white/5 hover:text-white">
+                    Green Pea Guide
+                  </Link>
+                  <Link href="/lot-stretcher" className="rounded-lg px-4 py-3 transition hover:bg-white/5 hover:text-white">
+                    Lot Stretcher
+                  </Link>
+                </div>
+              </div>
+
+              <Link href="/trail-series" className="transition hover:text-white">Trail Series</Link>
               <Link href="/#process" className="transition hover:text-white">Process</Link>
               <Link href="/gallery" className="transition hover:text-white">Gallery</Link>
               <Link href="/#story" className="transition hover:text-white">Story</Link>
@@ -100,12 +125,52 @@ export default function DealershipSeriesPage() {
 
           {/* Mobile menu */}
           {mobileMenuOpen && (
-            <div className="border-t border-white/10 bg-black/90 px-4 py-4 md:hidden">
+            <div className="border-t border-white/10 bg-black/95 px-4 py-4 md:hidden">
               <nav className="flex flex-col gap-4 text-sm text-stone-300">
+                <Link
+                  href="/#collections"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="border-b border-white/5 pb-3 transition hover:text-white"
+                >
+                  Collections
+                </Link>
+
+                <div className="border-b border-white/5 pb-3">
+                  <button
+                    type="button"
+                    onClick={() => setMobileDropdownOpen(!mobileDropdownOpen)}
+                    className="flex w-full items-center justify-between text-left transition hover:text-white"
+                  >
+                    <span>Dealership Series</span>
+                    <span className="text-white/50">{mobileDropdownOpen ? "−" : "+"}</span>
+                  </button>
+
+                  {mobileDropdownOpen && (
+                    <div className="mt-3 ml-4 flex flex-col gap-3 rounded-xl border border-white/10 bg-white/[0.03] p-4 text-white/70">
+                      <Link href="/dealership-series" onClick={() => setMobileMenuOpen(false)} className="transition hover:text-white">
+                        Overview
+                      </Link>
+                      <Link href="/dealership-series/front-line" onClick={() => setMobileMenuOpen(false)} className="transition hover:text-white">
+                        Front Line
+                      </Link>
+                      <Link href="/dealership-series/service-bay" onClick={() => setMobileMenuOpen(false)} className="transition hover:text-white">
+                        Service Bay
+                      </Link>
+                      <Link href="/dealership-series/backlot" onClick={() => setMobileMenuOpen(false)} className="transition hover:text-white">
+                        Back Lot 🔒
+                      </Link>
+                      <Link href="/dealership-series/green-pea-guide" onClick={() => setMobileMenuOpen(false)} className="transition hover:text-white">
+                        Green Pea Guide
+                      </Link>
+                      <Link href="/lot-stretcher" onClick={() => setMobileMenuOpen(false)} className="transition hover:text-white">
+                        Lot Stretcher
+                      </Link>
+                    </div>
+                  )}
+                </div>
+
                 {[
-                  ["/#collections", "Collections"],
-                  ["/dealership-series", "Dealership Series"],
-                  ["/trail-series", "Trail Series", false],  
+                  ["/trail-series", "Trail Series"],
                   ["/#process", "Process"],
                   ["/gallery", "Gallery"],
                   ["/#story", "Story"],
