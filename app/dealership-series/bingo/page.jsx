@@ -19,8 +19,21 @@ const previewWords = [
   "Work The Numbers", "What's Your Why", "Service to Sales", "Inspect What You Expect", "Get On The Same Page",
 ];
 
+const navLinks = [
+  ["/dealership-series/front-line", "Front Line"],
+  ["/dealership-series/service-bay", "Service Bay"],
+  ["/dealership-series/backlot", "Back Lot"],
+  ["/dealership-series/green-pea-guide", "Green Pea Guide"],
+  ["/lot-stretcher", "Lot Stretcher"],
+];
+
 export default function BingoLandingPage() {
   const [copied, setCopied] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
+
+  const preOrderLink = "/dealership-series/pre-order";
+  const shopLink = "https://back40-headwear.myshopify.com/collections/b40-trail-series";
 
   const handleShare = () => {
     navigator.clipboard.writeText("https://back40designco.com/dealership-series/bingo");
@@ -76,63 +89,142 @@ export default function BingoLandingPage() {
           background: rgba(255,255,255,0.05);
           border-radius: 4px; overflow: hidden;
         }
-
         .setup-cell { padding: 2rem 1.5rem; background: #0f0f0f; }
+
+        .nav-link { color: rgba(255,255,255,0.55); text-decoration: none; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.15s; font-family: 'DM Mono', monospace; }
+        .nav-link:hover { color: white; }
+        .nav-dropdown { position: absolute; left: 0; top: 100%; margin-top: 0; width: 220px; background: rgba(0,0,0,0.97); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 8px; box-shadow: 0 20px 40px rgba(0,0,0,0.8); display: none; flex-direction: column; z-index: 50; padding-top: 16px; }
+        .nav-dropdown::before { content: ''; position: absolute; top: -12px; left: 0; right: 0; height: 12px; }
+        .nav-dropdown-item { display: block; padding: 10px 14px; color: rgba(255,255,255,0.6); text-decoration: none; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; border-radius: 6px; transition: all 0.12s; font-family: 'DM Mono', monospace; }
+        .nav-dropdown-item:hover { background: rgba(255,255,255,0.05); color: white; }
+        .nav-group { position: relative; }
+        .nav-group:hover .nav-dropdown { display: flex; }
+
+        @media (min-width: 768px) {
+          .desktop-nav { display: flex !important; }
+          .mobile-menu-btn { display: none !important; }
+        }
       `}</style>
+
+      {/* ── HEADER ── */}
+      <header style={{ position: "sticky", top: 0, zIndex: 40, borderBottom: "1px solid rgba(255,255,255,0.08)", background: "rgba(8,8,8,0.92)", backdropFilter: "blur(12px)" }}>
+        <div style={{ maxWidth: "1280px", margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 24px" }}>
+
+          <Link href="/">
+            <img src="/images/b402026.png" alt="Back 40 Designs" style={{ height: "40px", width: "auto" }} />
+          </Link>
+
+          {/* Desktop nav */}
+          <nav style={{ display: "none", alignItems: "center", gap: "24px" }} className="desktop-nav">
+            <Link href="/#collections" className="nav-link">Collections</Link>
+            <div className="nav-group">
+              <Link href="/dealership-series" className="nav-link" style={{ color: "white", fontWeight: "500" }}>Dealership Series</Link>
+              <div className="nav-dropdown">
+                {navLinks.map(([href, label]) => (
+                  <Link key={href} href={href} className="nav-dropdown-item">{label}</Link>
+                ))}
+                <div style={{ borderTop: "1px solid rgba(255,255,255,0.08)", margin: "4px 0" }} />
+                <Link href={preOrderLink} className="nav-dropdown-item" style={{ color: "#dc2626", fontWeight: "500" }}>Pre-Order →</Link>
+              </div>
+            </div>
+            <Link href="/trail-series" className="nav-link">Trail Series</Link>
+            <Link href="/#process" className="nav-link">Process</Link>
+            <Link href="/gallery" className="nav-link">Gallery</Link>
+            <Link href="/#story" className="nav-link">Story</Link>
+            <Link href="/#contact" className="nav-link">Contact</Link>
+          </nav>
+
+          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+            <Link href={preOrderLink} style={{ display: "inline-flex", alignItems: "center", background: "white", color: "#080808", padding: "8px 14px", borderRadius: "20px", fontFamily: "'DM Mono', monospace", fontSize: "11px", fontWeight: "500", letterSpacing: "0.16em", textTransform: "uppercase", textDecoration: "none" }}>
+              Pre-Order →
+            </Link>
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              style={{ background: "transparent", border: "none", color: "rgba(255,255,255,0.6)", cursor: "pointer", padding: "8px", fontSize: "18px" }}
+              className="mobile-menu-btn"
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? "✕" : "☰"}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile menu */}
+        {mobileMenuOpen && (
+          <div style={{ borderTop: "1px solid rgba(255,255,255,0.08)", background: "rgba(0,0,0,0.95)", padding: "16px 24px" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "16px", fontFamily: "'DM Mono', monospace", fontSize: "13px", letterSpacing: "0.12em", textTransform: "uppercase" }}>
+              <Link href="/#collections" onClick={() => setMobileMenuOpen(false)} style={{ color: "rgba(255,255,255,0.6)", textDecoration: "none", borderBottom: "1px solid rgba(255,255,255,0.05)", paddingBottom: "12px" }}>Collections</Link>
+
+              <div style={{ borderBottom: "1px solid rgba(255,255,255,0.05)", paddingBottom: "12px" }}>
+                <button
+                  onClick={() => setMobileDropdownOpen(!mobileDropdownOpen)}
+                  style={{ background: "transparent", border: "none", color: "rgba(255,255,255,0.6)", cursor: "pointer", display: "flex", justifyContent: "space-between", width: "100%", fontFamily: "'DM Mono', monospace", fontSize: "13px", letterSpacing: "0.12em", textTransform: "uppercase", padding: 0 }}
+                >
+                  <span>Dealership Series</span>
+                  <span style={{ color: "rgba(255,255,255,0.3)" }}>{mobileDropdownOpen ? "−" : "+"}</span>
+                </button>
+                {mobileDropdownOpen && (
+                  <div style={{ marginTop: "12px", marginLeft: "16px", display: "flex", flexDirection: "column", gap: "12px" }}>
+                    <Link href="/dealership-series" onClick={() => setMobileMenuOpen(false)} style={{ color: "rgba(255,255,255,0.5)", textDecoration: "none" }}>Overview</Link>
+                    {navLinks.map(([href, label]) => (
+                      <Link key={href} href={href} onClick={() => setMobileMenuOpen(false)} style={{ color: "rgba(255,255,255,0.5)", textDecoration: "none" }}>{label}</Link>
+                    ))}
+                    <Link href={preOrderLink} onClick={() => setMobileMenuOpen(false)} style={{ color: "#dc2626", textDecoration: "none", fontWeight: "500" }}>Pre-Order →</Link>
+                  </div>
+                )}
+              </div>
+
+              {[
+                ["/trail-series", "Trail Series"],
+                ["/#process", "Process"],
+                ["/gallery", "Gallery"],
+                ["/#story", "Story"],
+                ["/#contact", "Contact"],
+              ].map(([href, label]) => (
+                <Link key={label} href={href} onClick={() => setMobileMenuOpen(false)} style={{ color: "rgba(255,255,255,0.6)", textDecoration: "none", borderBottom: "1px solid rgba(255,255,255,0.05)", paddingBottom: "12px" }}>{label}</Link>
+              ))}
+              <a href={shopLink} target="_blank" rel="noreferrer" onClick={() => setMobileMenuOpen(false)} style={{ color: "rgba(255,255,255,0.6)", textDecoration: "none" }}>Shop Hats ↗</a>
+            </div>
+          </div>
+        )}
+      </header>
 
       {/* ── HERO ── */}
       <section style={{ minHeight: "100dvh", position: "relative", display: "flex", flexDirection: "column", justifyContent: "center", padding: "6rem 1.5rem 4rem", overflow: "hidden", background: "#080808" }}>
 
-        {/* Background */}
         <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/images/pre-order-page.png')", backgroundSize: "cover", backgroundPosition: "center", opacity: 0.2 }} />
-
-        {/* Scanline */}
         <div style={{ position: "absolute", inset: 0, pointerEvents: "none", overflow: "hidden", zIndex: 1 }}>
           <div style={{ position: "absolute", left: 0, right: 0, height: "2px", background: "linear-gradient(transparent, rgba(220,38,38,0.12), transparent)", animation: "scanline 8s linear infinite" }} />
         </div>
-
-        {/* Grid overlay */}
         <div style={{ position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none", backgroundImage: "linear-gradient(rgba(220,38,38,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(220,38,38,0.03) 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
-
-        {/* Vignette */}
         <div style={{ position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none", background: "radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.85) 100%)" }} />
 
         <div style={{ position: "relative", zIndex: 2, maxWidth: "820px" }}>
-
-          {/* Badge */}
           <div className="fade-up" style={{ display: "inline-flex", alignItems: "center", gap: "8px", border: "1px solid rgba(220,38,38,0.25)", background: "rgba(220,38,38,0.08)", borderRadius: "100px", padding: "5px 14px", marginBottom: "1.5rem" }}>
             <div style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#dc2626", animation: "pulse 2s infinite" }} />
             <span style={{ fontSize: "10px", letterSpacing: "0.3em", textTransform: "uppercase", color: "#dc2626" }}>B40 // Back Lot Exclusive — Q2 2026</span>
           </div>
 
-          {/* Headline */}
           <h1 className="fade-up-2" style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(3.5rem, 13vw, 9rem)", lineHeight: 0.92, letterSpacing: "0.02em", color: "white", marginBottom: "1.5rem" }}>
             Your Boss<br />Has <span style={{ color: "#dc2626" }}>No Idea</span><br />What's Happening.
           </h1>
 
-          {/* Subhead */}
           <p className="fade-up-3" style={{ fontSize: "clamp(13px, 2.5vw, 17px)", lineHeight: 1.75, color: "rgba(255,255,255,0.55)", maxWidth: "520px", marginBottom: "2.5rem" }}>
             Every meeting. Same words. Same energy. Same speech about the pipeline.
             <br />
             <span style={{ color: "rgba(255,255,255,0.85)", fontStyle: "italic" }}>This quarter, you come prepared.</span>
           </p>
 
-          {/* CTAs */}
           <div className="fade-up-4" style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
             <Link href="/dealership-series/bingo/card" className="btn-primary">Get My Card →</Link>
-            <button onClick={handleShare} className="btn-secondary">
-              {copied ? "✓ Link Copied" : "Send to the Team"}
-            </button>
+            <button onClick={handleShare} className="btn-secondary">{copied ? "✓ Link Copied" : "Send to the Team"}</button>
           </div>
-
         </div>
 
-        {/* Scroll hint */}
         <div style={{ position: "absolute", bottom: "2rem", left: "50%", transform: "translateX(-50%)", zIndex: 2, display: "flex", flexDirection: "column", alignItems: "center", gap: "6px" }}>
           <span style={{ fontSize: "9px", letterSpacing: "0.3em", textTransform: "uppercase", color: "rgba(255,255,255,0.2)" }}>Scroll</span>
           <div style={{ width: "1px", height: "32px", background: "linear-gradient(rgba(220,38,38,0.5), transparent)" }} />
         </div>
-
       </section>
 
       {/* ── THE SETUP ── */}
@@ -155,7 +247,6 @@ export default function BingoLandingPage() {
       <section style={{ padding: "0 1.5rem 5rem", display: "flex", flexDirection: "column", alignItems: "center" }}>
         <div style={{ maxWidth: "460px", width: "100%", textAlign: "center" }}>
           <p style={{ fontSize: "9px", letterSpacing: "0.3em", textTransform: "uppercase", color: "rgba(255,255,255,0.2)", marginBottom: "1.25rem" }}>Q2 2026 Word Pool Preview</p>
-
           <div style={{ border: "1px solid rgba(255,255,255,0.06)", borderRadius: "4px", overflow: "hidden", background: "#0f0f0f", padding: "3px", opacity: 0.65 }}>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: "2px", marginBottom: "2px" }}>
               {["B","4","0","G","O"].map(c => (
@@ -172,7 +263,6 @@ export default function BingoLandingPage() {
               ))}
             </div>
           </div>
-
           <p style={{ fontSize: "10px", letterSpacing: "0.15em", textTransform: "uppercase", color: "rgba(255,255,255,0.2)", marginTop: "1rem", fontStyle: "italic" }}>
             Your card is randomly generated. No two are the same.
           </p>
@@ -228,7 +318,7 @@ export default function BingoLandingPage() {
           ["/dealership-series", "Dealership Series"],
           ["/", "Home"],
         ].map(([href, label]) => (
-          <Link key={label} href={href} style={{ fontSize: "10px", color: "rgba(255,255,255,0.2)", letterSpacing: "0.2em", textTransform: "uppercase", textDecoration: "none", transition: "color 0.15s" }}>
+          <Link key={label} href={href} style={{ fontSize: "10px", color: "rgba(255,255,255,0.2)", letterSpacing: "0.2em", textTransform: "uppercase", textDecoration: "none" }}>
             {label}
           </Link>
         ))}
@@ -238,7 +328,6 @@ export default function BingoLandingPage() {
       <footer style={{ padding: "1rem 1.5rem 2rem", textAlign: "center" }}>
         <p style={{ fontSize: "10px", color: "rgba(255,255,255,0.12)", letterSpacing: "0.1em" }}>© 2026 Back 40 Designs</p>
       </footer>
-
     </>
   );
 }
