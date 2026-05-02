@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useCallback } from "react";
+import Link from "next/link";
 
 // Q2 2026 curated word pool — random layout per player
 const Q2_POOL = [
@@ -67,8 +68,6 @@ export default function BingoQ2Page() {
     setTimeout(() => setCopied(false), 2500);
   };
 
-  const cols = ["B", "4", "0", "G", "O"];
-
   return (
     <>
       <style>{`
@@ -104,6 +103,21 @@ export default function BingoQ2Page() {
           z-index: 0;
         }
 
+        .back-link {
+          position: fixed;
+          top: 14px;
+          left: 16px;
+          z-index: 20;
+          font-family: 'DM Mono', monospace;
+          font-size: 9px;
+          letter-spacing: 0.22em;
+          text-transform: uppercase;
+          color: rgba(255,255,255,0.18);
+          text-decoration: none;
+          transition: color 0.15s ease;
+        }
+        .back-link:hover { color: rgba(255,255,255,0.55); }
+
         .content {
           position: relative;
           z-index: 1;
@@ -115,7 +129,6 @@ export default function BingoQ2Page() {
           gap: 1.25rem;
         }
 
-        /* Header */
         .header { text-align: center; width: 100%; }
 
         .eyebrow {
@@ -148,8 +161,7 @@ export default function BingoQ2Page() {
         }
 
         .quarter-badge-dot {
-          width: 6px;
-          height: 6px;
+          width: 6px; height: 6px;
           border-radius: 50%;
           background: #dc2626;
           animation: pulse 2s infinite;
@@ -171,7 +183,6 @@ export default function BingoQ2Page() {
           font-style: italic;
         }
 
-        /* Card */
         .card-wrap { width: 100%; }
 
         .col-headers {
@@ -215,29 +226,10 @@ export default function BingoQ2Page() {
         }
 
         .cell:active { transform: scale(0.96); }
-
-        .cell:hover:not(.free):not(.marked) {
-          background: #1f1f1f;
-          border-color: rgba(220,38,38,0.2);
-        }
-
-        .cell.marked {
-          background: #dc2626;
-          border-color: #dc2626;
-        }
-
-        .cell.marked::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
-        }
-
-        .cell.free {
-          background: #161616;
-          border-color: rgba(184,149,10,0.4);
-          cursor: default;
-        }
+        .cell:hover:not(.free):not(.marked) { background: #1f1f1f; border-color: rgba(220,38,38,0.2); }
+        .cell.marked { background: #dc2626; border-color: #dc2626; }
+        .cell.marked::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent); }
+        .cell.free { background: #161616; border-color: rgba(184,149,10,0.4); cursor: default; }
 
         .cell-text {
           font-size: clamp(6px, 1.6vw, 10px);
@@ -259,7 +251,6 @@ export default function BingoQ2Page() {
 
         .cell.marked .cell-text { color: white; }
 
-        /* Progress bar */
         .progress-wrap {
           width: 100%;
           background: #161616;
@@ -286,12 +277,7 @@ export default function BingoQ2Page() {
           margin-bottom: 4px;
         }
 
-        /* Actions */
-        .actions {
-          display: flex;
-          gap: 8px;
-          width: 100%;
-        }
+        .actions { display: flex; gap: 8px; width: 100%; }
 
         .btn {
           flex: 1;
@@ -310,16 +296,9 @@ export default function BingoQ2Page() {
         .btn:active { transform: scale(0.97); }
         .btn-primary { background: white; color: #0a0a0a; font-weight: 500; }
         .btn-primary:hover { background: #f0f0f0; }
-
-        .btn-secondary {
-          background: transparent;
-          color: rgba(255,255,255,0.4);
-          border: 1px solid rgba(255,255,255,0.08);
-        }
-
+        .btn-secondary { background: transparent; color: rgba(255,255,255,0.4); border: 1px solid rgba(255,255,255,0.08); }
         .btn-secondary:hover { border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.7); }
 
-        /* Next quarter teaser */
         .teaser {
           width: 100%;
           border: 1px solid rgba(255,255,255,0.05);
@@ -330,19 +309,13 @@ export default function BingoQ2Page() {
           justify-content: space-between;
         }
 
-        .teaser-left { }
         .teaser-label { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.2); }
         .teaser-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; color: rgba(255,255,255,0.35); letter-spacing: 0.05em; margin-top: 2px; }
         .teaser-date { font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.15); text-align: right; }
 
-        /* Winner overlay */
         .winner-overlay {
-          position: fixed;
-          inset: 0;
-          z-index: 100;
-          display: flex;
-          align-items: center;
-          justify-content: center;
+          position: fixed; inset: 0; z-index: 100;
+          display: flex; align-items: center; justify-content: center;
           background: rgba(0,0,0,0.88);
           backdrop-filter: blur(10px);
           animation: fadeIn 0.25s ease;
@@ -353,50 +326,30 @@ export default function BingoQ2Page() {
         .winner-word {
           font-family: 'Bebas Neue', sans-serif;
           font-size: clamp(5rem, 20vw, 12rem);
-          color: #dc2626;
-          line-height: 1;
+          color: #dc2626; line-height: 1;
           animation: stamp 0.4s cubic-bezier(0.2,1.4,0.3,1) forwards;
           opacity: 0;
         }
 
-        .winner-sub {
-          font-size: 12px;
-          color: rgba(255,255,255,0.4);
-          letter-spacing: 0.25em;
-          text-transform: uppercase;
-          margin-top: 1rem;
-        }
+        .winner-sub { font-size: 12px; color: rgba(255,255,255,0.4); letter-spacing: 0.25em; text-transform: uppercase; margin-top: 1rem; }
+        .winner-actions { display: flex; gap: 8px; justify-content: center; margin-top: 1.5rem; flex-wrap: wrap; }
 
-        .winner-actions {
-          display: flex;
-          gap: 8px;
-          justify-content: center;
-          margin-top: 1.5rem;
-          flex-wrap: wrap;
-        }
-
-        @keyframes pulse {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.4; }
-        }
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
+        @keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.4} }
+        @keyframes fadeIn { from{opacity:0}to{opacity:1} }
         @keyframes stamp {
-          0% { opacity: 0; transform: scale(3.5) rotate(-3deg); }
-          60% { opacity: 1; transform: scale(0.95) rotate(-1deg); }
-          80% { transform: scale(1.02) rotate(-1deg); }
-          100% { opacity: 1; transform: scale(1) rotate(-1deg); }
+          0% { opacity:0; transform:scale(3.5) rotate(-3deg); }
+          60% { opacity:1; transform:scale(0.95) rotate(-1deg); }
+          80% { transform:scale(1.02) rotate(-1deg); }
+          100% { opacity:1; transform:scale(1) rotate(-1deg); }
         }
 
-        /* ── PRINT ── */
         @media print {
           body { background: white !important; color: black !important; }
           .no-print { display: none !important; }
           .bg-grid { display: none !important; }
+          .back-link { display: none !important; }
           .winner-overlay { display: none !important; }
           .page { padding: 0.5rem; background: white !important; }
-
           .eyebrow { color: #cc0000 !important; }
           .title { color: black !important; }
           .title span { color: #cc0000 !important; }
@@ -405,7 +358,6 @@ export default function BingoQ2Page() {
           .quarter-badge-text { color: #cc0000 !important; }
           .subtitle { color: #666 !important; }
           .col-header { color: #cc0000 !important; }
-
           .cell { background: white !important; border: 1.5px solid #ddd !important; border-radius: 0 !important; }
           .cell.marked { background: #fff5f5 !important; border-color: #cc0000 !important; }
           .cell.marked::before { display: none !important; }
@@ -413,11 +365,15 @@ export default function BingoQ2Page() {
           .cell-text { color: black !important; font-size: 7pt !important; }
           .cell.free .cell-text { color: #b8950a !important; }
           .cell.marked .cell-text { color: #cc0000 !important; font-weight: bold !important; }
-
           .progress-wrap, .actions, .teaser { display: none !important; }
           .card-wrap { max-width: 100% !important; }
         }
       `}</style>
+
+      {/* Minimal back link */}
+      <Link href="/dealership-series/bingo" className="back-link no-print">
+        ← Bingo
+      </Link>
 
       <div className="page">
         <div className="bg-grid" />
@@ -429,18 +385,10 @@ export default function BingoQ2Page() {
               <div className="winner-word">BINGO!</div>
               <p className="winner-sub">Try not to look too excited.</p>
               <div className="winner-actions">
-                <button
-                  className="btn btn-primary no-print"
-                  style={{ minWidth: "140px" }}
-                  onClick={(e) => { e.stopPropagation(); setWinner(false); }}
-                >
+                <button className="btn btn-primary no-print" style={{ minWidth: "140px" }} onClick={(e) => { e.stopPropagation(); setWinner(false); }}>
                   Keep Playing
                 </button>
-                <button
-                  className="btn btn-secondary no-print"
-                  style={{ minWidth: "140px" }}
-                  onClick={(e) => { e.stopPropagation(); handleShare(); }}
-                >
+                <button className="btn btn-secondary no-print" style={{ minWidth: "140px" }} onClick={(e) => { e.stopPropagation(); handleShare(); }}>
                   {copied ? "✓ Copied" : "Send to the Team"}
                 </button>
               </div>
@@ -503,20 +451,14 @@ export default function BingoQ2Page() {
 
           {/* Actions */}
           <div className="actions no-print">
-            <button className="btn btn-primary" onClick={newCard}>
-              New Card
-            </button>
-            <button className="btn btn-secondary" onClick={() => window.print()}>
-              Print
-            </button>
-            <button className="btn btn-secondary" onClick={handleShare}>
-              {copied ? "✓ Copied" : "Share"}
-            </button>
+            <button className="btn btn-primary" onClick={newCard}>New Card</button>
+            <button className="btn btn-secondary" onClick={() => window.print()}>Print</button>
+            <button className="btn btn-secondary" onClick={handleShare}>{copied ? "✓ Copied" : "Share"}</button>
           </div>
 
           {/* Next quarter teaser */}
           <div className="teaser no-print">
-            <div className="teaser-left">
+            <div>
               <p className="teaser-label">Coming Next</p>
               <p className="teaser-title">Q3 2026 Card</p>
             </div>
@@ -528,4 +470,3 @@ export default function BingoQ2Page() {
     </>
   );
 }
-
