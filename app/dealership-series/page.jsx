@@ -66,7 +66,8 @@ export default function DealershipSeriesPage() {
             <nav className="hidden items-center gap-6 text-sm text-stone-300 md:flex">
               <Link href="/#collections" className="transition hover:text-white">Collections</Link>
               <Link href="/dealership-series" className="text-white font-semibold">Dealership Series</Link>
-             <Link href="/trail-series" className="transition hover:text-white">Trail Series</Link>
+              <Link href="/green-pea-guide" className="transition hover:text-white">Green Pea Survival Guide</Link>
+              <Link href="/trail-series" className="transition hover:text-white">Trail Series</Link>
               <Link href="/#process" className="transition hover:text-white">Process</Link>
               <Link href="/gallery" className="transition hover:text-white">Gallery</Link>
               <Link href="/#story" className="transition hover:text-white">Story</Link>
