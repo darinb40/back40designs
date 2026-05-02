@@ -17,6 +17,7 @@ export default function DealershipSeriesPage() {
 
   const shopLink = "https://back40-headwear.myshopify.com/collections/b40-trail-series";
   const instagramLink = "https://www.instagram.com/b40_designs/";
+  const preOrderLink = "/dealership-series/pre-order";
 
   return (
     <main className="relative min-h-[100dvh] overflow-x-hidden bg-black text-white">
@@ -56,11 +57,7 @@ export default function DealershipSeriesPage() {
         <header className="sticky top-0 z-40 border-b border-white/10 bg-black/80 backdrop-blur">
           <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-10 md:py-4">
             <Link href="/">
-              <img
-                src="/images/b402026.png"
-                alt="Back 40 Designs"
-                className="h-10 w-auto md:h-12"
-              />
+              <img src="/images/b402026.png" alt="Back 40 Designs" className="h-10 w-auto md:h-12" />
             </Link>
 
             {/* Desktop nav */}
@@ -68,26 +65,15 @@ export default function DealershipSeriesPage() {
               <Link href="/#collections" className="transition hover:text-white">Collections</Link>
 
               <div className="relative group">
-                <Link href="/dealership-series" className="text-white font-semibold">
-                  Dealership Series
-                </Link>
-
+                <Link href="/dealership-series" className="text-white font-semibold">Dealership Series</Link>
                 <div className="absolute left-0 top-full mt-3 hidden w-60 flex-col rounded-xl border border-white/10 bg-black/95 p-2 backdrop-blur-md shadow-2xl group-hover:flex">
-                  <Link href="/dealership-series/front-line" className="rounded-lg px-4 py-3 transition hover:bg-white/5 hover:text-white">
-                    Front Line
-                  </Link>
-                  <Link href="/dealership-series/service-bay" className="rounded-lg px-4 py-3 transition hover:bg-white/5 hover:text-white">
-                    Service Bay
-                  </Link>
-                  <Link href="/dealership-series/backlot" className="rounded-lg px-4 py-3 transition hover:bg-white/5 hover:text-white">
-                    Back Lot 🔒
-                  </Link>
-                  <Link href="/dealership-series/green-pea-guide" className="rounded-lg px-4 py-3 transition hover:bg-white/5 hover:text-white">
-                    Green Pea Guide
-                  </Link>
-                  <Link href="/lot-stretcher" className="rounded-lg px-4 py-3 transition hover:bg-white/5 hover:text-white">
-                    Lot Stretcher
-                  </Link>
+                  <Link href="/dealership-series/front-line" className="rounded-lg px-4 py-3 transition hover:bg-white/5 hover:text-white">Front Line</Link>
+                  <Link href="/dealership-series/service-bay" className="rounded-lg px-4 py-3 transition hover:bg-white/5 hover:text-white">Service Bay</Link>
+                  <Link href="/dealership-series/backlot" className="rounded-lg px-4 py-3 transition hover:bg-white/5 hover:text-white">Back Lot 🔒</Link>
+                  <Link href="/dealership-series/green-pea-guide" className="rounded-lg px-4 py-3 transition hover:bg-white/5 hover:text-white">Green Pea Guide</Link>
+                  <Link href="/lot-stretcher" className="rounded-lg px-4 py-3 transition hover:bg-white/5 hover:text-white">Lot Stretcher</Link>
+                  <div className="my-1 border-t border-white/10" />
+                  <Link href={preOrderLink} className="rounded-lg px-4 py-3 text-red-400 font-semibold transition hover:bg-red-400/10 hover:text-red-300">Pre-Order →</Link>
                 </div>
               </div>
 
@@ -99,25 +85,13 @@ export default function DealershipSeriesPage() {
             </nav>
 
             <div className="flex items-center gap-2 md:gap-3">
-              <a
-                href={shopLink}
-                target="_blank"
-                rel="noreferrer"
-                className="hidden rounded-2xl border border-white/10 px-4 py-2 text-sm font-semibold text-stone-200 transition hover:bg-white/5 md:inline-flex"
-              >
-                Shop
-              </a>
-              <Link
-                href="/#contact"
-                className="inline-flex items-center gap-1.5 rounded-2xl bg-white px-3 py-2 text-xs font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100 md:px-4 md:text-sm"
-              >
+              <Link href={preOrderLink} className="hidden rounded-2xl border border-red-400/30 bg-red-400/10 px-4 py-2 text-sm font-semibold text-red-300 transition hover:bg-red-400/20 md:inline-flex">
+                Pre-Order
+              </Link>
+              <Link href="/#contact" className="inline-flex items-center gap-1.5 rounded-2xl bg-white px-3 py-2 text-xs font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100 md:px-4 md:text-sm">
                 Start a Project →
               </Link>
-              <button
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="rounded-lg p-2 text-stone-300 transition hover:bg-white/5 md:hidden"
-                aria-label="Toggle menu"
-              >
+              <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="rounded-lg p-2 text-stone-300 transition hover:bg-white/5 md:hidden" aria-label="Toggle menu">
                 {mobileMenuOpen ? "✕" : "☰"}
               </button>
             </div>
@@ -127,44 +101,22 @@ export default function DealershipSeriesPage() {
           {mobileMenuOpen && (
             <div className="border-t border-white/10 bg-black/95 px-4 py-4 md:hidden">
               <nav className="flex flex-col gap-4 text-sm text-stone-300">
-                <Link
-                  href="/#collections"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="border-b border-white/5 pb-3 transition hover:text-white"
-                >
-                  Collections
-                </Link>
+                <Link href="/#collections" onClick={() => setMobileMenuOpen(false)} className="border-b border-white/5 pb-3 transition hover:text-white">Collections</Link>
 
                 <div className="border-b border-white/5 pb-3">
-                  <button
-                    type="button"
-                    onClick={() => setMobileDropdownOpen(!mobileDropdownOpen)}
-                    className="flex w-full items-center justify-between text-left transition hover:text-white"
-                  >
+                  <button type="button" onClick={() => setMobileDropdownOpen(!mobileDropdownOpen)} className="flex w-full items-center justify-between text-left transition hover:text-white">
                     <span>Dealership Series</span>
                     <span className="text-white/50">{mobileDropdownOpen ? "−" : "+"}</span>
                   </button>
-
                   {mobileDropdownOpen && (
                     <div className="mt-3 ml-4 flex flex-col gap-3 rounded-xl border border-white/10 bg-white/[0.03] p-4 text-white/70">
-                      <Link href="/dealership-series" onClick={() => setMobileMenuOpen(false)} className="transition hover:text-white">
-                        Overview
-                      </Link>
-                      <Link href="/dealership-series/front-line" onClick={() => setMobileMenuOpen(false)} className="transition hover:text-white">
-                        Front Line
-                      </Link>
-                      <Link href="/dealership-series/service-bay" onClick={() => setMobileMenuOpen(false)} className="transition hover:text-white">
-                        Service Bay
-                      </Link>
-                      <Link href="/dealership-series/backlot" onClick={() => setMobileMenuOpen(false)} className="transition hover:text-white">
-                        Back Lot 🔒
-                      </Link>
-                      <Link href="/dealership-series/green-pea-guide" onClick={() => setMobileMenuOpen(false)} className="transition hover:text-white">
-                        Green Pea Guide
-                      </Link>
-                      <Link href="/lot-stretcher" onClick={() => setMobileMenuOpen(false)} className="transition hover:text-white">
-                        Lot Stretcher
-                      </Link>
+                      <Link href="/dealership-series" onClick={() => setMobileMenuOpen(false)} className="transition hover:text-white">Overview</Link>
+                      <Link href="/dealership-series/front-line" onClick={() => setMobileMenuOpen(false)} className="transition hover:text-white">Front Line</Link>
+                      <Link href="/dealership-series/service-bay" onClick={() => setMobileMenuOpen(false)} className="transition hover:text-white">Service Bay</Link>
+                      <Link href="/dealership-series/backlot" onClick={() => setMobileMenuOpen(false)} className="transition hover:text-white">Back Lot 🔒</Link>
+                      <Link href="/dealership-series/green-pea-guide" onClick={() => setMobileMenuOpen(false)} className="transition hover:text-white">Green Pea Guide</Link>
+                      <Link href="/lot-stretcher" onClick={() => setMobileMenuOpen(false)} className="transition hover:text-white">Lot Stretcher</Link>
+                      <Link href={preOrderLink} onClick={() => setMobileMenuOpen(false)} className="text-red-400 font-semibold transition hover:text-red-300">Pre-Order →</Link>
                     </div>
                   )}
                 </div>
@@ -176,74 +128,52 @@ export default function DealershipSeriesPage() {
                   ["/#story", "Story"],
                   ["/#contact", "Contact"],
                 ].map(([href, label]) => (
-                  <Link
-                    key={label}
-                    href={href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="border-b border-white/5 pb-3 transition hover:text-white"
-                  >
-                    {label}
-                  </Link>
+                  <Link key={label} href={href} onClick={() => setMobileMenuOpen(false)} className="border-b border-white/5 pb-3 transition hover:text-white">{label}</Link>
                 ))}
-                <a
-                  href={shopLink}
-                  target="_blank"
-                  rel="noreferrer"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="transition hover:text-white"
-                >
-                  Shop Hats ↗
-                </a>
+                <a href={shopLink} target="_blank" rel="noreferrer" onClick={() => setMobileMenuOpen(false)} className="transition hover:text-white">Shop Hats ↗</a>
               </nav>
             </div>
           )}
         </header>
 
+        {/* ── PRE-ORDER BANNER ── */}
+        <div className="border-b border-red-400/20 bg-red-400/8 px-5 py-3 text-center md:px-10">
+          <p className="text-xs text-red-300 uppercase tracking-widest font-semibold">
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse mr-2 align-middle" />
+            First Run Pre-Orders Open — Orders Close May 31 &nbsp;·&nbsp;{" "}
+            <Link href={preOrderLink} className="underline hover:text-white transition">Reserve Yours Now →</Link>
+          </p>
+        </div>
+
         {/* ── HERO ── */}
         <section className="px-5 pb-10 pt-8 md:px-10 md:pb-16 md:pt-14">
           <div className="mx-auto flex max-w-7xl items-center">
             <div className="w-full max-w-4xl rounded-2xl border border-white/5 bg-black/20 p-6 sm:p-8">
-              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-white/70">
-                B40 DEALERSHIP SERIES
-              </p>
-
+              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-white/70">B40 DEALERSHIP SERIES</p>
               <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl md:text-7xl">
                 Built inside the car business.
               </h1>
-
               <p className="mt-5 max-w-2xl text-base leading-7 text-white/85 sm:text-lg sm:leading-8 md:text-xl">
-                A dealership-driven headwear line built for the people on the
-                floor, at the desk, in finance, and in the service bay.
+                A dealership-driven headwear line built for the people on the floor, at the desk, in finance, and in the service bay.
               </p>
 
               <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
-                <Link
-                  href="/dealership-series/front-line"
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-white px-5 py-4 font-semibold text-black transition hover:scale-[1.02] sm:w-auto"
-                >
+                <Link href="/dealership-series/front-line" className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-white px-5 py-4 font-semibold text-black transition hover:scale-[1.02] sm:w-auto">
                   View Front Line <ArrowRight />
                 </Link>
-
-                <Link
-                  href="/dealership-series/service-bay"
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-white/10 bg-black/20 px-5 py-4 font-semibold text-white transition hover:bg-white/10 sm:w-auto"
-                >
+                <Link href="/dealership-series/service-bay" className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-white/10 bg-black/20 px-5 py-4 font-semibold text-white transition hover:bg-white/10 sm:w-auto">
                   Enter Service Bay →
                 </Link>
-
-                <Link
-                  href="/dealership-series/backlot"
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-white/10 bg-black/20 px-5 py-4 font-semibold text-white transition hover:bg-white/10 sm:w-auto"
-                >
+                <Link href="/dealership-series/backlot" className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-white/10 bg-black/20 px-5 py-4 font-semibold text-white transition hover:bg-white/10 sm:w-auto">
                   Enter Back Lot <LockIcon />
+                </Link>
+                <Link href={preOrderLink} className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-red-400/40 bg-red-400/10 px-5 py-4 font-semibold text-red-300 transition hover:bg-red-400/20 hover:text-white sm:w-auto">
+                  Pre-Order Now →
                 </Link>
               </div>
 
               <div className="mt-6">
-                <Link
-                  href="/lot-stretcher"
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-white/10 bg-black/20 px-5 py-3 text-sm font-medium text-white/35 transition hover:border-white/25 hover:text-white/60 sm:w-auto"
-                >
+                <Link href="/lot-stretcher" className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-white/10 bg-black/20 px-5 py-3 text-sm font-medium text-white/35 transition hover:border-white/25 hover:text-white/60 sm:w-auto">
                   Go find the lot stretcher →
                 </Link>
               </div>
@@ -255,89 +185,70 @@ export default function DealershipSeriesPage() {
         <section className="px-5 pb-10 pt-0 md:px-10 md:pb-14 md:pt-0">
           <div className="mx-auto max-w-7xl">
             <div className="mb-6 max-w-3xl rounded-2xl border border-white/5 bg-black/20 p-6 sm:p-8">
-              <p className="text-sm uppercase tracking-[0.24em] text-white/55">
-                Three distinct lanes
-              </p>
-              <h2 className="mt-4 text-2xl font-semibold sm:text-3xl md:text-5xl">
-                Built for different sides of the store.
-              </h2>
+              <p className="text-sm uppercase tracking-[0.24em] text-white/55">Three distinct lanes</p>
+              <h2 className="mt-4 text-2xl font-semibold sm:text-3xl md:text-5xl">Built for different sides of the store.</h2>
             </div>
 
             <div className="grid gap-6 md:grid-cols-3">
 
-              {/* Card 1 - Front Line */}
+              {/* Front Line */}
               <div className="flex flex-col rounded-2xl border border-white/5 bg-black/20 p-5 md:p-7">
                 <p className="text-sm uppercase tracking-[0.2em] text-white/55">Public Lane</p>
                 <h3 className="mt-3 text-xl font-semibold">Front Line</h3>
-                <p className="mt-3 text-sm leading-6 text-white/75">
-                  Clean dealership-focused headwear built for salespeople,
-                  managers, and customer-facing teams.
-                </p>
+                <p className="mt-3 text-sm leading-6 text-white/75">Clean dealership-focused headwear built for salespeople, managers, and customer-facing teams.</p>
                 <div className="mt-5 h-56 overflow-hidden rounded-xl border border-white/10 md:h-64">
-                  <img
-                    src="/images/coming-soon.PNG"
-                    alt="Front Line — Coming Soon"
-                    className="h-full w-full object-cover"
-                  />
+                  <img src="/images/coming-soon.PNG" alt="Front Line — Coming Soon" className="h-full w-full object-cover" />
                 </div>
-                <div className="mt-4 flex-1 flex items-end">
-                  <Link
-                    href="/dealership-series/front-line"
-                    className="inline-flex w-full justify-center rounded-2xl bg-white px-5 py-3 font-semibold text-black transition hover:bg-stone-100"
-                  >
-                    View Front Line →
-                  </Link>
+                <div className="mt-4 grid gap-2">
+                  <Link href="/dealership-series/front-line" className="inline-flex w-full justify-center rounded-2xl bg-white px-5 py-3 font-semibold text-black transition hover:bg-stone-100">View Front Line →</Link>
+                  <Link href={preOrderLink} className="inline-flex w-full justify-center rounded-2xl border border-red-400/30 bg-red-400/8 px-5 py-2.5 text-sm font-semibold text-red-300 transition hover:bg-red-400/15 hover:text-white">Pre-Order →</Link>
                 </div>
               </div>
 
-              {/* Card 2 - Service Bay */}
+              {/* Service Bay */}
               <div className="flex flex-col rounded-2xl border border-white/5 bg-black/20 p-5 md:p-7">
                 <p className="text-sm uppercase tracking-[0.2em] text-white/55">Fixed Ops</p>
                 <h3 className="mt-3 text-xl font-semibold">Service Bay</h3>
-                <p className="mt-3 text-sm leading-6 text-white/75">
-                  Built for advisors, techs, and the people who keep the store moving.
-                </p>
+                <p className="mt-3 text-sm leading-6 text-white/75">Built for advisors, techs, and the people who keep the store moving.</p>
                 <div className="mt-5 h-56 overflow-hidden rounded-xl border border-white/10 md:h-64">
-                  <img
-                    src="/images/cross-thread.png"
-                    alt="Service Bay — Coming Soon"
-                    className="h-full w-full object-cover"
-                  />
+                  <img src="/images/cross-thread.png" alt="Service Bay — Cross Threaded Is Threaded" className="h-full w-full object-cover" />
                 </div>
-                <div className="mt-4 flex-1 flex items-end">
-                  <Link
-                    href="/dealership-series/service-bay"
-                    className="inline-flex w-full justify-center rounded-2xl border border-white/10 bg-black/20 px-5 py-3 font-semibold text-white transition hover:bg-white/10"
-                  >
-                    Enter Service Bay →
-                  </Link>
+                <div className="mt-4 grid gap-2">
+                  <Link href="/dealership-series/service-bay" className="inline-flex w-full justify-center rounded-2xl border border-white/10 bg-black/20 px-5 py-3 font-semibold text-white transition hover:bg-white/10">Enter Service Bay →</Link>
+                  <Link href={preOrderLink} className="inline-flex w-full justify-center rounded-2xl border border-red-400/30 bg-red-400/8 px-5 py-2.5 text-sm font-semibold text-red-300 transition hover:bg-red-400/15 hover:text-white">Pre-Order →</Link>
                 </div>
               </div>
 
-              {/* Card 3 - Back Lot */}
+              {/* Back Lot */}
               <div className="flex flex-col rounded-2xl border border-white/5 bg-black/20 p-5 md:p-7">
                 <p className="text-sm uppercase tracking-[0.2em] text-white/55">Private Lane</p>
                 <h3 className="mt-3 text-xl font-semibold">Back Lot</h3>
-                <p className="mt-3 text-sm leading-6 text-white/75">
-                  Password-protected. Built for select dealership buyers only.
-                </p>
+                <p className="mt-3 text-sm leading-6 text-white/75">Password-protected. Built for select dealership buyers only.</p>
                 <div className="mt-5 h-56 overflow-hidden rounded-xl border border-white/10 md:h-64">
-                  <img
-                    src="/images/coming-soon.PNG"
-                    alt="Back Lot — Coming Soon"
-                    className="h-full w-full object-cover"
-                  />
+                  <img src="/images/hold-gross.png" alt="Back Lot — Hold Gross" className="h-full w-full object-cover" />
                 </div>
-                <div className="mt-4 flex-1 flex items-end">
-                  <Link
-                    href="/dealership-series/backlot"
-                    className="inline-flex w-full justify-center rounded-2xl border border-white/10 bg-black/20 px-5 py-3 font-semibold text-white transition hover:bg-white/10"
-                  >
-                    Enter Password <LockIcon />
-                  </Link>
+                <div className="mt-4 grid gap-2">
+                  <Link href="/dealership-series/backlot" className="inline-flex w-full justify-center rounded-2xl border border-white/10 bg-black/20 px-5 py-3 font-semibold text-white transition hover:bg-white/10">Enter Password <LockIcon /></Link>
+                  <Link href={preOrderLink} className="inline-flex w-full justify-center rounded-2xl border border-red-400/30 bg-red-400/8 px-5 py-2.5 text-sm font-semibold text-red-300 transition hover:bg-red-400/15 hover:text-white">Pre-Order →</Link>
                 </div>
               </div>
 
+            </div>
+          </div>
+        </section>
+
+        {/* ── PRE-ORDER CTA SECTION ── */}
+        <section className="px-5 pb-10 md:px-10 md:pb-14">
+          <div className="mx-auto max-w-7xl">
+            <div className="rounded-2xl border border-red-400/20 bg-red-400/5 p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
+              <div>
+                <p className="text-xs uppercase tracking-widest text-red-400 mb-1">Limited First Run</p>
+                <h3 className="text-2xl font-semibold text-white">Orders close May 31, 2026.</h3>
+                <p className="mt-1 text-sm text-white/50">24 units per design. We build when the orders are in. Ships mid-June.</p>
+              </div>
+              <Link href={preOrderLink} className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-8 py-3.5 text-sm font-semibold text-black transition hover:bg-stone-100 hover:-translate-y-0.5 whitespace-nowrap">
+                Pre-Order the Collection →
+              </Link>
             </div>
           </div>
         </section>
@@ -347,45 +258,17 @@ export default function DealershipSeriesPage() {
           <div className="mx-auto max-w-7xl">
             <div className="grid gap-8 rounded-2xl border border-white/5 bg-black/20 p-6 sm:p-8 md:grid-cols-[0.8fr_1.2fr] md:p-10">
               <div>
-                <p className="text-sm uppercase tracking-[0.24em] text-white/55">
-                  Built from experience
-                </p>
-                <h2 className="mt-4 text-2xl font-semibold sm:text-3xl md:text-5xl">
-                  Built by someone who's actually been inside the store.
-                </h2>
+                <p className="text-sm uppercase tracking-[0.24em] text-white/55">Built from experience</p>
+                <h2 className="mt-4 text-2xl font-semibold sm:text-3xl md:text-5xl">Built by someone who's actually been inside the store.</h2>
               </div>
-
               <div className="space-y-4 text-base leading-7 text-white/85 sm:text-lg">
                 <p>15+ years. Sales floor. Finance. Management.</p>
-                <p className="text-xl font-semibold text-white">
-                  I've worn almost every hat you can wear in a dealership — I know
-                  which ones get worn, and which never make it past the desk.
-                </p>
-                <p>
-                  I've desked deals, spot-delivered questionable ones, loaded up
-                  trades and paid for it at the auction, chased stips, flipped
-                  coins for $500, stayed two hours after close just to watch a
-                  deal fall apart in finance — and I've gotten deals hung when no
-                  one thought it was possible.
-                </p>
-                <p>
-                  I've also trained and worked alongside some damn good
-                  people — some of the best. That's why I believe you should look
-                  good, feel good, and be proud of what you wear.
-                </p>
-                <p>
-                  Most dealership gear gets ordered out of necessity — and worn
-                  the same way.
-                </p>
-                <p>
-                  That's why when I say I know what actually moves inside a
-                  dealership — I know what does and what doesn't.
-                </p>
-                <p className="pt-2 font-semibold text-white">
-                  This was built on purpose.
-                  <br />
-                  For you. By one of you.
-                </p>
+                <p className="text-xl font-semibold text-white">I've worn almost every hat you can wear in a dealership — I know which ones get worn, and which never make it past the desk.</p>
+                <p>I've desked deals, spot-delivered questionable ones, loaded up trades and paid for it at the auction, chased stips, flipped coins for $500, stayed two hours after close just to watch a deal fall apart in finance — and I've gotten deals hung when no one thought it was possible.</p>
+                <p>I've also trained and worked alongside some damn good people — some of the best. That's why I believe you should look good, feel good, and be proud of what you wear.</p>
+                <p>Most dealership gear gets ordered out of necessity — and worn the same way.</p>
+                <p>That's why when I say I know what actually moves inside a dealership — I know what does and what doesn't.</p>
+                <p className="pt-2 font-semibold text-white">This was built on purpose.<br />For you. By one of you.</p>
               </div>
             </div>
           </div>
@@ -399,6 +282,7 @@ export default function DealershipSeriesPage() {
               <a href="tel:479-544-1366" className="transition hover:text-white">479-544-1366</a>
               <a href="mailto:info@back40designco.com" className="transition hover:text-white">Email</a>
               <a href={instagramLink} target="_blank" rel="noreferrer" className="transition hover:text-white">Instagram</a>
+              <Link href={preOrderLink} className="text-red-400/70 transition hover:text-red-300">Pre-Order</Link>
               <Link href="/" className="transition hover:text-white">Back to Home</Link>
             </div>
           </div>
