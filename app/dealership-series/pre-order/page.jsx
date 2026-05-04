@@ -7,7 +7,7 @@ const FORMSPREE_ID = "xzdywzvy";
 const CONTEST_FORMSPREE_ID = "xjgjqrly";
 
 const hats = [
-  // ── FRONT LINE ──
+  // FRONT LINE
   {
     title: "Sticker is Quicker",
     lane: "Front Line",
@@ -38,7 +38,7 @@ const hats = [
     price: 40,
     bulkPrice: 35,
   },
-  // ── BACK LOT ──
+  // BACK LOT
   {
     title: "Hold Gross",
     lane: "Back Lot",
@@ -69,7 +69,17 @@ const hats = [
     price: 40,
     bulkPrice: 35,
   },
-  // ── SERVICE BAY ──
+  {
+    title: "Down the Road Motors",
+    lane: "Back Lot",
+    image: "/images/down-the-road.png",
+    subtitle: '"They said they can do it for less."',
+    patchType: "acrylic",
+    hat: "Richardson 112",
+    price: 40,
+    bulkPrice: 35,
+  },
+  // SERVICE BAY
   {
     title: "I Don't Work For Free",
     lane: "Service Bay",
@@ -385,7 +395,7 @@ export default function PreOrderPage() {
       {/* Background */}
       <div className="fixed inset-0 -z-10 bg-[url('/images/pre-order-page.png')] bg-cover bg-center" />
 
-      {/* ── LIGHTBOX ── */}
+      {/* LIGHTBOX */}
       {lightbox !== null && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm px-4"
@@ -416,7 +426,7 @@ export default function PreOrderPage() {
                 onClick={() => setLightbox(lightbox > 0 ? lightbox - 1 : hatsWithImages.length - 1)}
                 className="flex-1 rounded-xl border border-white/10 bg-white/5 py-2.5 text-xs uppercase tracking-widest text-white/60 hover:text-white transition"
               >
-                ← Prev
+                Prev
               </button>
               <button
                 onClick={() => { setLightbox(null); scrollToForm(hatsWithImages[lightbox].title); }}
@@ -428,23 +438,19 @@ export default function PreOrderPage() {
                 onClick={() => setLightbox(lightbox < hatsWithImages.length - 1 ? lightbox + 1 : 0)}
                 className="flex-1 rounded-xl border border-white/10 bg-white/5 py-2.5 text-xs uppercase tracking-widest text-white/60 hover:text-white transition"
               >
-                Next →
+                Next
               </button>
             </div>
           </div>
         </div>
       )}
 
-      {/* ── HEADER ── */}
+      {/* HEADER */}
       <header className="sticky top-0 z-40 border-b border-white/10 bg-stone-950/90 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-10 md:py-4">
           <Link href="/">
-  <img
-    src="/images/b402026.png"
-    alt="Back 40 Designs"
-    className="h-10 w-auto md:h-12"
-  />
-</Link>
+            <img src="/images/b402026.png" alt="Back 40 Designs" className="h-10 w-auto md:h-12" />
+          </Link>
 
           <nav className="hidden items-center gap-6 text-sm text-stone-300 md:flex">
             <Link href="/dealership-series" className="text-white font-semibold">Dealership Series</Link>
@@ -483,7 +489,7 @@ export default function PreOrderPage() {
         )}
       </header>
 
-      {/* ── HERO ── */}
+      {/* HERO */}
       <section className="mx-auto max-w-7xl px-5 py-14 md:px-10 md:py-20">
         <div className="max-w-3xl">
           <p className="mb-3 text-xs font-semibold uppercase tracking-[0.35em] text-red-400">
@@ -543,7 +549,7 @@ export default function PreOrderPage() {
         </div>
       </section>
 
-      {/* ── HAT GRID BY LANE ── */}
+      {/* HAT GRID BY LANE */}
       {lanes.map((lane) => (
         <section key={lane} className="mx-auto max-w-7xl px-5 pb-14 md:px-10 md:pb-20">
           <div className="mb-6 flex items-end justify-between">
@@ -617,7 +623,7 @@ export default function PreOrderPage() {
         </section>
       ))}
 
-      {/* ── PRE-ORDER FORM ── */}
+      {/* PRE-ORDER FORM */}
       <section ref={formRef} className="mx-auto max-w-7xl px-5 pb-20 md:px-10">
         <div className="grid gap-8 lg:grid-cols-[1fr_1.2fr]">
 
@@ -663,7 +669,7 @@ export default function PreOrderPage() {
         </div>
       </section>
 
-      {/* ── CONTEST SECTION ── */}
+      {/* CONTEST SECTION */}
       <section id="contest" className="mx-auto max-w-7xl px-5 pb-20 md:px-10">
         <div className="grid gap-8 lg:grid-cols-[1fr_1.2fr]">
 
@@ -719,7 +725,7 @@ export default function PreOrderPage() {
         </div>
       </section>
 
-      {/* ── FOOTER ── */}
+      {/* FOOTER */}
       <footer className="border-t border-white/10 px-5 py-8 text-sm text-stone-500 md:px-10">
         <div className="mx-auto flex max-w-7xl flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <p>© 2026 Back 40 Designs. Custom headwear with story and identity.</p>
