@@ -161,15 +161,13 @@ function PreOrderForm() {
     setStatus("sending");
     
     try {
-      const timestamp = new Date().toLocaleString();
-      const appendUrl = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${encodeURIComponent(SHEET_NAME)}!A:H:append?valueInputOption=USER_ENTERED&key=AIzaSyDummyKeyForNow`;
-      const values = [[timestamp, form.name, form.email, form.phone, form.quantity, form.hat, "", form.notes]];
+     const scriptUrl = "https://script.google.com/macros/s/AKfycbwdYFrl6Ee01ftlSdVegPvqlI60ccmOp9ApEw1xJUz0qpaOueDR5y2B_l0C_JCAH_7LTg/exec";
 
-      const res = await fetch(appendUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ values }),
-      });
+const res = await fetch(scriptUrl, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(form),
+});
 
       if (res.ok) {
         setStatus("success");
