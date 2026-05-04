@@ -3,9 +3,8 @@
 import React from 'react';
 import Link from 'next/link';
 
+const PREORDER_FORMSPREE_ID = "xzdywzvy";
 const CONTEST_FORMSPREE_ID = "xjgjqrly";
-const SHEET_ID = "16Auns01US_MmsXtYNDmZu13YXyIXByYwYMsQWxHSHmQ";
-const SHEET_NAME = "Form Responses 1";
 
 const hats = [
   // FRONT LINE
@@ -159,16 +158,12 @@ function PreOrderForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus("sending");
-    
     try {
-     const scriptUrl = "https://script.google.com/macros/s/AKfycbwdYFrl6Ee01ftlSdVegPvqlI60ccmOp9ApEw1xJUz0qpaOueDR5y2B_l0C_JCAH_7LTg/exec";
-
-const res = await fetch(scriptUrl, {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(form),
-});
-
+      const res = await fetch(`https://formspree.io/f/${PREORDER_FORMSPREE_ID}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({ ...form, source: "B40 Dealership Series Pre-Order" }),
+      });
       if (res.ok) {
         setStatus("success");
         setForm({ name: "", email: "", phone: "", quantity: "", hat: "", notes: "" });
@@ -229,7 +224,7 @@ const res = await fetch(scriptUrl, {
 
       <div>
         <label className={labelClass}>Hat Selection *</label>
-        <select name="hat" required value={form.hat} onChange={handleChange} className={`${inputClass} bg-black`}>
+        <select name="hat" required value={form.hat} onChange={handleChange} className={`${inputClass} bg-black text-white`}>
           <option value="">Select a hat...</option>
           {lanes.map((lane) => (
             <optgroup key={lane} label={`── ${lane} ──`}>
@@ -385,6 +380,14 @@ export default function PreOrderPage() {
       <style jsx global>{`
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes scaleIn { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: scale(1); } }
+        select option {
+          background-color: #1c1917;
+          color: #ffffff;
+        }
+        select option:checked {
+          background-color: #dc2626;
+          color: #ffffff;
+        }
       `}</style>
 
       {/* Background */}
