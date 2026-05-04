@@ -19,7 +19,7 @@ const backLotItems = [
   {
     title: 'Switch and Get Rich',
     subtitle: 'Different unit. Better gross.',
-    description: 'The one you picked is solid — but let me show you something that actually fits you better. *cough*',
+    description: 'The one you picked is solid. But let me show you something that actually fits you better. *cough*',
     image: '/images/coming-soon.PNG',
   },
   {
@@ -45,11 +45,7 @@ function GlitchButton() {
     <div className="mt-20 flex justify-center px-5">
       
         href="/lot-stretcher"
-        className={`relative w-full sm:w-auto text-center px-8 py-5 
-        text-lg sm:text-xl font-black uppercase tracking-widest
-        border border-red-500 bg-black/30 text-red-400 
-        transition-all duration-200 
-        ${glitch ? 'translate-x-[3px] -translate-y-[3px]' : ''}`}
+        className={`relative w-full sm:w-auto text-center px-8 py-5 text-lg sm:text-xl font-black uppercase tracking-widest border border-red-500 bg-black/30 text-red-400 transition-all duration-200 ${glitch ? 'translate-x-[3px] -translate-y-[3px]' : ''}`}
       >
         <span className={`absolute left-0 top-0 w-full h-full px-8 py-5 text-red-600 ${glitch ? 'translate-x-[4px] opacity-80' : 'opacity-0'}`}>
           GET THE LOT STRETCHER
@@ -57,7 +53,7 @@ function GlitchButton() {
         <span className={`absolute left-0 top-0 w-full h-full px-8 py-5 text-white ${glitch ? '-translate-x-[4px] opacity-80' : 'opacity-0'}`}>
           GET THE LOT STRETCHER
         </span>
-        <span className="relative">GET THE LOT STRETCHER &#8594;</span>
+        <span className="relative">GET THE LOT STRETCHER →</span>
       </a>
     </div>
   );
@@ -126,7 +122,6 @@ export default function BackLotPage() {
             <img src="/images/b402026.png" alt="Back 40 Designs" className="h-10 w-auto md:h-12" />
           </Link>
 
-          {/* Desktop nav */}
           <nav className="hidden items-center gap-6 text-sm text-stone-300 md:flex">
             <Link href="/#collections" className="transition hover:text-white">Collections</Link>
             <div className="relative group">
@@ -161,7 +156,6 @@ export default function BackLotPage() {
           </div>
         </div>
 
-        {/* Mobile menu */}
         {mobileMenuOpen && (
           <div className="border-t border-white/10 bg-black/90 px-4 py-4 md:hidden">
             <nav className="flex flex-col gap-4 text-sm text-stone-300">
@@ -215,7 +209,7 @@ export default function BackLotPage() {
           <p className="text-[10px] uppercase tracking-[0.45em] text-white/40 mb-3">B40 // Back Lot</p>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-semibold">Back Lot.</h1>
           <p className="mt-4 text-lg text-white/80 max-w-xl leading-7">
-            Built for the ones who've earned the right to wear it. Insider language. Closer energy. Not for everyone.
+            Built for the ones who have earned the right to wear it. Insider language. Closer energy. Not for everyone.
           </p>
           <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-red-400/30 bg-red-400/10 px-4 py-1.5">
             <span className="h-1.5 w-1.5 rounded-full bg-red-400 animate-pulse" />
@@ -226,7 +220,7 @@ export default function BackLotPage() {
               Pre-Order Now →
             </Link>
             <Link href="/dealership-series" className="inline-flex w-full justify-center rounded-2xl border border-white/20 px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-white/10 sm:w-auto">
-              ← Back to Dealership Series
+              Back to Dealership Series
             </Link>
           </div>
         </section>
@@ -242,7 +236,7 @@ export default function BackLotPage() {
               <div className="mt-5 overflow-hidden rounded-xl border border-white/10">
                 <img src={item.image} alt={item.title} className="w-full object-cover max-h-64" />
               </div>
-              <div className="mt-4 grid gap-2 mt-auto pt-2">
+              <div className="mt-auto pt-4">
                 <Link href={preOrderLink} className="inline-flex w-full justify-center rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-black transition hover:bg-stone-100">
                   Pre-Order This Hat →
                 </Link>
@@ -266,7 +260,7 @@ export default function BackLotPage() {
         <GlitchButton />
 
         <div className="mt-10 flex flex-col sm:flex-row gap-4 text-sm text-white/60">
-          <Link href="/dealership-series" className="hover:text-white">← Back to Dealership Series</Link>
+          <Link href="/dealership-series" className="hover:text-white">Back to Dealership Series</Link>
           <Link href="/" className="hover:text-white">Main Site</Link>
         </div>
 
