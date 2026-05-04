@@ -29,7 +29,7 @@ export default function FrontLinePage() {
     {
       name: "We Fina C",
       text: "We finna see. Every F&I manager, desk guy, and closer knows exactly what this means.",
-      image: "/images/coming-soon.PNG",
+      image: "/images/we-finance.jpg",
     },
   ];
 
