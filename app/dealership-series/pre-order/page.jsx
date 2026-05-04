@@ -235,7 +235,7 @@ function ContestEntryForm() {
         disabled={status === "sending"}
         className="w-full rounded-2xl bg-white py-3.5 text-sm font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100 disabled:opacity-60"
       >
-        {status === "sending"] ? "Submitting..." : "Submit My Entry →"}
+        {status === "sending" ? "Submitting..." : "Submit My Entry →"}
       </button>
     </form>
   );
