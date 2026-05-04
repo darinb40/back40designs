@@ -4,6 +4,8 @@ import React from 'react';
 import Link from 'next/link';
 
 const CONTEST_FORMSPREE_ID = "xjgjqrly";
+const SHEET_ID = "16Auns01US_MmsXtYNDmZu13YXyIXByYwYMsQWxHSHmQ";
+const SHEET_NAME = "Form Responses 1";
 
 const hats = [
   // FRONT LINE
@@ -139,6 +141,137 @@ const laneDescriptions = {
   "Service Bay": "Fixed ops. Built for the bay.",
 };
 
+function PreOrderForm() {
+  const [status, setStatus] = React.useState("idle");
+  const [form, setForm] = React.useState({
+    name: "",
+    email: "",
+    phone: "",
+    quantity: "",
+    hat: "",
+    notes: "",
+  });
+
+  const handleChange = (e) => {
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus("sending");
+    
+    try {
+      const timestamp = new Date().toLocaleString();
+      const appendUrl = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${encodeURIComponent(SHEET_NAME)}!A:H:append?valueInputOption=USER_ENTERED&key=AIzaSyDummyKeyForNow`;
+      const values = [[timestamp, form.name, form.email, form.phone, form.quantity, form.hat, "", form.notes]];
+
+      const res = await fetch(appendUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ values }),
+      });
+
+      if (res.ok) {
+        setStatus("success");
+        setForm({ name: "", email: "", phone: "", quantity: "", hat: "", notes: "" });
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
+  };
+
+  const inputClass = "w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-stone-500 transition focus:border-white/30 focus:outline-none";
+  const labelClass = "block text-xs font-semibold uppercase tracking-[0.2em] mb-2 text-stone-400";
+
+  if (status === "success") {
+    return (
+      <div className="rounded-2xl border border-white/10 bg-white/5 p-8 text-center">
+        <p className="text-4xl mb-4">✓</p>
+        <p className="text-xl font-semibold text-white mb-2">Order received.</p>
+        <p className="text-sm text-stone-400 mb-1">
+          Darin will follow up with a payment link within 24 hours.
+        </p>
+        <p className="text-sm text-stone-400 mb-3">
+          Questions? Call or text{" "}
+          <a href="tel:479-544-1366" className="underline text-stone-300">479-544-1366</a>
+        </p>
+        <div className="mt-4 rounded-2xl border border-red-400/20 bg-red-400/5 p-4">
+          <p className="text-xs font-semibold uppercase tracking-widest text-red-400 mb-1">Don't forget</p>
+          <p className="text-sm text-stone-300">When your hat arrives, post it, tag @b40_designs and your dealership, then <a href="#contest" className="underline">submit your contest entry</a> to win 40 hats for your store.</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div>
+          <label className={labelClass}>Your Name *</label>
+          <input type="text" name="name" required placeholder="First and last name" value={form.name} onChange={handleChange} className={inputClass} />
+        </div>
+        <div>
+          <label className={labelClass}>Email *</label>
+          <input type="email" name="email" required placeholder="you@yourbusiness.com" value={form.email} onChange={handleChange} className={inputClass} />
+        </div>
+      </div>
+
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div>
+          <label className={labelClass}>Phone / Text</label>
+          <input type="tel" name="phone" placeholder="479-000-0000" value={form.phone} onChange={handleChange} className={inputClass} />
+        </div>
+        <div>
+          <label className={labelClass}>Quantity *</label>
+          <input type="number" name="quantity" required placeholder="How many hats?" min="1" value={form.quantity} onChange={handleChange} className={inputClass} />
+        </div>
+      </div>
+
+      <div>
+        <label className={labelClass}>Hat Selection *</label>
+        <select name="hat" required value={form.hat} onChange={handleChange} className={`${inputClass} bg-stone-900`}>
+          <option value="">Select a hat...</option>
+          {lanes.map((lane) => (
+            <optgroup key={lane} label={`── ${lane} ──`}>
+              {hats.filter((h) => h.lane === lane).map((h) => (
+                <option key={h.title} value={h.title}>{h.title}</option>
+              ))}
+            </optgroup>
+          ))}
+        </select>
+      </div>
+
+      <div>
+        <label className={labelClass}>Notes</label>
+        <textarea name="notes" rows={3} placeholder="Color preference, business name, anything else..." value={form.notes} onChange={handleChange} className={`${inputClass} resize-none`} />
+      </div>
+
+      {status === "error" && (
+        <p className="text-sm text-red-400">
+          Something went wrong. Text Darin at{" "}
+          <a href="tel:479-544-1366" className="underline">479-544-1366</a>
+        </p>
+      )}
+
+      <button
+        type="submit"
+        disabled={status === "sending"}
+        className="w-full rounded-xl bg-white py-3 text-sm font-semibold text-black transition hover:bg-stone-100 disabled:opacity-60"
+      >
+        {status === "sending" ? "Sending..." : "Submit Pre-Order →"}
+      </button>
+
+      <p className="text-center text-xs text-stone-500">
+        Payment link sent within 24 hours via Square.
+        Questions? Text{" "}
+        <a href="tel:479-544-1366" className="underline text-stone-400">479-544-1366</a>
+      </p>
+    </form>
+  );
+}
+
 function ContestEntryForm() {
   const [status, setStatus] = React.useState("idle");
   const [form, setForm] = React.useState({
@@ -254,7 +387,6 @@ export default function PreOrderPage() {
       <style jsx global>{`
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes scaleIn { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: scale(1); } }
-        iframe { width: 100% !important; }
       `}</style>
 
       {/* Background */}
@@ -518,14 +650,12 @@ export default function PreOrderPage() {
             </div>
           </div>
 
-          <div className="rounded-[2rem] border border-white/10 bg-black/30 backdrop-blur-sm px-6 py-8 text-white md:px-8 md:py-10 overflow-hidden">
+          <div className="rounded-[2rem] border border-white/10 bg-black/30 backdrop-blur-sm px-6 py-8 text-white md:px-8 md:py-10">
             <p className="text-xs uppercase tracking-[0.25em] text-stone-400 mb-2">Pre-Order Form</p>
             <h2 className="text-2xl font-semibold text-white mb-6">
               Reserve your hat
             </h2>
-            <div className="scale-90 origin-top -mx-8 -mb-20">
-              <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSczMo59DGEDopIJXKYvo-QR0Bd-3F4zYvrKuagpL5tYP6LS9A/viewform?embedded=true" width="640" height="1583" frameBorder="0" marginHeight="0" marginWidth="0">Loading…</iframe>
-            </div>
+            <PreOrderForm />
           </div>
 
         </div>
