@@ -592,6 +592,7 @@ export default function Back40LandingPage() {
             <a href={instagramLink} target="_blank" rel="noreferrer" className="transition hover:text-stone-300">Instagram</a>
             <a href={facebookLink} target="_blank" rel="noreferrer" className="transition hover:text-stone-300">Facebook</a>
             <a href="/trail-series" className="transition hover:text-stone-300">Shop</a>
+            <a href="/privacy" className="transition hover:text-stone-300">Privacy Policy</a>
           </div>
         </div>
       </footer>
