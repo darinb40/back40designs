@@ -43,10 +43,7 @@ function GlitchButton() {
 
   return (
     <div className="mt-20 flex justify-center px-5">
-      
-        href="/lot-stretcher"
-        className={`relative w-full sm:w-auto text-center px-8 py-5 text-lg sm:text-xl font-black uppercase tracking-widest border border-red-500 bg-black/30 text-red-400 transition-all duration-200 ${glitch ? 'translate-x-[3px] -translate-y-[3px]' : ''}`}
-      >
+      <a href="/lot-stretcher" className={`relative w-full sm:w-auto text-center px-8 py-5 text-lg sm:text-xl font-black uppercase tracking-widest border border-red-500 bg-black/30 text-red-400 transition-all duration-200 ${glitch ? 'translate-x-[3px] -translate-y-[3px]' : ''}`}>
         <span className={`absolute left-0 top-0 w-full h-full px-8 py-5 text-red-600 ${glitch ? 'translate-x-[4px] opacity-80' : 'opacity-0'}`}>
           GET THE LOT STRETCHER
         </span>
