@@ -19,7 +19,7 @@ export default function FrontLinePage() {
     {
       name: "Board It! (Classic)",
       text: "The moment every salesperson lives for. When the deal sticks and the board gets another name on it.",
-      image: "/images/board-it-car.jpg",
+      image: "/images/board-it-car.png",
     },
     {
       name: "Board It! (Crown)",
