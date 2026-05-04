@@ -7,10 +7,6 @@ const ArrowRight = ({ className = "h-4 w-4" }) => (
   <span className={className}>→</span>
 );
 
-const LockIcon = ({ className = "h-4 w-4" }) => (
-  <span className={className}>🔒</span>
-);
-
 export default function DealershipSeriesPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const [mobileDropdownOpen, setMobileDropdownOpen] = React.useState(false);
@@ -53,7 +49,7 @@ export default function DealershipSeriesPage() {
 
       <div className="relative z-10">
 
-        {/* ── HEADER ── */}
+        {/* HEADER */}
         <header className="sticky top-0 z-40 border-b border-white/10 bg-black/80 backdrop-blur">
           <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-10 md:py-4">
             <Link href="/">
@@ -136,7 +132,7 @@ export default function DealershipSeriesPage() {
           )}
         </header>
 
-        {/* ── PRE-ORDER BANNER ── */}
+        {/* PRE-ORDER BANNER */}
         <div className="border-b border-red-400/20 bg-red-400/8 px-5 py-3 text-center md:px-10">
           <p className="text-xs text-red-300 uppercase tracking-widest font-semibold">
             <span className="inline-block w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse mr-2 align-middle" />
@@ -145,7 +141,7 @@ export default function DealershipSeriesPage() {
           </p>
         </div>
 
-        {/* ── HERO ── */}
+        {/* HERO */}
         <section className="px-5 pb-10 pt-8 md:px-10 md:pb-16 md:pt-14">
           <div className="mx-auto flex max-w-7xl items-center">
             <div className="w-full max-w-4xl rounded-2xl border border-white/5 bg-black/20 p-6 sm:p-8">
@@ -181,7 +177,7 @@ export default function DealershipSeriesPage() {
           </div>
         </section>
 
-        {/* ── THREE LANES ── */}
+        {/* THREE LANES */}
         <section className="px-5 pb-10 pt-0 md:px-10 md:pb-14 md:pt-0">
           <div className="mx-auto max-w-7xl">
             <div className="mb-6 max-w-3xl rounded-2xl border border-white/5 bg-black/20 p-6 sm:p-8">
@@ -197,7 +193,7 @@ export default function DealershipSeriesPage() {
                 <h3 className="mt-3 text-xl font-semibold">Front Line</h3>
                 <p className="mt-3 text-sm leading-6 text-white/75">Clean dealership-focused headwear built for salespeople, managers, and customer-facing teams.</p>
                 <div className="mt-5 h-56 overflow-hidden rounded-xl border border-white/10 md:h-64">
-                  <img src="/images/coming-soon.PNG" alt="Front Line — Coming Soon" className="h-full w-full object-cover" />
+                  <img src="/images/sticker-is-quicker.jpg" alt="Front Line" className="h-full w-full object-cover" />
                 </div>
                 <div className="mt-4 grid gap-2">
                   <Link href="/dealership-series/front-line" className="inline-flex w-full justify-center rounded-2xl bg-white px-5 py-3 font-semibold text-black transition hover:bg-stone-100">View Front Line →</Link>
@@ -211,7 +207,7 @@ export default function DealershipSeriesPage() {
                 <h3 className="mt-3 text-xl font-semibold">Service Bay</h3>
                 <p className="mt-3 text-sm leading-6 text-white/75">Built for advisors, techs, and the people who keep the store moving.</p>
                 <div className="mt-5 h-56 overflow-hidden rounded-xl border border-white/10 md:h-64">
-                  <img src="/images/cross-thread.png" alt="Service Bay — Cross Threaded Is Threaded" className="h-full w-full object-cover" />
+                  <img src="/images/cross-thread.png" alt="Service Bay" className="h-full w-full object-cover" />
                 </div>
                 <div className="mt-4 grid gap-2">
                   <Link href="/dealership-series/service-bay" className="inline-flex w-full justify-center rounded-2xl border border-white/10 bg-black/20 px-5 py-3 font-semibold text-white transition hover:bg-white/10">Enter Service Bay →</Link>
@@ -221,14 +217,14 @@ export default function DealershipSeriesPage() {
 
               {/* Back Lot */}
               <div className="flex flex-col rounded-2xl border border-white/5 bg-black/20 p-5 md:p-7">
-                <p className="text-sm uppercase tracking-[0.2em] text-white/55">Private Lane</p>
+                <p className="text-sm uppercase tracking-[0.2em] text-white/55">Closer Lane</p>
                 <h3 className="mt-3 text-xl font-semibold">Back Lot</h3>
-                <p className="mt-3 text-sm leading-6 text-white/75">Password-protected. Built for select dealership buyers only.</p>
+                <p className="mt-3 text-sm leading-6 text-white/75">Insider language. Closer energy. Built for the ones who have earned the right to wear it.</p>
                 <div className="mt-5 h-56 overflow-hidden rounded-xl border border-white/10 md:h-64">
-                  <img src="/images/hold-gross.png" alt="Back Lot — Hold Gross" className="h-full w-full object-cover" />
+                  <img src="/images/hold-gross.png" alt="Back Lot" className="h-full w-full object-cover" />
                 </div>
                 <div className="mt-4 grid gap-2">
-                  <Link href="/dealership-series/backlot" className="inline-flex w-full justify-center rounded-2xl border border-white/10 bg-black/20 px-5 py-3 font-semibold text-white transition hover:bg-white/10">Enter Password <LockIcon /></Link>
+                  <Link href="/dealership-series/backlot" className="inline-flex w-full justify-center rounded-2xl border border-white/10 bg-black/20 px-5 py-3 font-semibold text-white transition hover:bg-white/10">Enter Back Lot →</Link>
                   <Link href={preOrderLink} className="inline-flex w-full justify-center rounded-2xl border border-red-400/30 bg-red-400/8 px-5 py-2.5 text-sm font-semibold text-red-300 transition hover:bg-red-400/15 hover:text-white">Pre-Order →</Link>
                 </div>
               </div>
@@ -237,7 +233,7 @@ export default function DealershipSeriesPage() {
           </div>
         </section>
 
-        {/* ── PRE-ORDER CTA SECTION ── */}
+        {/* PRE-ORDER CTA */}
         <section className="px-5 pb-10 md:px-10 md:pb-14">
           <div className="mx-auto max-w-7xl">
             <div className="rounded-2xl border border-red-400/20 bg-red-400/5 p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
@@ -253,7 +249,7 @@ export default function DealershipSeriesPage() {
           </div>
         </section>
 
-        {/* ── CREDIBILITY ── */}
+        {/* CREDIBILITY */}
         <section className="px-5 py-10 md:px-10 md:py-14">
           <div className="mx-auto max-w-7xl">
             <div className="grid gap-8 rounded-2xl border border-white/5 bg-black/20 p-6 sm:p-8 md:grid-cols-[0.8fr_1.2fr] md:p-10">
@@ -274,7 +270,7 @@ export default function DealershipSeriesPage() {
           </div>
         </section>
 
-        {/* ── FOOTER ── */}
+        {/* FOOTER */}
         <footer className="border-t border-white/10 px-5 py-8 text-sm text-white/40 md:px-10">
           <div className="mx-auto flex max-w-7xl flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <p>© 2026 Back 40 Designs. Custom headwear with story and identity.</p>
