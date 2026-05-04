@@ -57,7 +57,7 @@ function GlitchButton() {
         <span className={`absolute left-0 top-0 w-full h-full px-8 py-5 text-white ${glitch ? '-translate-x-[4px] opacity-80' : 'opacity-0'}`}>
           GET THE LOT STRETCHER
         </span>
-        <span className="relative">GET THE LOT STRETCHER →</span>
+        <span className="relative">GET THE LOT STRETCHER &#8594;</span>
       </a>
     </div>
   );
