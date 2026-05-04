@@ -69,7 +69,7 @@ export default function DealershipSeriesPage() {
                 <div className="absolute left-0 top-full mt-0 hidden w-60 flex-col rounded-xl border border-white/10 bg-black/95 p-2 pt-5 backdrop-blur-md shadow-2xl group-hover:flex before:absolute before:inset-x-0 before:-top-3 before:h-3 before:content-['']">
                   <Link href="/dealership-series/front-line" className="rounded-lg px-4 py-3 transition hover:bg-white/5 hover:text-white">Front Line</Link>
                   <Link href="/dealership-series/service-bay" className="rounded-lg px-4 py-3 transition hover:bg-white/5 hover:text-white">Service Bay</Link>
-                  <Link href="/dealership-series/backlot" className="rounded-lg px-4 py-3 transition hover:bg-white/5 hover:text-white">Back Lot 🔒</Link>
+                  <Link href="/dealership-series/backlot" className="rounded-lg px-4 py-3 transition hover:bg-white/5 hover:text-white">Back Lot</Link>
                   <Link href="/dealership-series/green-pea-guide" className="rounded-lg px-4 py-3 transition hover:bg-white/5 hover:text-white">Green Pea Guide</Link>
                   <Link href="/lot-stretcher" className="rounded-lg px-4 py-3 transition hover:bg-white/5 hover:text-white">Lot Stretcher</Link>
                   <div className="my-1 border-t border-white/10" />
@@ -113,7 +113,7 @@ export default function DealershipSeriesPage() {
                       <Link href="/dealership-series" onClick={() => setMobileMenuOpen(false)} className="transition hover:text-white">Overview</Link>
                       <Link href="/dealership-series/front-line" onClick={() => setMobileMenuOpen(false)} className="transition hover:text-white">Front Line</Link>
                       <Link href="/dealership-series/service-bay" onClick={() => setMobileMenuOpen(false)} className="transition hover:text-white">Service Bay</Link>
-                      <Link href="/dealership-series/backlot" onClick={() => setMobileMenuOpen(false)} className="transition hover:text-white">Back Lot 🔒</Link>
+                      <Link href="/dealership-series/backlot" onClick={() => setMobileMenuOpen(false)} className="transition hover:text-white">Back Lot</Link>
                       <Link href="/dealership-series/green-pea-guide" onClick={() => setMobileMenuOpen(false)} className="transition hover:text-white">Green Pea Guide</Link>
                       <Link href="/lot-stretcher" onClick={() => setMobileMenuOpen(false)} className="transition hover:text-white">Lot Stretcher</Link>
                       <Link href={preOrderLink} onClick={() => setMobileMenuOpen(false)} className="text-red-400 font-semibold transition hover:text-red-300">Pre-Order →</Link>
@@ -165,7 +165,7 @@ export default function DealershipSeriesPage() {
                   Enter Service Bay →
                 </Link>
                 <Link href="/dealership-series/backlot" className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-white/10 bg-black/20 px-5 py-4 font-semibold text-white transition hover:bg-white/10 sm:w-auto">
-                  Enter Back Lot <LockIcon />
+                  Enter Back Lot <ArrowRight />
                 </Link>
                 <Link href={preOrderLink} className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-red-400/40 bg-red-400/10 px-5 py-4 font-semibold text-red-300 transition hover:bg-red-400/20 hover:text-white sm:w-auto">
                   Pre-Order Now →
