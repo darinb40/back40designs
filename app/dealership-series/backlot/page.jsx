@@ -22,6 +22,12 @@ const backLotItems = [
     description: 'The one you picked is solid — but let me show you something that actually fits you better. *cough*',
     image: '/images/coming-soon.PNG',
   },
+  {
+    title: 'Down the Road Motors',
+    subtitle: '"They said they can do it for less."',
+    description: "Est. Never. Located in Somewhere Elseville, USA. They've never actually been there — but somehow, some way... they always can.",
+    image: '/images/down-the-road.png',
+  },
 ];
 
 function GlitchButton() {
@@ -37,7 +43,7 @@ function GlitchButton() {
 
   return (
     <div className="mt-20 flex justify-center px-5">
-      <a
+      
         href="/lot-stretcher"
         className={`relative w-full sm:w-auto text-center px-8 py-5 
         text-lg sm:text-xl font-black uppercase tracking-widest
@@ -113,7 +119,7 @@ export default function BackLotPage() {
         <div className="absolute bottom-[10%] right-0 h-[35vh] w-[45vw] bg-gradient-to-r from-transparent via-red-400/15 to-transparent blur-2xl animate-[b40SecondHeadlightPass_18s_ease-in-out_infinite]" />
       </div>
 
-      {/* ── HEADER ── */}
+      {/* HEADER */}
       <header className="sticky top-0 z-40 border-b border-white/10 bg-black/80 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-10 md:py-4">
           <Link href="/">
@@ -192,7 +198,7 @@ export default function BackLotPage() {
         )}
       </header>
 
-      {/* ── PRE-ORDER BANNER ── */}
+      {/* PRE-ORDER BANNER */}
       <div className="border-b border-red-400/20 bg-red-400/8 px-5 py-3 text-center md:px-10">
         <p className="text-xs text-red-300 uppercase tracking-widest font-semibold">
           <span className="inline-block w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse mr-2 align-middle" />
@@ -201,7 +207,7 @@ export default function BackLotPage() {
         </p>
       </div>
 
-      {/* ── CONTENT ── */}
+      {/* CONTENT */}
       <div className="px-5 sm:px-6 pt-14 pb-20">
 
         {/* Hero */}
@@ -226,7 +232,7 @@ export default function BackLotPage() {
         </section>
 
         {/* Hat cards */}
-        <section className="grid gap-6 max-w-5xl md:grid-cols-3">
+        <section className="grid gap-6 max-w-5xl md:grid-cols-2">
           {backLotItems.map((item) => (
             <div key={item.title} className="bg-black/20 border border-white/5 rounded-2xl p-5 flex flex-col">
               <p className="text-[10px] uppercase tracking-[0.35em] text-white/30">B40 // Back Lot</p>
@@ -249,7 +255,7 @@ export default function BackLotPage() {
         <div className="mt-12 max-w-5xl rounded-2xl border border-red-400/20 bg-red-400/5 p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
           <div>
             <p className="text-xs uppercase tracking-widest text-red-400 mb-1">Limited First Run</p>
-            <h3 className="text-2xl font-semibold text-white">Want all three?</h3>
+            <h3 className="text-2xl font-semibold text-white">Want all four?</h3>
             <p className="mt-1 text-sm text-white/50">24 units per design. Orders close May 31. Ships mid-June.</p>
           </div>
           <Link href={preOrderLink} className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-8 py-3.5 text-sm font-semibold text-black transition hover:bg-stone-100 hover:-translate-y-0.5 whitespace-nowrap">
@@ -266,7 +272,7 @@ export default function BackLotPage() {
 
       </div>
 
-      {/* ── FOOTER ── */}
+      {/* FOOTER */}
       <footer className="border-t border-white/10 px-5 py-8 text-sm text-white/40 md:px-10">
         <div className="mx-auto flex max-w-7xl flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <p>© 2026 Back 40 Designs. Custom headwear with story and identity.</p>
