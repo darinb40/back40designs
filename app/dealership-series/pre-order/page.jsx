@@ -11,7 +11,7 @@ const hats = [
   {
     title: "Sticker is Quicker",
     lane: "Front Line",
-    image: null,
+    image: "/images/sticker-is-quicker.jpg",
     subtitle: "How many hats would you buy if all your customers paid sticker?",
     patchType: "acrylic",
     hat: "Richardson 112",
@@ -21,7 +21,7 @@ const hats = [
   {
     title: "Board It!",
     lane: "Front Line",
-    image: null,
+    image: "/images-board-it-crown.png",
     subtitle: "The moment every salesperson lives for. When the deal sticks and the board gets another name on it.",
     patchType: "acrylic",
     hat: "Richardson 112",
