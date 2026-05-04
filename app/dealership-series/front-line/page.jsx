@@ -17,9 +17,14 @@ export default function FrontLinePage() {
       image: "/images/coming-soon.PNG",
     },
     {
-      name: "Board It!",
+      name: "Board It! (Classic)",
       text: "The moment every salesperson lives for. When the deal sticks and the board gets another name on it.",
-      image: "/images/coming-soon.PNG",
+      image: "/images/board-it-car.png",
+    },
+    {
+      name: "Board It! (Crown)",
+      text: "Same energy. Different look. For the closer who's been putting names on boards long enough to wear the crown.",
+      image: "/images/board-it-crown.png",
     },
     {
       name: "We Fina C",
@@ -68,7 +73,7 @@ export default function FrontLinePage() {
 
       <div className="relative z-20">
 
-        {/* ── HEADER ── */}
+        {/* HEADER */}
         <header className="sticky top-0 z-40 border-b border-white/10 bg-black/80 backdrop-blur">
           <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-10 md:py-4">
             <Link href="/">
@@ -147,7 +152,7 @@ export default function FrontLinePage() {
           )}
         </header>
 
-        {/* ── PRE-ORDER BANNER ── */}
+        {/* PRE-ORDER BANNER */}
         <div className="border-b border-red-400/20 bg-red-400/8 px-5 py-3 text-center md:px-10">
           <p className="text-xs text-red-300 uppercase tracking-widest font-semibold">
             <span className="inline-block w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse mr-2 align-middle" />
@@ -156,7 +161,7 @@ export default function FrontLinePage() {
           </p>
         </div>
 
-        {/* ── HERO ── */}
+        {/* HERO */}
         <section className="min-h-[100dvh] flex items-center">
           <div className="w-full px-5 sm:px-6 pt-10 pb-20">
             <div className="max-w-xl">
@@ -184,7 +189,7 @@ export default function FrontLinePage() {
           </div>
         </section>
 
-        {/* ── DROP ── */}
+        {/* DROP */}
         <section id="drop" className="px-5 sm:px-6 py-20 md:py-28">
           <div className="mb-12">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-black">Front Line Hats</h2>
@@ -193,14 +198,14 @@ export default function FrontLinePage() {
             </p>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-3">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {hats.map((hat) => (
               <div key={hat.name} className="rounded-2xl border border-white/5 bg-black/20 p-5 md:p-7 flex flex-col">
                 <p className="text-sm uppercase tracking-[0.2em] text-white/55">Front Line</p>
                 <h3 className="mt-3 text-xl font-semibold">{hat.name}</h3>
                 <p className="mt-3 text-sm leading-6 text-white/75">{hat.text}</p>
                 <div className="mt-5 overflow-hidden rounded-xl border border-white/10">
-                  <img src={hat.image} alt={`${hat.name} — Coming Soon`} className="w-full object-cover max-h-64" />
+                  <img src={hat.image} alt={hat.name} className="w-full object-cover max-h-64" />
                 </div>
                 <div className="mt-4 grid gap-2 mt-auto pt-4">
                   <Link href={preOrderLink} className="inline-flex w-full justify-center rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-black transition hover:bg-stone-100">
@@ -215,7 +220,7 @@ export default function FrontLinePage() {
           <div className="mt-12 rounded-2xl border border-red-400/20 bg-red-400/5 p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
             <div>
               <p className="text-xs uppercase tracking-widest text-red-400 mb-1">Limited First Run</p>
-              <h3 className="text-2xl font-semibold text-white">Want all three?</h3>
+              <h3 className="text-2xl font-semibold text-white">Want all four?</h3>
               <p className="mt-1 text-sm text-white/50">24 units per design. Orders close May 31. Ships mid-June.</p>
             </div>
             <Link href={preOrderLink} className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-8 py-3.5 text-sm font-semibold text-black transition hover:bg-stone-100 hover:-translate-y-0.5 whitespace-nowrap">
@@ -224,7 +229,7 @@ export default function FrontLinePage() {
           </div>
         </section>
 
-        {/* ── FOOTER ── */}
+        {/* FOOTER */}
         <footer className="border-t border-white/10 px-5 py-8 text-sm text-white/40 md:px-10">
           <div className="mx-auto flex max-w-7xl flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <p>© 2026 Back 40 Designs. Custom headwear with story and identity.</p>
