@@ -158,7 +158,7 @@ export default function Back40LandingPage() {
 
   const collections = [
     { title: "Trail Series", eyebrow: "Signature Line", description: "Topo-driven hats inspired by Arkansas trails, ridgelines, and the outdoor culture that built the brand.", icon: MountainIcon, image: "/images/holding-hero.jpg", link: "/trail-series" },
-    { title: "Business Merch", eyebrow: "For Shops & Brands", description: "Custom hats for local businesses, bike shops, restaurants, events, and teams that want merch with real identity.", icon: StoreIcon, image: "/images/psv-hat.jpg", link: "/gallery" },
+    { title: "Business Merch", eyebrow: "For Shops & Brands", description: "Custom hats for local businesses, bike shops, restaurants, events, and teams that want merch with real identity.", icon: StoreIcon, image: "/images/PSV-HAT.png", link: "/gallery" },
     { title: "Legacy Builds", eyebrow: "One-Off Projects", description: "Story-driven pieces built from places, memories, family history, and meaningful details worth preserving.", icon: ShieldCheckIcon, image: "/images/legacy-hat.jpg", link: "/gallery" },
   ];
 
