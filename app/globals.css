@@ -148,6 +148,14 @@ img, video {
 .animate-shake {
   animation: shake 0.25s ease-in-out;
 }
+select option {
+  background-color: #1c1917;
+  color: #ffffff;
+}
+select option:checked {
+  background-color: #dc2626;
+  color: #ffffff;
+}
 @media print {
   body {
     background: #050505 !important;
