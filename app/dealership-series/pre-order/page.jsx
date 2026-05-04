@@ -231,7 +231,7 @@ function PreOrderForm() {
 
       <div>
         <label className={labelClass}>Hat Selection *</label>
-        <select name="hat" required value={form.hat} onChange={handleChange} className={`${inputClass} bg-stone-900`}>
+        <select name="hat" required value={form.hat} onChange={handleChange} className={`${inputClass} bg-black`}>
           <option value="">Select a hat...</option>
           {lanes.map((lane) => (
             <optgroup key={lane} label={`── ${lane} ──`}>
