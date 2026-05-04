@@ -17,10 +17,16 @@ const backLotItems = [
     image: '/images/let-me-guess.png',
   },
   {
-    title: 'Switch and Get Rich',
+    title: 'Switch and Get Rich (Classic)',
     subtitle: 'Different unit. Better gross.',
     description: 'The one you picked is solid. But let me show you something that actually fits you better. *cough*',
-    image: '/images/coming-soon.PNG',
+    image: '/images/switch.jpg',
+  },
+  {
+    title: 'Switch and Get Rich (Skull)',
+    subtitle: 'Different unit. Same closer energy.',
+    description: 'Some deals need a little more persuasion. Switch the unit. Hold the gross. Wear the skull.',
+    image: '/images/switch-skull.jpg',
   },
   {
     title: 'Down the Road Motors',
@@ -246,7 +252,7 @@ export default function BackLotPage() {
         <div className="mt-12 max-w-5xl rounded-2xl border border-red-400/20 bg-red-400/5 p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
           <div>
             <p className="text-xs uppercase tracking-widest text-red-400 mb-1">Limited First Run</p>
-            <h3 className="text-2xl font-semibold text-white">Want all four?</h3>
+            <h3 className="text-2xl font-semibold text-white">Want all five?</h3>
             <p className="mt-1 text-sm text-white/50">24 units per design. Orders close May 31. Ships mid-June.</p>
           </div>
           <Link href={preOrderLink} className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-8 py-3.5 text-sm font-semibold text-black transition hover:bg-stone-100 hover:-translate-y-0.5 whitespace-nowrap">
