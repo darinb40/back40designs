@@ -518,9 +518,9 @@ export default function PreOrderPage() {
             </div>
           </div>
 
-          <div className="rounded-[2rem] border border-white/10 bg-gradient-to-br from-stone-100 to-stone-200 px-6 py-8 text-stone-950 md:px-8 md:py-10 overflow-hidden">
-            <p className="text-xs uppercase tracking-[0.25em] text-stone-500 mb-2">Pre-Order Form</p>
-            <h2 className="text-2xl font-semibold text-stone-950 mb-6">
+          <div className="rounded-[2rem] border border-white/10 bg-black/30 backdrop-blur-sm px-6 py-8 text-white md:px-8 md:py-10 overflow-hidden">
+            <p className="text-xs uppercase tracking-[0.25em] text-stone-400 mb-2">Pre-Order Form</p>
+            <h2 className="text-2xl font-semibold text-white mb-6">
               Reserve your hat
             </h2>
             <div className="scale-90 origin-top -mx-8 -mb-20">
