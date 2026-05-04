@@ -19,10 +19,20 @@ const hats = [
     bulkPrice: 35,
   },
   {
-    title: "Board It!",
+    title: "Board It! (Classic)",
     lane: "Front Line",
-    image: "/images-board-it-crown.png",
+    image: "/images/board-it-car.png",
     subtitle: "The moment every salesperson lives for. When the deal sticks and the board gets another name on it.",
+    patchType: "acrylic",
+    hat: "Richardson 112",
+    price: 40,
+    bulkPrice: 35,
+  },
+  {
+    title: "Board It! (Crown)",
+    lane: "Front Line",
+    image: "/images/board-it-crown.png",
+    subtitle: "Same energy. Different look. For the closer who has been putting names on boards long enough to wear the crown.",
     patchType: "acrylic",
     hat: "Richardson 112",
     price: 40,
@@ -60,10 +70,10 @@ const hats = [
     bulkPrice: 35,
   },
   {
-    title: "Closer High Gross",
+    title: "Switch and Get Rich",
     lane: "Back Lot",
     image: null,
-    subtitle: "Finish strong. Hold the line.",
+    subtitle: "Different unit. Better gross.",
     patchType: "acrylic",
     hat: "Richardson 112",
     price: 40,
@@ -116,7 +126,7 @@ const lanes = ["Front Line", "Back Lot", "Service Bay"];
 
 const laneDescriptions = {
   "Front Line": "Customer-facing. Clean. For the ones who close.",
-  "Back Lot": "Password protected. Earned, not given.",
+  "Back Lot": "Earned, not given.",
   "Service Bay": "Fixed ops. Built for the bay.",
 };
 
@@ -557,11 +567,6 @@ export default function PreOrderPage() {
               <p className="text-xs uppercase tracking-[0.25em] text-stone-500">{laneDescriptions[lane]}</p>
               <h2 className="mt-1 text-2xl font-semibold text-white sm:text-3xl">{lane}</h2>
             </div>
-            {lane === "Back Lot" && (
-              <span className="rounded-full border border-red-400/30 bg-red-400/10 px-3 py-1 text-[10px] uppercase tracking-widest text-red-400">
-                Password Protected
-              </span>
-            )}
           </div>
 
           <div className="grid gap-5 md:grid-cols-3">
