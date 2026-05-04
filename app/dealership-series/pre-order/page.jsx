@@ -3,7 +3,6 @@
 import React from 'react';
 import Link from 'next/link';
 
-const FORMSPREE_ID = "xzdywzvy";
 const CONTEST_FORMSPREE_ID = "xjgjqrly";
 
 const hats = [
@@ -140,151 +139,6 @@ const laneDescriptions = {
   "Service Bay": "Fixed ops. Built for the bay.",
 };
 
-function ContactForm({ selectedHat }) {
-  const [status, setStatus] = React.useState("idle");
-  const [form, setForm] = React.useState({
-    name: "",
-    email: "",
-    phone: "",
-    hat: selectedHat || "",
-    quantity: "",
-    patchType: "acrylic",
-    message: "",
-  });
-
-  React.useEffect(() => {
-    if (selectedHat) setForm((prev) => ({ ...prev, hat: selectedHat }));
-  }, [selectedHat]);
-
-  const handleChange = (e) => {
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setStatus("sending");
-    try {
-      const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({ ...form, source: "Dealership Series Pre-Order" }),
-      });
-      if (res.ok) {
-        setStatus("success");
-        setForm({ name: "", email: "", phone: "", hat: "", quantity: "", patchType: "acrylic", message: "" });
-      } else {
-        setStatus("error");
-      }
-    } catch {
-      setStatus("error");
-    }
-  };
-
-  const inputClass = "w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-stone-500 transition focus:border-white/30 focus:outline-none";
-  const labelClass = "block text-xs font-semibold uppercase tracking-[0.2em] mb-1.5 text-stone-400";
-
-  if (status === "success") {
-    return (
-      <div className="rounded-[2rem] border border-white/10 bg-white/5 p-8 text-center">
-        <p className="text-4xl mb-4">✓</p>
-        <p className="text-xl font-semibold text-white mb-2">Order received.</p>
-        <p className="text-sm text-stone-400 mb-1">
-          Darin will follow up with a payment link within 24 hours.
-        </p>
-        <p className="text-sm text-stone-400 mb-3">
-          Questions? Call or text{" "}
-          <a href="tel:479-544-1366" className="underline text-stone-300">479-544-1366</a>
-        </p>
-        <div className="mt-4 rounded-2xl border border-red-400/20 bg-red-400/5 p-4">
-          <p className="text-xs font-semibold uppercase tracking-widest text-red-400 mb-1">Don't forget</p>
-          <p className="text-sm text-stone-300">When your hat arrives, post it, tag @b40_designs and your dealership, then <a href="#contest" className="underline">submit your contest entry</a> to win 40 hats for your store.</p>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <div className="grid gap-4 sm:grid-cols-2">
-        <div>
-          <label className={labelClass}>Your Name *</label>
-          <input type="text" name="name" required placeholder="First and last name" value={form.name} onChange={handleChange} className={inputClass} />
-        </div>
-        <div>
-          <label className={labelClass}>Email *</label>
-          <input type="email" name="email" required placeholder="you@yourbusiness.com" value={form.email} onChange={handleChange} className={inputClass} />
-        </div>
-      </div>
-
-      <div className="grid gap-4 sm:grid-cols-2">
-        <div>
-          <label className={labelClass}>Phone / Text</label>
-          <input type="tel" name="phone" placeholder="479-000-0000" value={form.phone} onChange={handleChange} className={inputClass} />
-        </div>
-        <div>
-          <label className={labelClass}>Quantity *</label>
-          <select name="quantity" required value={form.quantity} onChange={handleChange} className={`${inputClass} bg-stone-900`}>
-            <option value="">Select quantity...</option>
-            <option value="1">1 hat — $40</option>
-            <option value="2-11">2–11 hats — $40 each</option>
-            <option value="12-23">12–23 hats — $35 each</option>
-            <option value="24+">24+ hats — $35 each</option>
-          </select>
-        </div>
-      </div>
-
-      <div className="grid gap-4 sm:grid-cols-2">
-        <div>
-          <label className={labelClass}>Hat Selection *</label>
-          <select name="hat" required value={form.hat} onChange={handleChange} className={`${inputClass} bg-stone-900`}>
-            <option value="">Select a hat...</option>
-            {lanes.map((lane) => (
-              <optgroup key={lane} label={`── ${lane} ──`}>
-                {hats.filter((h) => h.lane === lane).map((h) => (
-                  <option key={h.title} value={h.title}>{h.title}</option>
-                ))}
-              </optgroup>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label className={labelClass}>Patch Type</label>
-          <select name="patchType" value={form.patchType} onChange={handleChange} className={`${inputClass} bg-stone-900`}>
-            <option value="acrylic">Acrylic patch — $40</option>
-            <option value="leather">Leather patch — $30</option>
-          </select>
-        </div>
-      </div>
-
-      <div>
-        <label className={labelClass}>Notes</label>
-        <textarea name="message" rows={3} placeholder="Hat color preference, business name, anything else..." value={form.message} onChange={handleChange} className={`${inputClass} resize-none`} />
-      </div>
-
-      {status === "error" && (
-        <p className="text-sm text-red-400">
-          Something went wrong. Text Darin at{" "}
-          <a href="tel:479-544-1366" className="underline">479-544-1366</a>
-        </p>
-      )}
-
-      <button
-        type="submit"
-        disabled={status === "sending"}
-        className="w-full rounded-2xl bg-white py-3.5 text-sm font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100 disabled:opacity-60"
-      >
-        {status === "sending" ? "Sending..." : "Submit Pre-Order →"}
-      </button>
-
-      <p className="text-center text-xs text-stone-500">
-        Payment link sent within 24 hours via Square.
-        Questions? Text{" "}
-        <a href="tel:479-544-1366" className="underline text-stone-400">479-544-1366</a>
-      </p>
-    </form>
-  );
-}
-
 function ContestEntryForm() {
   const [status, setStatus] = React.useState("idle");
   const [form, setForm] = React.useState({
@@ -381,7 +235,7 @@ function ContestEntryForm() {
         disabled={status === "sending"}
         className="w-full rounded-2xl bg-white py-3.5 text-sm font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100 disabled:opacity-60"
       >
-        {status === "sending" ? "Submitting..." : "Submit My Entry →"}
+        {status === "sending"] ? "Submitting..." : "Submit My Entry →"}
       </button>
     </form>
   );
@@ -389,18 +243,8 @@ function ContestEntryForm() {
 
 export default function PreOrderPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
-  const [selectedHat, setSelectedHat] = React.useState("");
   const [lightbox, setLightbox] = React.useState(null);
   const formRef = React.useRef(null);
-
-  const shopLink = "https://back40-headwear.myshopify.com/collections/b40-trail-series";
-
-  function scrollToForm(hatTitle) {
-    setSelectedHat(hatTitle);
-    setTimeout(() => {
-      formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }, 100);
-  }
 
   const hatsWithImages = hats.filter((h) => h.image);
 
@@ -410,6 +254,7 @@ export default function PreOrderPage() {
       <style jsx global>{`
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes scaleIn { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: scale(1); } }
+        iframe { width: 100% !important; }
       `}</style>
 
       {/* Background */}
@@ -449,7 +294,7 @@ export default function PreOrderPage() {
                 Prev
               </button>
               <button
-                onClick={() => { setLightbox(null); scrollToForm(hatsWithImages[lightbox].title); }}
+                onClick={() => { setLightbox(null); formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }); }}
                 className="flex-1 rounded-xl bg-white py-2.5 text-xs uppercase tracking-widest text-black font-semibold hover:bg-stone-100 transition"
               >
                 Pre-Order This Hat
@@ -625,7 +470,7 @@ export default function PreOrderPage() {
                       <p className="text-xs text-stone-500">${hat.bulkPrice} ea at 12+</p>
                     </div>
                     <button
-                      onClick={() => scrollToForm(hat.title)}
+                      onClick={() => formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })}
                       className="mt-4 w-full rounded-2xl bg-white px-5 py-2.5 text-sm font-semibold text-black transition hover:bg-stone-100"
                     >
                       Pre-Order This Hat →
@@ -673,12 +518,14 @@ export default function PreOrderPage() {
             </div>
           </div>
 
-          <div className="rounded-[2rem] border border-white/10 bg-gradient-to-br from-stone-100 to-stone-200 px-6 py-8 text-stone-950 md:px-8 md:py-10">
+          <div className="rounded-[2rem] border border-white/10 bg-gradient-to-br from-stone-100 to-stone-200 px-6 py-8 text-stone-950 md:px-8 md:py-10 overflow-hidden">
             <p className="text-xs uppercase tracking-[0.25em] text-stone-500 mb-2">Pre-Order Form</p>
             <h2 className="text-2xl font-semibold text-stone-950 mb-6">
-              {selectedHat ? `Ordering: ${selectedHat}` : "Reserve your hat"}
+              Reserve your hat
             </h2>
-            <ContactForm selectedHat={selectedHat} />
+            <div className="scale-90 origin-top -mx-8 -mb-20">
+              <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSczMo59DGEDopIJXKYvo-QR0Bd-3F4zYvrKuagpL5tYP6LS9A/viewform?embedded=true" width="640" height="1583" frameBorder="0" marginHeight="0" marginWidth="0">Loading…</iframe>
+            </div>
           </div>
 
         </div>
