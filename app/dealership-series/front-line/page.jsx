@@ -14,7 +14,7 @@ export default function FrontLinePage() {
     {
       name: "Sticker is Quicker",
       text: "How many hats would you buy if all your customers paid sticker?",
-      image: "/images/coming-soon.PNG",
+      image: "/images/sticker-is-quicker.jpg",
     },
     {
       name: "Board It! (Classic)",
