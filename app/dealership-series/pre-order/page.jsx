@@ -41,7 +41,7 @@ const hats = [
   {
     title: "We Fina C",
     lane: "Front Line",
-    image: null,
+    image: "/images/we-finance.jpg",
     subtitle: "We finna see. Every F&I manager, desk guy, and closer knows exactly what this means.",
     patchType: "acrylic",
     hat: "Richardson 112",
