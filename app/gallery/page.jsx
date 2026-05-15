@@ -29,13 +29,10 @@ const brandWork = [
 
 const customBuilds = [
   { name: "All Eyes On Me", img: "/images/all-eyes.PNG" },
-  { name: "Hyundai Hogs", img: "/images/Hyundai-hog.PNG" },
   { name: "Jesters Privilege", img: "/images/jester.PNG" },
   { name: "JA > Speed", img: "/images/ja.PNG" },
   { name: "Wood & Wild", img: "/images/goose.png" },
   { name: "AR Letters", img: "/images/arletters.png" },
-  { name: "Wooden Hog", img: "/images/woodhog.png" },
-  { name: "Wooden Hogs Heather Grey", img: "/images/hogwood.png" },
   { name: "Suicide King", img: "/images/suicideking.png" },
 ];
 
