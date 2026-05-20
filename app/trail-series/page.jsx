@@ -22,7 +22,7 @@ export default function TrailSeriesPage() {
       sub: "Red, White & Blue Edition",
       tagline: "Same dirt. Different story.",
       description: "The same legendary 40-mile loop, captured in a colorway that runs as deep as the people who built this place.",
-      href: "/trail/back-40-rwb",
+      href: "/trail/back-40-loop-rwb",
       img: "/images/back-40-rwb.PNG",
     },
     {
