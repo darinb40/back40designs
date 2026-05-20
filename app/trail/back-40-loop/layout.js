@@ -10,4 +10,6 @@ export const metadata = {
   },
   twitter: { card: "summary_large_image", title: "Back 40 Loop | B40 Trail Series", description: "40 miles of pure Ozark singletrack.", images: ["https://www.back40designco.com/images/back-40.PNG"] },
 };
-export default function Layout({ children }) { return children; }
+export default function Layout({ children }) {
+  return <>{children}</>;
+}
