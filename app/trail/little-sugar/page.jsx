@@ -19,7 +19,6 @@ export default function LittleSugarPage() {
   return (
     <main className="relative w-full overflow-hidden bg-black text-white">
 
-      {/* ── SHOPIFY CENTERING OVERRIDE ── */}
       <style>{`
         .shopify-buy__product { text-align: center !important; margin: 0 auto !important; }
         .shopify-buy__btn-wrapper { display: flex !important; justify-content: center !important; }
@@ -27,7 +26,6 @@ export default function LittleSugarPage() {
         .shopify-buy__product__price { text-align: center !important; }
       `}</style>
 
-      {/* ── SHOPIFY BUY BUTTON SCRIPT ── */}
       <Script src="https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js" strategy="afterInteractive" onLoad={() => {
         if (window.ShopifyBuy && window.ShopifyBuy.UI) {
           const client = window.ShopifyBuy.buildClient({
@@ -70,7 +68,6 @@ export default function LittleSugarPage() {
         }
       }} />
 
-      {/* ── HEADER ── */}
       <header className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${scrolled ? "border-b border-white/10 bg-black/90 backdrop-blur" : "bg-transparent"}`}>
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-10 md:py-4">
           <Link href="/">
@@ -81,10 +78,10 @@ export default function LittleSugarPage() {
             <Link href="/trail-series" className="text-[#c6a36b] font-semibold border-b border-[#c6a36b] pb-0.5">Trail Series</Link>
             <Link href="/dealership-series" className="transition hover:text-white">Dealership Series</Link>
             <Link href="/gallery" className="transition hover:text-white">Gallery</Link>
-            <Link href="/custom-orders" className="transition hover:text-white">Custom Orders</Link>
+            <Link href="/#contact" className="transition hover:text-white">Custom Orders</Link>
           </nav>
           <div className="flex items-center gap-2 md:gap-3">
-            <Link href="/custom-orders" className="inline-flex items-center gap-1.5 rounded-2xl bg-[#c6a36b] px-3 py-2 text-xs font-semibold text-black shadow-lg transition hover:-translate-y-0.5 hover:bg-[#d4b07a] md:px-4 md:text-sm">
+            <Link href="/#contact" className="inline-flex items-center gap-1.5 rounded-2xl bg-[#c6a36b] px-3 py-2 text-xs font-semibold text-black shadow-lg transition hover:-translate-y-0.5 hover:bg-[#d4b07a] md:px-4 md:text-sm">
               Start a Project →
             </Link>
             <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="rounded-lg p-2 text-stone-300 transition hover:bg-white/5 md:hidden">
@@ -100,7 +97,7 @@ export default function LittleSugarPage() {
                 ["/trail-series", "Trail Series", false],
                 ["/dealership-series", "Dealership Series", false],
                 ["/gallery", "Gallery", false],
-                ["/custom-orders", "Custom Orders", false],
+                ["/#contact", "Custom Orders", false],
               ].map(([href, label, external]) =>
                 external ? (
                   <a key={label} href={href} target="_blank" rel="noreferrer" onClick={() => setMobileMenuOpen(false)} className="border-b border-white/5 pb-3 transition hover:text-white">{label} ↗</a>
@@ -113,7 +110,6 @@ export default function LittleSugarPage() {
         )}
       </header>
 
-      {/* ── HERO ── */}
       <section className="relative h-[100vh] w-full">
         <img src="/images/little-sugar.PNG" alt="Little Sugar Trail" className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-black/55" />
@@ -121,15 +117,11 @@ export default function LittleSugarPage() {
         <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/20 to-transparent" />
         <div className="relative z-10 flex h-full flex-col justify-center px-6 pt-20 md:px-16 md:pt-0">
           <div className="max-w-xl">
-            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.35em] text-[#c6a36b]">
-              B40 Trail Series — Bella Vista, AR
-            </p>
+            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.35em] text-[#c6a36b]">B40 Trail Series — Bella Vista, AR</p>
             <h1 className="mb-6 text-6xl font-black uppercase leading-[0.9] tracking-tight text-white md:text-8xl" style={{ fontFamily: "'Bebas Neue', 'Arial Narrow', sans-serif" }}>
               Little<br />Sugar<br />Trail
             </h1>
-            <p className="mb-3 text-base font-semibold uppercase tracking-[0.2em] text-[#c6a36b] md:text-lg">
-              Earn every descent.
-            </p>
+            <p className="mb-3 text-base font-semibold uppercase tracking-[0.2em] text-[#c6a36b] md:text-lg">Earn every descent.</p>
             <p className="mb-10 max-w-sm text-sm leading-6 text-white/60 md:text-base">
               50 miles of punchy, technical singletrack through the hollers and ravines of west Bella Vista. More climbing per mile than anywhere else in NWA.
             </p>
@@ -145,7 +137,6 @@ export default function LittleSugarPage() {
         </div>
       </section>
 
-      {/* ── TRAIL ENVIRONMENT / PARALLAX STATS ── */}
       <section className="relative overflow-hidden" style={{ minHeight: "420px" }}>
         <div className="absolute inset-0 w-full h-full" style={{ backgroundImage: "url('/images/trail-b40.png')", backgroundSize: "cover", backgroundPosition: "center", backgroundAttachment: "fixed" }} />
         <div className="absolute inset-0 bg-black/65" />
@@ -177,17 +168,12 @@ export default function LittleSugarPage() {
         </div>
       </section>
 
-      {/* ── STORY ── */}
       <section className="bg-black px-6 py-16 md:px-16 md:py-24">
         <div className="mx-auto max-w-6xl">
           <div className="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-20 md:items-center">
             <div className="relative">
               <div className="absolute -inset-4 bg-[#cc0000]/10 blur-2xl rounded-full" />
-              <img
-                src="/images/little-sugar.PNG"
-                alt="Little Sugar Trail Hat"
-                className="relative w-full rounded-xl object-cover shadow-2xl"
-              />
+              <img src="/images/little-sugar.PNG" alt="Little Sugar Trail Hat" className="relative w-full rounded-xl object-cover shadow-2xl" />
               <div className="absolute bottom-4 left-4 rounded-lg bg-black/80 px-4 py-2 backdrop-blur">
                 <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#c6a36b]">Little Sugar Trail</p>
                 <p className="text-xs text-white/60">Bella Vista, Arkansas</p>
@@ -199,15 +185,9 @@ export default function LittleSugarPage() {
                 The Grinder.<br />The All-Weather<br />Weapon.
               </h2>
               <div className="space-y-4 text-sm leading-7 text-white/60 md:text-base">
-                <p>
-                  Little Sugar doesn't give anything away for free. Fifty miles of singletrack carved through the hollers and ravines on the west side of Bella Vista, it winds under limestone bluffs along Sugar Creek, past waterfalls on Tanyard Creek, and around Windsor and Avalon Lakes.
-                </p>
-                <p>
-                  Eight tunnels. Three steel bridges. More climbing per mile than anywhere else in Northwest Arkansas. Unlike the Back 40, Little Sugar rides in all weather -- it's the trail locals turn to when every other system is shut down.
-                </p>
-                <p>
-                  When complete, a nearly 400-foot bridge over Little Sugar Creek will connect this system to the Back 40, making a 100-mile ride possible entirely within city limits. NWA doesn't play around.
-                </p>
+                <p>Little Sugar doesn't give anything away for free. Fifty miles of singletrack carved through the hollers and ravines on the west side of Bella Vista, it winds under limestone bluffs along Sugar Creek, past waterfalls on Tanyard Creek, and around Windsor and Avalon Lakes.</p>
+                <p>Eight tunnels. Three steel bridges. More climbing per mile than anywhere else in Northwest Arkansas. Unlike the Back 40, Little Sugar rides in all weather -- it's the trail locals turn to when every other system is shut down.</p>
+                <p>When complete, a nearly 400-foot bridge over Little Sugar Creek will connect this system to the Back 40, making a 100-mile ride possible entirely within city limits. NWA doesn't play around.</p>
               </div>
               <div className="mt-8 grid grid-cols-2 gap-4">
                 {[
@@ -227,29 +207,19 @@ export default function LittleSugarPage() {
         </div>
       </section>
 
-      {/* ── BUY SECTION ── */}
       <section id="get-yours" className="bg-[#0a0a0a] px-6 py-16 md:px-16 md:py-20">
         <div className="mx-auto max-w-2xl text-center">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.35em] text-[#c6a36b]">
-            Limited Run — Small Batch
-          </p>
-          <h2 className="mb-4 text-4xl font-black uppercase md:text-5xl" style={{ fontFamily: "'Bebas Neue', 'Arial Narrow', sans-serif" }}>
-            Wear the Trail
-          </h2>
-          <p className="mb-8 text-sm leading-6 text-white/50">
-            Every hat is built by hand in Northwest Arkansas. No two runs are the same.
-          </p>
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.35em] text-[#c6a36b]">Limited Run — Small Batch</p>
+          <h2 className="mb-4 text-4xl font-black uppercase md:text-5xl" style={{ fontFamily: "'Bebas Neue', 'Arial Narrow', sans-serif" }}>Wear the Trail</h2>
+          <p className="mb-8 text-sm leading-6 text-white/50">Every hat is built by hand in Northwest Arkansas. No two runs are the same.</p>
           <div id="product-component-1777645145056" className="flex justify-center" />
         </div>
       </section>
 
-      {/* ── OTHER TRAIL HATS ── */}
       <section className="bg-black px-6 py-16 md:px-16 md:py-20">
         <div className="mx-auto max-w-5xl">
           <p className="mb-2 text-xs font-semibold uppercase tracking-[0.3em] text-[#c6a36b]">More From the Trail Series</p>
-          <h2 className="mb-10 text-3xl font-black uppercase md:text-4xl" style={{ fontFamily: "'Bebas Neue', 'Arial Narrow', sans-serif" }}>
-            More Trails. More Stories.
-          </h2>
+          <h2 className="mb-10 text-3xl font-black uppercase md:text-4xl" style={{ fontFamily: "'Bebas Neue', 'Arial Narrow', sans-serif" }}>More Trails. More Stories.</h2>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
             {[
               { name: "Back 40 Loop", sub: "Black Edition", href: "/trail/back-40-loop", img: "/images/back-40.PNG" },
@@ -270,7 +240,6 @@ export default function LittleSugarPage() {
         </div>
       </section>
 
-      {/* ── FOOTER ── */}
       <footer className="border-t border-white/10 px-5 py-8 text-sm text-white/40 md:px-10">
         <div className="mx-auto flex max-w-7xl flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <p>© 2026 Back 40 Designs. Custom headwear with story and identity.</p>
@@ -278,7 +247,7 @@ export default function LittleSugarPage() {
             <a href="tel:479-544-1366" className="transition hover:text-white">479-544-1366</a>
             <a href="mailto:info@back40designco.com" className="transition hover:text-white">Email</a>
             <a href="https://www.instagram.com/b40_designs/" target="_blank" rel="noreferrer" className="transition hover:text-white">Instagram</a>
-            <Link href="/trail-series" className="transition hover:text-white">← Trail Series</Link>
+            <Link href="/trail-series" className="transition hover:text-white">Trail Series</Link>
             <Link href="/" className="transition hover:text-white">Back to Home</Link>
           </div>
         </div>
