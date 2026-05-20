@@ -131,7 +131,7 @@ const backLotItems = [
     title: 'Switch and Get Rich',
     subtitle: 'Different unit. Better gross.',
     description: 'The one you picked is solid. But let me show you something that actually fits you better. *cough*',
-    image: '/images/switch.jpg',
+    image: '/images/switch-skull.jpg',
     componentId: 'product-component-1779236351070',
     productId: '10335908200580',
   },
