@@ -99,10 +99,12 @@ export default function Back40LoopPage() {
     <main className="relative w-full overflow-hidden bg-black text-white">
 
       <style>{`
-        .shopify-buy__product { text-align: center !important; margin: 0 auto !important; }
-        .shopify-buy__btn-wrapper { display: flex !important; justify-content: center !important; }
+        .shopify-buy__product { text-align: center !important; margin: 0 !important; max-width: 100% !important; width: 100% !important; }
+        .shopify-buy__btn-wrapper { display: flex !important; justify-content: center !important; width: 100% !important; }
         .shopify-buy__product__title { text-align: center !important; }
         .shopify-buy__product__price { text-align: center !important; }
+        #product-component-1777645011909 { width: 100% !important; max-width: 100% !important; }
+        #product-component-1777645011909 iframe { width: 100% !important; max-width: 100% !important; }
       `}</style>
 
       {/* HEADER */}
