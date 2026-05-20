@@ -168,7 +168,7 @@ export default function Back40LoopPage() {
             <p className="mb-10 max-w-sm text-sm leading-6 text-white/60 md:text-base">
               40 miles of pure Ozark singletrack. This is the trail that put Bella Vista on the map.
             </p>
-            <a href="#get-yours" className="inline-flex items-center justify-center gap-2 bg-[#c6a36b] px-6 py-3 text-sm font-bold uppercase tracking-[0.15em] text-black transition hover:bg-[#d4b07a]">
+            <a href="#story" className="inline-flex items-center justify-center gap-2 bg-[#c6a36b] px-6 py-3 text-sm font-bold uppercase tracking-[0.15em] text-black transition hover:bg-[#d4b07a]">
               Get Yours — $35 ↓
             </a>
           </div>
@@ -213,7 +213,7 @@ export default function Back40LoopPage() {
       </section>
 
       {/* STORY */}
-      <section className="bg-black px-6 py-16 md:px-16 md:py-24">
+      <section id="story" className="bg-black px-6 py-16 md:px-16 md:py-24">
         <div className="mx-auto max-w-6xl">
           <div className="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-20 md:items-center">
             <div className="relative">
@@ -247,31 +247,16 @@ export default function Back40LoopPage() {
                   </div>
                 ))}
               </div>
+              <div className="mt-8">
+                <p className="mb-3 text-xs font-semibold uppercase tracking-[0.25em] text-white/40">Limited Run — Small Batch</p>
+                <div id="product-component-1777645011909" className="w-full" />
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* BUY SECTION */}
-      <section id="get-yours" className="bg-[#0a0a0a] px-6 py-16 md:px-16 md:py-20">
-        <div className="mx-auto max-w-sm text-center">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.35em] text-[#c6a36b]">
-            Limited Run — Small Batch
-          </p>
-          <h2 className="mb-4 text-4xl font-black uppercase md:text-5xl" style={{ fontFamily: "'Bebas Neue', 'Arial Narrow', sans-serif" }}>
-            Wear the Trail
-          </h2>
-          <p className="mb-8 text-sm leading-6 text-white/50">
-            Every hat is built by hand in Northwest Arkansas. No two runs are the same.
-          </p>
-          <div className="mb-8 overflow-hidden rounded-2xl border border-white/10">
-            <img src="/images/back-40.PNG" alt="Back 40 Loop Hat" className="w-full object-cover" />
-          </div>
-          <p className="mb-2 text-lg font-semibold text-white">Back 40 Loop</p>
-          <p className="mb-6 text-sm text-white/50">Bella Vista, AR · Layered Acrylic Patch · $35</p>
-          <div id="product-component-1777645011909" className="w-full" />
-        </div>
-      </section>
+
 
       {/* OTHER TRAIL HATS */}
       <section className="bg-black px-6 py-16 md:px-16 md:py-20">
