@@ -46,7 +46,7 @@ export default function TrailSeriesPage() {
   return (
     <main className="relative w-full overflow-hidden bg-black text-white">
 
-      {/* ── HEADER ── */}
+      {/* HEADER */}
       <header className="absolute top-0 left-0 right-0 z-40 border-b border-white/10 bg-black/40 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-10 md:py-4">
           <Link href="/">
@@ -57,10 +57,10 @@ export default function TrailSeriesPage() {
             <Link href="/trail-series" className="text-[#c6a36b] font-semibold border-b border-[#c6a36b] pb-0.5">Trail Series</Link>
             <Link href="/dealership-series" className="transition hover:text-white">Dealership Series</Link>
             <Link href="/gallery" className="transition hover:text-white">Gallery</Link>
-            <Link href="/custom-orders" className="transition hover:text-white">Custom Orders</Link>
+            <Link href="/#contact" className="transition hover:text-white">Custom Orders</Link>
           </nav>
           <div className="flex items-center gap-2 md:gap-3">
-            <Link href="/custom-orders" className="inline-flex items-center gap-1.5 rounded-2xl bg-[#c6a36b] px-3 py-2 text-xs font-semibold text-black shadow-lg transition hover:-translate-y-0.5 hover:bg-[#d4b07a] md:px-4 md:text-sm">
+            <Link href="/#contact" className="inline-flex items-center gap-1.5 rounded-2xl bg-[#c6a36b] px-3 py-2 text-xs font-semibold text-black shadow-lg transition hover:-translate-y-0.5 hover:bg-[#d4b07a] md:px-4 md:text-sm">
               Start a Project →
             </Link>
             <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="rounded-lg p-2 text-stone-300 transition hover:bg-white/5 md:hidden" aria-label="Toggle menu">
@@ -76,7 +76,7 @@ export default function TrailSeriesPage() {
                 ["/trail-series", "Trail Series", false],
                 ["/dealership-series", "Dealership Series", false],
                 ["/gallery", "Gallery", false],
-                ["/custom-orders", "Custom Orders", false],
+                ["/#contact", "Custom Orders", false],
               ].map(([href, label, external]) => (
                 external ? (
                   <a key={label} href={href} target="_blank" rel="noreferrer" onClick={() => setMobileMenuOpen(false)} className="border-b border-white/5 pb-3 transition hover:text-white">{label} ↗</a>
@@ -89,7 +89,7 @@ export default function TrailSeriesPage() {
         )}
       </header>
 
-      {/* ── HERO ── */}
+      {/* HERO */}
       <section className="relative h-[100vh] w-full">
         <img src="/trail-series-bg.png" alt="Trail Series" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: "70% center" }} />
         <div className="absolute inset-0 bg-black/20" />
@@ -111,7 +111,7 @@ export default function TrailSeriesPage() {
               <a href="#the-hats" className="inline-flex items-center justify-center gap-2 bg-[#c6a36b] px-6 py-3 text-sm font-bold uppercase tracking-[0.15em] text-black transition hover:bg-[#d4b07a]">
                 Shop the Series ↓
               </a>
-              <Link href="/custom-orders" className="inline-flex items-center justify-center gap-2 border border-white/40 px-6 py-3 text-sm font-semibold uppercase tracking-[0.15em] text-white transition hover:bg-white/10">
+              <Link href="/#contact" className="inline-flex items-center justify-center gap-2 border border-white/40 px-6 py-3 text-sm font-semibold uppercase tracking-[0.15em] text-white transition hover:bg-white/10">
                 Build a Shop Collab →
               </Link>
             </div>
@@ -124,7 +124,7 @@ export default function TrailSeriesPage() {
         </div>
       </section>
 
-      {/* ── VALUE PROPS ── */}
+      {/* VALUE PROPS */}
       <section className="relative bg-black px-6 py-16 md:px-16 md:py-20">
         <div className="mx-auto max-w-5xl">
           <div className="grid grid-cols-1 divide-y divide-white/10 md:grid-cols-3 md:divide-x md:divide-y-0">
@@ -163,7 +163,7 @@ export default function TrailSeriesPage() {
         </div>
       </section>
 
-      {/* ── THE 4 HATS ── */}
+      {/* THE 4 HATS */}
       <section id="the-hats" className="bg-black px-6 py-16 md:px-16 md:py-20">
         <div className="mx-auto max-w-6xl">
           <p className="mb-2 text-xs font-semibold uppercase tracking-[0.3em] text-[#c6a36b]">The Collection</p>
@@ -191,7 +191,7 @@ export default function TrailSeriesPage() {
         </div>
       </section>
 
-      {/* ── CTA ── */}
+      {/* CTA */}
       <section className="relative bg-black px-6 py-20 md:px-16 md:py-28">
         <div className="mx-auto max-w-4xl rounded-2xl border border-white/10 bg-white/5 p-8 md:p-14">
           <p className="mb-3 text-xs font-semibold uppercase tracking-[0.3em] text-[#c6a36b]">Build With Us</p>
@@ -201,13 +201,13 @@ export default function TrailSeriesPage() {
           <p className="mb-8 max-w-xl text-sm leading-7 text-white/60 md:text-base">
             We build custom programs for bike shops, teams, and local brands. No generic templates. Everything starts with your story.
           </p>
-          <Link href="/custom-orders" className="inline-flex items-center gap-2 bg-[#c6a36b] px-8 py-4 text-sm font-bold uppercase tracking-[0.15em] text-black transition hover:bg-[#d4b07a]">
+          <Link href="/#contact" className="inline-flex items-center gap-2 bg-[#c6a36b] px-8 py-4 text-sm font-bold uppercase tracking-[0.15em] text-black transition hover:bg-[#d4b07a]">
             Start a Project →
           </Link>
         </div>
       </section>
 
-      {/* ── FOOTER ── */}
+      {/* FOOTER */}
       <footer className="border-t border-white/10 px-5 py-8 text-sm text-white/40 md:px-10">
         <div className="mx-auto flex max-w-7xl flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <p>© 2026 Back 40 Designs. Custom headwear with story and identity.</p>
@@ -223,4 +223,3 @@ export default function TrailSeriesPage() {
     </main>
   );
 }
-
