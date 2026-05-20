@@ -218,7 +218,7 @@ export default function Back40LoopPage() {
           <div className="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-20 md:items-center">
             <div className="relative">
               <div className="absolute -inset-4 bg-[#c6a36b]/10 blur-2xl rounded-full" />
-              <img src="/images/back-40.PNG" alt="Back 40 Loop Hat" className="relative w-full rounded-xl object-cover shadow-2xl" />
+              <img src="/images/back-40.PNG" alt="Back 40 Loop Hat" className="relative w-full rounded-xl object-cover shadow-2xl max-h-[500px]" />
               <div className="absolute bottom-4 left-4 rounded-lg bg-black/80 px-4 py-2 backdrop-blur">
                 <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#c6a36b]">Back 40 Loop</p>
                 <p className="text-xs text-white/60">Bella Vista, Arkansas</p>
