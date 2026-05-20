@@ -2,7 +2,9 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Script from "next/script";
+
+const SHOPIFY_DOMAIN = 'dy7tby-ue.myshopify.com';
+const STOREFRONT_TOKEN = 'a6a4ccdb4cdd021868213cc7fe3a35bd';
 
 export default function Back40LoopPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -16,6 +18,83 @@ export default function Back40LoopPage() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    const scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
+
+    function initButton() {
+      if (!window.ShopifyBuy || !window.ShopifyBuy.UI) return;
+      const client = window.ShopifyBuy.buildClient({
+        domain: SHOPIFY_DOMAIN,
+        storefrontAccessToken: STOREFRONT_TOKEN,
+      });
+      window.ShopifyBuy.UI.onReady(client).then((ui) => {
+        ui.createComponent('product', {
+          id: '10285941981316',
+          node: document.getElementById('product-component-1777645011909'),
+          moneyFormat: '%24%7B%7Bamount%7D%7D',
+          options: {
+            product: {
+              styles: {
+                product: {
+                  '@media (min-width: 601px)': {
+                    'max-width': '100%',
+                    'margin-left': '0px',
+                    'margin-bottom': '0px',
+                  },
+                },
+                button: {
+                  'font-family': 'Open Sans, sans-serif',
+                  'font-weight': 'bold',
+                  'background-color': '#c6a36b',
+                  ':hover': { 'background-color': '#d4b07a' },
+                  ':focus': { 'background-color': '#d4b07a' },
+                  'padding': '14px 32px',
+                  'font-size': '14px',
+                  'letter-spacing': '0.1em',
+                  'text-transform': 'uppercase',
+                  'width': '100%',
+                },
+              },
+              buttonDestination: 'checkout',
+              contents: { img: false, title: false, price: false },
+              text: { button: 'Get Yours — $35' },
+              googleFonts: ['Open Sans'],
+            },
+            cart: {
+              styles: { button: { 'background-color': '#c6a36b', ':hover': { 'background-color': '#d4b07a' } } },
+              text: { total: 'Subtotal', button: 'Checkout' },
+              googleFonts: ['Open Sans'],
+            },
+            toggle: {
+              styles: { toggle: { 'background-color': '#c6a36b', ':hover': { 'background-color': '#d4b07a' } } },
+              googleFonts: ['Open Sans'],
+            },
+          },
+        });
+      });
+    }
+
+    if (window.ShopifyBuy && window.ShopifyBuy.UI) {
+      initButton();
+    } else {
+      const existing = document.querySelector(`script[src="${scriptURL}"]`);
+      if (existing) {
+        const interval = setInterval(() => {
+          if (window.ShopifyBuy && window.ShopifyBuy.UI) {
+            clearInterval(interval);
+            initButton();
+          }
+        }, 100);
+        return;
+      }
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = scriptURL;
+      script.onload = initButton;
+      document.head.appendChild(script);
+    }
+  }, []);
+
   return (
     <main className="relative w-full overflow-hidden bg-black text-white">
 
@@ -25,48 +104,6 @@ export default function Back40LoopPage() {
         .shopify-buy__product__title { text-align: center !important; }
         .shopify-buy__product__price { text-align: center !important; }
       `}</style>
-
-      <Script src="https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js" strategy="afterInteractive" onLoad={() => {
-        if (window.ShopifyBuy && window.ShopifyBuy.UI) {
-          const client = window.ShopifyBuy.buildClient({
-            domain: 'dy7tby-ue.myshopify.com',
-            storefrontAccessToken: 'a6a4ccdb4cdd021868213cc7fe3a35bd',
-          });
-          window.ShopifyBuy.UI.onReady(client).then((ui) => {
-            ui.createComponent('product', {
-              id: '10285941981316',
-              node: document.getElementById('product-component-1777645011909'),
-              moneyFormat: '%24%7B%7Bamount%7D%7D',
-              options: {
-                product: {
-                  styles: {
-                    button: {
-                      "font-family": "Open Sans, sans-serif",
-                      "font-weight": "bold",
-                      "background-color": "#c6a36b",
-                      ":hover": { "background-color": "#d4b07a" },
-                      ":focus": { "background-color": "#d4b07a" },
-                      "padding": "14px 32px",
-                      "font-size": "14px",
-                      "letter-spacing": "0.1em",
-                      "text-transform": "uppercase",
-                    }
-                  },
-                  buttonDestination: "checkout",
-                  text: { button: "Get Yours — $35" },
-                },
-                cart: {
-                  styles: { button: { "background-color": "#c6a36b", ":hover": { "background-color": "#d4b07a" } } },
-                  text: { total: "Subtotal", button: "Checkout" },
-                },
-                toggle: {
-                  styles: { toggle: { "background-color": "#c6a36b", ":hover": { "background-color": "#d4b07a" } } }
-                }
-              },
-            });
-          });
-        }
-      }} />
 
       {/* HEADER */}
       <header className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${scrolled ? "border-b border-white/10 bg-black/90 backdrop-blur" : "bg-transparent"}`}>
@@ -227,8 +264,7 @@ export default function Back40LoopPage() {
           <p className="mb-8 text-sm leading-6 text-white/50">
             Every hat is built by hand in Northwest Arkansas. No two runs are the same.
           </p>
-          <div id="product-component-1777645011909" className="flex justify-center w-full" style={{ textAlign: "center" }}>
-          </div>
+          <div id="product-component-1777645011909" className="flex justify-center w-full" style={{ textAlign: "center" }} />
         </div>
       </section>
 
