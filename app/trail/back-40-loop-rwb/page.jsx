@@ -6,7 +6,7 @@ import Link from "next/link";
 const SHOPIFY_DOMAIN = 'dy7tby-ue.myshopify.com';
 const STOREFRONT_TOKEN = 'a6a4ccdb4cdd021868213cc7fe3a35bd';
 
-export default function Back40LoopPage() {
+export default function Back40LoopRWBPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -29,8 +29,8 @@ export default function Back40LoopPage() {
       });
       window.ShopifyBuy.UI.onReady(client).then((ui) => {
         ui.createComponent('product', {
-          id: '10285941981316',
-          node: document.getElementById('product-component-1777645011909'),
+          id: '10286114013316',
+          node: document.getElementById('product-component-1777645104855'),
           moneyFormat: '%24%7B%7Bamount%7D%7D',
           options: {
             product: {
@@ -103,8 +103,8 @@ export default function Back40LoopPage() {
         .shopify-buy__btn-wrapper { display: flex !important; justify-content: center !important; width: 100% !important; }
         .shopify-buy__product__title { text-align: center !important; }
         .shopify-buy__product__price { text-align: center !important; }
-        #product-component-1777645011909 { width: 100% !important; max-width: 100% !important; }
-        #product-component-1777645011909 iframe { width: 100% !important; max-width: 100% !important; }
+        #product-component-1777645104855 { width: 100% !important; max-width: 100% !important; }
+        #product-component-1777645104855 iframe { width: 100% !important; max-width: 100% !important; }
       `}</style>
 
       {/* HEADER */}
@@ -152,10 +152,10 @@ export default function Back40LoopPage() {
 
       {/* HERO */}
       <section className="relative h-[100vh] w-full">
-        <img src="/images/back-40.PNG" alt="Back 40 Loop" className="absolute inset-0 h-full w-full object-cover" />
-        <div className="absolute inset-0 bg-black/30" />
+        <img src="/images/back-40-rwb.PNG" alt="Back 40 Loop Red White Blue" className="absolute inset-0 h-full w-full object-cover" />
+        <div className="absolute inset-0 bg-black/55" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/80" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/20 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/20 to-transparent" />
         <div className="relative z-10 flex h-full flex-col justify-center px-6 pt-20 md:px-16 md:pt-0">
           <div className="max-w-xl">
             <p className="mb-3 text-xs font-semibold uppercase tracking-[0.35em] text-[#c6a36b]">
@@ -164,11 +164,11 @@ export default function Back40LoopPage() {
             <h1 className="mb-6 text-6xl font-black uppercase leading-[0.9] tracking-tight text-white md:text-8xl" style={{ fontFamily: "'Bebas Neue', 'Arial Narrow', sans-serif" }}>
               Back 40<br />Loop
             </h1>
-            <p className="mb-3 text-base font-semibold uppercase tracking-[0.2em] text-[#c6a36b] md:text-lg">
-              Where NWA riding grew up.
+            <p className="mb-3 text-base font-semibold uppercase tracking-[0.2em] md:text-lg" style={{ color: "#B22234" }}>
+              Red, White & Blue Edition
             </p>
             <p className="mb-10 max-w-sm text-sm leading-6 text-white/60 md:text-base">
-              40 miles of pure Ozark singletrack. This is the trail that put Bella Vista on the map.
+              Same legendary trail. Different story. This one's for the riders who bleed red, white, and blue on every descent.
             </p>
             <a href="#story" className="inline-flex items-center justify-center gap-2 bg-[#c6a36b] px-6 py-3 text-sm font-bold uppercase tracking-[0.15em] text-black transition hover:bg-[#d4b07a]">
               Get Yours — $35 ↓
@@ -183,7 +183,7 @@ export default function Back40LoopPage() {
       </section>
 
       {/* TRAIL STATS */}
-      <section className="relative overflow-hidden" style={{ minHeight: "360px" }}>
+      <section className="relative overflow-hidden" style={{ minHeight: "420px" }}>
         <div className="absolute inset-0 w-full h-full" style={{ backgroundImage: "url('/images/trail-b40.png')", backgroundSize: "cover", backgroundPosition: "center", backgroundAttachment: "fixed" }} />
         <div className="absolute inset-0 bg-black/65" />
         <div className="absolute inset-0 opacity-10">
@@ -194,7 +194,7 @@ export default function Back40LoopPage() {
             <path d="M0,320 Q200,280 400,330 T800,310 T1200,325 T1600,300" stroke="#c6a36b" strokeWidth="1" fill="none"/>
           </svg>
         </div>
-        <div className="relative z-10 px-6 py-14 md:px-16 md:py-16">
+        <div className="relative z-10 px-6 py-20 md:px-16 md:py-24">
           <div className="mx-auto max-w-5xl">
             <p className="mb-10 text-center text-xs font-semibold uppercase tracking-[0.4em] text-[#c6a36b]">Trail Stats — Back 40 Loop</p>
             <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
@@ -222,16 +222,16 @@ export default function Back40LoopPage() {
             {/* LEFT -- Hat image + buy button */}
             <div>
               <div className="relative">
-                <div className="absolute -inset-4 bg-[#c6a36b]/10 blur-2xl rounded-full" />
-                <img src="/images/back-40.PNG" alt="Back 40 Loop Hat" className="relative w-full rounded-xl object-cover shadow-2xl" />
+                <div className="absolute -inset-4 rounded-full blur-2xl" style={{ backgroundColor: "rgba(178,34,52,0.15)" }} />
+                <img src="/images/back-40-rwb.PNG" alt="Back 40 Loop Red White Blue Hat" className="relative w-full rounded-xl object-cover shadow-2xl" />
                 <div className="absolute bottom-4 left-4 rounded-lg bg-black/80 px-4 py-2 backdrop-blur">
                   <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#c6a36b]">Back 40 Loop</p>
-                  <p className="text-xs text-white/60">Bella Vista, Arkansas</p>
+                  <p className="text-xs text-white/60">Red, White & Blue Edition</p>
                 </div>
               </div>
               <div className="mt-6">
                 <p className="mb-3 text-xs font-semibold uppercase tracking-[0.25em] text-white/40">Limited Run — Small Batch</p>
-                <div id="product-component-1777645011909" className="w-full" />
+                <div id="product-component-1777645104855" className="w-full" />
               </div>
             </div>
 
@@ -239,12 +239,12 @@ export default function Back40LoopPage() {
             <div>
               <p className="mb-4 text-xs font-semibold uppercase tracking-[0.35em] text-[#c6a36b]">The Story</p>
               <h2 className="mb-6 text-4xl font-black uppercase leading-tight md:text-5xl" style={{ fontFamily: "'Bebas Neue', 'Arial Narrow', sans-serif" }}>
-                The Trail That<br />Started It All.
+                Built on the<br />Same Dirt.<br />Worn with Pride.
               </h2>
               <div className="space-y-4 text-sm leading-7 text-white/60 md:text-base">
-                <p>Before Bentonville called itself the Mountain Bike Capital of the World, there was the Back 40. Opened in 2016 by six of the country's most respected trail builders, this 40-mile network on the east side of Bella Vista changed what people thought was possible in the Ozarks.</p>
-                <p>Weaving through ridges and valleys, the Back 40 Loop takes you past 40 feet of ancient limestone bluff -- an eroded remnant of a mountain range millions of years in the making. You'll cross creeks, rail berms, and feel like you're deep in the backcountry while you're actually minutes from downtown.</p>
-                <p>This hat is a nod to the trail that built the culture. If you've ridden it, you already know. If you haven't, this is your invitation.</p>
+                <p>The Back 40 Loop is the backbone of mountain biking in Northwest Arkansas. Forty miles of Ozark singletrack built by six of the best trail builders in the country and opened in 2016 -- it's the trail that proved NWA belonged on the national stage.</p>
+                <p>This Red, White & Blue edition is a different expression of the same story. The limestone bluffs, the creek crossings, the berms that drop into valleys -- all of it captured in a colorway that runs as deep as the people who built this place.</p>
+                <p>Two hats. One trail. Your call which one tells your story.</p>
               </div>
               <div className="mt-8 grid grid-cols-2 gap-4">
                 {[
@@ -253,7 +253,7 @@ export default function Back40LoopPage() {
                   { label: "Location", value: "Bella Vista, AR" },
                   { label: "Price", value: "$35.00" },
                 ].map(({ label, value }) => (
-                  <div key={label} className="border-l-2 border-[#c6a36b] pl-3">
+                  <div key={label} className="border-l-2 pl-3" style={{ borderColor: "#B22234" }}>
                     <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#c6a36b]">{label}</p>
                     <p className="text-sm text-white/80">{value}</p>
                   </div>
@@ -274,7 +274,7 @@ export default function Back40LoopPage() {
           </h2>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
             {[
-              { name: "Back 40 Loop", sub: "Red, White & Blue", href: "/trail/back-40-loop-rwb", img: "/images/back-40-rwb.PNG" },
+              { name: "Back 40 Loop", sub: "Black Edition", href: "/trail/back-40-loop", img: "/images/back-40.PNG" },
               { name: "Little Sugar Trail", sub: "Bella Vista, AR", href: "/trail/little-sugar", img: "/images/little-sugar.PNG" },
               { name: "Dragon Scales", sub: "Slaughter Pen, Bentonville", href: "/trail/dragon-scales", img: "/images/dragon-scales.PNG" },
             ].map(({ name, sub, href, img }) => (
