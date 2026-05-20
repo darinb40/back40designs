@@ -254,7 +254,7 @@ export default function Back40LoopPage() {
 
       {/* BUY SECTION */}
       <section id="get-yours" className="bg-[#0a0a0a] px-6 py-16 md:px-16 md:py-20">
-        <div className="mx-auto max-w-2xl text-center">
+        <div className="mx-auto max-w-sm text-center">
           <p className="mb-3 text-xs font-semibold uppercase tracking-[0.35em] text-[#c6a36b]">
             Limited Run — Small Batch
           </p>
@@ -264,7 +264,12 @@ export default function Back40LoopPage() {
           <p className="mb-8 text-sm leading-6 text-white/50">
             Every hat is built by hand in Northwest Arkansas. No two runs are the same.
           </p>
-          <div id="product-component-1777645011909" className="flex justify-center w-full" style={{ textAlign: "center" }} />
+          <div className="mb-8 overflow-hidden rounded-2xl border border-white/10">
+            <img src="/images/back-40.PNG" alt="Back 40 Loop Hat" className="w-full object-cover" />
+          </div>
+          <p className="mb-2 text-lg font-semibold text-white">Back 40 Loop</p>
+          <p className="mb-6 text-sm text-white/50">Bella Vista, AR · Layered Acrylic Patch · $35</p>
+          <div id="product-component-1777645011909" className="w-full" />
         </div>
       </section>
 
