@@ -10,4 +10,6 @@ export const metadata = {
   },
   twitter: { card: "summary_large_image", title: "Dragon Scales | B40 Trail Series", description: "Black diamond. Rock gardens. Not for the faint of heart.", images: ["https://www.back40designco.com/images/dragon-scales.PNG"] },
 };
-export default function Layout({ children }) { return children; }
+export default function Layout({ children }) {
+  return <>{children}</>;
+}
