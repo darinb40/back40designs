@@ -247,11 +247,11 @@ export default function Back40LoopPage() {
                   </div>
                 ))}
               </div>
-              <div className="mt-8">
-                <p className="mb-3 text-xs font-semibold uppercase tracking-[0.25em] text-white/40">Limited Run — Small Batch</p>
-                <div id="product-component-1777645011909" className="w-full" />
-              </div>
             </div>
+          </div>
+          <div className="mt-10 flex flex-col items-center">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.25em] text-white/40">Limited Run — Small Batch</p>
+            <div id="product-component-1777645011909" className="w-full max-w-xs" />
           </div>
         </div>
       </section>
