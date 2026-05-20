@@ -10,4 +10,6 @@ export const metadata = {
   },
   twitter: { card: "summary_large_image", title: "Little Sugar Trail | B40 Trail Series", description: "50 miles of punchy, technical singletrack.", images: ["https://www.back40designco.com/images/little-sugar.PNG"] },
 };
-export default function Layout({ children }) { return children; }
+export default function Layout({ children }) {
+  return <>{children}</>;
+}
