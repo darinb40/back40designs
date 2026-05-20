@@ -19,7 +19,6 @@ export default function DragonScalesPage() {
   return (
     <main className="relative w-full overflow-hidden bg-black text-white">
 
-      {/* ── SHOPIFY CENTERING OVERRIDE ── */}
       <style>{`
         .shopify-buy__product { text-align: center !important; margin: 0 auto !important; }
         .shopify-buy__btn-wrapper { display: flex !important; justify-content: center !important; }
@@ -27,7 +26,6 @@ export default function DragonScalesPage() {
         .shopify-buy__product__price { text-align: center !important; }
       `}</style>
 
-      {/* ── SHOPIFY BUY BUTTON SCRIPT ── */}
       <Script src="https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js" strategy="afterInteractive" onLoad={() => {
         if (window.ShopifyBuy && window.ShopifyBuy.UI) {
           const client = window.ShopifyBuy.buildClient({
@@ -70,7 +68,6 @@ export default function DragonScalesPage() {
         }
       }} />
 
-      {/* ── HEADER ── */}
       <header className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${scrolled ? "border-b border-white/10 bg-black/90 backdrop-blur" : "bg-transparent"}`}>
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-10 md:py-4">
           <Link href="/">
@@ -81,10 +78,10 @@ export default function DragonScalesPage() {
             <Link href="/trail-series" className="text-[#c6a36b] font-semibold border-b border-[#c6a36b] pb-0.5">Trail Series</Link>
             <Link href="/dealership-series" className="transition hover:text-white">Dealership Series</Link>
             <Link href="/gallery" className="transition hover:text-white">Gallery</Link>
-            <Link href="/custom-orders" className="transition hover:text-white">Custom Orders</Link>
+            <Link href="/#contact" className="transition hover:text-white">Custom Orders</Link>
           </nav>
           <div className="flex items-center gap-2 md:gap-3">
-            <Link href="/custom-orders" className="inline-flex items-center gap-1.5 rounded-2xl bg-[#c6a36b] px-3 py-2 text-xs font-semibold text-black shadow-lg transition hover:-translate-y-0.5 hover:bg-[#d4b07a] md:px-4 md:text-sm">
+            <Link href="/#contact" className="inline-flex items-center gap-1.5 rounded-2xl bg-[#c6a36b] px-3 py-2 text-xs font-semibold text-black shadow-lg transition hover:-translate-y-0.5 hover:bg-[#d4b07a] md:px-4 md:text-sm">
               Start a Project →
             </Link>
             <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="rounded-lg p-2 text-stone-300 transition hover:bg-white/5 md:hidden">
@@ -100,7 +97,7 @@ export default function DragonScalesPage() {
                 ["/trail-series", "Trail Series", false],
                 ["/dealership-series", "Dealership Series", false],
                 ["/gallery", "Gallery", false],
-                ["/custom-orders", "Custom Orders", false],
+                ["/#contact", "Custom Orders", false],
               ].map(([href, label, external]) =>
                 external ? (
                   <a key={label} href={href} target="_blank" rel="noreferrer" onClick={() => setMobileMenuOpen(false)} className="border-b border-white/5 pb-3 transition hover:text-white">{label} ↗</a>
@@ -113,7 +110,6 @@ export default function DragonScalesPage() {
         )}
       </header>
 
-      {/* ── HERO ── */}
       <section className="relative h-[100vh] w-full">
         <img src="/images/dragon-scales.PNG" alt="Dragon Scales Trail" className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-black/60" />
@@ -145,7 +141,6 @@ export default function DragonScalesPage() {
         </div>
       </section>
 
-      {/* ── TRAIL ENVIRONMENT / PARALLAX STATS ── */}
       <section className="relative overflow-hidden" style={{ minHeight: "360px" }}>
         <div className="absolute inset-0 w-full h-full" style={{ backgroundImage: "url('/images/trail-b40.png')", backgroundSize: "cover", backgroundPosition: "center", backgroundAttachment: "fixed" }} />
         <div className="absolute inset-0 bg-black/65" />
@@ -177,17 +172,12 @@ export default function DragonScalesPage() {
         </div>
       </section>
 
-      {/* ── STORY ── */}
       <section className="bg-black px-6 py-16 md:px-16 md:py-24">
         <div className="mx-auto max-w-6xl">
           <div className="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-20 md:items-center">
             <div className="relative">
               <div className="absolute -inset-4 bg-[#cc0000]/10 blur-2xl rounded-full" />
-              <img
-                src="/images/dragon-scales.PNG"
-                alt="Dragon Scales Hat"
-                className="relative w-full rounded-xl object-cover shadow-2xl"
-              />
+              <img src="/images/dragon-scales.PNG" alt="Dragon Scales Hat" className="relative w-full rounded-xl object-cover shadow-2xl" />
               <div className="absolute bottom-4 left-4 rounded-lg bg-black/80 px-4 py-2 backdrop-blur">
                 <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#c6a36b]">Dragon Scales</p>
                 <p className="text-xs text-white/60">Slaughter Pen, Bentonville AR</p>
@@ -199,15 +189,9 @@ export default function DragonScalesPage() {
                 The Bold One.<br />The One You<br />Earn.
               </h2>
               <div className="space-y-4 text-sm leading-7 text-white/60 md:text-base">
-                <p>
-                  Dragon Scales sits at the top of Slaughter Pen's black diamond lineup for a reason. Located at the Castle Hub in Bentonville, this downhill-only trail is a relentless sequence of rock gardens, technical drops, and hard berms that punish anything less than full commitment.
-                </p>
-                <p>
-                  Hardtails need not apply. The trail demands a full-suspension bike, fast reflexes, and the willingness to send it on blind rock features that flow directly into steep banks. Pro cyclists visiting NWA specifically called it out as a standout -- one they couldn't wait to ride again.
-                </p>
-                <p>
-                  This hat is for the rider who doesn't take the green trail. The one who looks at the black diamond and says let's go.
-                </p>
+                <p>Dragon Scales sits at the top of Slaughter Pen's black diamond lineup for a reason. Located at the Castle Hub in Bentonville, this downhill-only trail is a relentless sequence of rock gardens, technical drops, and hard berms that punish anything less than full commitment.</p>
+                <p>Hardtails need not apply. The trail demands a full-suspension bike, fast reflexes, and the willingness to send it on blind rock features that flow directly into steep banks. Pro cyclists visiting NWA specifically called it out as a standout -- one they couldn't wait to ride again.</p>
+                <p>This hat is for the rider who doesn't take the green trail. The one who looks at the black diamond and says let's go.</p>
               </div>
               <div className="mt-8 grid grid-cols-2 gap-4">
                 {[
@@ -227,30 +211,19 @@ export default function DragonScalesPage() {
         </div>
       </section>
 
-      {/* ── BUY SECTION ── */}
       <section id="get-yours" className="bg-[#0a0a0a] px-6 py-16 md:px-16 md:py-20">
         <div className="mx-auto max-w-2xl text-center">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.35em] text-[#c6a36b]">
-            Limited Run — Small Batch
-          </p>
-          <h2 className="mb-4 text-4xl font-black uppercase md:text-5xl" style={{ fontFamily: "'Bebas Neue', 'Arial Narrow', sans-serif" }}>
-            Wear the Trail
-          </h2>
-          <p className="mb-8 text-sm leading-6 text-white/50">
-            Every hat is built by hand in Northwest Arkansas. No two runs are the same.
-          </p>
-          <div id="product-component-1777645124306" className="flex justify-center w-full" style={{ textAlign: "center" }}>
-          </div>
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.35em] text-[#c6a36b]">Limited Run — Small Batch</p>
+          <h2 className="mb-4 text-4xl font-black uppercase md:text-5xl" style={{ fontFamily: "'Bebas Neue', 'Arial Narrow', sans-serif" }}>Wear the Trail</h2>
+          <p className="mb-8 text-sm leading-6 text-white/50">Every hat is built by hand in Northwest Arkansas. No two runs are the same.</p>
+          <div id="product-component-1777645124306" className="flex justify-center w-full" style={{ textAlign: "center" }} />
         </div>
       </section>
 
-      {/* ── OTHER TRAIL HATS ── */}
       <section className="bg-black px-6 py-16 md:px-16 md:py-20">
         <div className="mx-auto max-w-5xl">
           <p className="mb-2 text-xs font-semibold uppercase tracking-[0.3em] text-[#c6a36b]">More From the Trail Series</p>
-          <h2 className="mb-10 text-3xl font-black uppercase md:text-4xl" style={{ fontFamily: "'Bebas Neue', 'Arial Narrow', sans-serif" }}>
-            More Trails. More Stories.
-          </h2>
+          <h2 className="mb-10 text-3xl font-black uppercase md:text-4xl" style={{ fontFamily: "'Bebas Neue', 'Arial Narrow', sans-serif" }}>More Trails. More Stories.</h2>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
             {[
               { name: "Back 40 Loop", sub: "Black Edition", href: "/trail/back-40-loop", img: "/images/back-40.PNG" },
@@ -271,7 +244,6 @@ export default function DragonScalesPage() {
         </div>
       </section>
 
-      {/* ── FOOTER ── */}
       <footer className="border-t border-white/10 px-5 py-8 text-sm text-white/40 md:px-10">
         <div className="mx-auto flex max-w-7xl flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <p>© 2026 Back 40 Designs. Custom headwear with story and identity.</p>
@@ -279,7 +251,7 @@ export default function DragonScalesPage() {
             <a href="tel:479-544-1366" className="transition hover:text-white">479-544-1366</a>
             <a href="mailto:info@back40designco.com" className="transition hover:text-white">Email</a>
             <a href="https://www.instagram.com/b40_designs/" target="_blank" rel="noreferrer" className="transition hover:text-white">Instagram</a>
-            <Link href="/trail-series" className="transition hover:text-white">← Trail Series</Link>
+            <Link href="/trail-series" className="transition hover:text-white">Trail Series</Link>
             <Link href="/" className="transition hover:text-white">Back to Home</Link>
           </div>
         </div>
