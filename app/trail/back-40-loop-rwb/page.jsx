@@ -81,10 +81,10 @@ export default function Back40LoopRWBPage() {
             <Link href="/trail-series" className="text-[#c6a36b] font-semibold border-b border-[#c6a36b] pb-0.5">Trail Series</Link>
             <Link href="/dealership-series" className="transition hover:text-white">Dealership Series</Link>
             <Link href="/gallery" className="transition hover:text-white">Gallery</Link>
-            <Link href="/custom-orders" className="transition hover:text-white">Custom Orders</Link>
+            <Link href="/#contact" className="transition hover:text-white">Custom Orders</Link>
           </nav>
           <div className="flex items-center gap-2 md:gap-3">
-            <Link href="/custom-orders" className="inline-flex items-center gap-1.5 rounded-2xl bg-[#c6a36b] px-3 py-2 text-xs font-semibold text-black shadow-lg transition hover:-translate-y-0.5 hover:bg-[#d4b07a] md:px-4 md:text-sm">
+            <Link href="/#contact" className="inline-flex items-center gap-1.5 rounded-2xl bg-[#c6a36b] px-3 py-2 text-xs font-semibold text-black shadow-lg transition hover:-translate-y-0.5 hover:bg-[#d4b07a] md:px-4 md:text-sm">
               Start a Project →
             </Link>
             <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="rounded-lg p-2 text-stone-300 transition hover:bg-white/5 md:hidden">
@@ -100,7 +100,7 @@ export default function Back40LoopRWBPage() {
                 ["/trail-series", "Trail Series", false],
                 ["/dealership-series", "Dealership Series", false],
                 ["/gallery", "Gallery", false],
-                ["/custom-orders", "Custom Orders", false],
+                ["/#contact", "Custom Orders", false],
               ].map(([href, label, external]) =>
                 external ? (
                   <a key={label} href={href} target="_blank" rel="noreferrer" onClick={() => setMobileMenuOpen(false)} className="border-b border-white/5 pb-3 transition hover:text-white">{label} ↗</a>
@@ -199,15 +199,9 @@ export default function Back40LoopRWBPage() {
                 Built on the<br />Same Dirt.<br />Worn with Pride.
               </h2>
               <div className="space-y-4 text-sm leading-7 text-white/60 md:text-base">
-                <p>
-                  The Back 40 Loop is the backbone of mountain biking in Northwest Arkansas. Forty miles of Ozark singletrack built by six of the best trail builders in the country and opened in 2016 -- it's the trail that proved NWA belonged on the national stage.
-                </p>
-                <p>
-                  This Red, White & Blue edition is a different expression of the same story. The limestone bluffs, the creek crossings, the berms that drop into valleys -- all of it captured in a colorway that runs as deep as the people who built this place.
-                </p>
-                <p>
-                  Two hats. One trail. Your call which one tells your story.
-                </p>
+                <p>The Back 40 Loop is the backbone of mountain biking in Northwest Arkansas. Forty miles of Ozark singletrack built by six of the best trail builders in the country and opened in 2016 -- it's the trail that proved NWA belonged on the national stage.</p>
+                <p>This Red, White & Blue edition is a different expression of the same story. The limestone bluffs, the creek crossings, the berms that drop into valleys -- all of it captured in a colorway that runs as deep as the people who built this place.</p>
+                <p>Two hats. One trail. Your call which one tells your story.</p>
               </div>
               <div className="mt-8 grid grid-cols-2 gap-4">
                 {[
