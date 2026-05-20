@@ -10,4 +10,6 @@ export const metadata = {
   },
   twitter: { card: "summary_large_image", title: "Back 40 Loop RWB | B40 Trail Series", description: "Same legendary trail. Different story.", images: ["https://www.back40designco.com/images/back-40-rwb.PNG"] },
 };
-export default function Layout({ children }) { return children; }
+export default function Layout({ children }) {
+  return <>{children}</>;
+}
