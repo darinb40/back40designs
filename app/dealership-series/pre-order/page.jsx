@@ -362,8 +362,8 @@ export default function DealershipShopPage() {
 
           <div className="mt-8 grid gap-3 sm:grid-cols-3">
             {[
-              ["Acrylic Patch", "Tri-layer, full detail"],
-              ["Richardson 112", "Snapback, structured fit"],
+              ["Built by Hand", "Northwest Arkansas"],
+              ["Small Batch", "No mass production"],
               ["Bulk Orders", "Contact for pricing"],
             ].map(([label, sub]) => (
               <div key={label} className="rounded-2xl border border-white/10 bg-black/30 backdrop-blur-sm p-4">
