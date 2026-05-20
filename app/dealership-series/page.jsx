@@ -13,7 +13,7 @@ export default function DealershipSeriesPage() {
 
   const shopLink = "https://back40-headwear.myshopify.com/collections/b40-trail-series";
   const instagramLink = "https://www.instagram.com/b40_designs/";
-  const preOrderLink = "/dealership-series/pre-order";
+  const shopPageLink = "/dealership-series/pre-order";
 
   return (
     <main className="relative min-h-[100dvh] overflow-x-hidden bg-black text-white">
@@ -69,7 +69,7 @@ export default function DealershipSeriesPage() {
                   <Link href="/dealership-series/green-pea-guide" className="rounded-lg px-4 py-3 transition hover:bg-white/5 hover:text-white">Green Pea Guide</Link>
                   <Link href="/lot-stretcher" className="rounded-lg px-4 py-3 transition hover:bg-white/5 hover:text-white">Lot Stretcher</Link>
                   <div className="my-1 border-t border-white/10" />
-                  <Link href={preOrderLink} className="rounded-lg px-4 py-3 text-red-400 font-semibold transition hover:bg-red-400/10 hover:text-red-300">Pre-Order →</Link>
+                  <Link href={shopPageLink} className="rounded-lg px-4 py-3 text-[#c6a36b] font-semibold transition hover:bg-[#c6a36b]/10 hover:text-[#c6a36b]">Shop →</Link>
                 </div>
               </div>
 
@@ -81,8 +81,8 @@ export default function DealershipSeriesPage() {
             </nav>
 
             <div className="flex items-center gap-2 md:gap-3">
-              <Link href={preOrderLink} className="hidden rounded-2xl border border-red-400/30 bg-red-400/10 px-4 py-2 text-sm font-semibold text-red-300 transition hover:bg-red-400/20 md:inline-flex">
-                Pre-Order
+              <Link href={shopPageLink} className="hidden rounded-2xl border border-[#c6a36b]/30 bg-[#c6a36b]/10 px-4 py-2 text-sm font-semibold text-[#c6a36b] transition hover:bg-[#c6a36b]/20 md:inline-flex">
+                Shop
               </Link>
               <Link href="/#contact" className="inline-flex items-center gap-1.5 rounded-2xl bg-white px-3 py-2 text-xs font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100 md:px-4 md:text-sm">
                 Start a Project →
@@ -112,7 +112,7 @@ export default function DealershipSeriesPage() {
                       <Link href="/dealership-series/backlot" onClick={() => setMobileMenuOpen(false)} className="transition hover:text-white">Back Lot</Link>
                       <Link href="/dealership-series/green-pea-guide" onClick={() => setMobileMenuOpen(false)} className="transition hover:text-white">Green Pea Guide</Link>
                       <Link href="/lot-stretcher" onClick={() => setMobileMenuOpen(false)} className="transition hover:text-white">Lot Stretcher</Link>
-                      <Link href={preOrderLink} onClick={() => setMobileMenuOpen(false)} className="text-red-400 font-semibold transition hover:text-red-300">Pre-Order →</Link>
+                      <Link href={shopPageLink} onClick={() => setMobileMenuOpen(false)} className="text-[#c6a36b] font-semibold transition hover:text-[#b29360]">Shop →</Link>
                     </div>
                   )}
                 </div>
@@ -131,15 +131,6 @@ export default function DealershipSeriesPage() {
             </div>
           )}
         </header>
-
-        {/* PRE-ORDER BANNER */}
-        <div className="border-b border-red-400/20 bg-red-400/8 px-5 py-3 text-center md:px-10">
-          <p className="text-xs text-red-300 uppercase tracking-widest font-semibold">
-            <span className="inline-block w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse mr-2 align-middle" />
-            First Run Pre-Orders Open — Orders Close May 31 &nbsp;·&nbsp;{" "}
-            <Link href={preOrderLink} className="underline hover:text-white transition">Reserve Yours Now →</Link>
-          </p>
-        </div>
 
         {/* HERO */}
         <section className="px-5 pb-10 pt-8 md:px-10 md:pb-16 md:pt-14">
@@ -163,8 +154,8 @@ export default function DealershipSeriesPage() {
                 <Link href="/dealership-series/backlot" className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-white/10 bg-black/20 px-5 py-4 font-semibold text-white transition hover:bg-white/10 sm:w-auto">
                   Enter Back Lot <ArrowRight />
                 </Link>
-                <Link href={preOrderLink} className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-red-400/40 bg-red-400/10 px-5 py-4 font-semibold text-red-300 transition hover:bg-red-400/20 hover:text-white sm:w-auto">
-                  Pre-Order Now →
+                <Link href={shopPageLink} className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-[#c6a36b]/40 bg-[#c6a36b]/10 px-5 py-4 font-semibold text-[#c6a36b] transition hover:bg-[#c6a36b]/20 hover:text-white sm:w-auto">
+                  Shop the Collection →
                 </Link>
               </div>
 
@@ -197,7 +188,7 @@ export default function DealershipSeriesPage() {
                 </div>
                 <div className="mt-4 grid gap-2">
                   <Link href="/dealership-series/front-line" className="inline-flex w-full justify-center rounded-2xl bg-white px-5 py-3 font-semibold text-black transition hover:bg-stone-100">View Front Line →</Link>
-                  <Link href={preOrderLink} className="inline-flex w-full justify-center rounded-2xl border border-red-400/30 bg-red-400/8 px-5 py-2.5 text-sm font-semibold text-red-300 transition hover:bg-red-400/15 hover:text-white">Pre-Order →</Link>
+                  <Link href={shopPageLink} className="inline-flex w-full justify-center rounded-2xl border border-[#c6a36b]/30 bg-[#c6a36b]/8 px-5 py-2.5 text-sm font-semibold text-[#c6a36b] transition hover:bg-[#c6a36b]/15 hover:text-white">Shop →</Link>
                 </div>
               </div>
 
@@ -211,7 +202,7 @@ export default function DealershipSeriesPage() {
                 </div>
                 <div className="mt-4 grid gap-2">
                   <Link href="/dealership-series/service-bay" className="inline-flex w-full justify-center rounded-2xl border border-white/10 bg-black/20 px-5 py-3 font-semibold text-white transition hover:bg-white/10">Enter Service Bay →</Link>
-                  <Link href={preOrderLink} className="inline-flex w-full justify-center rounded-2xl border border-red-400/30 bg-red-400/8 px-5 py-2.5 text-sm font-semibold text-red-300 transition hover:bg-red-400/15 hover:text-white">Pre-Order →</Link>
+                  <Link href={shopPageLink} className="inline-flex w-full justify-center rounded-2xl border border-[#c6a36b]/30 bg-[#c6a36b]/8 px-5 py-2.5 text-sm font-semibold text-[#c6a36b] transition hover:bg-[#c6a36b]/15 hover:text-white">Shop →</Link>
                 </div>
               </div>
 
@@ -225,7 +216,7 @@ export default function DealershipSeriesPage() {
                 </div>
                 <div className="mt-4 grid gap-2">
                   <Link href="/dealership-series/backlot" className="inline-flex w-full justify-center rounded-2xl border border-white/10 bg-black/20 px-5 py-3 font-semibold text-white transition hover:bg-white/10">Enter Back Lot →</Link>
-                  <Link href={preOrderLink} className="inline-flex w-full justify-center rounded-2xl border border-red-400/30 bg-red-400/8 px-5 py-2.5 text-sm font-semibold text-red-300 transition hover:bg-red-400/15 hover:text-white">Pre-Order →</Link>
+                  <Link href={shopPageLink} className="inline-flex w-full justify-center rounded-2xl border border-[#c6a36b]/30 bg-[#c6a36b]/8 px-5 py-2.5 text-sm font-semibold text-[#c6a36b] transition hover:bg-[#c6a36b]/15 hover:text-white">Shop →</Link>
                 </div>
               </div>
 
@@ -233,17 +224,17 @@ export default function DealershipSeriesPage() {
           </div>
         </section>
 
-        {/* PRE-ORDER CTA */}
+        {/* SHOP CTA */}
         <section className="px-5 pb-10 md:px-10 md:pb-14">
           <div className="mx-auto max-w-7xl">
-            <div className="rounded-2xl border border-red-400/20 bg-red-400/5 p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
+            <div className="rounded-2xl border border-[#c6a36b]/20 bg-[#c6a36b]/5 p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
               <div>
-                <p className="text-xs uppercase tracking-widest text-red-400 mb-1">Limited First Run</p>
-                <h3 className="text-2xl font-semibold text-white">Orders close May 31, 2026.</h3>
-                <p className="mt-1 text-sm text-white/50">24 units per design. We build when the orders are in. Ships mid-June.</p>
+                <p className="text-xs uppercase tracking-widest text-[#c6a36b] mb-1">Available Now</p>
+                <h3 className="text-2xl font-semibold text-white">Shop the full collection.</h3>
+                <p className="mt-1 text-sm text-white/50">$35 per hat. Built by hand in Northwest Arkansas. Ships within 2 weeks.</p>
               </div>
-              <Link href={preOrderLink} className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-8 py-3.5 text-sm font-semibold text-black transition hover:bg-stone-100 hover:-translate-y-0.5 whitespace-nowrap">
-                Pre-Order the Collection →
+              <Link href={shopPageLink} className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-8 py-3.5 text-sm font-semibold text-black transition hover:bg-stone-100 hover:-translate-y-0.5 whitespace-nowrap">
+                Shop the Collection →
               </Link>
             </div>
           </div>
@@ -278,7 +269,7 @@ export default function DealershipSeriesPage() {
               <a href="tel:479-544-1366" className="transition hover:text-white">479-544-1366</a>
               <a href="mailto:info@back40designco.com" className="transition hover:text-white">Email</a>
               <a href={instagramLink} target="_blank" rel="noreferrer" className="transition hover:text-white">Instagram</a>
-              <Link href={preOrderLink} className="text-red-400/70 transition hover:text-red-300">Pre-Order</Link>
+              <Link href={shopPageLink} className="transition hover:text-white">Shop</Link>
               <Link href="/" className="transition hover:text-white">Back to Home</Link>
             </div>
           </div>
