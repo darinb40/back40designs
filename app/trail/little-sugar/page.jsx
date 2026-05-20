@@ -2,7 +2,9 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Script from "next/script";
+
+const SHOPIFY_DOMAIN = 'dy7tby-ue.myshopify.com';
+const STOREFRONT_TOKEN = 'a6a4ccdb4cdd021868213cc7fe3a35bd';
 
 export default function LittleSugarPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -16,58 +18,96 @@ export default function LittleSugarPage() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    const scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
+
+    function initButton() {
+      if (!window.ShopifyBuy || !window.ShopifyBuy.UI) return;
+      const client = window.ShopifyBuy.buildClient({
+        domain: SHOPIFY_DOMAIN,
+        storefrontAccessToken: STOREFRONT_TOKEN,
+      });
+      window.ShopifyBuy.UI.onReady(client).then((ui) => {
+        ui.createComponent('product', {
+          id: '10286117322884',
+          node: document.getElementById('product-component-1777645145056'),
+          moneyFormat: '%24%7B%7Bamount%7D%7D',
+          options: {
+            product: {
+              styles: {
+                product: {
+                  '@media (min-width: 601px)': {
+                    'max-width': '100%',
+                    'margin-left': '0px',
+                    'margin-bottom': '0px',
+                  },
+                },
+                button: {
+                  'font-family': 'Open Sans, sans-serif',
+                  'font-weight': 'bold',
+                  'background-color': '#c6a36b',
+                  ':hover': { 'background-color': '#d4b07a' },
+                  ':focus': { 'background-color': '#d4b07a' },
+                  'padding': '14px 32px',
+                  'font-size': '14px',
+                  'letter-spacing': '0.1em',
+                  'text-transform': 'uppercase',
+                  'width': '100%',
+                },
+              },
+              buttonDestination: 'checkout',
+              contents: { img: false, title: false, price: false },
+              text: { button: 'Get Yours — $35' },
+              googleFonts: ['Open Sans'],
+            },
+            cart: {
+              styles: { button: { 'background-color': '#c6a36b', ':hover': { 'background-color': '#d4b07a' } } },
+              text: { total: 'Subtotal', button: 'Checkout' },
+              googleFonts: ['Open Sans'],
+            },
+            toggle: {
+              styles: { toggle: { 'background-color': '#c6a36b', ':hover': { 'background-color': '#d4b07a' } } },
+              googleFonts: ['Open Sans'],
+            },
+          },
+        });
+      });
+    }
+
+    if (window.ShopifyBuy && window.ShopifyBuy.UI) {
+      initButton();
+    } else {
+      const existing = document.querySelector(`script[src="${scriptURL}"]`);
+      if (existing) {
+        const interval = setInterval(() => {
+          if (window.ShopifyBuy && window.ShopifyBuy.UI) {
+            clearInterval(interval);
+            initButton();
+          }
+        }, 100);
+        return;
+      }
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = scriptURL;
+      script.onload = initButton;
+      document.head.appendChild(script);
+    }
+  }, []);
+
   return (
     <main className="relative w-full overflow-hidden bg-black text-white">
 
       <style>{`
-        .shopify-buy__product { text-align: center !important; margin: 0 auto !important; }
-        .shopify-buy__btn-wrapper { display: flex !important; justify-content: center !important; }
+        .shopify-buy__product { text-align: center !important; margin: 0 !important; max-width: 100% !important; width: 100% !important; }
+        .shopify-buy__btn-wrapper { display: flex !important; justify-content: center !important; width: 100% !important; }
         .shopify-buy__product__title { text-align: center !important; }
         .shopify-buy__product__price { text-align: center !important; }
+        #product-component-1777645145056 { width: 100% !important; max-width: 100% !important; }
+        #product-component-1777645145056 iframe { width: 100% !important; max-width: 100% !important; }
       `}</style>
 
-      <Script src="https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js" strategy="afterInteractive" onLoad={() => {
-        if (window.ShopifyBuy && window.ShopifyBuy.UI) {
-          const client = window.ShopifyBuy.buildClient({
-            domain: 'dy7tby-ue.myshopify.com',
-            storefrontAccessToken: 'a6a4ccdb4cdd021868213cc7fe3a35bd',
-          });
-          window.ShopifyBuy.UI.onReady(client).then((ui) => {
-            ui.createComponent('product', {
-              id: '10286117322884',
-              node: document.getElementById('product-component-1777645145056'),
-              moneyFormat: '%24%7B%7Bamount%7D%7D',
-              options: {
-                product: {
-                  styles: {
-                    button: {
-                      "font-family": "Open Sans, sans-serif",
-                      "font-weight": "bold",
-                      "background-color": "#c6a36b",
-                      ":hover": { "background-color": "#d4b07a" },
-                      ":focus": { "background-color": "#d4b07a" },
-                      "padding": "14px 32px",
-                      "font-size": "14px",
-                      "letter-spacing": "0.1em",
-                      "text-transform": "uppercase",
-                    }
-                  },
-                  buttonDestination: "checkout",
-                  text: { button: "Get Yours — $35" },
-                },
-                cart: {
-                  styles: { button: { "background-color": "#c6a36b", ":hover": { "background-color": "#d4b07a" } } },
-                  text: { total: "Subtotal", button: "Checkout" },
-                },
-                toggle: {
-                  styles: { toggle: { "background-color": "#c6a36b", ":hover": { "background-color": "#d4b07a" } } }
-                }
-              },
-            });
-          });
-        }
-      }} />
-
+      {/* HEADER */}
       <header className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${scrolled ? "border-b border-white/10 bg-black/90 backdrop-blur" : "bg-transparent"}`}>
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-10 md:py-4">
           <Link href="/">
@@ -110,6 +150,7 @@ export default function LittleSugarPage() {
         )}
       </header>
 
+      {/* HERO */}
       <section className="relative h-[100vh] w-full">
         <img src="/images/little-sugar.PNG" alt="Little Sugar Trail" className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-black/55" />
@@ -125,7 +166,7 @@ export default function LittleSugarPage() {
             <p className="mb-10 max-w-sm text-sm leading-6 text-white/60 md:text-base">
               50 miles of punchy, technical singletrack through the hollers and ravines of west Bella Vista. More climbing per mile than anywhere else in NWA.
             </p>
-            <a href="#get-yours" className="inline-flex items-center justify-center gap-2 bg-[#c6a36b] px-6 py-3 text-sm font-bold uppercase tracking-[0.15em] text-black transition hover:bg-[#d4b07a]">
+            <a href="#story" className="inline-flex items-center justify-center gap-2 bg-[#c6a36b] px-6 py-3 text-sm font-bold uppercase tracking-[0.15em] text-black transition hover:bg-[#d4b07a]">
               Get Yours — $35 ↓
             </a>
           </div>
@@ -137,6 +178,7 @@ export default function LittleSugarPage() {
         </div>
       </section>
 
+      {/* TRAIL STATS */}
       <section className="relative overflow-hidden" style={{ minHeight: "420px" }}>
         <div className="absolute inset-0 w-full h-full" style={{ backgroundImage: "url('/images/trail-b40.png')", backgroundSize: "cover", backgroundPosition: "center", backgroundAttachment: "fixed" }} />
         <div className="absolute inset-0 bg-black/65" />
@@ -168,17 +210,28 @@ export default function LittleSugarPage() {
         </div>
       </section>
 
-      <section className="bg-black px-6 py-16 md:px-16 md:py-24">
+      {/* STORY */}
+      <section id="story" className="bg-black px-6 py-16 md:px-16 md:py-24">
         <div className="mx-auto max-w-6xl">
-          <div className="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-20 md:items-center">
-            <div className="relative">
-              <div className="absolute -inset-4 bg-[#cc0000]/10 blur-2xl rounded-full" />
-              <img src="/images/little-sugar.PNG" alt="Little Sugar Trail Hat" className="relative w-full rounded-xl object-cover shadow-2xl" />
-              <div className="absolute bottom-4 left-4 rounded-lg bg-black/80 px-4 py-2 backdrop-blur">
-                <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#c6a36b]">Little Sugar Trail</p>
-                <p className="text-xs text-white/60">Bella Vista, Arkansas</p>
+          <div className="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-20">
+
+            {/* LEFT -- Hat image + buy button */}
+            <div>
+              <div className="relative">
+                <div className="absolute -inset-4 bg-[#cc0000]/10 blur-2xl rounded-full" />
+                <img src="/images/little-sugar.PNG" alt="Little Sugar Trail Hat" className="relative w-full rounded-xl object-cover shadow-2xl" />
+                <div className="absolute bottom-4 left-4 rounded-lg bg-black/80 px-4 py-2 backdrop-blur">
+                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#c6a36b]">Little Sugar Trail</p>
+                  <p className="text-xs text-white/60">Bella Vista, Arkansas</p>
+                </div>
+              </div>
+              <div className="mt-6">
+                <p className="mb-3 text-xs font-semibold uppercase tracking-[0.25em] text-white/40">Limited Run — Small Batch</p>
+                <div id="product-component-1777645145056" className="w-full" />
               </div>
             </div>
+
+            {/* RIGHT -- Story + specs */}
             <div>
               <p className="mb-4 text-xs font-semibold uppercase tracking-[0.35em] text-[#c6a36b]">The Story</p>
               <h2 className="mb-6 text-4xl font-black uppercase leading-tight md:text-5xl" style={{ fontFamily: "'Bebas Neue', 'Arial Narrow', sans-serif" }}>
@@ -203,19 +256,12 @@ export default function LittleSugarPage() {
                 ))}
               </div>
             </div>
+
           </div>
         </div>
       </section>
 
-      <section id="get-yours" className="bg-[#0a0a0a] px-6 py-16 md:px-16 md:py-20">
-        <div className="mx-auto max-w-2xl text-center">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.35em] text-[#c6a36b]">Limited Run — Small Batch</p>
-          <h2 className="mb-4 text-4xl font-black uppercase md:text-5xl" style={{ fontFamily: "'Bebas Neue', 'Arial Narrow', sans-serif" }}>Wear the Trail</h2>
-          <p className="mb-8 text-sm leading-6 text-white/50">Every hat is built by hand in Northwest Arkansas. No two runs are the same.</p>
-          <div id="product-component-1777645145056" className="flex justify-center" />
-        </div>
-      </section>
-
+      {/* OTHER TRAIL HATS */}
       <section className="bg-black px-6 py-16 md:px-16 md:py-20">
         <div className="mx-auto max-w-5xl">
           <p className="mb-2 text-xs font-semibold uppercase tracking-[0.3em] text-[#c6a36b]">More From the Trail Series</p>
@@ -240,6 +286,7 @@ export default function LittleSugarPage() {
         </div>
       </section>
 
+      {/* FOOTER */}
       <footer className="border-t border-white/10 px-5 py-8 text-sm text-white/40 md:px-10">
         <div className="mx-auto flex max-w-7xl flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <p>© 2026 Back 40 Designs. Custom headwear with story and identity.</p>
