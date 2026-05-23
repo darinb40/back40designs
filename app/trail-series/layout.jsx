@@ -1,28 +1,28 @@
 export const metadata = {
-  title: "Trail Series | Back 40 Design Co.",
-  description: "Born in Northwest Arkansas and built for the riders, shops, and trail towns that make this place different. Custom patch headwear from the dirt up.",
+  title: "B40 Trail Series | Custom Patch Hats | Northwest Arkansas",
+  description: "The B40 Trail Series is custom patch headwear built in Northwest Arkansas and inspired by NWA's most iconic trails. Small batch. No mass production.",
+  keywords: "B40 Trail Series, B40 Arkansas, B40 hats NWA, Back 40 trail hats, Northwest Arkansas hats, Bella Vista mountain bike hats, NWA trail headwear",
   openGraph: {
-    title: "Trail Series | Back 40 Design Co.",
-    description: "Born in Northwest Arkansas and built for the riders, shops, and trail towns that make this place different. Custom patch headwear from the dirt up.",
+    title: "B40 Trail Series | Custom Patch Hats | Northwest Arkansas",
+    description: "The B40 Trail Series is custom patch headwear built in Northwest Arkansas and inspired by NWA's most iconic trails. Small batch. No mass production.",
     url: "https://www.back40designco.com/trail-series",
     images: [
       {
         url: "https://www.back40designco.com/trail-series-bg.png",
         width: 1200,
         height: 630,
-        alt: "Back 40 Trail Series Hats",
+        alt: "B40 Trail Series -- Custom Patch Hats Northwest Arkansas",
       },
     ],
-    siteName: "Back 40 Design Co.",
+    siteName: "B40 Design Co.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Trail Series | Back 40 Design Co.",
-    description: "Born in Northwest Arkansas and built for the riders, shops, and trail towns that make this place different.",
+    title: "B40 Trail Series | Custom Patch Hats | Northwest Arkansas",
+    description: "The B40 Trail Series is custom patch headwear built in Northwest Arkansas and inspired by NWA's most iconic trails.",
     images: ["https://www.back40designco.com/trail-series-bg.png"],
   },
 };
-
 export default function TrailSeriesLayout({ children }) {
-  return children;
+  return <>{children}</>;
 }
