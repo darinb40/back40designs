@@ -146,7 +146,7 @@ export default function Back40LandingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
 
   const instagramLink = "https://www.instagram.com/b40_designs/";
-  const facebookLink = "https://www.facebook.com/";
+  const facebookLink = "https://www.facebook.com/profile.php?id=61574511363635";
   const phoneLink = "tel:479-544-1366";
   const phoneNumber = "479-544-1366";
 
