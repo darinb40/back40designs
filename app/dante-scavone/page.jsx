@@ -176,7 +176,7 @@ export default function DanteScavonePage() {
               The Dante<br />Scavone Hat
             </h1>
             <p className="mt-5 max-w-xl text-base leading-7 text-stone-300 md:text-lg">
-              A limited B40 build for [add a short line about Dante and the collab here]. 7-panel rope hat, copper engraved patch, old-school camo. Made in a small run, so reserve yours before it's gone.
+              A limited B40 build for Dante Scavone. 7-panel rope hat, copper engraved patch, old-school camo. Made in a small run, so reserve yours before it's gone.
             </p>
             <div className="mt-6 flex items-center gap-4">
               <span className="text-3xl font-bold text-white">{PRICE}</span>
