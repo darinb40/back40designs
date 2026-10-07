@@ -186,86 +186,66 @@ export default function Back40LandingPage() {
   return (
     <div className="min-h-screen bg-stone-950 text-stone-100">
 
-      {/* ── HEADER ── */}
-      <header className="sticky top-0 z-40 border-b border-white/10 bg-stone-950/90 backdrop-blur">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-10 md:py-4">
-          <a href="/">
-            <img src="/images/b40-home-logo.jpg" alt="Back 40 Designs" className="h-10 w-auto md:h-12" />
+      {/* ── HEADER: reference-matched styling ── */}
+      <header className="sticky top-0 z-40 border-b border-[#25384d] bg-[#03101f]/95 backdrop-blur-md">
+        <div className="mx-auto flex min-h-[74px] max-w-[1600px] items-center justify-between gap-5 px-5 py-3 md:px-12 lg:min-h-[96px]">
+          <a href="/" aria-label="B40 Headwear home" className="block shrink-0">
+            <img src="/images/b40-home-logo.jpg" alt="B40" className="block h-auto w-[126px] object-contain sm:w-[158px] lg:w-[178px]" />
           </a>
-          <nav className="hidden items-center gap-6 text-sm text-stone-300 md:flex">
-            <a href="/trail-series" className="transition hover:text-white">Shop</a>
-            <a href="/trail-series" className="transition hover:text-white">Trail Series</a>
-            <a href="/dealership-series" className="transition hover:text-white">Dealership Series</a>
-            <a href="/gallery" className="transition hover:text-white">Gallery</a>
-            <a href="#contact" className="transition hover:text-white">Custom Orders</a>
+          <nav className="hidden items-center gap-0 lg:flex" aria-label="Primary navigation">
+            <a href="/trail-series" className="border-r border-[#3b5068] px-6 py-2 text-[12px] font-semibold uppercase tracking-[0.2em] text-[#e9eef9] transition hover:text-white">Shop</a>
+            <a href="/trail-series" className="border-r border-[#3b5068] px-6 py-2 text-[12px] font-semibold uppercase tracking-[0.2em] text-[#e9eef9] transition hover:text-white">Trail Series</a>
+            <a href="/gallery" className="border-r border-[#3b5068] px-6 py-2 text-[12px] font-semibold uppercase tracking-[0.2em] text-[#e9eef9] transition hover:text-white">Gallery</a>
+            <a href="#contact" className="px-6 py-2 text-[12px] font-semibold uppercase tracking-[0.2em] text-[#e9eef9] transition hover:text-white">Custom Orders</a>
           </nav>
-          <div className="flex items-center gap-2 md:gap-3">
-            <a href="#contact" className="inline-flex items-center gap-1.5 rounded-2xl bg-white px-3 py-2 text-xs font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100 md:px-4 md:text-sm">
-              Start a Project
+          <div className="flex items-center gap-3">
+            <a href="#contact" className="hidden items-center justify-center gap-5 border border-[#fc3535] bg-[#ba0505] px-6 py-4 text-[12px] font-bold uppercase tracking-[0.13em] text-white transition hover:bg-[#dd1010] md:inline-flex">
+              Start a Custom Order <ArrowRight />
             </a>
-            <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="rounded-lg p-2 text-stone-300 transition hover:bg-white/5 md:hidden" aria-label="Toggle menu">
+            <button type="button" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="rounded-md border border-white/20 p-2 text-xl text-white lg:hidden" aria-label="Toggle navigation" aria-expanded={mobileMenuOpen}>
               {mobileMenuOpen ? "✕" : "☰"}
             </button>
           </div>
         </div>
         {mobileMenuOpen && (
-          <div className="border-t border-white/10 bg-stone-950 px-4 py-4 md:hidden">
-            <nav className="flex flex-col gap-4 text-sm text-stone-300">
-              {[
-                ["/trail-series", "Shop"],
-                ["/trail-series", "Trail Series"],
-                ["/dealership-series", "Dealership Series"],
-                ["/gallery", "Gallery"],
-                ["#contact", "Custom Orders"],
-              ].map(([href, label]) => (
-                <a key={label} href={href} onClick={() => setMobileMenuOpen(false)} className="border-b border-white/5 pb-3 transition hover:text-white">{label}</a>
-              ))}
-            </nav>
-          </div>
+          <nav className="flex flex-col border-t border-white/10 bg-[#03101f] px-5 py-4 lg:hidden" aria-label="Mobile navigation">
+            {[["/trail-series", "Shop"], ["/trail-series", "Trail Series"], ["/gallery", "Gallery"], ["#contact", "Custom Orders"]].map(([href,label]) => (
+              <a key={label} href={href} onClick={() => setMobileMenuOpen(false)} className="border-b border-white/10 px-2 py-3 text-sm font-semibold uppercase tracking-[0.15em] text-white">{label}</a>
+            ))}
+            <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="mt-4 bg-[#ba0505] px-4 py-3 text-center text-xs font-bold uppercase tracking-[0.15em] text-white">Start a Custom Order →</a>
+          </nav>
         )}
       </header>
 
-      {/* ── HERO ── */}
-      <section className="relative overflow-hidden border-b border-white/10 bg-[#071019]">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(198,163,107,0.08),_transparent_35%),radial-gradient(circle_at_bottom_right,_rgba(59,130,246,0.15),_transparent_35%)]" />
-        <div className="relative z-10 mx-auto grid max-w-7xl gap-10 px-4 py-12 md:px-10 md:py-20 lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:gap-14">
-          <div className="max-w-xl">
-            <p className="mb-4 text-xs font-bold uppercase tracking-[0.28em] text-[#c6a36b] md:text-sm">Custom Headwear / Craftsmanship / Identity</p>
-            <h1 className="text-4xl font-black leading-[0.95] tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
+      {/* ── HERO: artwork and layout match approved concept, responsive live text ── */}
+      <section className="relative isolate overflow-hidden border-b border-[#173454] bg-[#020b19]">
+        <div className="pointer-events-none absolute inset-0 opacity-30" style={{backgroundImage:'linear-gradient(rgba(26,83,143,.23) 1px, transparent 1px),linear-gradient(90deg,rgba(26,83,143,.23) 1px, transparent 1px)',backgroundSize:'29px 29px'}} />
+        <div className="pointer-events-none absolute inset-0" style={{background:'radial-gradient(ellipse at 74% 42%,rgba(0,61,122,.24),transparent 58%),linear-gradient(90deg,#020b19 0%,rgba(2,11,25,.91) 36%,rgba(2,11,25,.24) 100%)'}} />
+        <div className="relative mx-auto grid w-full max-w-[1600px] grid-cols-1 gap-5 px-5 pb-10 pt-12 sm:px-9 lg:min-h-[720px] lg:grid-cols-[44%_56%] lg:items-center lg:gap-0 lg:px-12 lg:py-12">
+          <div className="relative z-10 max-w-[670px] lg:py-8">
+            <p className="mb-6 text-[10px] font-medium uppercase tracking-[0.37em] text-[#8f9fbb] sm:text-xs">Custom Headwear&nbsp; / &nbsp;Craftsmanship&nbsp; / &nbsp;Identity</p>
+            <h1 className="font-black leading-[0.99] tracking-[-0.048em] text-[#f8f9fc]" style={{fontFamily:'Arial Black, Helvetica Neue, Arial, sans-serif',fontSize:'clamp(3.3rem,5.1vw,6.2rem)'}}>
               A Story<br />Worth Wearing.
             </h1>
-            <div className="mt-5 h-1.5 w-20 rounded-full bg-red-500" />
-            <p className="mt-6 max-w-lg text-lg leading-8 text-stone-300 md:text-xl">
+            <div className="mb-5 mt-6 h-[5px] w-[81px] bg-[#fa2433]" />
+            <p className="max-w-[560px] text-xl font-medium leading-[1.35] text-[#e7e8ed] sm:text-[24px]">
               Premium custom headwear designed with purpose and built to stand apart.
             </p>
-            <p className="mt-4 max-w-lg text-base leading-7 text-stone-400 md:text-lg md:leading-8">
-              More than hats. A way to tell your story. B40 delivers premium custom headwear crafted with precision for brands, businesses, and people who care about identity.
+            <p className="mt-5 max-w-[550px] text-[15px] leading-[1.85] tracking-[0.015em] text-[#aab5c9] sm:text-[17px]">
+              More than hats. A way to tell your story. B40 delivers premium custom headwear, crafted with precision, designed for those who value quality and identity.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <a href="#contact" className="inline-flex items-center gap-2 rounded-2xl bg-red-600 px-5 py-3 text-sm font-semibold text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-red-500">
-                Start a Custom Order <ArrowRight />
-              </a>
-              <a href="/trail-series" className="inline-flex items-center gap-2 rounded-2xl border border-white/20 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/5">
-                Shop Hats <ArrowRight />
-              </a>
+            <div className="mt-8 flex flex-wrap items-stretch gap-3 sm:gap-4">
+              <a href="#contact" className="inline-flex min-h-[60px] items-center justify-center gap-5 border border-[#ff3944] bg-[#b50707] px-5 py-4 text-xs font-bold uppercase tracking-[0.17em] text-white transition hover:bg-[#d40b0b] sm:px-7">Start a Custom Order <ArrowRight /></a>
+              <a href="/trail-series" className="inline-flex min-h-[60px] items-center justify-center gap-5 border border-[#9aafc4] bg-[#061324]/70 px-5 py-4 text-xs font-bold uppercase tracking-[0.17em] text-white transition hover:bg-[#142d4c] sm:px-7">Shop Hats <ArrowRight /></a>
             </div>
-            <div className="mt-10 grid gap-4 text-sm sm:grid-cols-3">
-              {[
-                ['Custom Headwear', 'Designed to feel personal.'],
-                ['Premium Craftsmanship', 'Patch-forward and intentional.'],
-                ['Built for Identity', 'Made for brands that want more.'],
-              ].map(([title, text]) => (
-                <div key={title} className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur">
-                  <p className="font-semibold text-white">{title}</p>
-                  <p className="mt-1 text-stone-400">{text}</p>
-                </div>
-              ))}
+            <div className="mt-11 grid grid-cols-3 border-t border-[#22384e] pt-5 text-[#dbe3f1]">
+              <div className="flex items-center gap-2 border-r border-[#30475b] pr-2 sm:gap-3"><span aria-hidden="true" className="text-2xl sm:text-3xl">⚙</span><span className="text-[9px] uppercase leading-relaxed tracking-[0.13em] sm:text-[10px]">Custom<br/>Headwear</span></div>
+              <div className="flex items-center justify-center gap-2 border-r border-[#30475b] px-2 sm:gap-3"><span aria-hidden="true" className="text-2xl sm:text-3xl">◇</span><span className="text-[9px] uppercase leading-relaxed tracking-[0.13em] sm:text-[10px]">Premium<br/>Craftsmanship</span></div>
+              <div className="flex items-center justify-end gap-2 pl-2 sm:gap-3"><span aria-hidden="true" className="text-2xl sm:text-3xl">◎</span><span className="text-[9px] uppercase leading-relaxed tracking-[0.13em] sm:text-[10px]">Built for<br/>Your Identity</span></div>
             </div>
           </div>
-          <div className="rounded-[2rem] border border-white/10 bg-[#081224] p-3 shadow-2xl backdrop-blur md:p-4">
-            <div className="overflow-hidden rounded-[1.5rem] border border-white/10 bg-[#0a1630]">
-              <img src="/images/b40-home-hero-blueprint.png" alt="Blueprint-style hero image of a B40 trucker hat" className="block w-full object-cover" />
-            </div>
+          <div className="pointer-events-none relative -mx-5 mt-4 sm:mx-0 lg:-ml-3 lg:-mr-12 lg:mt-0 lg:self-stretch">
+            <img src="/images/b40-hero-blueprint-clean.png" alt="B40 trucker hat technical blueprint with front, side, and top views" className="h-auto w-full object-contain lg:absolute lg:inset-0 lg:h-full lg:w-full lg:object-contain lg:object-right" />
           </div>
         </div>
       </section>
