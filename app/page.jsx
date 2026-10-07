@@ -1,4 +1,4 @@
-'use client';
+use client';
 
 import React from 'react';
 
@@ -70,7 +70,7 @@ function ContactForm({ light = false }) {
         <p className="text-3xl mb-3">✓</p>
         <p className={`text-lg font-semibold ${light ? "text-stone-900" : "text-white"}`}>Message received.</p>
         <p className={`mt-2 text-sm ${light ? "text-stone-600" : "text-stone-400"}`}>
-          Darin will be in touch within 1-2 business days. You can also text or call directly at{" "}
+          Darin will be in touch within 1-2 business days. You can also text or call directly at{' '}
           <a href="tel:479-544-1366" className="underline">479-544-1366</a>.
         </p>
       </div>
@@ -125,8 +125,8 @@ function ContactForm({ light = false }) {
       </div>
       {status === "error" && (
         <p className="text-sm text-red-400">
-          Something went wrong. Text Darin directly at{" "}
-          <a href="tel:479-544-1366" className="underline">479-544-1366</a> or email{" "}
+          Something went wrong. Text Darin directly at{' '}
+          <a href="tel:479-544-1366" className="underline">479-544-1366</a> or email{' '}
           <a href="mailto:info@back40designco.com" className="underline">info@back40designco.com</a>.
         </p>
       )}
@@ -134,7 +134,7 @@ function ContactForm({ light = false }) {
         {status === "sending" ? "Sending..." : "Send Project Inquiry"}
       </button>
       <p className={`text-center text-xs ${light ? "text-stone-500" : "text-stone-500"}`}>
-        Or text / call directly:{" "}
+        Or text / call directly:{' '}
         <a href="tel:479-544-1366" className={`font-semibold underline ${light ? "text-stone-700" : "text-stone-300"}`}>479-544-1366</a>
       </p>
     </form>
@@ -157,9 +157,9 @@ export default function Back40LandingPage() {
   ];
 
   const collections = [
-    { title: "Trail Series", eyebrow: "Signature Line", description: "Topo-driven hats inspired by Arkansas trails, ridgelines, and the outdoor culture that built the brand.", icon: MountainIcon, image: "/images/holding-hero.jpg", link: "/trail-series" },
+    { title: "Trail Series", eyebrow: "Signature Line", description: "Topo-driven hats inspired by Arkansas trails, ridgelines, and the outdoor culture that built the brand.", icon: MountainIcon, image: "/images/b40-home-little-sugar.jpg", link: "/trail-series" },
     { title: "Business Merch", eyebrow: "For Shops & Brands", description: "Custom hats for local businesses, bike shops, restaurants, events, and teams that want merch with real identity.", icon: StoreIcon, image: "/images/b40-home-dt-apparel.jpg", link: "/gallery" },
-    { title: "Legacy Builds", eyebrow: "One-Off Projects", description: "Story-driven pieces built from places, memories, family history, and meaningful details worth preserving.", icon: ShieldCheckIcon, image: "/images/b40-home-arkansas.jpg", link: "/gallery" },
+    { title: "Legacy Builds", eyebrow: "One-Off Projects", description: "Story-driven pieces built from places, memories, family history, and meaningful details worth preserving.", icon: ShieldCheckIcon, image: "/images/b40-home-war-eagle.jpg", link: "/gallery" },
   ];
 
   const process = [
@@ -190,7 +190,7 @@ export default function Back40LandingPage() {
       <header className="sticky top-0 z-40 border-b border-white/10 bg-stone-950/90 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-10 md:py-4">
           <a href="/">
-            <img src="/images/b402026.png" alt="Back 40 Designs" className="h-10 w-auto md:h-12" />
+            <img src="/images/b40-home-logo.jpg" alt="Back 40 Designs" className="h-10 w-auto md:h-12" />
           </a>
           <nav className="hidden items-center gap-6 text-sm text-stone-300 md:flex">
             <a href="/trail-series" className="transition hover:text-white">Shop</a>
@@ -225,44 +225,58 @@ export default function Back40LandingPage() {
         )}
       </header>
 
-      {/* ── HERO: MODERN PRODUCT-FIRST UPDATE ── */}
-      <section className="relative overflow-hidden border-b border-white/10 bg-[#101010]">
-        <div className="absolute -left-32 top-0 h-96 w-96 rounded-full bg-[#c6a36b]/5 blur-3xl pointer-events-none" />
-        <div className="relative z-10 mx-auto grid max-w-7xl gap-10 px-4 py-12 md:px-10 md:py-20 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-14">
+      {/* ── HERO ── */}
+      <section className="relative overflow-hidden border-b border-white/10 bg-[#071019]">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(198,163,107,0.08),_transparent_35%),radial-gradient(circle_at_bottom_right,_rgba(59,130,246,0.15),_transparent_35%)]" />
+        <div className="relative z-10 mx-auto grid max-w-7xl gap-10 px-4 py-12 md:px-10 md:py-20 lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:gap-14">
           <div className="max-w-xl">
-            <img src="/images/b40-home-brand.jpg" alt="Back 40 Designs brand mark" className="mb-6 h-24 w-24 rounded-full object-contain md:h-28 md:w-28" />
-            <p className="mb-4 text-xs font-bold uppercase tracking-[0.28em] text-[#c6a36b] md:text-sm">A Story Worth Wearing.</p>
-            <h1 className="text-4xl font-bold leading-[1.05] tracking-tight text-white sm:text-5xl md:text-6xl">
-              Custom headwear.<br /><span className="text-[#c6a36b]">Real identity.</span>
+            <p className="mb-4 text-xs font-bold uppercase tracking-[0.28em] text-[#c6a36b] md:text-sm">Custom Headwear / Craftsmanship / Identity</p>
+            <h1 className="text-4xl font-black leading-[0.95] tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
+              A Story<br />Worth Wearing.
             </h1>
-            <p className="mt-6 max-w-lg text-base leading-7 text-stone-300 md:text-lg md:leading-8">
-              Premium custom hats for businesses, brands, and people with a story worth wearing. Designed with purpose. Made to stand out.
+            <div className="mt-5 h-1.5 w-20 rounded-full bg-red-500" />
+            <p className="mt-6 max-w-lg text-lg leading-8 text-stone-300 md:text-xl">
+              Premium custom headwear designed with purpose and built to stand apart.
+            </p>
+            <p className="mt-4 max-w-lg text-base leading-7 text-stone-400 md:text-lg md:leading-8">
+              More than hats. A way to tell your story. B40 delivers premium custom headwear crafted with precision for brands, businesses, and people who care about identity.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <a href="#contact" className="inline-flex items-center gap-2 rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100">
+              <a href="#contact" className="inline-flex items-center gap-2 rounded-2xl bg-red-600 px-5 py-3 text-sm font-semibold text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-red-500">
                 Start a Custom Order <ArrowRight />
               </a>
-              <a href="/trail-series" className="inline-flex items-center gap-2 rounded-2xl border border-white/25 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10">
+              <a href="/trail-series" className="inline-flex items-center gap-2 rounded-2xl border border-white/20 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/5">
                 Shop Hats <ArrowRight />
               </a>
             </div>
+            <div className="mt-10 grid gap-4 text-sm sm:grid-cols-3">
+              {[
+                ['Custom Headwear', 'Designed to feel personal.'],
+                ['Premium Craftsmanship', 'Patch-forward and intentional.'],
+                ['Built for Identity', 'Made for brands that want more.'],
+              ].map(([title, text]) => (
+                <div key={title} className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur">
+                  <p className="font-semibold text-white">{title}</p>
+                  <p className="mt-1 text-stone-400">{text}</p>
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="relative overflow-hidden rounded-[1.75rem] border border-white/10 bg-stone-900 shadow-2xl">
-            <img src="/images/b40-home-lot-nine.jpg" alt="Custom Lot Nine Billiards hat produced by B40 Headwear" className="block aspect-[4/3] h-full w-full object-cover object-center lg:aspect-[5/4]" />
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/75 to-transparent px-5 pb-5 pt-16">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/90">Crafted for real brands</p>
+          <div className="rounded-[2rem] border border-white/10 bg-[#081224] p-3 shadow-2xl backdrop-blur md:p-4">
+            <div className="overflow-hidden rounded-[1.5rem] border border-white/10 bg-[#0a1630]">
+              <img src="/images/b40-home-hero-blueprint.png" alt="Blueprint-style hero image of a B40 trucker hat" className="block w-full object-cover" />
             </div>
           </div>
         </div>
       </section>
 
       {/* ── STATIC BANNER ── */}
-      <section className="w-full border-y border-[#c6a36b]/20 bg-black py-4 px-6">
-        <div className="mx-auto max-w-7xl flex flex-wrap items-center justify-center gap-4 md:gap-8">
+      <section className="w-full border-y border-[#c6a36b]/20 bg-black px-6 py-4">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-4 md:gap-8">
           {["A Story Worth Wearing", "Custom Acrylic & Leatherette Patch Hats", "Built for Local Brands", "Small-Run Friendly", "Made to Feel Personal", "Purpose Built in NWA"].map((text, i, arr) => (
             <React.Fragment key={text}>
               <span className="text-xs font-black uppercase tracking-[0.3em] text-[#c6a36b]">{text}</span>
-              {i < arr.length - 1 && <span className="text-[#c6a36b]/40 text-base">·</span>}
+              {i < arr.length - 1 && <span className="text-base text-[#c6a36b]/40">·</span>}
             </React.Fragment>
           ))}
         </div>
@@ -362,9 +376,9 @@ export default function Back40LandingPage() {
             The <span className="font-bold text-white">3 Pillars</span> of Back 40 Designs.
           </h2>
           <p className="mt-4 text-base leading-7 text-stone-300 md:text-lg md:leading-8">
-            Everything built here runs through the same filter:{" "}
-            <strong className="text-white">purpose</strong>,{" "}
-            <strong className="text-white">quality</strong>, and{" "}
+            Everything built here runs through the same filter:{' '}
+            <strong className="text-white">purpose</strong>,{' '}
+            <strong className="text-white">quality</strong>, and{' '}
             <strong className="text-white">identity</strong>.
           </p>
         </div>
@@ -431,7 +445,7 @@ export default function Back40LandingPage() {
       {/* ── WHY BACK 40 ── */}
       <section className="relative border-y border-white/10">
         <LineTopoOverlay opacity="opacity-15" dark="bg-black/80" />
-        <div className="relative z-10 mx-auto grid max-w-7xl gap-6 px-4 py-14 md:px-10 md:py-20 lg:grid-cols-2 lg:gap-10 lg:items-start">
+        <div className="relative z-10 mx-auto grid max-w-7xl gap-6 px-4 py-14 md:px-10 md:py-20 lg:grid-cols-2 lg:items-start lg:gap-10">
           <div>
             <p className="text-sm uppercase tracking-[0.2em] text-stone-400">Why Back 40</p>
             <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">
@@ -441,10 +455,10 @@ export default function Back40LandingPage() {
               The best custom gear feels personal. Back 40 focuses on hats that connect to a place, a business, a memory, or a brand identity people actually care about.
             </p>
             <div className="mt-8 overflow-hidden rounded-[2rem] border border-white/10 shadow-2xl">
-              <img src="/images/jester.jpg" alt="Jesters Privilege — custom commission by Back 40 Designs" className="w-full object-cover" />
+              <img src="/images/b40-home-lot-nine.jpg" alt="Lot Nine Billiards custom hat by Back 40 Designs" className="w-full object-cover" />
               <div className="border-t border-white/10 bg-black/60 px-5 py-3 backdrop-blur">
-                <p className="text-xs uppercase tracking-[0.2em] text-stone-500">Custom Commission</p>
-                <p className="mt-0.5 text-sm font-semibold text-stone-200">Jesters Privilege — Legacy Build</p>
+                <p className="text-xs uppercase tracking-[0.2em] text-stone-500">Custom Build</p>
+                <p className="mt-0.5 text-sm font-semibold text-stone-200">Lot Nine — Billiards & Games</p>
               </div>
             </div>
           </div>
@@ -473,7 +487,7 @@ export default function Back40LandingPage() {
           {testimonials.map((t) => (
             <div key={t.name} className="rounded-[2rem] border border-white/10 bg-white/5 p-6 md:p-7">
               <div className="mb-4 flex gap-1">
-                {[...Array(t.rating)].map((_, i) => <span key={i} className="text-yellow-400 text-lg">★</span>)}
+                {[...Array(t.rating)].map((_, i) => <span key={i} className="text-lg text-yellow-400">★</span>)}
               </div>
               <p className="mb-6 text-sm leading-7 text-stone-300 md:text-base">"{t.text}"</p>
               <p className="font-semibold text-white">{t.name}</p>
@@ -503,8 +517,8 @@ export default function Back40LandingPage() {
             <div className="rounded-[2rem] border border-white/10 bg-gradient-to-br from-stone-100 to-stone-200 px-6 py-8 text-stone-950 shadow-2xl md:px-10 md:py-10">
               <p className="text-sm uppercase tracking-[0.2em] text-stone-600">Let's build something</p>
               <h2 className="mt-2 text-2xl font-semibold tracking-tight md:text-3xl">Start your project here.</h2>
-              <p className="mt-2 text-sm leading-6 text-stone-600 mb-6">
-                Fill out the form and Darin will be in touch within 1-2 business days. Prefer to talk? Call or text directly at{" "}
+              <p className="mb-6 mt-2 text-sm leading-6 text-stone-600">
+                Fill out the form and Darin will be in touch within 1-2 business days. Prefer to talk? Call or text directly at{' '}
                 <a href={phoneLink} className="font-semibold text-stone-900 underline">{phoneNumber}</a>.
               </p>
               <ContactForm light={true} />
