@@ -158,8 +158,8 @@ export default function Back40LandingPage() {
 
   const collections = [
     { title: "Trail Series", eyebrow: "Signature Line", description: "Topo-driven hats inspired by Arkansas trails, ridgelines, and the outdoor culture that built the brand.", icon: MountainIcon, image: "/images/holding-hero.jpg", link: "/trail-series" },
-    { title: "Business Merch", eyebrow: "For Shops & Brands", description: "Custom hats for local businesses, bike shops, restaurants, events, and teams that want merch with real identity.", icon: StoreIcon, image: "/images/PSV-HAT.png", link: "/gallery" },
-    { title: "Legacy Builds", eyebrow: "One-Off Projects", description: "Story-driven pieces built from places, memories, family history, and meaningful details worth preserving.", icon: ShieldCheckIcon, image: "/images/legacy-hat.jpg", link: "/gallery" },
+    { title: "Business Merch", eyebrow: "For Shops & Brands", description: "Custom hats for local businesses, bike shops, restaurants, events, and teams that want merch with real identity.", icon: StoreIcon, image: "/images/b40-home-dt-apparel.jpg", link: "/gallery" },
+    { title: "Legacy Builds", eyebrow: "One-Off Projects", description: "Story-driven pieces built from places, memories, family history, and meaningful details worth preserving.", icon: ShieldCheckIcon, image: "/images/b40-home-arkansas.jpg", link: "/gallery" },
   ];
 
   const process = [
@@ -181,17 +181,6 @@ export default function Back40LandingPage() {
     { name: "Jonathan Woolbright", role: "Woolbright Auto Glass", text: "Back 40 Designs put together work shirts and ballcaps for Woolbright Auto Glass. Did a great job outfitting our team!", rating: 5 },
     { name: "All American PDR", role: "Company", text: "Consistently outstanding experience. I've ordered both hats and shirts, and the quality, along with the speed of delivery, far exceeds others in the area. I highly recommend getting your gear here.", rating: 5 },
     { name: "Scott Clark", role: "Customer", text: "Badass hats made custom by a badass individual. Highly recommend!", rating: 5 },
-  ];
-
-  const homeGallery = [
-    { title: "Jesters Privilege", image: "/images/jester.jpg" },
-    { title: "Trail Series — Dragon Scales", image: "/images/dragon-scales.jpg" },
-    { title: "Back 40 Loop", image: "/images/topo-row.jpg" },
-    { title: "Gravette Bad Bananas", image: "/images/bad-bananas.jpg" },
-    { title: "B40 Collection", image: "/images/b40-stack.JPG" },
-    { title: "Pinnacle Sports", image: "/images/pinnacle.JPG" },
-    { title: "Little Sugar — Bella Vista", image: "/images/little-sugar-held.jpg" },
-    { title: "Hubcap Kid", image: "/images/hubccap-kid.JPG" },
   ];
 
   return (
@@ -236,27 +225,33 @@ export default function Back40LandingPage() {
         )}
       </header>
 
-      {/* ── HERO ── */}
-      <section className="relative overflow-hidden border-b border-white/10">
-        <div className="absolute inset-0 bg-[url('/images/welcome-bg.png')] bg-cover bg-[center_30%]" />
-        <div className="absolute inset-0 bg-black/35" />
-        <div className="relative z-10 mx-auto max-w-7xl px-4 pb-14 pt-10 md:px-10 md:pb-24 md:pt-16">
-          <img src="/images/welcome-page-logo.PNG" alt="Back 40 Designs" className="mb-3 w-28 md:w-44 lg:w-52" />
-          <p className="mb-3 text-xs font-black uppercase tracking-[0.28em] text-[#c6a36b] md:text-sm" style={{ marginTop: "-4px" }}>A story worth wearing.</p>
-          <h1 className="max-w-3xl text-4xl font-semibold leading-tight tracking-tight md:text-6xl lg:text-7xl">
-            Not just hats.<br />
-            <span className="font-bold text-white">Built for people who actually have something to say.</span>
-          </h1>
-          <p className="mt-5 max-w-2xl text-base leading-7 text-stone-300 md:text-lg md:leading-8">
-            Back 40 Designs creates premium patch-forward hats for local brands, businesses, and real-world stories that deserve more than generic merch.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <a href="#contact" className="inline-flex items-center gap-2 rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100">
-              Request a Quote
-            </a>
-            <a href="/trail-series" className="inline-flex items-center gap-2 rounded-2xl border border-white/15 px-5 py-3 text-sm font-semibold text-stone-100 transition hover:bg-white/5">
-              Shop the Trail Series
-            </a>
+      {/* ── HERO: MODERN PRODUCT-FIRST UPDATE ── */}
+      <section className="relative overflow-hidden border-b border-white/10 bg-[#101010]">
+        <div className="absolute -left-32 top-0 h-96 w-96 rounded-full bg-[#c6a36b]/5 blur-3xl pointer-events-none" />
+        <div className="relative z-10 mx-auto grid max-w-7xl gap-10 px-4 py-12 md:px-10 md:py-20 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-14">
+          <div className="max-w-xl">
+            <img src="/images/b40-home-brand.jpg" alt="Back 40 Designs brand mark" className="mb-6 h-24 w-24 rounded-full object-contain md:h-28 md:w-28" />
+            <p className="mb-4 text-xs font-bold uppercase tracking-[0.28em] text-[#c6a36b] md:text-sm">A Story Worth Wearing.</p>
+            <h1 className="text-4xl font-bold leading-[1.05] tracking-tight text-white sm:text-5xl md:text-6xl">
+              Custom headwear.<br /><span className="text-[#c6a36b]">Real identity.</span>
+            </h1>
+            <p className="mt-6 max-w-lg text-base leading-7 text-stone-300 md:text-lg md:leading-8">
+              Premium custom hats for businesses, brands, and people with a story worth wearing. Designed with purpose. Made to stand out.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a href="#contact" className="inline-flex items-center gap-2 rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100">
+                Start a Custom Order <ArrowRight />
+              </a>
+              <a href="/trail-series" className="inline-flex items-center gap-2 rounded-2xl border border-white/25 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10">
+                Shop Hats <ArrowRight />
+              </a>
+            </div>
+          </div>
+          <div className="relative overflow-hidden rounded-[1.75rem] border border-white/10 bg-stone-900 shadow-2xl">
+            <img src="/images/b40-home-lot-nine.jpg" alt="Custom Lot Nine Billiards hat produced by B40 Headwear" className="block aspect-[4/3] h-full w-full object-cover object-center lg:aspect-[5/4]" />
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/75 to-transparent px-5 pb-5 pt-16">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/90">Crafted for real brands</p>
+            </div>
           </div>
         </div>
       </section>
@@ -412,34 +407,6 @@ export default function Back40LandingPage() {
               </a>
             );
           })}
-        </div>
-      </section>
-
-      {/* ── GALLERY ── */}
-      <section id="work" className="bg-stone-950">
-        <div className="mx-auto max-w-7xl px-4 py-14 md:px-10 md:py-20">
-          <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-            <div>
-              <p className="text-sm uppercase tracking-[0.2em] text-stone-400">Past Work</p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">A look at past builds, collaborations, and custom work.</h2>
-              <p className="mt-4 max-w-xl text-stone-300">Built for brands, shops, and projects that need more than generic merch.</p>
-            </div>
-            <a href="/gallery" className="inline-flex w-fit items-center gap-2 rounded-2xl bg-white px-6 py-3 text-sm font-semibold text-black transition hover:-translate-y-0.5">
-              See All Builds <ArrowRight className="h-4 w-4" />
-            </a>
-          </div>
-          <div className="grid grid-cols-2 gap-3 xl:grid-cols-4">
-            {homeGallery.map((item) => (
-              <a key={item.title} href="/gallery" className="group overflow-hidden rounded-[1.5rem] border border-white/10 bg-stone-900 transition hover:-translate-y-1 md:rounded-[2rem]">
-                <div className="aspect-square overflow-hidden">
-                  <img src={item.image} alt={item.title} className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.05]" />
-                </div>
-                <div className="p-3">
-                  <p className="text-sm font-semibold text-white leading-snug md:text-base">{item.title}</p>
-                </div>
-              </a>
-            ))}
-          </div>
         </div>
       </section>
 
