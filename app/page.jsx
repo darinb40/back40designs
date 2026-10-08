@@ -3,10 +3,33 @@
 import React from 'react';
 
 // ─── Settings you might want to tweak ───────────────────────────────
-// On phones, the hero photo is cropped. The FIRST number slides the
-// picture left/right (0% = far left, 100% = far right). If the hat is
-// cut off on your phone, nudge this number up or down by 5-10%.
-const HERO_MOBILE_FOCUS = "78% 50%";
+// Phone hero photo framing. Change one number at a time, commit, check.
+// HERO_MOBILE_FOCUS: first number slides the photo left/right.
+//   Bigger number = more of the right side (the mesh) shows.
+// HERO_MOBILE_ZOOM: 1 = no zoom. Bigger zooms in and pushes the three
+//   small hat views out of frame.
+// HERO_MOBILE_ZOOM_CENTER: where the zoom aims (left/right, up/down).
+//   Lower second number = aims higher on the photo.
+const HERO_MOBILE_FOCUS = "88% 50%";
+const HERO_MOBILE_ZOOM = 1.4;
+const HERO_MOBILE_ZOOM_CENTER = "55% 28%";
+
+// Hero "build" animation: a faint blueprint draft draws in first, then a
+// scan line sweeps down and the finished hat renders in behind it.
+// Plays once on page load. Skipped for people who turn off motion.
+const HERO_ANIMATION_CSS = `
+@keyframes b40-wipe { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes b40-scan { 0% { top: 0%; opacity: 1; } 92% { opacity: 1; } 100% { top: 100%; opacity: 0; } }
+.b40-draft { filter: grayscale(1) brightness(1.7) contrast(1.5); opacity: .3; animation: b40-wipe 1.2s ease-out both; }
+.b40-render { animation: b40-wipe 1.8s cubic-bezier(.6,0,.2,1) 1s both; }
+.b40-scan { position: absolute; left: 0; right: 0; height: 2px; background: #fff;
+  box-shadow: 0 0 12px 3px rgba(140,180,255,.9), 0 0 40px 8px rgba(197,0,0,.35);
+  animation: b40-scan 1.8s cubic-bezier(.6,0,.2,1) 1s both; pointer-events: none; }
+@media (prefers-reduced-motion: reduce) {
+  .b40-draft, .b40-render { animation: none; }
+  .b40-scan { display: none; }
+}
+`;
 
 const FORMSPREE_ID = "xzdywzvy";
 const PHONE = "479-544-1366";
@@ -280,23 +303,39 @@ export default function Back40LandingPage() {
 
       {/* ── HERO ── */}
       <section className="relative isolate overflow-hidden border-b border-white/10 bg-[#021125]">
-        {/* Desktop: full wallpaper behind the text */}
-        <div aria-hidden="true" className="absolute inset-0 hidden bg-[url('/images/b40-hero-wallpaper.png')] bg-cover bg-center lg:block" />
+        <style>{HERO_ANIMATION_CSS}</style>
+
+        {/* Desktop: full wallpaper behind the text, with the build animation */}
+        <div aria-hidden="true" className="absolute inset-0 hidden lg:block">
+          <div className="b40-draft absolute inset-0 bg-[url('/images/b40-hero-wallpaper.png')] bg-cover bg-center" />
+          <div className="b40-render absolute inset-0 bg-[url('/images/b40-hero-wallpaper.png')] bg-cover bg-center" />
+          <div className="b40-scan" />
+        </div>
         <div aria-hidden="true" className="absolute inset-0 hidden bg-gradient-to-r from-[#021025]/55 via-[#021025]/15 to-transparent lg:block" />
 
         {/* Mobile: blueprint grid, with the hat photo shown on its own up top */}
         <BlueprintGrid className="lg:hidden" />
-        <div className="relative lg:hidden">
-          <img
-            src="/images/b40-hero-wallpaper.png"
-            alt="Back 40 custom patch hat on a blueprint background"
-            className="h-[48vh] max-h-[440px] min-h-[280px] w-full object-cover"
-            style={{ objectPosition: HERO_MOBILE_FOCUS }}
-          />
-          <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-b from-transparent to-[#021125]" />
+        <div className="relative aspect-square max-h-[460px] w-full overflow-hidden lg:hidden">
+          <div className="absolute inset-0" style={{ transform: `scale(${HERO_MOBILE_ZOOM})`, transformOrigin: HERO_MOBILE_ZOOM_CENTER }}>
+            <img
+              src="/images/b40-hero-wallpaper.png"
+              alt=""
+              aria-hidden="true"
+              className="b40-draft absolute inset-0 h-full w-full object-cover"
+              style={{ objectPosition: HERO_MOBILE_FOCUS }}
+            />
+            <img
+              src="/images/b40-hero-wallpaper.png"
+              alt="Back 40 custom patch hat on a blueprint background"
+              className="b40-render absolute inset-0 h-full w-full object-cover"
+              style={{ objectPosition: HERO_MOBILE_FOCUS }}
+            />
+          </div>
+          <div className="b40-scan" />
+          <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-b from-transparent to-[#021125]" />
         </div>
 
-        <div className="relative z-10 mx-auto -mt-16 max-w-7xl px-5 pb-14 md:px-10 lg:mt-0 lg:flex lg:min-h-[760px] lg:items-center lg:py-20">
+        <div className="relative z-10 mx-auto max-w-7xl px-5 pb-14 pt-2 md:px-10 lg:flex lg:min-h-[760px] lg:items-center lg:py-20 lg:pt-20">
           <div className="w-full max-w-[600px]">
             <h1 className="text-[clamp(2.5rem,10vw,3.5rem)] font-black leading-[0.98] tracking-[-0.045em] text-white drop-shadow-[0_2px_5px_rgba(0,0,0,0.3)] lg:text-[clamp(3.3rem,5.2vw,5.5rem)]">
               A Story<br />Worth Wearing.
