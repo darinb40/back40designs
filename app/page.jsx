@@ -2,39 +2,67 @@
 
 import React from 'react';
 
-// ─── Icon Components ────────────────────────────────────────────────
-const ArrowRight = ({ className = "h-4 w-4" }) => <span className={className}>→</span>;
-const MountainIcon = ({ className = "h-5 w-5" }) => <span className={className}>△</span>;
-const ShieldCheckIcon = ({ className = "h-5 w-5" }) => <span className={className}>⬢</span>;
-const StoreIcon = ({ className = "h-5 w-5" }) => <span className={className}>▣</span>;
+// ─── Settings you might want to tweak ───────────────────────────────
+// On phones, the hero photo is cropped. The FIRST number slides the
+// picture left/right (0% = far left, 100% = far right). If the hat is
+// cut off on your phone, nudge this number up or down by 5-10%.
+const HERO_MOBILE_FOCUS = "78% 50%";
 
-// ─── Background Overlays ────────────────────────────────────────────
-function HeavyTopoOverlay({ opacity = "opacity-55", dark = "bg-black/65" }) {
-  return (
-    <>
-      <div className={`absolute inset-0 bg-[url('/images/topo-heavy.png')] bg-cover bg-center ${opacity}`} />
-      <div className={`absolute inset-0 ${dark}`} />
-    </>
-  );
-}
-
-function LineTopoOverlay({ opacity = "opacity-20", dark = "bg-black/75" }) {
-  return (
-    <>
-      <div className={`absolute inset-0 bg-[url('/images/topo-lines.png')] bg-cover bg-center ${opacity}`} />
-      <div className={`absolute inset-0 ${dark}`} />
-    </>
-  );
-}
-
-// ─── Contact Form Component ─────────────────────────────────────────
 const FORMSPREE_ID = "xzdywzvy";
+const PHONE = "479-544-1366";
+const PHONE_LINK = "tel:+14795441366";
+const EMAIL = "info@back40designco.com";
+const INSTAGRAM = "https://www.instagram.com/b40_designs/";
+const FACEBOOK = "https://www.facebook.com/profile.php?id=61574511363635";
 
-function ContactForm({ light = false }) {
+// Palette (pulled from the blueprint hero)
+// ink    #021125  main background
+// deep   #04172f  raised panels
+// paper  #f2f5fa  light panels / form
+// muted  #9fb0c9  body text on dark
+// signal #c50000  red accent
+
+// ─── Blueprint grid background ──────────────────────────────────────
+function BlueprintGrid({ className = "" }) {
+  return (
+    <div
+      aria-hidden="true"
+      className={`pointer-events-none absolute inset-0 ${className}`}
+      style={{
+        backgroundImage:
+          "linear-gradient(rgba(150,182,230,0.10) 1px, transparent 1px)," +
+          "linear-gradient(90deg, rgba(150,182,230,0.10) 1px, transparent 1px)," +
+          "linear-gradient(rgba(150,182,230,0.05) 1px, transparent 1px)," +
+          "linear-gradient(90deg, rgba(150,182,230,0.05) 1px, transparent 1px)",
+        backgroundSize: "160px 160px, 160px 160px, 32px 32px, 32px 32px",
+      }}
+    />
+  );
+}
+
+// ─── Image frame with blueprint corner marks ────────────────────────
+function SpecFrame({ children, className = "" }) {
+  const mark = "absolute h-4 w-4 border-[#9fb0c9]/70";
+  return (
+    <div className={`relative p-2 ${className}`}>
+      <span aria-hidden="true" className={`${mark} left-0 top-0 border-l border-t`} />
+      <span aria-hidden="true" className={`${mark} right-0 top-0 border-r border-t`} />
+      <span aria-hidden="true" className={`${mark} bottom-0 left-0 border-b border-l`} />
+      <span aria-hidden="true" className={`${mark} bottom-0 right-0 border-b border-r`} />
+      <div className="overflow-hidden">{children}</div>
+    </div>
+  );
+}
+
+const linkStyle =
+  "inline-flex items-center gap-2 text-sm font-semibold text-white underline decoration-[#c50000] decoration-2 underline-offset-[6px] transition hover:decoration-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white";
+
+// ─── Contact form ───────────────────────────────────────────────────
+const EMPTY_FORM = { name: "", email: "", phone: "", projectType: "", quantity: "", message: "", _gotcha: "" };
+
+function ContactForm() {
   const [status, setStatus] = React.useState("idle");
-  const [form, setForm] = React.useState({
-    name: "", email: "", phone: "", projectType: "", quantity: "", message: "",
-  });
+  const [form, setForm] = React.useState(EMPTY_FORM);
 
   const handleChange = (e) => setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
@@ -49,7 +77,7 @@ function ContactForm({ light = false }) {
       });
       if (res.ok) {
         setStatus("success");
-        setForm({ name: "", email: "", phone: "", projectType: "", quantity: "", message: "" });
+        setForm(EMPTY_FORM);
       } else {
         setStatus("error");
       }
@@ -58,20 +86,17 @@ function ContactForm({ light = false }) {
     }
   };
 
-  const base = light
-    ? "bg-white/60 border-stone-300/60 text-stone-900 placeholder-stone-500 focus:border-stone-600"
-    : "bg-white/5 border-white/10 text-white placeholder-stone-500 focus:border-white/30";
-  const inputClass = `w-full rounded-2xl border px-4 py-3 text-sm transition focus:outline-none ${base}`;
-  const labelClass = `block text-xs font-semibold uppercase tracking-[0.2em] mb-1.5 ${light ? "text-stone-600" : "text-stone-400"}`;
+  const input =
+    "w-full border border-[#021125]/20 bg-white px-4 py-3 text-base text-[#021125] placeholder-[#021125]/40 transition focus:border-[#021125] focus:outline-none";
+  const label = "mb-1.5 block text-sm font-semibold text-[#021125]";
 
   if (status === "success") {
     return (
-      <div className={`rounded-[2rem] border p-8 text-center ${light ? "border-stone-300/40 bg-white/50" : "border-white/10 bg-white/5"}`}>
-        <p className="text-3xl mb-3">✓</p>
-        <p className={`text-lg font-semibold ${light ? "text-stone-900" : "text-white"}`}>Message received.</p>
-        <p className={`mt-2 text-sm ${light ? "text-stone-600" : "text-stone-400"}`}>
-          Darin will be in touch within 1-2 business days. You can also text or call directly at{' '}
-          <a href="tel:479-544-1366" className="underline">479-544-1366</a>.
+      <div className="border border-[#021125]/15 bg-white p-8 text-center">
+        <p className="text-2xl font-black text-[#021125]">Inquiry sent.</p>
+        <p className="mt-3 text-sm leading-6 text-[#021125]/70">
+          Darin will get back to you within 1-2 business days. Need it sooner? Call or text{' '}
+          <a href={PHONE_LINK} className="font-semibold underline">{PHONE}</a>.
         </p>
       </div>
     );
@@ -79,498 +104,434 @@ function ContactForm({ light = false }) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
+      {/* Spam trap. Real people never see or fill this. */}
+      <input type="text" name="_gotcha" value={form._gotcha} onChange={handleChange} tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
+
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label className={labelClass}>Your Name *</label>
-          <input type="text" name="name" required placeholder="First and last name" value={form.name} onChange={handleChange} className={inputClass} />
+          <label htmlFor="cf-name" className={label}>Name *</label>
+          <input id="cf-name" type="text" name="name" required autoComplete="name" placeholder="First and last name" value={form.name} onChange={handleChange} className={input} />
         </div>
         <div>
-          <label className={labelClass}>Email *</label>
-          <input type="email" name="email" required placeholder="you@yourbusiness.com" value={form.email} onChange={handleChange} className={inputClass} />
+          <label htmlFor="cf-email" className={label}>Email *</label>
+          <input id="cf-email" type="email" name="email" required autoComplete="email" placeholder="you@yourbusiness.com" value={form.email} onChange={handleChange} className={input} />
         </div>
       </div>
+
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label className={labelClass}>Phone / Text</label>
-          <input type="tel" name="phone" placeholder="479-000-0000" value={form.phone} onChange={handleChange} className={inputClass} />
+          <label htmlFor="cf-phone" className={label}>Phone or text</label>
+          <input id="cf-phone" type="tel" name="phone" autoComplete="tel" placeholder="479-000-0000" value={form.phone} onChange={handleChange} className={input} />
         </div>
         <div>
-          <label className={labelClass}>Project Type</label>
-          <select name="projectType" value={form.projectType} onChange={handleChange} className={`${inputClass} ${light ? "bg-white/60" : "bg-stone-900"}`}>
-            <option value="">Select one...</option>
-            <option value="Business Merch">Business / Brand Merch</option>
-            <option value="Trail Series">Trail Series / Outdoor</option>
-            <option value="Legacy Build">Legacy / Personal Build</option>
-            <option value="Dealership Series">Dealership Series</option>
-            <option value="Event / Team">Event or Team Order</option>
-            <option value="Not Sure">Not Sure Yet</option>
+          <label htmlFor="cf-qty" className={label}>How many hats?</label>
+          <select id="cf-qty" name="quantity" value={form.quantity} onChange={handleChange} className={input}>
+            <option value="">Pick a range</option>
+            <option value="1-11">1-11</option>
+            <option value="12-24">12-24</option>
+            <option value="25-48">25-48</option>
+            <option value="49-99">49-99</option>
+            <option value="100+">100+</option>
+            <option value="Not Sure">Not sure yet</option>
           </select>
         </div>
       </div>
+
       <div>
-        <label className={labelClass}>Estimated Quantity</label>
-        <select name="quantity" value={form.quantity} onChange={handleChange} className={`${inputClass} ${light ? "bg-white/60" : "bg-stone-900"}`}>
-          <option value="">Select a range...</option>
-          <option value="1-11">1-11 (one-off / small run)</option>
-          <option value="12-24">12-24</option>
-          <option value="25-48">25-48</option>
-          <option value="49-99">49-99</option>
-          <option value="100+">100+</option>
+        <label htmlFor="cf-type" className={label}>What kind of project?</label>
+        <select id="cf-type" name="projectType" value={form.projectType} onChange={handleChange} className={input}>
+          <option value="">Pick one</option>
+          <option value="Business Merch">Business or brand merch</option>
+          <option value="Event / Team">Event or team order</option>
+          <option value="Legacy Build">Legacy build (personal story)</option>
+          <option value="Dealership Series">Dealership order</option>
+          <option value="Trail Series">Trail Series</option>
           <option value="Not Sure">Not sure yet</option>
         </select>
       </div>
+
       <div>
-        <label className={labelClass}>Tell me about the project *</label>
-        <textarea name="message" required rows={4} placeholder="Business name, what you're going for, any logo details, deadline, or whatever comes to mind..." value={form.message} onChange={handleChange} className={`${inputClass} resize-none`} />
+        <label htmlFor="cf-msg" className={label}>Tell me about it *</label>
+        <textarea id="cf-msg" name="message" required rows={4} placeholder="Business name, logo, the look you want, and any deadline." value={form.message} onChange={handleChange} className={`${input} resize-none`} />
       </div>
+
       {status === "error" && (
-        <p className="text-sm text-red-400">
-          Something went wrong. Text Darin directly at{' '}
-          <a href="tel:479-544-1366" className="underline">479-544-1366</a> or email{' '}
-          <a href="mailto:info@back40designco.com" className="underline">info@back40designco.com</a>.
+        <p className="border-l-2 border-[#c50000] pl-3 text-sm text-[#021125]">
+          Your inquiry didn't send. Text Darin at{' '}
+          <a href={PHONE_LINK} className="font-semibold underline">{PHONE}</a> or email{' '}
+          <a href={`mailto:${EMAIL}`} className="font-semibold underline">{EMAIL}</a>.
         </p>
       )}
-      <button type="submit" disabled={status === "sending"} className={`w-full rounded-2xl py-3.5 text-sm font-semibold shadow-lg transition hover:-translate-y-0.5 disabled:opacity-60 ${light ? "bg-stone-950 text-white hover:bg-stone-800" : "bg-white text-stone-950 hover:bg-stone-100"}`}>
-        {status === "sending" ? "Sending..." : "Send Project Inquiry"}
+
+      <button
+        type="submit"
+        disabled={status === "sending"}
+        className="w-full bg-[#c50000] py-4 text-sm font-bold uppercase tracking-[0.16em] text-white transition hover:bg-[#a80000] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#021125] disabled:opacity-60"
+      >
+        {status === "sending" ? "Sending..." : "Send project inquiry"}
       </button>
-      <p className={`text-center text-xs ${light ? "text-stone-500" : "text-stone-500"}`}>
-        Or text / call directly:{' '}
-        <a href="tel:479-544-1366" className={`font-semibold underline ${light ? "text-stone-700" : "text-stone-300"}`}>479-544-1366</a>
-      </p>
     </form>
   );
 }
 
-// ─── Main Page ──────────────────────────────────────────────────────
+// ─── Page ───────────────────────────────────────────────────────────
 export default function Back40LandingPage() {
-  const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+  const [menuOpen, setMenuOpen] = React.useState(false);
 
-  const instagramLink = "https://www.instagram.com/b40_designs/";
-  const facebookLink = "https://www.facebook.com/profile.php?id=61574511363635";
-  const phoneLink = "tel:479-544-1366";
-  const phoneNumber = "479-544-1366";
+  const nav = [
+    ["/trail-series", "Shop"],
+    ["/gallery", "Gallery"],
+    ["#story", "Our Story"],
+  ];
 
-  const pillars = [
-    { title: "Purpose", text: "Every build starts with a reason. A business, a place, a memory, or a story worth putting on a hat.", icon: "/images/purpose.png" },
-    { title: "Quality", text: "Patch-forward headwear built with clean execution, premium materials, and a finish that feels intentional.", icon: "/images/quality.png" },
-    { title: "Identity", text: "Back 40 designs are made to stand out and actually say something about the person, brand, or place behind them.", icon: "/images/identity.png" },
+  const customBuilds = [
+    {
+      title: "Business merch",
+      text: "Hats for shops, restaurants, dealerships, teams, and events. Built around your logo, made so your crew and customers actually want to wear them.",
+      image: "/images/b40-home-dt-apparel.jpg",
+      alt: "Custom business merch hat by Back 40",
+    },
+    {
+      title: "Legacy builds",
+      text: "One-off pieces built from a place, a family name, or a memory. The kind of hat that gets handed down instead of thrown out.",
+      image: "/images/b40-home-war-eagle.jpg",
+      alt: "War Eagle legacy build hat by Back 40",
+    },
   ];
 
   const collections = [
-    { title: "Trail Series", eyebrow: "Signature Line", description: "Topo-driven hats inspired by Arkansas trails, ridgelines, and the outdoor culture that built the brand.", icon: MountainIcon, image: "/images/b40-home-little-sugar.jpg", link: "/trail-series" },
-    { title: "Business Merch", eyebrow: "For Shops & Brands", description: "Custom hats for local businesses, bike shops, restaurants, events, and teams that want merch with real identity.", icon: StoreIcon, image: "/images/b40-home-dt-apparel.jpg", link: "/gallery" },
-    { title: "Legacy Builds", eyebrow: "One-Off Projects", description: "Story-driven pieces built from places, memories, family history, and meaningful details worth preserving.", icon: ShieldCheckIcon, image: "/images/b40-home-war-eagle.jpg", link: "/gallery" },
+    {
+      title: "Trail Series",
+      text: "Four hats, four Northwest Arkansas trails.",
+      image: "/images/b40-home-little-sugar.jpg",
+      link: "/trail-series",
+    },
+    {
+      title: "Dealership Series",
+      text: "Made from inside the car business, for the people in it.",
+      image: "/images/firefly-dealership.png",
+      link: "/dealership-series",
+    },
   ];
 
-  const process = [
-    { step: "01", title: "Start with the idea", text: "Send a logo, a concept, a business name, or even just the vibe you want. That is enough to get moving.", icon: "/images/lightbulb.png" },
-    { step: "02", title: "Shape the build", text: "We dial in patch style, hat choice, materials, and layout until the design feels right and fits the brand.", icon: "/images/shape.png" },
-    { step: "03", title: "Bring it to life", text: "Once approved, the run is built with a clean, premium finish made to be worn — not forgotten.", icon: "/images/life.png" },
+  const steps = [
+    { title: "Send the idea", text: "A logo, a business name, a rough sketch, or just the feel you want. That's enough to start." },
+    { title: "Dial in the design", text: "We pick the hat, the patch material, and the layout together, and adjust until it's right." },
+    { title: "Production", text: "Once you approve it, your run is built and finished by hand. Standard turnaround is 3-4 weeks." },
+  ];
+
+  const pillars = [
+    ["Purpose", "Every build starts with a reason: a business, a place, or a story worth putting on a hat."],
+    ["Quality", "Premium blanks, clean patch work, and a finish that holds up to daily wear."],
+    ["Identity", "Designs that say something about the person or brand behind them, not pulled from a catalog."],
   ];
 
   const faqs = [
-    { q: "What do I need to get started?", a: "A logo, rough idea, business name, quantity, or even just the overall direction is enough to start the conversation." },
-    { q: "Do you work with businesses and local brands?", a: "Yes. Back 40 is built for shops, restaurants, events, dealerships, teams, and local brands that want better merch." },
-    { q: "Can you do one-off special projects too?", a: "Yes. Some of the best builds come from personal stories, landmarks, family history, and custom legacy pieces." },
-    { q: "How long does production take?", a: "Standard production is 3-4 weeks. Rush production is available for projects with a tighter deadline." },
-    { q: "What's the minimum order?", a: "No minimums. We build small runs and one-off custom pieces. Scale up as you grow." },
+    { q: "Is there a minimum order?", a: "No. One hat or a few hundred. Small runs and one-off pieces are welcome." },
+    { q: "How long does it take?", a: "Standard production is 3-4 weeks. Rush production is available if you're up against a deadline." },
+    { q: "What do I need to get started?", a: "A logo, a rough idea, or just the direction you want. We'll work out the rest together." },
+    { q: "Do you work with businesses?", a: "Yes. Shops, restaurants, dealerships, teams, events, and local brands are a big part of what we build." },
   ];
 
   const testimonials = [
-    { name: "Trey Lee", role: "Business Owner", text: "Ordering branded items for my business used to be a challenge until I started working with Back 40 Designs. Their communication is excellent, and the quality of the shirts and hats I've received has been outstanding. I highly recommend reaching out to them for your business needs.", rating: 5 },
-    { name: "Jonathan Woolbright", role: "Woolbright Auto Glass", text: "Back 40 Designs put together work shirts and ballcaps for Woolbright Auto Glass. Did a great job outfitting our team!", rating: 5 },
-    { name: "All American PDR", role: "Company", text: "Consistently outstanding experience. I've ordered both hats and shirts, and the quality, along with the speed of delivery, far exceeds others in the area. I highly recommend getting your gear here.", rating: 5 },
-    { name: "Scott Clark", role: "Customer", text: "Badass hats made custom by a badass individual. Highly recommend!", rating: 5 },
+    { name: "Trey Lee", role: "Business Owner", text: "Ordering branded items for my business used to be a challenge until I started working with Back 40 Designs. Their communication is excellent, and the quality of the shirts and hats I've received has been outstanding. I highly recommend reaching out to them for your business needs." },
+    { name: "All American PDR", role: "Company", text: "Consistently outstanding experience. I've ordered both hats and shirts, and the quality, along with the speed of delivery, far exceeds others in the area. I highly recommend getting your gear here." },
+    { name: "Jonathan Woolbright", role: "Woolbright Auto Glass", text: "Back 40 Designs put together work shirts and ballcaps for Woolbright Auto Glass. Did a great job outfitting our team!" },
+    { name: "Scott Clark", role: "Customer", text: "Badass hats made custom by a badass individual. Highly recommend!" },
   ];
 
   return (
-    <div className="min-h-screen bg-stone-950 text-stone-100">
+    <div className="min-h-screen bg-[#021125] text-[#f2f5fa] antialiased">
 
       {/* ── HEADER ── */}
-      <header className="sticky top-0 z-40 border-b border-white/10 bg-[#05101d]/92 backdrop-blur">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-10">
+      <header className="sticky top-0 z-40 border-b border-white/10 bg-[#021125]/90 backdrop-blur">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-3 md:px-10 md:py-4">
           <a href="/" className="shrink-0">
-            <img src="/images/b40-home-logo.png" alt="Back 40 Designs" className="h-10 w-auto md:h-12" />
+            <img src="/images/b40-home-logo.png" alt="Back 40 Design Co." className="h-9 w-auto md:h-11" />
           </a>
 
-          <nav className="hidden items-center gap-8 text-xs font-semibold uppercase tracking-[0.22em] text-stone-300 md:flex">
-            <a href="/trail-series" className="transition hover:text-white">Shop</a>
-            <a href="/trail-series" className="transition hover:text-white">Trail Series</a>
-            <a href="/gallery" className="transition hover:text-white">Gallery</a>
-            <a href="#contact" className="transition hover:text-white">Custom Orders</a>
+          <nav className="hidden items-center gap-9 text-sm font-semibold text-[#c9d3e3] md:flex">
+            {nav.map(([href, label]) => (
+              <a key={label} href={href} className="transition hover:text-white">{label}</a>
+            ))}
+            <a href="#contact" className="bg-[#c50000] px-5 py-3 text-xs font-bold uppercase tracking-[0.16em] text-white transition hover:bg-[#a80000]">
+              Start a custom order
+            </a>
           </nav>
 
-          <div className="flex items-center gap-2 md:gap-3">
-            <a href="#contact" className="hidden items-center gap-2 rounded-sm border border-red-500 bg-red-600 px-4 py-3 text-xs font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-red-500 md:inline-flex">
-              Start a Custom Order <ArrowRight className="h-4 w-4" />
-            </a>
-            <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="rounded-lg p-2 text-stone-300 transition hover:bg-white/5 md:hidden" aria-label="Toggle menu">
-              {mobileMenuOpen ? "✕" : "☰"}
-            </button>
-          </div>
+          <button onClick={() => setMenuOpen(!menuOpen)} className="-mr-2 p-2 text-2xl leading-none text-white md:hidden" aria-label="Toggle menu" aria-expanded={menuOpen}>
+            {menuOpen ? "✕" : "☰"}
+          </button>
         </div>
-        {mobileMenuOpen && (
-          <div className="border-t border-white/10 bg-[#05101d] px-4 py-4 md:hidden">
-            <nav className="flex flex-col gap-4 text-sm text-stone-300">
-              {[
-                ["/trail-series", "Shop"],
-                ["/trail-series", "Trail Series"],
-                ["/gallery", "Gallery"],
-                ["#contact", "Custom Orders"],
-              ].map(([href, label]) => (
-                <a key={label} href={href} onClick={() => setMobileMenuOpen(false)} className="border-b border-white/5 pb-3 uppercase tracking-[0.12em] transition hover:text-white">{label}</a>
+
+        {menuOpen && (
+          <div className="border-t border-white/10 bg-[#021125] px-5 pb-6 pt-2 md:hidden">
+            <nav className="flex flex-col">
+              {nav.map(([href, label]) => (
+                <a key={label} href={href} onClick={() => setMenuOpen(false)} className="border-b border-white/10 py-4 text-lg font-semibold text-white">{label}</a>
               ))}
             </nav>
+            <a href="#contact" onClick={() => setMenuOpen(false)} className="mt-5 block bg-[#c50000] py-4 text-center text-sm font-bold uppercase tracking-[0.16em] text-white">
+              Start a custom order
+            </a>
           </div>
         )}
       </header>
 
-      {/* ── HERO: ONE FULL-WIDTH BLUEPRINT WALLPAPER, LIVE TEXT AND BUTTONS ── */}
+      {/* ── HERO ── */}
       <section className="relative isolate overflow-hidden border-b border-white/10 bg-[#021125]">
-        {/* Use the entire wallpaper behind the hero, never in a separate right-hand column. */}
-        <div aria-hidden="true" className="absolute inset-0 bg-[url('/images/b40-hero-wallpaper.png')] bg-cover bg-[62%_center] lg:bg-center" />
-        {/* Only darken the left for readability. The hat stays untouched on desktop. */}
-        <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-r from-[#021025]/95 via-[#021025]/75 to-[#021025]/30 lg:from-[#021025]/45 lg:via-[#021025]/15 lg:to-transparent" />
-        <div className="relative z-10 mx-auto flex min-h-[720px] max-w-7xl items-center px-5 py-14 md:px-10 lg:min-h-[760px] lg:py-20">
+        {/* Desktop: full wallpaper behind the text */}
+        <div aria-hidden="true" className="absolute inset-0 hidden bg-[url('/images/b40-hero-wallpaper.png')] bg-cover bg-center lg:block" />
+        <div aria-hidden="true" className="absolute inset-0 hidden bg-gradient-to-r from-[#021025]/55 via-[#021025]/15 to-transparent lg:block" />
+
+        {/* Mobile: blueprint grid, with the hat photo shown on its own up top */}
+        <BlueprintGrid className="lg:hidden" />
+        <div className="relative lg:hidden">
+          <img
+            src="/images/b40-hero-wallpaper.png"
+            alt="Back 40 custom patch hat on a blueprint background"
+            className="h-[48vh] max-h-[440px] min-h-[280px] w-full object-cover"
+            style={{ objectPosition: HERO_MOBILE_FOCUS }}
+          />
+          <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-b from-transparent to-[#021125]" />
+        </div>
+
+        <div className="relative z-10 mx-auto -mt-16 max-w-7xl px-5 pb-14 md:px-10 lg:mt-0 lg:flex lg:min-h-[760px] lg:items-center lg:py-20">
           <div className="w-full max-w-[600px]">
-            <p className="mb-6 text-[10px] font-semibold uppercase tracking-[0.27em] text-[#d1d9ec] sm:text-xs">Custom Headwear&nbsp; / &nbsp;Craftsmanship&nbsp; / &nbsp;Identity</p>
-            <h1 className="text-[clamp(3.3rem,5.2vw,5.5rem)] font-black leading-[0.98] tracking-[-0.045em] text-white drop-shadow-[0_2px_5px_rgba(0,0,0,0.3)]">
+            <h1 className="text-[clamp(2.5rem,10vw,3.5rem)] font-black leading-[0.98] tracking-[-0.045em] text-white drop-shadow-[0_2px_5px_rgba(0,0,0,0.3)] lg:text-[clamp(3.3rem,5.2vw,5.5rem)]">
               A Story<br />Worth Wearing.
             </h1>
-            <div className="mt-6 h-[5px] w-20 bg-red-600" />
-            <p className="mt-7 max-w-[560px] text-xl font-medium leading-snug text-stone-100 sm:text-2xl">
-              Premium custom headwear designed with purpose and built to stand apart.
+            <div className="mt-5 h-[5px] w-16 bg-[#c50000] lg:mt-6 lg:w-20" />
+            <p className="mt-6 max-w-[540px] text-lg font-medium leading-snug text-white sm:text-2xl">
+              Premium custom patch hats, designed with purpose and built to stand apart.
             </p>
-            <p className="mt-5 max-w-[510px] text-base leading-7 text-[#b6bed1] sm:text-lg">
-              More than hats. A way to tell your story. B40 delivers premium custom headwear, crafted with precision, designed for those who value quality and identity.
+            <p className="mt-4 max-w-[500px] text-base leading-7 text-[#b6bed1] lg:text-lg">
+              Acrylic, leatherette, and laser-engraved patches for businesses, teams, and the stories that matter to you.
             </p>
-            <div className="mt-9 flex flex-wrap gap-4">
-              <a href="#contact" className="inline-flex min-h-[56px] items-center justify-center gap-5 border border-red-400 bg-[#c50000] px-6 py-4 text-xs font-bold uppercase tracking-[0.16em] text-white transition hover:bg-red-600 sm:text-sm">
-                Start a Custom Order <ArrowRight />
-              </a>
-              <a href="/trail-series" className="inline-flex min-h-[56px] items-center justify-center gap-5 border border-white/65 bg-[#031025]/60 px-6 py-4 text-xs font-bold uppercase tracking-[0.16em] text-white transition hover:bg-white/10 sm:text-sm">
-                Shop Hats <ArrowRight />
-              </a>
-            </div>
-            <div className="mt-12 grid max-w-[580px] grid-cols-3 gap-3 border-t border-white/15 pt-5 text-[#d7deeb]">
-              <div className="flex items-center gap-2 border-r border-white/20 pr-2">
-                <span aria-hidden="true" className="text-2xl">⚙</span><span className="text-[9px] uppercase tracking-[0.14em] sm:text-[11px]">Custom<br />Headwear</span>
-              </div>
-              <div className="flex items-center gap-2 border-r border-white/20 pr-2">
-                <span aria-hidden="true" className="text-2xl">◇</span><span className="text-[9px] uppercase tracking-[0.14em] sm:text-[11px]">Premium<br />Craftsmanship</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span aria-hidden="true" className="text-2xl">◉</span><span className="text-[9px] uppercase tracking-[0.14em] sm:text-[11px]">Built for<br />Your Identity</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* ── STATIC BANNER ── */}
-      <section className="w-full border-y border-[#c6a36b]/20 bg-black px-6 py-4">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-4 md:gap-8">
-          {["A Story Worth Wearing", "Custom Acrylic & Leatherette Patch Hats", "Built for Local Brands", "Small-Run Friendly", "Made to Feel Personal", "Purpose Built in NWA"].map((text, i, arr) => (
-            <React.Fragment key={text}>
-              <span className="text-xs font-black uppercase tracking-[0.3em] text-[#c6a36b]">{text}</span>
-              {i < arr.length - 1 && <span className="text-base text-[#c6a36b]/40">·</span>}
-            </React.Fragment>
-          ))}
-        </div>
-      </section>
-
-      {/* ── TRAIL SERIES CALLOUT ── */}
-      <section className="relative overflow-hidden border-b border-white/10">
-        <div className="absolute inset-0 bg-[url('/images/trail-b40.png')] bg-cover bg-center" />
-        <div className="absolute inset-0 bg-black/70" />
-        <div className="relative z-10 mx-auto max-w-7xl px-4 py-16 md:px-10 md:py-24">
-          <div className="max-w-2xl">
-            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.35em] text-[#c6a36b]">Now Available</p>
-            <h2 className="mb-4 text-5xl font-black uppercase leading-tight md:text-7xl" style={{ fontFamily: "'Bebas Neue', 'Arial Narrow', sans-serif" }}>
-              B40 Trail<br />Series
-            </h2>
-            <p className="mb-3 text-base font-semibold uppercase tracking-[0.2em] text-[#c6a36b]">A story worth wearing — from the dirt up.</p>
-            <p className="mb-8 text-sm leading-7 text-white/60 md:text-base">
-              4 hats. 4 trails. Built for the riders, shops, and trail towns that make Northwest Arkansas unlike anywhere else.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <a href="/trail-series" className="inline-flex items-center gap-2 bg-[#c6a36b] px-6 py-3 text-sm font-bold uppercase tracking-[0.15em] text-black transition hover:bg-[#d4b07a]">
-                Shop the Trail Series →
+            <div className="mt-8 grid gap-3 sm:flex sm:flex-wrap sm:gap-4">
+              <a href="#contact" className="inline-flex min-h-[56px] items-center justify-center border border-red-400 bg-[#c50000] px-7 text-sm font-bold uppercase tracking-[0.16em] text-white transition hover:bg-[#a80000]">
+                Start a custom order
               </a>
-              <a href="/trail/back-40-loop" className="inline-flex items-center gap-2 border border-white/30 px-6 py-3 text-sm font-semibold uppercase tracking-[0.15em] text-white transition hover:bg-white/10">
-                Back 40 Loop →
+              <a href="/trail-series" className="inline-flex min-h-[56px] items-center justify-center border border-white/60 bg-[#031025]/60 px-7 text-sm font-bold uppercase tracking-[0.16em] text-white transition hover:bg-white/10">
+                Shop hats
               </a>
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* ── PARTNER LOGOS ── */}
-      <section className="border-b border-white/10 bg-stone-900/40">
-        <div className="mx-auto max-w-7xl px-4 py-10 md:px-10 md:py-14">
-          <div className="mb-8 text-center">
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-stone-500">Trusted by leading brands</p>
-            <p className="mt-2 text-sm text-stone-400">Official partners with Pinnacle Sports Ventures, Bentonville Bicycle Co., and LoneStar Adhesive</p>
-          </div>
-          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-20">
-            <a href="https://pinnaclesportsventures.com" target="_blank" rel="noreferrer" className="opacity-70 transition hover:opacity-100">
-              <img src="/images/psv.png" alt="Pinnacle Sports Ventures" className="h-16 w-auto object-contain md:h-28" />
-            </a>
-            <a href="https://www.bentonvillebicyclecompany.com" target="_blank" rel="noreferrer" className="opacity-70 transition hover:opacity-100">
-              <img src="/images/bentonville-bicycle-logo.png" alt="Bentonville Bicycle Co." className="h-16 w-auto object-contain md:h-28" />
-            </a>
-            <a href="https://lonestaradhesive.com" target="_blank" rel="noreferrer" className="opacity-70 transition hover:opacity-100">
-              <img src="/images/lonestar.png" alt="LoneStar Adhesive" className="h-16 w-auto object-contain md:h-28" />
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* ── DEALERSHIP SERIES ── */}
-      <section id="dealership-series" className="relative overflow-hidden border-b border-white/10">
-        <HeavyTopoOverlay opacity="opacity-55" dark="bg-black/80" />
-        <div className="relative z-10 mx-auto grid max-w-7xl gap-8 px-4 py-16 md:px-10 md:py-24 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
-          <div>
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.32em] text-red-400 md:text-sm">New Collection</p>
-            <h2 className="max-w-3xl text-4xl font-bold leading-tight tracking-tight text-white md:text-6xl">B40 Dealership Series</h2>
-            <p className="mt-5 max-w-2xl text-base leading-7 text-stone-300 md:text-xl md:leading-8">
-              Built for the people who live inside the car business — from the clean front line, to the service bay, to the back lot where the real stories happen.
-            </p>
-            <div className="mt-8 grid gap-3 sm:grid-cols-3">
+            <dl className="mt-10 grid max-w-[560px] grid-cols-3 border-t border-white/15 pt-5">
               {[
-                ["Front Line", "Clean, customer-facing dealership gear."],
-                ["Service Bay", "Built for the techs and the shop floor."],
-                ["Back Lot", "Insider-only car business culture."],
-              ].map(([title, text]) => (
-                <div key={title} className="rounded-2xl border border-white/10 bg-black/45 p-4 backdrop-blur">
-                  <h3 className="text-lg font-semibold text-white">{title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-stone-400">{text}</p>
+                ["No", "minimum order"],
+                ["3-4 wk", "standard turnaround"],
+                ["NWA", "built in Bella Vista, AR"],
+              ].map(([big, small], i) => (
+                <div key={small} className={`pr-3 ${i < 2 ? "border-r border-white/15" : ""} ${i > 0 ? "pl-3 sm:pl-5" : ""}`}>
+                  <dt className="text-lg font-black tracking-tight text-white sm:text-2xl">{big}</dt>
+                  <dd className="mt-1 text-xs leading-snug text-[#b6bed1] sm:text-sm">{small}</dd>
                 </div>
               ))}
-            </div>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <a href="/dealership-series" className="inline-flex items-center gap-2 rounded-2xl bg-white px-6 py-3 text-sm font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100">Enter the Series</a>
-              <a href="/dealership-series/backlot" className="inline-flex items-center gap-2 rounded-2xl border border-white/15 px-6 py-3 text-sm font-semibold text-stone-100 transition hover:bg-white/5">Back Lot Access</a>
-            </div>
-          </div>
-          <div className="rounded-[2rem] border border-white/10 bg-black/45 p-3 shadow-2xl backdrop-blur md:p-5">
-            <div className="overflow-hidden rounded-[1.5rem] border border-white/10 bg-stone-950">
-              <img src="/images/firefly-dealership.png" alt="B40 Dealership Series hat lineup" className="h-full w-full object-cover" />
-            </div>
-            <div className="mt-4 rounded-2xl border border-white/10 bg-white/5 p-4">
-              <p className="text-xs uppercase tracking-[0.25em] text-stone-500">Built by one of you</p>
-              <p className="mt-2 text-sm leading-6 text-stone-300">Sales floor. Finance. Management. Back lot. This collection was made from inside the business — not from a catalog.</p>
-            </div>
+            </dl>
           </div>
         </div>
       </section>
 
-      {/* ── PILLARS ── */}
-      <section id="pillars" className="mx-auto max-w-7xl px-4 py-14 md:px-10 md:py-20">
-        <div className="mb-10 max-w-3xl">
-          <p className="text-sm uppercase tracking-[0.25em] text-stone-400">The foundation</p>
-          <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">
-            The <span className="font-bold text-white">3 Pillars</span> of Back 40 Designs.
-          </h2>
-          <p className="mt-4 text-base leading-7 text-stone-300 md:text-lg md:leading-8">
-            Everything built here runs through the same filter:{' '}
-            <strong className="text-white">purpose</strong>,{' '}
-            <strong className="text-white">quality</strong>, and{' '}
-            <strong className="text-white">identity</strong>.
-          </p>
-        </div>
-        <div className="grid gap-4 md:grid-cols-3 md:gap-6">
-          {pillars.map((item) => (
-            <div key={item.title} className="rounded-[2rem] border border-white/10 bg-white/5 p-6 shadow-xl md:p-7">
-              <img src={item.icon} alt={item.title} className="mb-6 h-20 w-20 object-contain md:h-28 md:w-28" />
-              <h3 className="text-xl font-semibold text-white md:text-2xl">{item.title}</h3>
-              <p className="mt-4 text-sm leading-7 text-stone-300">{item.text}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ── COLLECTIONS ── */}
-      <section id="collections" className="mx-auto max-w-7xl px-4 py-14 md:px-10 md:py-20">
-        <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-          <div>
-            <p className="text-sm uppercase tracking-[0.2em] text-stone-400">Collections</p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">Built for brands, stories, and repeatable merch wins.</h2>
-          </div>
-          <p className="max-w-xl leading-7 text-stone-300">Whether you need a signature hat for your business or a one-off project with a story behind it, Back 40 is built to make it wearable.</p>
-        </div>
-        <div className="grid gap-4 md:grid-cols-3 md:gap-6">
-          {collections.map((item) => {
-            const Icon = item.icon;
-            return (
-              <a key={item.title} href={item.link} className="overflow-hidden rounded-[2rem] border border-white/10 bg-stone-900/70 shadow-xl transition hover:-translate-y-1">
-                <div className="aspect-[4/3] overflow-hidden">
-                  <img src={item.image} alt={item.title} className="h-full w-full object-cover transition duration-500 hover:scale-[1.03]" />
-                </div>
-                <div className="p-5 md:p-7">
-                  <p className="text-xs uppercase tracking-[0.25em] text-stone-500">{item.eyebrow}</p>
-                  <div className="my-4 flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-stone-950">
-                    <Icon className="h-5 w-5 text-stone-300" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-white md:text-2xl">{item.title}</h3>
-                  <p className="mt-3 text-sm leading-7 text-stone-300">{item.description}</p>
-                </div>
-              </a>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* ── PROCESS ── */}
-      <section id="process" className="mx-auto max-w-7xl px-4 py-14 md:px-10 md:py-20">
-        <div className="mb-10 max-w-3xl">
-          <p className="text-sm uppercase tracking-[0.2em] text-stone-400">Process</p>
-          <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">Simple, clean, and built around custom work.</h2>
-        </div>
-        <div className="grid gap-4 md:grid-cols-3 md:gap-6">
-          {process.map((item) => (
-            <div key={item.step} className="rounded-[2rem] border border-white/10 bg-white/5 p-6 md:p-7">
-              <img src={item.icon} alt={item.title} className="mb-5 h-20 w-20 object-contain md:h-28 md:w-28" />
-              <p className="text-xs font-bold uppercase tracking-[0.3em] text-stone-500">{item.step}</p>
-              <h3 className="mt-2 text-xl font-semibold text-white md:text-2xl">{item.title}</h3>
-              <p className="mt-4 text-sm leading-7 text-stone-300">{item.text}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ── WHY BACK 40 ── */}
-      <section className="relative border-y border-white/10">
-        <LineTopoOverlay opacity="opacity-15" dark="bg-black/80" />
-        <div className="relative z-10 mx-auto grid max-w-7xl gap-6 px-4 py-14 md:px-10 md:py-20 lg:grid-cols-2 lg:items-start lg:gap-10">
-          <div>
-            <p className="text-sm uppercase tracking-[0.2em] text-stone-400">Why Back 40</p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">
-              <span className="font-bold text-white">Not</span> just another hat company.
-            </h2>
-            <p className="mt-6 max-w-2xl text-base leading-7 text-stone-300 md:text-lg md:leading-8">
-              The best custom gear feels personal. Back 40 focuses on hats that connect to a place, a business, a memory, or a brand identity people actually care about.
-            </p>
-            <div className="mt-8 overflow-hidden rounded-[2rem] border border-white/10 shadow-2xl">
-              <img src="/images/b40-home-lot-nine.jpg" alt="Lot Nine Billiards custom hat by Back 40 Designs" className="w-full object-cover" />
-              <div className="border-t border-white/10 bg-black/60 px-5 py-3 backdrop-blur">
-                <p className="text-xs uppercase tracking-[0.2em] text-stone-500">Custom Build</p>
-                <p className="mt-0.5 text-sm font-semibold text-stone-200">Lot Nine — Billiards & Games</p>
-              </div>
-            </div>
-          </div>
-          <div className="grid gap-4">
+      {/* ── PARTNERS ── */}
+      <section className="border-b border-white/10 bg-[#04172f]">
+        <div className="mx-auto flex max-w-7xl flex-col items-center gap-6 px-5 py-8 md:flex-row md:justify-between md:px-10">
+          <p className="text-sm text-[#9fb0c9]">Proud to work with</p>
+          <div className="grid w-full grid-cols-3 items-center gap-6 md:w-auto md:gap-16">
             {[
-              ["Intentional Design", "Each concept is built to feel original, not pulled from a generic catalog or filler template."],
-              ["Strong Patch Aesthetic", "Acrylic and leatherette patch styles give every build a clean, premium, signature look."],
-              ["Built for Real Brands", "Perfect for owners, teams, and creators who want merch people actually wear more than once."],
-            ].map(([title, text]) => (
-              <div key={title} className="rounded-[1.75rem] border border-white/10 bg-stone-950/80 p-5 backdrop-blur md:p-6">
-                <h3 className="text-lg font-semibold text-white md:text-xl">{title}</h3>
-                <p className="mt-2 text-sm leading-7 text-stone-300">{text}</p>
-              </div>
+              ["https://pinnaclesportsventures.com", "/images/psv.png", "Pinnacle Sports Ventures"],
+              ["https://www.bentonvillebicyclecompany.com", "/images/bentonville-bicycle-logo.png", "Bentonville Bicycle Co."],
+              ["https://lonestaradhesive.com", "/images/lonestar.png", "LoneStar Adhesive"],
+            ].map(([href, src, alt]) => (
+              <a key={alt} href={href} target="_blank" rel="noreferrer" className="flex justify-center opacity-70 transition hover:opacity-100">
+                <img src={src} alt={alt} className="h-12 w-auto object-contain md:h-16" />
+              </a>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── TESTIMONIALS ── */}
-      <section className="mx-auto max-w-7xl border-b border-white/10 px-4 py-14 md:px-10 md:py-20">
-        <div className="mb-10 max-w-3xl">
-          <p className="text-sm uppercase tracking-[0.25em] text-stone-400">Customer Reviews</p>
-          <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">Real people, real feedback.</h2>
-        </div>
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {testimonials.map((t) => (
-            <div key={t.name} className="rounded-[2rem] border border-white/10 bg-white/5 p-6 md:p-7">
-              <div className="mb-4 flex gap-1">
-                {[...Array(t.rating)].map((_, i) => <span key={i} className="text-lg text-yellow-400">★</span>)}
-              </div>
-              <p className="mb-6 text-sm leading-7 text-stone-300 md:text-base">"{t.text}"</p>
-              <p className="font-semibold text-white">{t.name}</p>
-              <p className="text-sm text-stone-400">{t.role}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+      {/* ── WHAT WE BUILD ── */}
+      <section className="relative overflow-hidden border-b border-white/10">
+        <BlueprintGrid />
+        <div className="relative mx-auto max-w-7xl px-5 py-16 md:px-10 md:py-24">
+          <div className="max-w-2xl">
+            <h2 className="text-3xl font-black tracking-tight text-white md:text-5xl">What we build</h2>
+            <p className="mt-4 text-base leading-7 text-[#9fb0c9] md:text-lg">
+              Custom patch hats from a single piece to a full company order.
+            </p>
+          </div>
 
-      {/* ── FAQ + CONTACT FORM ── */}
-      <section id="contact" className="relative">
-        <HeavyTopoOverlay opacity="opacity-40" dark="bg-black/65" />
-        <div className="relative z-10 mx-auto max-w-7xl px-4 py-14 md:px-10 md:py-20">
-          <div className="grid gap-6 lg:grid-cols-[1fr_1fr]">
-            <div className="rounded-[2rem] border border-white/10 bg-stone-900/80 p-6 backdrop-blur md:p-8">
-              <p className="text-sm uppercase tracking-[0.2em] text-stone-400">Questions</p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-tight text-white">What buyers usually want to know.</h2>
-              <div className="mt-8 space-y-4">
-                {faqs.map((item) => (
-                  <div key={item.q} className="rounded-[1.5rem] border border-white/10 bg-stone-950/90 p-5">
-                    <p className="text-base font-semibold text-stone-100 md:text-lg">{item.q}</p>
-                    <p className="mt-2 text-sm leading-7 text-stone-300">{item.a}</p>
+          <div className="mt-10 grid gap-10 md:grid-cols-2 md:gap-8">
+            {customBuilds.map((item) => (
+              <article key={item.title}>
+                <SpecFrame>
+                  <img src={item.image} alt={item.alt} className="aspect-[4/3] w-full object-cover" />
+                </SpecFrame>
+                <h3 className="mt-5 text-2xl font-black tracking-tight text-white">{item.title}</h3>
+                <p className="mt-2 max-w-md text-base leading-7 text-[#9fb0c9]">{item.text}</p>
+              </article>
+            ))}
+          </div>
+
+          <div className="mt-10">
+            <a href="/gallery" className={linkStyle}>See past builds in the gallery</a>
+          </div>
+
+          {/* Ready-to-wear collections, kept small */}
+          <div className="mt-16 border-t border-white/10 pt-10">
+            <h3 className="text-xl font-black tracking-tight text-white md:text-2xl">Ready to wear</h3>
+            <div className="mt-6 grid gap-4 md:grid-cols-2">
+              {collections.map((c) => (
+                <a key={c.title} href={c.link} className="group flex items-center gap-4 border border-white/10 bg-[#04172f]/80 p-3 transition hover:border-white/30 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white">
+                  <img src={c.image} alt="" className="h-20 w-20 shrink-0 object-cover md:h-24 md:w-24" />
+                  <div className="min-w-0">
+                    <p className="text-lg font-bold text-white">{c.title}</p>
+                    <p className="mt-1 text-sm leading-6 text-[#9fb0c9]">{c.text}</p>
+                    <p className="mt-1 text-sm font-semibold text-white underline decoration-[#c50000] decoration-2 underline-offset-4">Shop the collection</p>
                   </div>
-                ))}
-              </div>
-            </div>
-            <div className="rounded-[2rem] border border-white/10 bg-gradient-to-br from-stone-100 to-stone-200 px-6 py-8 text-stone-950 shadow-2xl md:px-10 md:py-10">
-              <p className="text-sm uppercase tracking-[0.2em] text-stone-600">Let's build something</p>
-              <h2 className="mt-2 text-2xl font-semibold tracking-tight md:text-3xl">Start your project here.</h2>
-              <p className="mb-6 mt-2 text-sm leading-6 text-stone-600">
-                Fill out the form and Darin will be in touch within 1-2 business days. Prefer to talk? Call or text directly at{' '}
-                <a href={phoneLink} className="font-semibold text-stone-900 underline">{phoneNumber}</a>.
-              </p>
-              <ContactForm light={true} />
+                </a>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
+      {/* ── WHY BACK 40 (featured build + pillars) ── */}
+      <section className="border-b border-white/10 bg-[#04172f]">
+        <div className="mx-auto grid max-w-7xl gap-10 px-5 py-16 md:px-10 md:py-24 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16">
+          <figure>
+            <SpecFrame>
+              <img src="/images/b40-home-lot-nine.jpg" alt="Lot Nine Billiards custom hat by Back 40" className="w-full object-cover" />
+            </SpecFrame>
+            <figcaption className="mt-3 text-sm text-[#9fb0c9]">Custom build for Lot Nine Billiards & Games</figcaption>
+          </figure>
+          <div>
+            <h2 className="text-3xl font-black tracking-tight text-white md:text-5xl">Not just another hat company.</h2>
+            <p className="mt-4 text-base leading-7 text-[#9fb0c9] md:text-lg">
+              The best custom gear feels personal. Every Back 40 build runs through the same three filters.
+            </p>
+            <dl className="mt-8 space-y-6">
+              {pillars.map(([title, text]) => (
+                <div key={title} className="border-l-2 border-[#c50000] pl-5">
+                  <dt className="text-lg font-bold text-white">{title}</dt>
+                  <dd className="mt-1 text-base leading-7 text-[#9fb0c9]">{text}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </div>
+      </section>
+
+      {/* ── PROCESS ── */}
+      <section className="relative overflow-hidden border-b border-white/10">
+        <BlueprintGrid />
+        <div className="relative mx-auto max-w-7xl px-5 py-16 md:px-10 md:py-24">
+          <h2 className="max-w-2xl text-3xl font-black tracking-tight text-white md:text-5xl">How a custom order works</h2>
+          <ol className="mt-10 grid gap-8 md:grid-cols-3 md:gap-0">
+            {steps.map((s, i) => (
+              <li key={s.title} className="relative border-l border-white/15 pl-6 md:border-l-0 md:border-t md:pl-0 md:pr-8 md:pt-8">
+                <span aria-hidden="true" className="absolute -left-[5px] top-1 h-[9px] w-[9px] bg-[#c50000] md:-top-[5px] md:left-0" />
+                <p className="text-sm font-bold text-[#c50000]">Step {i + 1}</p>
+                <h3 className="mt-1 text-xl font-bold text-white md:text-2xl">{s.title}</h3>
+                <p className="mt-2 max-w-sm text-base leading-7 text-[#9fb0c9]">{s.text}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      {/* ── TESTIMONIALS (swipe on phones) ── */}
+      <section className="border-b border-white/10 py-16 md:py-24">
+        <div className="mx-auto max-w-7xl px-5 md:px-10">
+          <h2 className="text-3xl font-black tracking-tight text-white md:text-5xl">What customers say</h2>
+          <p className="mt-3 text-sm text-[#9fb0c9] md:hidden">Swipe to read more</p>
+        </div>
+        <div className="mx-auto mt-8 flex max-w-7xl snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-4 md:grid md:grid-cols-2 md:gap-6 md:overflow-visible md:px-10 lg:grid-cols-4">
+          {testimonials.map((t) => (
+            <figure key={t.name} className="flex w-[85%] shrink-0 snap-start flex-col border border-white/10 bg-[#04172f] p-6 md:w-auto">
+              <p aria-label="5 out of 5 stars" className="text-sm tracking-[0.2em] text-[#c50000]">★★★★★</p>
+              <blockquote className="mt-4 flex-1 text-base leading-7 text-[#dbe2ee]">"{t.text}"</blockquote>
+              <figcaption className="mt-6 border-t border-white/10 pt-4">
+                <p className="font-bold text-white">{t.name}</p>
+                <p className="text-sm text-[#9fb0c9]">{t.role}</p>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </section>
+
       {/* ── STORY ── */}
-      <section id="story" className="border-t border-white/10 bg-black px-4 py-14 md:px-10 md:py-20">
-        <div className="mx-auto max-w-6xl">
-          <div className="grid gap-10 md:grid-cols-2 md:items-center md:gap-12">
-            <div className="flex flex-col gap-4">
-              <div className="w-full overflow-hidden rounded-2xl border border-white/20 bg-black p-1">
-                <img src="/images/papa-fuzzy.jpg" alt="Papa Fuzzy" className="block w-full scale-[1.02]" />
-              </div>
-              <div className="w-full overflow-hidden rounded-2xl border border-white/20 bg-black p-1">
-                <img src="/images/b40-founders-darin-kayla.jpg" alt="Darin and Kayla Keen, founders of Back 40 Designs" className="block w-full rounded-2xl object-cover" />
-              </div>
+      <section id="story" className="scroll-mt-20 border-b border-white/10 bg-black px-5 py-16 md:px-10 md:py-24">
+        <div className="mx-auto grid max-w-6xl gap-10 md:grid-cols-2 md:items-start md:gap-14">
+          <div className="grid gap-5 md:sticky md:top-28">
+            <SpecFrame>
+              <img src="/images/papa-fuzzy.jpg" alt="James E. McKeel, Papa Fuzzy" className="block w-full" />
+            </SpecFrame>
+            <SpecFrame>
+              <img src="/images/b40-founders-darin-kayla.jpg" alt="Darin and Kayla Keen, founders of Back 40" className="block w-full object-cover" />
+            </SpecFrame>
+          </div>
+          <div>
+            <h2 className="text-3xl font-black tracking-tight text-white md:text-5xl">Back 40 wasn't built overnight.</h2>
+            <div className="mt-8 space-y-6 text-base leading-8 text-[#c9d3e3] md:text-lg">
+              <p>It started long before I ever made my first hat.</p>
+              <p>Growing up, my grandfather, <strong className="text-white">James E. McKeel, "Papa Fuzzy,"</strong> always had a hat on. Every day it was a different one. He would get excited to show me when he got a new one, and before long, I too became obsessed with buying hats, just like him.</p>
+              <p>Just about every picture I have of him, he is wearing a hat. Except one. The family photo. One of his rare moments without one on.</p>
+              <p>He was a hard worker, a baker for most of his life, up before the sun came up, putting on his white work hat and heading out the door. Then he would come home, change hats, and give everything he had to his grandchildren.</p>
+              <p className="font-semibold text-white">Being his first, I felt that first hand.</p>
+              <p>Back 40 comes from that same place. This brand is about more than headwear. It's about building something with meaning. Something honest. Something that reflects the people, places, and stories that matter most.</p>
+              <p className="font-semibold text-white">Every hat, every patch, and every design carries that mindset.</p>
             </div>
-            <div>
-              <p className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-stone-400">Built from something real</p>
-              <h2 className="text-3xl font-bold tracking-tight text-white md:text-5xl">Back 40 wasn't built overnight.</h2>
-              <div className="mt-8 space-y-6 text-base leading-7 text-stone-300 md:text-lg md:leading-8">
-                <p>It started long before I ever made my first hat.</p>
-                <p>Growing up, my grandfather — <strong className="text-white">James E. McKeel, "Papa Fuzzy"</strong> — always had a hat on. Every day it was a different one. He would get excited to show me when he got a new one, and before long, I too became obsessed with buying hats, just like him.</p>
-                <p>Just about every picture I have of him, he is wearing a hat — except one. The family photo. One of his rare moments without one on.</p>
-                <p>He was a hard worker — a baker for most of his life — up before the sun came up, putting on his white work hat and heading out the door. Then he would come home, change hats, and give everything he had to his grandchildren.</p>
-                <p className="font-medium text-white">Being his first, I felt that first hand.</p>
-                <p>Back 40 comes from that same place. This brand is about more than headwear — it's about building something with meaning. Something honest. Something that reflects the people, places, and stories that matter most.</p>
-                <p className="font-semibold uppercase tracking-[0.14em] text-white">Every hat, every patch, and every design carries that mindset.</p>
-              </div>
-              <div className="mt-8 rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur md:mt-10 md:p-6">
-                <p className="text-lg font-semibold text-white">More than a hat. <span className="font-bold">A story worth wearing.</span></p>
-              </div>
+            <p className="mt-10 border-t border-white/15 pt-6 text-sm text-[#9fb0c9]">Darin & Kayla Keen, founders</p>
+          </div>
+        </div>
+      </section>
+
+      {/* ── CONTACT + FAQ ── */}
+      <section id="contact" className="relative scroll-mt-20 overflow-hidden">
+        <BlueprintGrid />
+        <div className="relative mx-auto grid max-w-7xl gap-12 px-5 py-16 md:px-10 md:py-24 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
+          <div>
+            <h2 className="text-3xl font-black tracking-tight text-white md:text-5xl">Start your project</h2>
+            <p className="mt-4 max-w-md text-base leading-7 text-[#9fb0c9] md:text-lg">
+              Fill out the form and Darin will get back to you within 1-2 business days. Rather talk it through? Call or text{' '}
+              <a href={PHONE_LINK} className="font-semibold text-white underline decoration-[#c50000] decoration-2 underline-offset-4">{PHONE}</a>.
+            </p>
+
+            <div className="mt-10 border-t border-white/15">
+              {faqs.map((f) => (
+                <details key={f.q} className="group border-b border-white/15">
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 text-base font-semibold text-white md:text-lg [&::-webkit-details-marker]:hidden">
+                    {f.q}
+                    <span aria-hidden="true" className="text-xl text-[#c50000] transition group-open:rotate-45">+</span>
+                  </summary>
+                  <p className="pb-5 pr-8 text-base leading-7 text-[#9fb0c9]">{f.a}</p>
+                </details>
+              ))}
             </div>
+          </div>
+
+          <div className="bg-[#f2f5fa] p-6 shadow-2xl md:p-10">
+            <ContactForm />
           </div>
         </div>
       </section>
 
       {/* ── FOOTER ── */}
-      <footer className="relative overflow-hidden border-t border-white/10 px-4 py-8 text-sm text-stone-500 md:px-10">
-        <LineTopoOverlay opacity="opacity-10" dark="bg-black/85" />
-        <div className="relative z-10 mx-auto flex max-w-7xl flex-col gap-5 md:flex-row md:items-center md:justify-between">
-          <div className="flex flex-col gap-1">
-            <p className="font-semibold text-stone-300">Back 40 Designs</p>
-            <p>© 2026 Back 40 Designs. Custom headwear with story and identity.</p>
+      <footer className="border-t border-white/10 bg-[#010b18] px-5 py-10 text-sm text-[#9fb0c9] md:px-10">
+        <div className="mx-auto flex max-w-7xl flex-col gap-6 md:flex-row md:items-center md:justify-between">
+          <div>
+            <p className="font-bold text-white">Back 40 Design Co.</p>
+            <p className="mt-1">Custom headwear from Bella Vista, Arkansas. © 2026</p>
           </div>
-          <div className="flex flex-wrap gap-4 sm:gap-6">
-            <a href={phoneLink} className="transition hover:text-stone-300">{phoneNumber}</a>
-            <a href="mailto:info@back40designco.com" className="transition hover:text-stone-300">Email</a>
-            <a href={instagramLink} target="_blank" rel="noreferrer" className="transition hover:text-stone-300">Instagram</a>
-            <a href={facebookLink} target="_blank" rel="noreferrer" className="transition hover:text-stone-300">Facebook</a>
-            <a href="/trail-series" className="transition hover:text-stone-300">Shop</a>
-            <a href="/privacy" className="transition hover:text-stone-300">Privacy Policy</a>
+          <div className="flex flex-wrap gap-x-6 gap-y-3">
+            <a href={PHONE_LINK} className="hover:text-white">{PHONE}</a>
+            <a href={`mailto:${EMAIL}`} className="hover:text-white">Email</a>
+            <a href={INSTAGRAM} target="_blank" rel="noreferrer" className="hover:text-white">Instagram</a>
+            <a href={FACEBOOK} target="_blank" rel="noreferrer" className="hover:text-white">Facebook</a>
+            <a href="/privacy" className="hover:text-white">Privacy Policy</a>
           </div>
         </div>
       </footer>
