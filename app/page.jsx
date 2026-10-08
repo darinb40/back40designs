@@ -190,7 +190,7 @@ export default function Back40LandingPage() {
       <header className="sticky top-0 z-40 border-b border-white/10 bg-[#05101d]/92 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-10">
           <a href="/" className="shrink-0">
-            <img src="/images/b40-home-logo.jpg" alt="Back 40 Designs" className="h-10 w-auto md:h-12" />
+            <img src="/images/b40-home-logo.png" alt="Back 40 Designs" className="h-10 w-auto md:h-12" />
           </a>
 
           <nav className="hidden items-center gap-8 text-xs font-semibold uppercase tracking-[0.22em] text-stone-300 md:flex">
