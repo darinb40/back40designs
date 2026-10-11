@@ -32,7 +32,7 @@ const styles = [
   ["Sand Duck Camo", "sand-duck-camo"],
   ["Green & Brown Duck Camo", "green-brown-duck-camo"],
   ["Woodland Camo", "woodland-camo"],
-].map(([name, file]) => ({ name, img: `/images/gallery/${file}.jpg`, category: "styles" }));
+].map(([name, file]) => ({ name, img: `/images/${file}.jpg`, category: "styles" }));
 
 const pastWork = [
   { name: "Back 40 Loop", sub: "Bella Vista, AR", img: "/images/back-40.PNG", category: "trail" },
@@ -206,7 +206,7 @@ export default function GalleryPage() {
           </div>
           <div className="grid grid-cols-2 gap-3">
             {["pink-topo", "red-camo", "black-marble-lightning", "tan-topo"].map((f) => (
-              <img key={f} src={`/images/gallery/${f}.jpg`} alt="" className="aspect-[3/2] w-full rounded-lg object-cover" />
+              <img key={f} src={`/images/${f}.jpg`} alt="" className="aspect-[3/2] w-full rounded-lg object-cover" />
             ))}
           </div>
         </div>
