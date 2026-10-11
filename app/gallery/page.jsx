@@ -44,11 +44,29 @@ const trail = [
   { name: "Dragon Scales", sub: "Slaughter Pen, Bentonville", photos: ["/images/trail-dragon-scales.jpg"], category: "trail" },
 ];
 
+// B40 Originals — artwork designed in-house. [name, photo file, number of photos]
+const originals = [
+  ["Back 40 Eagle", "orig-back-40-eagle"],
+  ["Dante's Hat", "orig-dantes-hat"],
+  ["Samurai", "orig-samurai"],
+  ["Arkansas Skulls", "orig-arkansas-skulls"],
+  ["'Merica", "orig-merica"],
+  ["Pool is Life", "orig-pool-is-life", 2],
+  ["Billiards", "orig-billiards"],
+  ["Bogey Goblin", "orig-bogey-goblin", 1, "B40 Golf"],
+].map(([name, file, n = 1, sub]) => ({
+  name,
+  sub,
+  photos: n === 1 ? [`/images/${file}.jpg`] : Array.from({ length: n }, (_, i) => `/images/${file}-${i + 1}.jpg`),
+  category: "originals",
+}));
+
 // Brand Work — one card per client. [name, photo file, number of photos]
 const brands = [
   ["Wood Motor Company", "brand-wood-motor", 6],
   ["Hyundai Bentonville", "brand-hyundai-bentonville"],
   ["Seven Lakes Church", "brand-seven-lakes", 3],
+  ["New Light Electric", "brand-new-light-electric", 3],
   ["Complete Wheel Restoration", "brand-complete-wheel", 3],
   ["Woolbright Auto Glass", "brand-woolbright", 2],
   ["Garrett X", "brand-garrett-x", 2],
@@ -64,9 +82,9 @@ const brands = [
   ["LiveLife Financial", "brand-livelife-financial"],
   ["Pinnacle Sports Ventures", "brand-pinnacle-sports"],
   ["DT Apparel", "brand-dt-apparel"],
+  ["Armed and Hammered", "brand-armed-and-hammered"],
   ["Board It", "brand-board-it"],
   ["Goober Golf", "brand-goober-golf"],
-  ["Bogey Goblin", "brand-bogey-goblin"],
   ["Vagabond Coffee Bar", "brand-vagabond-coffee"],
   ["The Bread Lady", "brand-bread-lady"],
   ["Slick Rick's Grooming Co", "brand-slick-ricks"],
@@ -82,12 +100,15 @@ const brands = [
 }));
 
 // One-off custom builds go here: { name, photos: ["/images/..."], category: "custom" }
-const custom = [];
+const custom = [
+  { name: "Just Looking", photos: ["/images/custom-just-looking.jpg"], category: "custom" },
+];
 
-const hats = [...styles, ...trail, ...brands, ...custom];
+const hats = [...styles, ...originals, ...trail, ...brands, ...custom];
 
 const categories = {
   styles: { label: "B40 Styles", tag: "B40 Style", ask: "Want this style with your logo?" },
+  originals: { label: "B40 Originals", tag: "B40 Original", ask: "Want original artwork like this for your hat?" },
   trail: { label: "Trail Series", tag: "Trail Series", ask: "Want a hat for your trail, town, or team?" },
   brand: { label: "Brand Work", tag: "Brand Work", ask: "Want something like this for your brand?" },
   custom: { label: "Custom Builds", tag: "Custom Build", ask: "Got a story worth putting on a hat?" },
@@ -280,7 +301,7 @@ export default function GalleryPage() {
 
       {/* ── FILTERS ── */}
       <div className="sticky top-[65px] z-30 border-b border-white/10 bg-black/90 backdrop-blur md:top-[81px]">
-        <div className="mx-auto flex max-w-6xl gap-2 overflow-x-auto px-6 py-3 md:px-16 xl:px-0">
+        <div className="mx-auto flex max-w-6xl gap-2 overflow-x-auto px-6 py-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:px-16 xl:px-0">
           {[["all", "All"], ...shownCategories.map(([k, c]) => [k, c.label])].map(([key, label]) => (
             <button
               key={key}
@@ -304,7 +325,7 @@ export default function GalleryPage() {
               <div key={key} className="border-t border-[#c6a36b]/40 pb-12 pt-8 first:border-t-0 first:pt-0 md:pb-16 md:pt-10">
                 <div className="mb-5 flex items-baseline justify-between md:mb-6">
                   <h2 className="text-3xl uppercase text-[#c6a36b] md:text-4xl" style={bebas}>{label}</h2>
-                  <span className="text-xs uppercase tracking-[0.2em] text-white/35">{count(key)} {key === "brand" ? "brands" : "hats"}</span>
+                  <span className="text-xs uppercase tracking-[0.2em] text-white/35">{count(key)} {key === "brand" ? "brands" : count(key) === 1 ? "hat" : "hats"}</span>
                 </div>
                 <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-5 lg:grid-cols-4">
                   {visible.filter((hat) => hat.category === key).map((hat) => (
