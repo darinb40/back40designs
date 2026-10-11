@@ -34,38 +34,57 @@ const styles = [
   ["Sand Duck Camo", "sand-duck-camo"],
   ["Green & Brown Duck Camo", "green-brown-duck-camo"],
   ["Woodland Camo", "woodland-camo"],
-].map(([name, file]) => ({ name, img: `/images/${file}.jpg`, category: "styles" }));
+  ["Forest Green", "b40-forest-green"],
+].map(([name, file]) => ({ name, photos: [`/images/${file}.jpg`], category: "styles" }));
 
-const pastWork = [
-  { name: "Back 40 Loop", sub: "Bella Vista, AR", img: "/images/back-40.PNG", category: "trail" },
-  { name: "Back 40 Loop", sub: "Red, White & Blue", img: "/images/back-40-rwb.PNG", category: "trail" },
-  { name: "Little Sugar Trail", sub: "Bella Vista, AR", img: "/images/little-sugar.PNG", category: "trail" },
-  { name: "Dragon Scales", sub: "Slaughter Pen, Bentonville", img: "/images/dragon-scales.PNG", category: "trail" },
-
-  { name: "B40 OG Flat Bill", img: "/images/b40-flat-bill.PNG", category: "brand" },
-  { name: "Bearded Buffalo", img: "/images/buffalo.PNG", category: "brand" },
-  { name: "Wicked Guud Dogs", img: "/images/WICKED.PNG", category: "brand" },
-  { name: "Hyundai Bentonville", img: "/images/hyundaigreen.png", category: "brand" },
-  { name: "Hyundai Bentonville", img: "/images/hyundai2.png", category: "brand" },
-  { name: "Amor Patriae Pistols", img: "/images/appistols.png", category: "brand" },
-  { name: "Amor Patriae", img: "/images/apolive.png", category: "brand" },
-  { name: "Amor Patriae Camo", img: "/images/apcamo.png", category: "brand" },
-  { name: "MSDT", img: "/images/msdtblue.png", category: "brand" },
-  { name: "Red Pig Hat Co", img: "/images/redpig.png", category: "brand" },
-  { name: "All American PDR", img: "/images/usapdr.png", category: "brand" },
-  { name: "Henny Dogs Camo", img: "/images/hennycamo.png", category: "brand" },
-  { name: "Henny Dog", img: "/images/hennydog.png", category: "brand" },
-  { name: "Lumber Lids", img: "/images/lumberlids.png", category: "brand" },
-
-  { name: "All Eyes On Me", img: "/images/all-eyes.PNG", category: "custom" },
-  { name: "Jesters Privilege", img: "/images/jester.PNG", category: "custom" },
-  { name: "JA > Speed", img: "/images/ja.PNG", category: "custom" },
-  { name: "Wood & Wild", img: "/images/goose.png", category: "custom" },
-  { name: "AR Letters", img: "/images/arletters.png", category: "custom" },
-  { name: "Suicide King", img: "/images/suicideking.png", category: "custom" },
+const trail = [
+  { name: "Back 40 Loop", sub: "Bella Vista, AR", photos: ["/images/trail-back-40-loop.jpg"], category: "trail" },
+  { name: "Back 40 Loop", sub: "Red, White & Blue", photos: ["/images/trail-back-40-loop-rwb.jpg"], category: "trail" },
+  { name: "Little Sugar Trail", sub: "Bella Vista, AR", photos: ["/images/trail-little-sugar.jpg"], category: "trail" },
+  { name: "Dragon Scales", sub: "Slaughter Pen, Bentonville", photos: ["/images/trail-dragon-scales.jpg"], category: "trail" },
 ];
 
-const hats = [...styles, ...pastWork];
+// Brand Work — one card per client. [name, photo file, number of photos]
+const brands = [
+  ["Wood Motor Company", "brand-wood-motor", 6],
+  ["Hyundai Bentonville", "brand-hyundai-bentonville"],
+  ["Seven Lakes Church", "brand-seven-lakes", 3],
+  ["Complete Wheel Restoration", "brand-complete-wheel", 3],
+  ["Woolbright Auto Glass", "brand-woolbright", 2],
+  ["Garrett X", "brand-garrett-x", 2],
+  ["War Eagle Mill", "brand-war-eagle-mill", 2],
+  ["The Hubcap Kid", "brand-hubcap-kid", 3],
+  ["Lot Nine Billiards & Games", "brand-lot-nine"],
+  ["Bearded Buffalo", "brand-bearded-buffalo"],
+  ["Amor Patriae", "brand-amor-patriae"],
+  ["Red Pig Hat Co", "brand-red-pig"],
+  ["B40 OG Flat Bill", "brand-b40-og-flat-bill"],
+  ["Tiddy Tuggerz", "brand-tiddy-tuggerz", 2],
+  ["Webb Auto Remarketing", "brand-webb-auto"],
+  ["LiveLife Financial", "brand-livelife-financial"],
+  ["Pinnacle Sports Ventures", "brand-pinnacle-sports"],
+  ["DT Apparel", "brand-dt-apparel"],
+  ["Board It", "brand-board-it"],
+  ["Goober Golf", "brand-goober-golf"],
+  ["Bogey Goblin", "brand-bogey-goblin"],
+  ["Vagabond Coffee Bar", "brand-vagabond-coffee"],
+  ["The Bread Lady", "brand-bread-lady"],
+  ["Slick Rick's Grooming Co", "brand-slick-ricks"],
+  ["Dust Daddy", "brand-dust-daddy"],
+  ["FML Fishing", "brand-fml-fishing"],
+  ["Arkansas Fly Adventures", "brand-arkansas-fly"],
+  ["Any Weather Any Sea", "brand-any-weather-any-sea"],
+  ["We Flow Like Water Baby", "brand-we-flow"],
+].map(([name, file, n = 1]) => ({
+  name,
+  photos: n === 1 ? [`/images/${file}.jpg`] : Array.from({ length: n }, (_, i) => `/images/${file}-${i + 1}.jpg`),
+  category: "brand",
+}));
+
+// One-off custom builds go here: { name, photos: ["/images/..."], category: "custom" }
+const custom = [];
+
+const hats = [...styles, ...trail, ...brands, ...custom];
 
 const categories = {
   styles: { label: "B40 Styles", tag: "B40 Style", ask: "Want this style with your logo?" },
@@ -95,14 +114,27 @@ export default function GalleryPage() {
 
   const visible = filter === "all" ? hats : hats.filter((h) => h.category === filter);
   const open = openIndex === null ? null : visible[openIndex];
+  const [photoIndex, setPhotoIndex] = useState(0);
   const count = (key) => (key === "all" ? hats.length : hats.filter((h) => h.category === key).length);
+  const shownCategories = Object.entries(categories).filter(([key]) => count(key) > 0);
+
+  const openHat = (i) => { setOpenIndex(i); setPhotoIndex(0); };
+  // Arrows walk through every photo of a client, then move on to the next card.
+  const go = (dir) => {
+    const hat = visible[openIndex];
+    const next = photoIndex + dir;
+    if (next >= 0 && next < hat.photos.length) return setPhotoIndex(next);
+    const i = (openIndex + dir + visible.length) % visible.length;
+    setOpenIndex(i);
+    setPhotoIndex(dir > 0 ? 0 : visible[i].photos.length - 1);
+  };
 
   useEffect(() => {
     if (openIndex === null) return;
     const onKey = (e) => {
       if (e.key === "Escape") setOpenIndex(null);
-      if (e.key === "ArrowRight") setOpenIndex((i) => (i + 1) % visible.length);
-      if (e.key === "ArrowLeft") setOpenIndex((i) => (i - 1 + visible.length) % visible.length);
+      if (e.key === "ArrowRight") go(1);
+      if (e.key === "ArrowLeft") go(-1);
     };
     window.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
@@ -110,11 +142,11 @@ export default function GalleryPage() {
       window.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
     };
-  }, [openIndex, visible.length]);
+  }, [openIndex, photoIndex, visible]);
 
   const step = (dir) => (e) => {
     e.stopPropagation();
-    setOpenIndex((openIndex + dir + visible.length) % visible.length);
+    go(dir);
   };
 
   return (
@@ -125,7 +157,16 @@ export default function GalleryPage() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4 backdrop-blur-sm" onClick={() => setOpenIndex(null)}>
           <button onClick={step(-1)} aria-label="Previous" className="absolute left-3 top-1/2 hidden -translate-y-1/2 rounded-full bg-white/10 px-4 py-3 text-lg hover:bg-white/20 md:block">←</button>
           <div className="relative w-full max-w-3xl" onClick={(e) => e.stopPropagation()}>
-            <img src={open.img} alt={open.name} className="max-h-[60vh] w-full rounded-xl object-contain" />
+            <img src={open.photos[photoIndex]} alt={open.name} className="max-h-[55vh] w-full rounded-xl object-contain" />
+            {open.photos.length > 1 && (
+              <div className="mt-3 flex justify-center gap-2">
+                {open.photos.map((src, i) => (
+                  <button key={src} onClick={() => setPhotoIndex(i)} className={`h-12 w-16 overflow-hidden rounded-md border-2 transition md:h-14 md:w-20 ${i === photoIndex ? "border-[#c6a36b]" : "border-transparent opacity-50 hover:opacity-100"}`}>
+                    <img src={src} alt="" className="h-full w-full object-cover" />
+                  </button>
+                ))}
+              </div>
+            )}
             <div className="mt-5 flex flex-col items-center gap-2 text-center">
               <p className="text-xs font-semibold uppercase tracking-[0.25em] text-white/40">{categories[open.category].tag}</p>
               <p className="text-3xl uppercase md:text-4xl" style={bebas}>{open.name}</p>
@@ -141,7 +182,7 @@ export default function GalleryPage() {
               </div>
               <div className="mt-4 flex items-center gap-6 md:hidden">
                 <button onClick={step(-1)} className="text-sm text-white/50">← Prev</button>
-                <span className="text-xs text-white/30">{openIndex + 1} / {visible.length}</span>
+                <span className="text-xs text-white/30">{open.photos.length > 1 ? `${photoIndex + 1} / ${open.photos.length}` : `${openIndex + 1} / ${visible.length}`}</span>
                 <button onClick={step(1)} className="text-sm text-white/50">Next →</button>
               </div>
             </div>
@@ -207,7 +248,7 @@ export default function GalleryPage() {
             </div>
           </div>
           <div className="grid grid-cols-2 gap-3">
-            {["/images/b40-flat-bill.PNG", "/images/teal-desert-camo.jpg", "/images/sand-duck-camo.jpg", "/images/blackout-camo.jpg"].map((f) => (
+            {["/images/brand-b40-og-flat-bill.jpg", "/images/teal-desert-camo.jpg", "/images/sand-duck-camo.jpg", "/images/blackout-camo.jpg"].map((f) => (
               <img key={f} src={f} alt="" className="aspect-[3/2] w-full rounded-lg object-cover" />
             ))}
           </div>
@@ -240,7 +281,7 @@ export default function GalleryPage() {
       {/* ── FILTERS ── */}
       <div className="sticky top-[65px] z-30 border-b border-white/10 bg-black/90 backdrop-blur md:top-[81px]">
         <div className="mx-auto flex max-w-6xl gap-2 overflow-x-auto px-6 py-3 md:px-16 xl:px-0">
-          {[["all", "All"], ...Object.entries(categories).map(([k, c]) => [k, c.label])].map(([key, label]) => (
+          {[["all", "All"], ...shownCategories.map(([k, c]) => [k, c.label])].map(([key, label]) => (
             <button
               key={key}
               onClick={() => { setFilter(key); setOpenIndex(null); }}
@@ -256,22 +297,39 @@ export default function GalleryPage() {
 
       {/* ── GRID ── */}
       <section className="px-6 py-10 md:px-16 md:py-14">
-        <div className="mx-auto grid max-w-6xl grid-cols-2 gap-3 md:grid-cols-3 md:gap-5 lg:grid-cols-4">
-          {visible.map((hat, i) => (
-            <button
-              key={hat.img}
-              onClick={() => setOpenIndex(i)}
-              className="group overflow-hidden rounded-xl border border-white/10 bg-white/5 text-left transition hover:-translate-y-0.5 hover:border-[#c6a36b]/50"
-            >
-              <div className="aspect-square overflow-hidden bg-black">
-                <img src={hat.img} alt={hat.name} loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.05]" />
+        <div className="mx-auto flex max-w-6xl flex-col">
+          {shownCategories
+            .filter(([key]) => filter === "all" || filter === key)
+            .map(([key, { label }]) => (
+              <div key={key} className="border-t border-[#c6a36b]/40 pb-12 pt-8 first:border-t-0 first:pt-0 md:pb-16 md:pt-10">
+                <div className="mb-5 flex items-baseline justify-between md:mb-6">
+                  <h2 className="text-3xl uppercase text-[#c6a36b] md:text-4xl" style={bebas}>{label}</h2>
+                  <span className="text-xs uppercase tracking-[0.2em] text-white/35">{count(key)} {key === "brand" ? "brands" : "hats"}</span>
+                </div>
+                <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-5 lg:grid-cols-4">
+                  {visible.filter((hat) => hat.category === key).map((hat) => (
+                    <button
+                      key={hat.photos[0]}
+                      onClick={() => openHat(visible.indexOf(hat))}
+                      className="group relative overflow-hidden rounded-xl border border-white/10 bg-white/5 text-left transition hover:-translate-y-0.5 hover:border-[#c6a36b]/50"
+                    >
+                      <div className="aspect-square overflow-hidden bg-black">
+                        <img src={hat.photos[0]} alt={hat.name} loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.05]" />
+                      </div>
+                      {hat.photos.length > 1 && (
+                        <span className="absolute right-2 top-2 rounded-full bg-black/70 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.1em] text-[#c6a36b] backdrop-blur">
+                          {hat.photos.length} hats
+                        </span>
+                      )}
+                      <div className="p-3">
+                        <p className="text-xs font-bold uppercase tracking-[0.12em] text-white/85">{hat.name}</p>
+                        <p className="mt-0.5 text-xs text-white/35">{hat.sub ?? categories[hat.category].tag}</p>
+                      </div>
+                    </button>
+                  ))}
+                </div>
               </div>
-              <div className="p-3">
-                <p className="text-xs font-bold uppercase tracking-[0.12em] text-white/85">{hat.name}</p>
-                <p className="mt-0.5 text-xs text-white/35">{hat.sub ?? categories[hat.category].tag}</p>
-              </div>
-            </button>
-          ))}
+            ))}
         </div>
       </section>
 
