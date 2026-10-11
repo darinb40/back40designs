@@ -10,6 +10,7 @@ const mailto = (subject = "New hat project") => `mailto:${EMAIL}?subject=${encod
 
 // B40 styles — each one is a starting point a customer can ask for.
 const styles = [
+  ["B40 OG Flat Bill", "brand-b40-og-flat-bill"],
   ["Teal Desert Camo", "teal-desert-camo"],
   ["Black Marble Lightning", "black-marble-lightning"],
   ["Red Camo", "red-camo"],
@@ -53,6 +54,7 @@ const originals = [
   ["'Merica", "orig-merica"],
   ["Pool is Life", "orig-pool-is-life", 2],
   ["Billiards", "orig-billiards"],
+  ["Let Me Guess", "custom-just-looking"],
   ["Bogey Goblin", "orig-bogey-goblin", 1, "B40 Golf"],
 ].map(([name, file, n = 1, sub]) => ({
   name,
@@ -61,7 +63,7 @@ const originals = [
   category: "originals",
 }));
 
-// Brand Work — one card per client. [name, photo file, number of photos]
+// Brand Work — grouped by client. [name, photo file, number of photos]
 const brands = [
   ["Wood Motor Company", "brand-wood-motor", 6],
   ["Hyundai Bentonville", "brand-hyundai-bentonville"],
@@ -76,7 +78,6 @@ const brands = [
   ["Bearded Buffalo", "brand-bearded-buffalo"],
   ["Amor Patriae", "brand-amor-patriae"],
   ["Red Pig Hat Co", "brand-red-pig"],
-  ["B40 OG Flat Bill", "brand-b40-og-flat-bill"],
   ["Tiddy Tuggerz", "brand-tiddy-tuggerz", 2],
   ["Webb Auto Remarketing", "brand-webb-auto"],
   ["LiveLife Financial", "brand-livelife-financial"],
@@ -89,22 +90,24 @@ const brands = [
   ["The Bread Lady", "brand-bread-lady"],
   ["Slick Rick's Grooming Co", "brand-slick-ricks"],
   ["Dust Daddy", "brand-dust-daddy"],
-  ["FML Fishing", "brand-fml-fishing"],
   ["Arkansas Fly Adventures", "brand-arkansas-fly"],
-  ["Any Weather Any Sea", "brand-any-weather-any-sea"],
-  ["We Flow Like Water Baby", "brand-we-flow"],
 ].map(([name, file, n = 1]) => ({
   name,
   photos: n === 1 ? [`/images/${file}.jpg`] : Array.from({ length: n }, (_, i) => `/images/${file}-${i + 1}.jpg`),
   category: "brand",
 }));
 
-// One-off custom builds go here: { name, photos: ["/images/..."], category: "custom" }
+// One-off custom builds. [name, photo file]
 const custom = [
-  { name: "Just Looking", photos: ["/images/custom-just-looking.jpg"], category: "custom" },
-];
+  ["Any Weather Any Sea", "brand-any-weather-any-sea"],
+  ["We Flow Like Water Baby", "brand-we-flow"],
+  ["FML Fishing", "brand-fml-fishing"],
+].map(([name, file]) => ({ name, photos: [`/images/${file}.jpg`], category: "custom" }));
 
-const hats = [...styles, ...originals, ...trail, ...brands, ...custom];
+// Every photo gets its own card so visitors can see all the hats without clicking.
+const hats = [...styles, ...originals, ...trail, ...brands, ...custom].flatMap((hat) =>
+  hat.photos.map((photo) => ({ ...hat, photos: [photo] }))
+);
 
 const categories = {
   styles: { label: "B40 Styles", tag: "B40 Style", ask: "Want this style with your logo?" },
@@ -325,7 +328,7 @@ export default function GalleryPage() {
               <div key={key} className="border-t border-[#c6a36b]/40 pb-12 pt-8 first:border-t-0 first:pt-0 md:pb-16 md:pt-10">
                 <div className="mb-5 flex items-baseline justify-between md:mb-6">
                   <h2 className="text-3xl uppercase text-[#c6a36b] md:text-4xl" style={bebas}>{label}</h2>
-                  <span className="text-xs uppercase tracking-[0.2em] text-white/35">{count(key)} {key === "brand" ? "brands" : count(key) === 1 ? "hat" : "hats"}</span>
+                  <span className="text-xs uppercase tracking-[0.2em] text-white/35">{count(key)} {count(key) === 1 ? "hat" : "hats"}</span>
                 </div>
                 <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-5 lg:grid-cols-4">
                   {visible.filter((hat) => hat.category === key).map((hat) => (
