@@ -273,7 +273,7 @@ export default function GalleryPage() {
           </div>
           <div className="grid grid-cols-2 gap-3">
             {["/images/brand-b40-og-flat-bill.jpg", "/images/teal-desert-camo.jpg", "/images/sand-duck-camo.jpg", "/images/blackout-camo.jpg"].map((f) => (
-              <img key={f} src={f} alt="" className="aspect-[3/2] w-full rounded-lg object-cover" />
+              <img key={f} src={f} alt="" className="aspect-[4/3] w-full rounded-lg object-cover" />
             ))}
           </div>
         </div>
@@ -337,7 +337,7 @@ export default function GalleryPage() {
                       onClick={() => openHat(visible.indexOf(hat))}
                       className="group relative overflow-hidden rounded-xl border border-white/10 bg-white/5 text-left transition hover:-translate-y-0.5 hover:border-[#c6a36b]/50"
                     >
-                      <div className="aspect-square overflow-hidden bg-black">
+                      <div className="aspect-[4/3] overflow-hidden bg-black">
                         <img src={hat.photos[0]} alt={hat.name} loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.05]" />
                       </div>
                       {hat.photos.length > 1 && (
