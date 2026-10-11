@@ -253,7 +253,7 @@ export default function GalleryPage() {
 
       {/* ── HERO ── */}
       <section className="relative px-6 pb-12 pt-28 md:px-16 md:pb-16 md:pt-36">
-        <div className="mx-auto grid max-w-6xl items-end gap-10 md:grid-cols-[1.1fr_1fr]">
+        <div className="mx-auto grid max-w-7xl items-center gap-8 lg:grid-cols-[1fr_1.6fr]">
           <div>
             <p className="mb-3 text-xs font-semibold uppercase tracking-[0.35em] text-[#c6a36b]">The Gallery</p>
             <h1 className="mb-6 text-6xl uppercase leading-[0.9] md:text-8xl" style={bebas}>
@@ -271,11 +271,12 @@ export default function GalleryPage() {
               </a>
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-3">
-            {["/images/brand-b40-og-flat-bill.jpg", "/images/teal-desert-camo.jpg", "/images/sand-duck-camo.jpg", "/images/blackout-camo.jpg"].map((f) => (
-              <img key={f} src={f} alt="" className="aspect-[4/3] w-full rounded-lg object-cover" />
-            ))}
-          </div>
+          {/* Hat is cut out onto pure black so it floats on the page; the mask fades out its reflection. */}
+          <img
+            src="/images/hero-teal-desert.jpg"
+            alt="Teal Desert Camo B40 hat"
+            className="w-full [-webkit-mask-image:linear-gradient(to_bottom,black_72%,transparent)] [mask-image:linear-gradient(to_bottom,black_72%,transparent)]"
+          />
         </div>
       </section>
 
