@@ -8,14 +8,14 @@ const PHONE = "479-544-1366";
 
 // B40 styles — each one is a starting point a customer can ask for.
 const styles = [
-  ["Pink Topo", "pink-topo"],
+  ["Tan Topo", "tan-topo"],
   ["Black Marble Lightning", "black-marble-lightning"],
   ["Red Camo", "red-camo"],
-  ["Tan Topo", "tan-topo"],
+  ["Teal Desert Camo", "teal-desert-camo"],
   ["Blaze Leaf Camo", "blaze-leaf-camo"],
   ["Gold B40 Camo", "gold-b40-camo"],
   ["Black Gold Topo", "black-gold-topo"],
-  ["Teal Desert Camo", "teal-desert-camo"],
+  ["Pink Topo", "pink-topo"],
   ["Blackout Camo", "blackout-camo"],
   ["Blaze Duck Camo", "blaze-duck-camo"],
   ["Camo Trucker, Gold Rope", "camo-trucker-gold-rope"],
@@ -205,9 +205,9 @@ export default function GalleryPage() {
             </div>
           </div>
           <div className="grid grid-cols-2 gap-3">
-            {["pink-topo", "red-camo", "black-marble-lightning", "tan-topo"].map((f) => (
-              <img key={f} src={`/images/${f}.jpg`} alt="" className="aspect-[3/2] w-full rounded-lg object-cover" />
-            ))}
+            {["/images/b40-flat-bill.PNG", "/images/teal-desert-camo.jpg", "/images/sand-duck-camo.jpg", "/images/blackout-camo.jpg"].map((f) => (
+             <img key={f} src={f} alt="" className="aspect-[3/2] w-full rounded-lg object-cover" />            
+    ))}
           </div>
         </div>
       </section>
