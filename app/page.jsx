@@ -291,7 +291,6 @@ export default function Back40LandingPage() {
         <div className="mx-auto max-w-7xl px-4 py-10 md:px-10 md:py-14">
           <div className="mb-8 text-center">
             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-stone-500">Trusted by leading brands</p>
-            <p className="mt-2 text-sm text-stone-400">Official partners with Pinnacle Sports Ventures, Bentonville Bicycle Co., and LoneStar Adhesive</p>
           </div>
           <div className="flex flex-wrap items-center justify-center gap-8 md:gap-20">
             <a href="https://pinnaclesportsventures.com" target="_blank" rel="noreferrer" className="opacity-70 transition hover:opacity-100">
@@ -405,7 +404,7 @@ export default function Back40LandingPage() {
                 <img src="/images/papa-fuzzy.jpg" alt="Papa Fuzzy" className="block w-full scale-[1.02]" />
               </div>
               <div className="w-full overflow-hidden rounded-2xl border border-white/20 bg-black p-1">
-                <img src="/images/bentonville-bicycle.JPG" alt="Back 40 at Bentonville Bicycle Co." className="block w-full rounded-2xl object-cover" />
+                <img src="/images/b40-founders-darin-kayla.jpg" alt="Darin and Kayla Keen, founders of Back 40 Designs" className="block w-full rounded-2xl object-cover" />
               </div>
             </div>
             <div>
@@ -417,6 +416,7 @@ export default function Back40LandingPage() {
                 <p>Just about every picture I have of him, he is wearing a hat — except one. The family photo. One of his rare moments without one on.</p>
                 <p>He was a hard worker — a baker for most of his life — up before the sun came up, putting on his white work hat and heading out the door. Then he would come home, change hats, and give everything he had to his grandchildren.</p>
                 <p className="font-medium text-white">Being his first, I felt that first hand.</p>
+                <p>But Back 40 isn't a one-man story. <strong className="text-white">Kayla and I have been together for 21 years</strong>, and for the last 6 of them, we've been building hats side by side as a husband-and-wife team.</p>
                 <p>Back 40 comes from that same place. This brand is about more than headwear — it's about building something with meaning. Something honest. Something that reflects the people, places, and stories that matter most.</p>
                 <p className="font-semibold uppercase tracking-[0.14em] text-white">Every hat, every patch, and every design carries that mindset.</p>
               </div>
