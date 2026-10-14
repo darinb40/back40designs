@@ -1,5 +1,6 @@
 // Blank-hat brands B40 builds on. Logos are white versions for the dark site,
-// stored in /public/images/brands. `home: true` puts a brand in the home page row.
+// stored in /public/images/brands. `home: true` puts a brand in the home page row;
+// `large: true` shows a sparse logo bigger so it reads at the same weight as the rest.
 export const hatBrands = [
   { name: "Richardson", logo: "/images/brands/richardson.png", home: true },
   { name: "Sobrō", logo: "/images/brands/sobro.png", home: true },

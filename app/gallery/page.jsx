@@ -288,7 +288,7 @@ export default function GalleryPage() {
             <div className="grid grid-cols-3 gap-x-4 gap-y-6 sm:grid-cols-4 lg:grid-cols-6">
               {hatBrands.map((brand) => (
                 <div key={brand.name} className="flex h-14 items-center justify-center md:h-16">
-                  <img src={brand.logo} alt={brand.name} title={brand.name} loading="lazy" className="max-h-full max-w-[85%] object-contain" />
+                  <img src={brand.logo} alt={brand.name} title={brand.name} loading="lazy" className={`max-h-full object-contain ${brand.large ? "max-w-full scale-125" : "max-w-[85%]"}`} />
                 </div>
               ))}
             </div>
