@@ -342,7 +342,7 @@ export default function Back40LandingPage() {
           <div className="grid grid-cols-3 items-center gap-x-6 gap-y-6 md:grid-cols-5">
             {hatBrands.filter((brand) => brand.home).map((brand) => (
               <div key={brand.name} className="flex h-14 items-center justify-center md:h-16">
-                <img src={brand.logo} alt={brand.name} title={brand.name} loading="lazy" className="max-h-full max-w-[85%] object-contain opacity-85" />
+                <img src={brand.logo} alt={brand.name} title={brand.name} loading="lazy" className="max-h-full max-w-[85%] object-contain" />
               </div>
             ))}
           </div>
