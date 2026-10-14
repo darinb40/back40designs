@@ -10,10 +10,8 @@ const ArrowRight = ({ className = "h-4 w-4" }) => (
 export default function DealershipSeriesPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const [mobileDropdownOpen, setMobileDropdownOpen] = React.useState(false);
-
-  const shopLink = "https://back40-headwear.myshopify.com/collections/b40-trail-series";
   const instagramLink = "https://www.instagram.com/b40_designs/";
-  const shopPageLink = "/dealership-series/pre-order";
+  const emailLink = `mailto:info@back40designco.com?subject=${encodeURIComponent("Dealership Series hats")}`;
 
   return (
     <main className="relative min-h-[100dvh] overflow-x-hidden bg-black text-white">
@@ -58,7 +56,6 @@ export default function DealershipSeriesPage() {
 
             {/* Desktop nav */}
             <nav className="hidden items-center gap-6 text-sm text-stone-300 md:flex">
-              <Link href="/#collections" className="transition hover:text-white">Collections</Link>
 
               <div className="relative group">
                 <Link href="/dealership-series" className="text-white font-semibold">Dealership Series</Link>
@@ -69,7 +66,6 @@ export default function DealershipSeriesPage() {
                   <Link href="/dealership-series/green-pea-guide" className="rounded-lg px-4 py-3 transition hover:bg-white/5 hover:text-white">Green Pea Guide</Link>
                   <Link href="/lot-stretcher" className="rounded-lg px-4 py-3 transition hover:bg-white/5 hover:text-white">Lot Stretcher</Link>
                   <div className="my-1 border-t border-white/10" />
-                  <Link href={shopPageLink} className="rounded-lg px-4 py-3 text-[#c6a36b] font-semibold transition hover:bg-[#c6a36b]/10 hover:text-[#c6a36b]">Shop →</Link>
                 </div>
               </div>
 
@@ -81,12 +77,10 @@ export default function DealershipSeriesPage() {
             </nav>
 
             <div className="flex items-center gap-2 md:gap-3">
-              <Link href={shopPageLink} className="hidden rounded-2xl border border-[#c6a36b]/30 bg-[#c6a36b]/10 px-4 py-2 text-sm font-semibold text-[#c6a36b] transition hover:bg-[#c6a36b]/20 md:inline-flex">
-                Shop
-              </Link>
-              <Link href="/#contact" className="inline-flex items-center gap-1.5 rounded-2xl bg-white px-3 py-2 text-xs font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100 md:px-4 md:text-sm">
-                Start a Project →
-              </Link>
+              
+              <a href={emailLink} className="inline-flex items-center gap-1.5 rounded-2xl bg-white px-3 py-2 text-xs font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100 md:px-4 md:text-sm">
+                Email Us →
+              </a>
               <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="rounded-lg p-2 text-stone-300 transition hover:bg-white/5 md:hidden" aria-label="Toggle menu">
                 {mobileMenuOpen ? "✕" : "☰"}
               </button>
@@ -97,7 +91,6 @@ export default function DealershipSeriesPage() {
           {mobileMenuOpen && (
             <div className="border-t border-white/10 bg-black/95 px-4 py-4 md:hidden">
               <nav className="flex flex-col gap-4 text-sm text-stone-300">
-                <Link href="/#collections" onClick={() => setMobileMenuOpen(false)} className="border-b border-white/5 pb-3 transition hover:text-white">Collections</Link>
 
                 <div className="border-b border-white/5 pb-3">
                   <button type="button" onClick={() => setMobileDropdownOpen(!mobileDropdownOpen)} className="flex w-full items-center justify-between text-left transition hover:text-white">
@@ -112,7 +105,6 @@ export default function DealershipSeriesPage() {
                       <Link href="/dealership-series/backlot" onClick={() => setMobileMenuOpen(false)} className="transition hover:text-white">Back Lot</Link>
                       <Link href="/dealership-series/green-pea-guide" onClick={() => setMobileMenuOpen(false)} className="transition hover:text-white">Green Pea Guide</Link>
                       <Link href="/lot-stretcher" onClick={() => setMobileMenuOpen(false)} className="transition hover:text-white">Lot Stretcher</Link>
-                      <Link href={shopPageLink} onClick={() => setMobileMenuOpen(false)} className="text-[#c6a36b] font-semibold transition hover:text-[#b29360]">Shop →</Link>
                     </div>
                   )}
                 </div>
@@ -126,7 +118,6 @@ export default function DealershipSeriesPage() {
                 ].map(([href, label]) => (
                   <Link key={label} href={href} onClick={() => setMobileMenuOpen(false)} className="border-b border-white/5 pb-3 transition hover:text-white">{label}</Link>
                 ))}
-                <a href={shopLink} target="_blank" rel="noreferrer" onClick={() => setMobileMenuOpen(false)} className="transition hover:text-white">Shop Hats ↗</a>
               </nav>
             </div>
           )}
@@ -154,9 +145,9 @@ export default function DealershipSeriesPage() {
                 <Link href="/dealership-series/backlot" className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-white/10 bg-black/20 px-5 py-4 font-semibold text-white transition hover:bg-white/10 sm:w-auto">
                   Enter Back Lot <ArrowRight />
                 </Link>
-                <Link href={shopPageLink} className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-[#c6a36b]/40 bg-[#c6a36b]/10 px-5 py-4 font-semibold text-[#c6a36b] transition hover:bg-[#c6a36b]/20 hover:text-white sm:w-auto">
-                  Shop the Collection →
-                </Link>
+                <a href={emailLink} className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-[#c6a36b]/40 bg-[#c6a36b]/10 px-5 py-4 font-semibold text-[#c6a36b] transition hover:bg-[#c6a36b]/20 hover:text-white sm:w-auto">
+                  Email Us →
+                </a>
               </div>
 
               <div className="mt-6">
@@ -188,7 +179,6 @@ export default function DealershipSeriesPage() {
                 </div>
                 <div className="mt-4 grid gap-2">
                   <Link href="/dealership-series/front-line" className="inline-flex w-full justify-center rounded-2xl bg-white px-5 py-3 font-semibold text-black transition hover:bg-stone-100">View Front Line →</Link>
-                  <Link href={shopPageLink} className="inline-flex w-full justify-center rounded-2xl border border-[#c6a36b]/30 bg-[#c6a36b]/8 px-5 py-2.5 text-sm font-semibold text-[#c6a36b] transition hover:bg-[#c6a36b]/15 hover:text-white">Shop →</Link>
                 </div>
               </div>
 
@@ -202,7 +192,6 @@ export default function DealershipSeriesPage() {
                 </div>
                 <div className="mt-4 grid gap-2">
                   <Link href="/dealership-series/service-bay" className="inline-flex w-full justify-center rounded-2xl border border-white/10 bg-black/20 px-5 py-3 font-semibold text-white transition hover:bg-white/10">Enter Service Bay →</Link>
-                  <Link href={shopPageLink} className="inline-flex w-full justify-center rounded-2xl border border-[#c6a36b]/30 bg-[#c6a36b]/8 px-5 py-2.5 text-sm font-semibold text-[#c6a36b] transition hover:bg-[#c6a36b]/15 hover:text-white">Shop →</Link>
                 </div>
               </div>
 
@@ -216,7 +205,6 @@ export default function DealershipSeriesPage() {
                 </div>
                 <div className="mt-4 grid gap-2">
                   <Link href="/dealership-series/backlot" className="inline-flex w-full justify-center rounded-2xl border border-white/10 bg-black/20 px-5 py-3 font-semibold text-white transition hover:bg-white/10">Enter Back Lot →</Link>
-                  <Link href={shopPageLink} className="inline-flex w-full justify-center rounded-2xl border border-[#c6a36b]/30 bg-[#c6a36b]/8 px-5 py-2.5 text-sm font-semibold text-[#c6a36b] transition hover:bg-[#c6a36b]/15 hover:text-white">Shop →</Link>
                 </div>
               </div>
 
@@ -224,18 +212,18 @@ export default function DealershipSeriesPage() {
           </div>
         </section>
 
-        {/* SHOP CTA */}
+        {/* EMAIL CTA */}
         <section className="px-5 pb-10 md:px-10 md:pb-14">
           <div className="mx-auto max-w-7xl">
             <div className="rounded-2xl border border-[#c6a36b]/20 bg-[#c6a36b]/5 p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
               <div>
-                <p className="text-xs uppercase tracking-widest text-[#c6a36b] mb-1">Available Now</p>
-                <h3 className="text-2xl font-semibold text-white">Shop the full collection.</h3>
-                <p className="mt-1 text-sm text-white/50">$35 per hat. Built by hand in Northwest Arkansas. Ships within 2 weeks.</p>
+                <p className="text-xs uppercase tracking-widest text-[#c6a36b] mb-1">Get in touch</p>
+                <h3 className="text-2xl font-semibold text-white">Want these for your team or your store?</h3>
+                <p className="mt-1 text-sm text-white/50">One hat or a full team order. Email us and we&apos;ll take it from there. Built by hand in Bella Vista, AR.</p>
               </div>
-              <Link href={shopPageLink} className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-8 py-3.5 text-sm font-semibold text-black transition hover:bg-stone-100 hover:-translate-y-0.5 whitespace-nowrap">
-                Shop the Collection →
-              </Link>
+              <a href={emailLink} className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-8 py-3.5 text-sm font-semibold text-black transition hover:bg-stone-100 hover:-translate-y-0.5 whitespace-nowrap">
+                Email Us →
+              </a>
             </div>
           </div>
         </section>
@@ -269,7 +257,6 @@ export default function DealershipSeriesPage() {
               <a href="tel:479-544-1366" className="transition hover:text-white">479-544-1366</a>
               <a href="mailto:info@back40designco.com" className="transition hover:text-white">Email</a>
               <a href={instagramLink} target="_blank" rel="noreferrer" className="transition hover:text-white">Instagram</a>
-              <Link href={shopPageLink} className="transition hover:text-white">Shop</Link>
               <Link href="/" className="transition hover:text-white">Back to Home</Link>
             </div>
           </div>

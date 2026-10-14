@@ -105,117 +105,14 @@ const laneDescriptions = {
   "Service Bay": "Fixed ops. Built for the bay.",
 };
 
-const SHOPIFY_DOMAIN = 'dy7tby-ue.myshopify.com';
-const STOREFRONT_TOKEN = 'a6a4ccdb4cdd021868213cc7fe3a35bd';
-
-function ShopifyButton({ componentId, productId }) {
-  const ref = React.useRef(null);
-  const initialized = React.useRef(false);
-
-  React.useEffect(() => {
-    if (initialized.current) return;
-    initialized.current = true;
-
-    function initButton() {
-      if (!window.ShopifyBuy || !window.ShopifyBuy.UI) return;
-      const client = window.ShopifyBuy.buildClient({
-        domain: SHOPIFY_DOMAIN,
-        storefrontAccessToken: STOREFRONT_TOKEN,
-      });
-      window.ShopifyBuy.UI.onReady(client).then((ui) => {
-        ui.createComponent('product', {
-          id: productId,
-          node: document.getElementById(componentId),
-          moneyFormat: '%24%7B%7Bamount%7D%7D',
-          options: {
-            product: {
-              styles: {
-                product: {
-                  '@media (min-width: 601px)': {
-                    'max-width': '100%',
-                    'margin-left': '0px',
-                    'margin-bottom': '0px',
-                  },
-                },
-                button: {
-                  'font-family': 'Open Sans, sans-serif',
-                  'font-weight': 'bold',
-                  'background-color': '#ffffff',
-                  'color': '#000000',
-                  ':hover': { 'background-color': '#e7e7e7' },
-                  ':focus': { 'background-color': '#e7e7e7' },
-                  'border-radius': '1rem',
-                  'padding': '10px 20px',
-                  'width': '100%',
-                },
-              },
-              buttonDestination: 'checkout',
-              contents: {
-                img: false,
-                title: false,
-                price: false,
-              },
-              text: { button: 'Get Yours — $35' },
-              googleFonts: ['Open Sans'],
-            },
-            cart: {
-              styles: {
-                button: {
-                  'font-family': 'Open Sans, sans-serif',
-                  'font-weight': 'bold',
-                  'background-color': '#c6a36b',
-                  ':hover': { 'background-color': '#b29360' },
-                  ':focus': { 'background-color': '#b29360' },
-                },
-              },
-              text: { total: 'Subtotal', button: 'Checkout' },
-              googleFonts: ['Open Sans'],
-            },
-            toggle: {
-              styles: {
-                toggle: {
-                  'font-family': 'Open Sans, sans-serif',
-                  'font-weight': 'bold',
-                  'background-color': '#c6a36b',
-                  ':hover': { 'background-color': '#b29360' },
-                  ':focus': { 'background-color': '#b29360' },
-                },
-              },
-              googleFonts: ['Open Sans'],
-            },
-          },
-        });
-      });
-    }
-
-    const scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
-    if (window.ShopifyBuy && window.ShopifyBuy.UI) {
-      initButton();
-    } else if (window.ShopifyBuy) {
-      window.ShopifyBuy.UI ? initButton() : loadScript();
-    } else {
-      loadScript();
-    }
-
-    function loadScript() {
-      if (document.querySelector(`script[src="${scriptURL}"]`)) {
-        const interval = setInterval(() => {
-          if (window.ShopifyBuy && window.ShopifyBuy.UI) {
-            clearInterval(interval);
-            initButton();
-          }
-        }, 100);
-        return;
-      }
-      const script = document.createElement('script');
-      script.async = true;
-      script.src = scriptURL;
-      script.onload = initButton;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(script);
-    }
-  }, [componentId, productId]);
-
-  return <div id={componentId} ref={ref} />;
+// Every hat inquiry goes to email; the subject names the hat.
+function EmailButton({ hat }) {
+  const href = `mailto:info@back40designco.com?subject=${encodeURIComponent(`Dealership Series: ${hat}`)}`;
+  return (
+    <a href={href} className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-black transition hover:-translate-y-0.5 hover:bg-stone-100">
+      Email Us About This Hat →
+    </a>
+  );
 }
 
 export default function DealershipShopPage() {
@@ -255,7 +152,7 @@ export default function DealershipShopPage() {
             <div className="mt-4 flex items-center justify-between px-1">
               <div>
                 <p className="text-sm font-semibold text-white">{hatsWithImages[lightbox].title}</p>
-                <p className="text-xs text-white/50">{hatsWithImages[lightbox].lane} · $35</p>
+                <p className="text-xs text-white/50">{hatsWithImages[lightbox].lane}</p>
               </div>
               <button onClick={() => setLightbox(null)} className="text-white/40 hover:text-white text-xs uppercase tracking-widest transition">
                 Close ✕
@@ -339,32 +236,14 @@ export default function DealershipShopPage() {
             The Collection.
           </h1>
           <p className="mt-5 text-base leading-7 text-stone-300 sm:text-lg">
-            Built for the ones who live it. Small batch. Handmade in Northwest Arkansas.
+            Built for the ones who live it. Small batch. Handmade in Bella Vista, AR.
           </p>
-
-          <div className="mt-6 inline-flex flex-wrap gap-4">
-            <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2">
-              <p className="text-xs font-semibold uppercase tracking-widest text-stone-400">
-                $35 per hat
-              </p>
-            </div>
-            <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2">
-              <p className="text-xs font-semibold uppercase tracking-widest text-stone-400">
-                Ships within 2 weeks
-              </p>
-            </div>
-            <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2">
-              <p className="text-xs font-semibold uppercase tracking-widest text-stone-400">
-                Secure checkout via Shopify
-              </p>
-            </div>
-          </div>
 
           <div className="mt-8 grid gap-3 sm:grid-cols-3">
             {[
-              ["Built by Hand", "Northwest Arkansas"],
+              ["Built by Hand", "Bella Vista, AR"],
               ["Small Batch", "No mass production"],
-              ["Bulk Orders", "Contact for pricing"],
+              ["Team Orders", "Email us for a quote"],
             ].map(([label, sub]) => (
               <div key={label} className="rounded-2xl border border-white/10 bg-black/30 backdrop-blur-sm p-4">
                 <p className="text-xs uppercase tracking-widest text-stone-500">{label}</p>
@@ -415,23 +294,14 @@ export default function DealershipShopPage() {
                         </div>
                       </div>
                     )}
-                    <div className="absolute top-3 right-3">
-                      <span className="rounded-full bg-[#c6a36b]/20 border border-[#c6a36b]/40 px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-[#c6a36b]">
-                        Available Now
-                      </span>
-                    </div>
                   </div>
 
                   <div className="p-5">
                     <p className="text-xs uppercase tracking-[0.2em] text-stone-500 mb-1">{hat.lane}</p>
                     <h3 className="text-base font-semibold text-white leading-snug">{hat.title}</h3>
                     <p className="mt-1 text-sm text-stone-400 italic">{hat.subtitle}</p>
-                    <div className="mt-3 flex items-center justify-between">
-                      <p className="text-lg font-semibold text-white">$35</p>
-                      <p className="text-xs text-stone-500">Free shipping on orders 3+</p>
-                    </div>
                     <div className="mt-4">
-                      <ShopifyButton componentId={hat.componentId} productId={hat.productId} />
+                      <EmailButton hat={hat.name || hat.title} />
                     </div>
                   </div>
                 </div>
@@ -447,21 +317,14 @@ export default function DealershipShopPage() {
           <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
             <div>
               <p className="text-xs uppercase tracking-[0.25em] text-stone-500 mb-3">Ordering for your team?</p>
-              <h2 className="text-2xl font-semibold text-white mb-3">Bulk orders available.</h2>
+              <h2 className="text-2xl font-semibold text-white mb-3">Outfit your whole team.</h2>
               <p className="text-sm text-stone-400 leading-6">
-                Ordering 6 or more hats? We offer bulk pricing for dealership teams, events, and staff outfitting.
-                Reach out directly and we will build a quote for you.
+                Ordering for your dealership, an event, or your staff? Email us and we will build a quote for you.
               </p>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row lg:justify-end">
               <a
-                href="tel:479-544-1366"
-                className="flex items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
-              >
-                📞 479-544-1366
-              </a>
-              <a
-                href="mailto:info@back40designco.com"
+                href={`mailto:info@back40designco.com?subject=${encodeURIComponent("Dealership Series team order")}`}
                 className="flex items-center justify-center gap-2 rounded-2xl bg-white px-6 py-3 text-sm font-semibold text-black transition hover:bg-stone-100"
               >
                 Email Us →

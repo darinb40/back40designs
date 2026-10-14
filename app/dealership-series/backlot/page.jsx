@@ -3,111 +3,14 @@
 import React from 'react';
 import Link from 'next/link';
 
-const SHOPIFY_DOMAIN = 'dy7tby-ue.myshopify.com';
-const STOREFRONT_TOKEN = 'a6a4ccdb4cdd021868213cc7fe3a35bd';
-
-function ShopifyButton({ componentId, productId }) {
-  const initialized = React.useRef(false);
-
-  React.useEffect(() => {
-    if (initialized.current) return;
-    initialized.current = true;
-
-    const scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
-
-    function initButton() {
-      if (!window.ShopifyBuy || !window.ShopifyBuy.UI) return;
-      const client = window.ShopifyBuy.buildClient({
-        domain: SHOPIFY_DOMAIN,
-        storefrontAccessToken: STOREFRONT_TOKEN,
-      });
-      window.ShopifyBuy.UI.onReady(client).then((ui) => {
-        ui.createComponent('product', {
-          id: productId,
-          node: document.getElementById(componentId),
-          moneyFormat: '%24%7B%7Bamount%7D%7D',
-          options: {
-            product: {
-              styles: {
-                product: {
-                  '@media (min-width: 601px)': {
-                    'max-width': '100%',
-                    'margin-left': '0px',
-                    'margin-bottom': '0px',
-                  },
-                },
-                button: {
-                  'font-family': 'Open Sans, sans-serif',
-                  'font-weight': 'bold',
-                  'background-color': '#ffffff',
-                  'color': '#000000',
-                  ':hover': { 'background-color': '#e7e7e7' },
-                  ':focus': { 'background-color': '#e7e7e7' },
-                  'border-radius': '1rem',
-                  'padding': '10px 20px',
-                  'width': '100%',
-                },
-              },
-              buttonDestination: 'checkout',
-              contents: { img: false, title: false, price: false },
-              text: { button: 'Get Yours — $35' },
-              googleFonts: ['Open Sans'],
-            },
-            cart: {
-              styles: {
-                button: {
-                  'font-family': 'Open Sans, sans-serif',
-                  'font-weight': 'bold',
-                  'background-color': '#c6a36b',
-                  ':hover': { 'background-color': '#b29360' },
-                  ':focus': { 'background-color': '#b29360' },
-                },
-              },
-              text: { total: 'Subtotal', button: 'Checkout' },
-              googleFonts: ['Open Sans'],
-            },
-            toggle: {
-              styles: {
-                toggle: {
-                  'font-family': 'Open Sans, sans-serif',
-                  'font-weight': 'bold',
-                  'background-color': '#c6a36b',
-                  ':hover': { 'background-color': '#b29360' },
-                  ':focus': { 'background-color': '#b29360' },
-                },
-              },
-              googleFonts: ['Open Sans'],
-            },
-          },
-        });
-      });
-    }
-
-    if (window.ShopifyBuy && window.ShopifyBuy.UI) {
-      initButton();
-    } else {
-      loadScript();
-    }
-
-    function loadScript() {
-      if (document.querySelector(`script[src="${scriptURL}"]`)) {
-        const interval = setInterval(() => {
-          if (window.ShopifyBuy && window.ShopifyBuy.UI) {
-            clearInterval(interval);
-            initButton();
-          }
-        }, 100);
-        return;
-      }
-      const script = document.createElement('script');
-      script.async = true;
-      script.src = scriptURL;
-      script.onload = initButton;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(script);
-    }
-  }, [componentId, productId]);
-
-  return <div id={componentId} />;
+// Every hat inquiry goes to email; the subject names the hat.
+function EmailButton({ hat }) {
+  const href = `mailto:info@back40designco.com?subject=${encodeURIComponent(`Dealership Series: ${hat}`)}`;
+  return (
+    <a href={href} className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-black transition hover:-translate-y-0.5 hover:bg-stone-100">
+      Email Us About This Hat →
+    </a>
+  );
 }
 
 const backLotItems = [
@@ -174,9 +77,7 @@ function GlitchButton() {
 export default function BackLotPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const [mobileDropdownOpen, setMobileDropdownOpen] = React.useState(false);
-
-  const shopLink = "https://back40-headwear.myshopify.com/collections/b40-trail-series";
-  const shopPageLink = "/dealership-series/pre-order";
+  const emailLink = `mailto:info@back40designco.com?subject=${encodeURIComponent("Dealership Series hats")}`;
 
   return (
     <main className="relative min-h-[100dvh] text-white overflow-x-hidden">
@@ -235,7 +136,6 @@ export default function BackLotPage() {
           </Link>
 
           <nav className="hidden items-center gap-6 text-sm text-stone-300 md:flex">
-            <Link href="/#collections" className="transition hover:text-white">Collections</Link>
             <div className="relative group">
               <Link href="/dealership-series" className="text-white font-semibold">Dealership Series</Link>
               <div className="absolute left-0 top-full mt-0 hidden w-60 flex-col rounded-xl border border-white/10 bg-black/95 p-2 pt-5 backdrop-blur-md shadow-2xl group-hover:flex before:absolute before:inset-x-0 before:-top-3 before:h-3 before:content-['']">
@@ -245,7 +145,6 @@ export default function BackLotPage() {
                 <Link href="/dealership-series/green-pea-guide" className="rounded-lg px-4 py-3 transition hover:bg-white/5 hover:text-white">Green Pea Guide</Link>
                 <Link href="/lot-stretcher" className="rounded-lg px-4 py-3 transition hover:bg-white/5 hover:text-white">Lot Stretcher</Link>
                 <div className="my-1 border-t border-white/10" />
-                <Link href={shopPageLink} className="rounded-lg px-4 py-3 text-[#c6a36b] font-semibold transition hover:bg-[#c6a36b]/10 hover:text-[#c6a36b]">Shop →</Link>
               </div>
             </div>
             <Link href="/trail-series" className="transition hover:text-white">Trail Series</Link>
@@ -256,12 +155,10 @@ export default function BackLotPage() {
           </nav>
 
           <div className="flex items-center gap-2 md:gap-3">
-            <a href={shopLink} target="_blank" rel="noreferrer" className="hidden rounded-2xl border border-white/10 px-4 py-2 text-sm font-semibold text-stone-200 transition hover:bg-white/5 md:inline-flex">
-              Shop
+            
+            <a href={emailLink} className="inline-flex items-center gap-1.5 rounded-2xl bg-white px-3 py-2 text-xs font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100 md:px-4 md:text-sm">
+              Email Us →
             </a>
-            <Link href={shopPageLink} className="inline-flex items-center gap-1.5 rounded-2xl bg-white px-3 py-2 text-xs font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100 md:px-4 md:text-sm">
-              Shop Now →
-            </Link>
             <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="rounded-lg p-2 text-stone-300 transition hover:bg-white/5 md:hidden" aria-label="Toggle menu">
               {mobileMenuOpen ? "✕" : "☰"}
             </button>
@@ -271,7 +168,6 @@ export default function BackLotPage() {
         {mobileMenuOpen && (
           <div className="border-t border-white/10 bg-black/90 px-4 py-4 md:hidden">
             <nav className="flex flex-col gap-4 text-sm text-stone-300">
-              <Link href="/#collections" onClick={() => setMobileMenuOpen(false)} className="border-b border-white/5 pb-3 transition hover:text-white">Collections</Link>
               <div className="border-b border-white/5 pb-3">
                 <button type="button" onClick={() => setMobileDropdownOpen(!mobileDropdownOpen)} className="flex w-full items-center justify-between text-left transition hover:text-white">
                   <span>Dealership Series</span>
@@ -285,7 +181,6 @@ export default function BackLotPage() {
                     <Link href="/dealership-series/backlot" onClick={() => setMobileMenuOpen(false)} className="text-white font-semibold">Back Lot</Link>
                     <Link href="/dealership-series/green-pea-guide" onClick={() => setMobileMenuOpen(false)} className="transition hover:text-white">Green Pea Guide</Link>
                     <Link href="/lot-stretcher" onClick={() => setMobileMenuOpen(false)} className="transition hover:text-white">Lot Stretcher</Link>
-                    <Link href={shopPageLink} onClick={() => setMobileMenuOpen(false)} className="text-[#c6a36b] font-semibold transition hover:text-[#b29360]">Shop →</Link>
                   </div>
                 )}
               </div>
@@ -298,7 +193,6 @@ export default function BackLotPage() {
               ].map(([href, label]) => (
                 <Link key={label} href={href} onClick={() => setMobileMenuOpen(false)} className="border-b border-white/5 pb-3 transition hover:text-white">{label}</Link>
               ))}
-              <a href={shopLink} target="_blank" rel="noreferrer" onClick={() => setMobileMenuOpen(false)} className="transition hover:text-white">Shop Hats ↗</a>
             </nav>
           </div>
         )}
@@ -337,7 +231,7 @@ export default function BackLotPage() {
                 <img src={item.image} alt={item.title} className="w-full object-cover max-h-64" />
               </div>
               <div className="mt-auto pt-4">
-                <ShopifyButton componentId={item.componentId} productId={item.productId} />
+                <EmailButton hat={item.name || item.title} />
               </div>
             </div>
           ))}
@@ -346,13 +240,13 @@ export default function BackLotPage() {
         {/* Bottom CTA */}
         <div className="mt-12 max-w-5xl rounded-2xl border border-[#c6a36b]/20 bg-[#c6a36b]/5 p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
           <div>
-            <p className="text-xs uppercase tracking-widest text-[#c6a36b] mb-1">Full Collection</p>
-            <h3 className="text-2xl font-semibold text-white">Want all four?</h3>
-            <p className="mt-1 text-sm text-white/50">Shop the full Dealership Series including Front Line and Service Bay.</p>
+            <p className="text-xs uppercase tracking-widest text-[#c6a36b] mb-1">Get in touch</p>
+            <h3 className="text-2xl font-semibold text-white">Want these for your team?</h3>
+            <p className="mt-1 text-sm text-white/50">Email us about a single hat or outfitting your whole store.</p>
           </div>
-          <Link href={shopPageLink} className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-8 py-3.5 text-sm font-semibold text-black transition hover:bg-stone-100 hover:-translate-y-0.5 whitespace-nowrap">
-            Shop All Hats →
-          </Link>
+          <a href={emailLink} className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-8 py-3.5 text-sm font-semibold text-black transition hover:bg-stone-100 hover:-translate-y-0.5 whitespace-nowrap">
+            Email Us →
+          </a>
         </div>
 
         <GlitchButton />
@@ -371,7 +265,6 @@ export default function BackLotPage() {
           <div className="flex flex-wrap gap-4 sm:gap-6">
             <a href="tel:479-544-1366" className="transition hover:text-white">479-544-1366</a>
             <a href="mailto:info@back40designco.com" className="transition hover:text-white">Email</a>
-            <Link href={shopPageLink} className="transition hover:text-white">Shop</Link>
             <Link href="/dealership-series" className="transition hover:text-white">Dealership Series</Link>
             <Link href="/" className="transition hover:text-white">Back to Home</Link>
           </div>

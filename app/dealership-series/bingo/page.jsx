@@ -32,9 +32,6 @@ export default function BingoLandingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
 
-  const preOrderLink = "/dealership-series/pre-order";
-  const shopLink = "https://back40-headwear.myshopify.com/collections/b40-trail-series";
-
   const handleShare = () => {
     navigator.clipboard.writeText("https://back40designco.com/dealership-series/bingo");
     setCopied(true);
@@ -116,7 +113,6 @@ export default function BingoLandingPage() {
 
           {/* Desktop nav */}
           <nav style={{ display: "none", alignItems: "center", gap: "24px" }} className="desktop-nav">
-            <Link href="/#collections" className="nav-link">Collections</Link>
             <div className="nav-group">
               <Link href="/dealership-series" className="nav-link" style={{ color: "white", fontWeight: "500" }}>Dealership Series</Link>
               <div className="nav-dropdown">
@@ -124,7 +120,6 @@ export default function BingoLandingPage() {
                   <Link key={href} href={href} className="nav-dropdown-item">{label}</Link>
                 ))}
                 <div style={{ borderTop: "1px solid rgba(255,255,255,0.08)", margin: "4px 0" }} />
-                <Link href={preOrderLink} className="nav-dropdown-item" style={{ color: "#dc2626", fontWeight: "500" }}>Pre-Order →</Link>
               </div>
             </div>
             <Link href="/trail-series" className="nav-link">Trail Series</Link>
@@ -135,9 +130,7 @@ export default function BingoLandingPage() {
           </nav>
 
           <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-            <Link href={preOrderLink} style={{ display: "inline-flex", alignItems: "center", background: "white", color: "#080808", padding: "8px 14px", borderRadius: "20px", fontFamily: "'DM Mono', monospace", fontSize: "11px", fontWeight: "500", letterSpacing: "0.16em", textTransform: "uppercase", textDecoration: "none" }}>
-              Pre-Order →
-            </Link>
+            
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               style={{ background: "transparent", border: "none", color: "rgba(255,255,255,0.6)", cursor: "pointer", padding: "8px", fontSize: "18px" }}
@@ -153,7 +146,6 @@ export default function BingoLandingPage() {
         {mobileMenuOpen && (
           <div style={{ borderTop: "1px solid rgba(255,255,255,0.08)", background: "rgba(0,0,0,0.95)", padding: "16px 24px" }}>
             <div style={{ display: "flex", flexDirection: "column", gap: "16px", fontFamily: "'DM Mono', monospace", fontSize: "13px", letterSpacing: "0.12em", textTransform: "uppercase" }}>
-              <Link href="/#collections" onClick={() => setMobileMenuOpen(false)} style={{ color: "rgba(255,255,255,0.6)", textDecoration: "none", borderBottom: "1px solid rgba(255,255,255,0.05)", paddingBottom: "12px" }}>Collections</Link>
 
               <div style={{ borderBottom: "1px solid rgba(255,255,255,0.05)", paddingBottom: "12px" }}>
                 <button
@@ -169,7 +161,6 @@ export default function BingoLandingPage() {
                     {navLinks.map(([href, label]) => (
                       <Link key={href} href={href} onClick={() => setMobileMenuOpen(false)} style={{ color: "rgba(255,255,255,0.5)", textDecoration: "none" }}>{label}</Link>
                     ))}
-                    <Link href={preOrderLink} onClick={() => setMobileMenuOpen(false)} style={{ color: "#dc2626", textDecoration: "none", fontWeight: "500" }}>Pre-Order →</Link>
                   </div>
                 )}
               </div>
@@ -183,7 +174,6 @@ export default function BingoLandingPage() {
               ].map(([href, label]) => (
                 <Link key={label} href={href} onClick={() => setMobileMenuOpen(false)} style={{ color: "rgba(255,255,255,0.6)", textDecoration: "none", borderBottom: "1px solid rgba(255,255,255,0.05)", paddingBottom: "12px" }}>{label}</Link>
               ))}
-              <a href={shopLink} target="_blank" rel="noreferrer" onClick={() => setMobileMenuOpen(false)} style={{ color: "rgba(255,255,255,0.6)", textDecoration: "none" }}>Shop Hats ↗</a>
             </div>
           </div>
         )}
