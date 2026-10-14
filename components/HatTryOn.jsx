@@ -714,7 +714,7 @@ export default function HatTryOn() {
               : `Click the ${direct ? "design" : "patch"}, logo, or text, then drag to move it.`}
             {moved ? <button onClick={resetPositions} className="ml-2 uppercase tracking-[0.12em] text-[#c6a36b] hover:text-white">Reset positions</button> : null}
           </p>
-          <p className="mt-1 text-center text-[11px] text-white/35 lg:text-xs">{HAT.name} · Preview colors are close, not exact. Ask us for samples.</p>
+          <p className="mt-1 text-center text-[11px] text-white/35 lg:text-xs">Showing one hat: the {HAT.name}. We carry 17+ brands and dozens of styles. Preview colors are close, not exact.</p>
         </div>
 
         {/* the controls */}
@@ -738,6 +738,7 @@ export default function HatTryOn() {
               <input type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" className="hidden" onChange={(e) => loadImage(e.target.files[0], (img) => { setOwnPatch(img); setShapeIndex(-1); })} />
             </label>
             </div>
+            {!direct && <p className="mt-3 rounded-lg border border-[#c6a36b]/30 bg-[#c6a36b]/[0.06] px-3 py-2 text-xs text-white/70"><span className="text-[#c6a36b]">+</span> Want a different shape? We can cut almost any shape. Just ask.</p>}
             <div className="mt-3">
               <Slider label={direct ? "Print Size" : "Patch Size"} value={patchSize} min={70} max={125} onChange={setPatchSize} />
             </div>
@@ -760,6 +761,7 @@ export default function HatTryOn() {
                 <p className="w-full text-xs text-white/60">{color.name} <span className="text-white/35">· {materialId === "wood" ? `${material.colors.length} woods` : `base / engrave color · ${material.colors.length} colors`}</span></p>
               </div>
             )}
+            <p className="mt-3 rounded-lg border border-[#c6a36b]/30 bg-[#c6a36b]/[0.06] px-3 py-2 text-xs text-white/70"><span className="text-[#c6a36b]">+</span> Also available: PVC, embroidery, camo and patterned leatherette, and more. Just ask.</p>
           </Panel>
 
           <Panel step="03" title="Add Your Logo" dim={usingOwn}>

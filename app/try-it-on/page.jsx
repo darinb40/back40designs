@@ -94,7 +94,10 @@ export default function TryItOnPage() {
       {/* ── PREVIEW ── */}
       <section id="try-it-on" className="scroll-mt-24 px-6 py-12 md:px-16 md:py-16">
         <div className="mx-auto max-w-7xl">
-          <h2 className="mb-2 text-4xl uppercase md:text-5xl" style={bebas}>See It on a Hat</h2>
+          <h2 className="mb-2 text-4xl uppercase md:text-5xl" style={bebas}>Take It for a Test Drive</h2>
+          <p className="mb-4 max-w-3xl text-sm leading-6 text-white/65 md:text-base">
+            This is just a starting point. Real orders can be any hat, any shape, any color, any material. If you can dream it, we can probably build it.
+          </p>
           <HatTryOn />
         </div>
       </section>
