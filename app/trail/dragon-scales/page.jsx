@@ -63,7 +63,7 @@ export default function DragonScalesPage() {
 
       {/* HERO */}
       <section className="relative h-[100vh] w-full">
-        <img src="/images/dragon-scales.PNG" alt="Dragon Scales Trail" className="absolute inset-0 h-full w-full object-cover" />
+        <img src="/images/trail-dragon-scales-hero.jpg" alt="Dragon Scales Trail" className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-black/60" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/80" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/20 to-transparent" />
@@ -100,7 +100,7 @@ export default function DragonScalesPage() {
 
       {/* TRAIL STATS */}
       <section className="relative overflow-hidden" style={{ minHeight: "360px" }}>
-        <div className="absolute inset-0 w-full h-full" style={{ backgroundImage: "url('/images/trail-b40.png')", backgroundSize: "cover", backgroundPosition: "center", backgroundAttachment: "fixed" }} />
+        <div className="absolute inset-0 w-full h-full" style={{ backgroundImage: "url('/images/trail-b40.jpg')", backgroundSize: "cover", backgroundPosition: "center", backgroundAttachment: "fixed" }} />
         <div className="absolute inset-0 bg-black/65" />
         <div className="absolute inset-0 opacity-10">
           <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
@@ -139,7 +139,7 @@ export default function DragonScalesPage() {
             <div>
               <div className="relative">
                 <div className="absolute -inset-4 bg-[#cc0000]/10 blur-2xl rounded-full" />
-                <img src="/images/dragon-scales.PNG" alt="Dragon Scales Hat" className="relative w-full rounded-xl object-cover shadow-2xl" />
+                <img src="/images/trail-dragon-scales.jpg" alt="Dragon Scales Hat" className="relative w-full rounded-xl object-cover shadow-2xl" />
                 <div className="absolute bottom-4 left-4 rounded-lg bg-black/80 px-4 py-2 backdrop-blur">
                   <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#c6a36b]">Dragon Scales</p>
                   <p className="text-xs text-white/60">Slaughter Pen, Bentonville AR</p>
@@ -190,12 +190,12 @@ export default function DragonScalesPage() {
           </h2>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
             {[
-              { name: "Back 40 Loop", sub: "Black Edition", href: "/trail/back-40-loop", img: "/images/back-40.PNG" },
-              { name: "Back 40 Loop", sub: "Red, White & Blue", href: "/trail/back-40-loop-rwb", img: "/images/back-40-rwb.PNG" },
-              { name: "Little Sugar Trail", sub: "Bella Vista, AR", href: "/trail/little-sugar", img: "/images/little-sugar.PNG" },
+              { name: "Back 40 Loop", sub: "Black Edition", href: "/trail/back-40-loop", img: "/images/trail-back-40-loop.jpg" },
+              { name: "Back 40 Loop", sub: "Red, White & Blue", href: "/trail/back-40-loop-rwb", img: "/images/trail-back-40-loop-rwb.jpg" },
+              { name: "Little Sugar Trail", sub: "Bella Vista, AR", href: "/trail/little-sugar", img: "/images/trail-little-sugar.jpg" },
             ].map(({ name, sub, href, img }) => (
               <Link key={sub} href={href} className="group overflow-hidden rounded-xl border border-white/10 bg-white/5 transition hover:border-[#c6a36b]/50">
-                <div className="aspect-square overflow-hidden">
+                <div className="aspect-[4/3] overflow-hidden">
                   <img src={img} alt={name} className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.05]" />
                 </div>
                 <div className="p-4">

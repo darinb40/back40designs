@@ -18,7 +18,7 @@ function HeavyTopoOverlay({ opacity = "opacity-55", dark = "bg-black/65" }) {
 function LineTopoOverlay({ opacity = "opacity-20", dark = "bg-black/75" }) {
   return (
     <>
-      <div className={`absolute inset-0 bg-[url('/images/topo-lines.png')] bg-cover bg-center ${opacity}`} />
+      <div className={`absolute inset-0 bg-[url('/images/topo-lines.jpg')] bg-cover bg-center ${opacity}`} />
       <div className={`absolute inset-0 ${dark}`} />
     </>
   );

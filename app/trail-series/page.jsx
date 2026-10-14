@@ -14,7 +14,7 @@ export default function TrailSeriesPage() {
       tagline: "Where NWA riding grew up.",
       description: "40 miles of pure Ozark singletrack built by six of the country's best trail builders. The trail that put Bella Vista on the map.",
       href: "/trail/back-40-loop",
-      img: "/images/back-40.PNG",
+      img: "/images/trail-back-40-loop.jpg",
     },
     {
       name: "Back 40 Loop",
@@ -22,7 +22,7 @@ export default function TrailSeriesPage() {
       tagline: "Same dirt. Different story.",
       description: "The same legendary 40-mile loop, captured in a colorway that runs as deep as the people who built this place.",
       href: "/trail/back-40-loop-rwb",
-      img: "/images/back-40-rwb.PNG",
+      img: "/images/trail-back-40-loop-rwb.jpg",
     },
     {
       name: "Little Sugar Trail",
@@ -30,7 +30,7 @@ export default function TrailSeriesPage() {
       tagline: "Earn every descent.",
       description: "50 miles of punchy, technical singletrack. More climbing per mile than anywhere else in NWA. The all-weather weapon.",
       href: "/trail/little-sugar",
-      img: "/images/little-sugar.PNG",
+      img: "/images/trail-little-sugar.jpg",
     },
     {
       name: "Dragon Scales",
@@ -38,7 +38,7 @@ export default function TrailSeriesPage() {
       tagline: "Not for the faint of heart.",
       description: "Black diamond. Rock gardens. Fast drops into hard banks. The most technical run at Slaughter Pen -- and worth every second.",
       href: "/trail/dragon-scales",
-      img: "/images/dragon-scales.PNG",
+      img: "/images/trail-dragon-scales.jpg",
     },
   ];
 
@@ -88,7 +88,7 @@ export default function TrailSeriesPage() {
 
       {/* HERO */}
       <section className="relative h-[100vh] w-full">
-        <img src="/trail-series-bg.png" alt="Trail Series" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: "70% center" }} />
+        <img src="/trail-series-bg.jpg" alt="Trail Series" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: "70% center" }} />
         <div className="absolute inset-0 bg-black/20" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/60" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/10 to-transparent" />

@@ -1,4 +1,5 @@
 export const metadata = {
+  alternates: { canonical: "/trail-series" },
   title: "B40 Trail Series | Custom Patch Hats | Northwest Arkansas",
   description: "The B40 Trail Series is custom patch headwear built in Northwest Arkansas and inspired by NWA's most iconic trails. Small batch. No mass production.",
   keywords: "B40 Trail Series, B40 Arkansas, B40 hats NWA, Back 40 trail hats, Northwest Arkansas hats, Bella Vista mountain bike hats, NWA trail headwear",
@@ -8,7 +9,7 @@ export const metadata = {
     url: "https://www.back40designco.com/trail-series",
     images: [
       {
-        url: "https://www.back40designco.com/trail-series-bg.png",
+        url: "https://www.back40designco.com/trail-series-bg.jpg",
         width: 1200,
         height: 630,
         alt: "B40 Trail Series -- Custom Patch Hats Northwest Arkansas",
@@ -20,7 +21,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "B40 Trail Series | Custom Patch Hats | Northwest Arkansas",
     description: "The B40 Trail Series is custom patch headwear built in Northwest Arkansas and inspired by NWA's most iconic trails.",
-    images: ["https://www.back40designco.com/trail-series-bg.png"],
+    images: ["https://www.back40designco.com/trail-series-bg.jpg"],
   },
 };
 export default function TrailSeriesLayout({ children }) {

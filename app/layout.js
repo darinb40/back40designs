@@ -1,6 +1,7 @@
 import './globals.css'
 
 export const metadata = {
+  metadataBase: new URL('https://www.back40designco.com'),
   title: 'B40 Design Co. | Custom Patch Headwear | Northwest Arkansas',
   description: 'B40 Design Co. builds custom patch headwear in Northwest Arkansas. Trail Series hats inspired by NWA trails, Dealership Series for car industry culture, and custom builds for shops and brands.',
   keywords: 'B40, B40 Arkansas, B40 Design Co, B40 hats, Back 40 Design, custom patch hats Northwest Arkansas, NWA hats, Bella Vista hats, B40 NWA',
@@ -25,9 +26,6 @@ export const metadata = {
     title: 'B40 Design Co. | Custom Patch Headwear | Northwest Arkansas',
     description: 'B40 Design Co. builds custom patch headwear in Northwest Arkansas.',
     images: ['https://www.back40designco.com/images/b402026.png'],
-  },
-  alternates: {
-    canonical: 'https://www.back40designco.com',
   },
 }
 

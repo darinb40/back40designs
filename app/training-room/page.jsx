@@ -144,7 +144,7 @@ function Layout({ children, flash }) {
       {/* Background */}
       <div className="absolute inset-0">
         <img
-          src="/training-room-bg.png"
+          src="/training-room-bg.jpg"
           alt="B40 Training Room"
           className="h-full w-full object-cover object-center brightness-[1.25] contrast-[1.1]"
         />
