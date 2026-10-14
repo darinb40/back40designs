@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { patchShapes } from "./patchShapes";
 import { leatheretteColors, leatherColors } from "./leatherColors";
+import { hatPhotos, HAT_GROUPS } from "./hatPhotos";
 import { smsLink, EMAIL, PHONES } from "./contact";
 
 // Customer "try it on" preview: draws a patch (shape + material + optional logo)
@@ -11,14 +12,27 @@ import { smsLink, EMAIL, PHONES } from "./contact";
 
 const bebas = { fontFamily: "'Bebas Neue', 'Arial Narrow', sans-serif" };
 
-const HAT = {
+// The hat profile's patch width fits a Ridgeback; other shapes scale by their real width.
+const PATCH_FIT_IN = 3.69;
+const CLASSIC_HAT = {
+  id: "r112",
   name: "Black Richardson 112",
+  group: "solid",
   src: "/images/try-it-on/r112-black.png", // cut out, so it sits on a soft spotlight
+  thumb: "/images/try-it-on/r112-black.png",
   // Where the patch sits on this photo, as fractions of the image (from the studio's r112_front profile).
   profile: { cx: 0.5, cy: 0.474, width: 0.377, wrap: 0.28, edgeDrop: 0.035, shade: 0.12 },
-  // The profile width fits a Ridgeback; other shapes scale by their real width.
-  fitWidthIn: 3.69,
 };
+const HATS = [CLASSIC_HAT, ...hatPhotos];
+// B40's own hat photos get their patch spot from the hat's outline, in the same
+// proportions as the Richardson 112 profile above (center at 50.3% down the hat, 42% of its width).
+const profileFor = (hat, W, H) =>
+  hat.profile || {
+    cx: (hat.box[0] + hat.box[2]) / 2 / W,
+    cy: (hat.box[1] + 0.503 * (hat.box[3] - hat.box[1])) / H,
+    width: (0.42 * (hat.box[2] - hat.box[0])) / W,
+    wrap: 0.28, edgeDrop: 0.035, shade: 0.12,
+  };
 
 // Real wood grain photos (free CC0 textures from ambientCG.com) until we have our
 // own close-ups. `turn` rotates photos whose grain runs up and down so it runs across the patch.
@@ -275,8 +289,9 @@ function drawArtwork(x, { area, k, engrave, burn, logo, logoSize, logoPos, lines
   if (lines.length) {
     const px = ah * 0.24 * (textSize / 100) * k; // drawn at full pixel size so it stays sharp
     const block = renderTextBlock(lines, { px, family: font.family, ink: engrave ? burn : textColor, warp });
-    // never wider than the artwork area, so long names don't run off the patch
-    const fitText = Math.min(1, (aw * 0.98) / (block.width / k - (0.5 * px) / k));
+    // never wider than the area, and with a logo, short enough to stay under it
+    const maxH = (logo ? 0.36 : 0.96) * ah;
+    const fitText = Math.min(1, (aw * 0.98) / (block.width / k - (0.5 * px) / k), maxH / (block.height / k - (0.5 * px) / k));
     const w = (block.width / k) * fitText, h = (block.height / k) * fitText, padIn = ((0.25 * px) / k) * fitText;
     const cx = ax + aw / 2 + textPos.x * aw, cy = ay + ah / 2 + textPos.y * ah;
     x.drawImage(block, cx - w / 2, cy - h / 2, w, h);
@@ -370,11 +385,13 @@ function drawPatch({ shape, material, color, art }) {
 }
 
 // ── Crown wrap (from the B40 Patch Studio mockup) ──
-function wrapPoint(u, v, W, H, p, pw, ph, off) {
+function wrapPoint(u, v, W, H, p, pw, ph, off, rot = 0) {
   const q = u - 0.5, half = Math.PI * p.wrap * 0.5;
   const nx = Math.sin(q * Math.PI * p.wrap) / (2 * Math.sin(half));
   const edge = (1 - Math.cos(q * Math.PI * p.wrap)) / (1 - Math.cos(half));
-  return { x: (p.cx + off.x) * W + nx * pw, y: (p.cy + off.y) * H + (v - 0.5) * ph + p.edgeDrop * edge * ph };
+  const lx = nx * pw, ly = (v - 0.5) * ph + p.edgeDrop * edge * ph;
+  const c = Math.cos(rot), sn = Math.sin(rot); // patch rotation, around its center
+  return { x: (p.cx + off.x) * W + lx * c - ly * sn, y: (p.cy + off.y) * H + lx * sn + ly * c };
 }
 
 function drawTriangle(c, img, s0, s1, s2, d0, d1, d2) {
@@ -406,7 +423,8 @@ function drawTriangle(c, img, s0, s1, s2, d0, d1, d2) {
   c.restore();
 }
 
-function renderHat(canvas, hatImg, patch, widthIn, size, off) {
+function renderHat(canvas, hatImg, patch, widthIn, size, off, p, rotDeg = 0) {
+  const rot = (rotDeg * Math.PI) / 180;
   const W = hatImg.naturalWidth, H = hatImg.naturalHeight;
   canvas.width = W;
   canvas.height = H;
@@ -418,10 +436,9 @@ function renderHat(canvas, hatImg, patch, widthIn, size, off) {
   ctx.fillRect(0, 0, W, H);
   ctx.drawImage(hatImg, 0, 0, W, H);
   if (!patch) return null;
-  const p = HAT.profile;
-  const pw = p.width * W * (widthIn / HAT.fitWidthIn) * (size / 100);
+  const pw = p.width * W * (widthIn / PATCH_FIT_IN) * (size / 100);
   const ph = pw * (patch.height / patch.width);
-  const geom = { W, H, p, pw, ph, off };
+  const geom = { W, H, p, pw, ph, off, rot };
   const layer = document.createElement("canvas");
   layer.width = W;
   layer.height = H;
@@ -432,8 +449,8 @@ function renderHat(canvas, hatImg, patch, widthIn, size, off) {
       const u0 = i / cols, u1 = (i + 1) / cols, v0 = j / rows, v1 = (j + 1) / rows;
       const s00 = { x: u0 * patch.width, y: v0 * patch.height }, s10 = { x: u1 * patch.width, y: v0 * patch.height };
       const s01 = { x: u0 * patch.width, y: v1 * patch.height }, s11 = { x: u1 * patch.width, y: v1 * patch.height };
-      const d00 = wrapPoint(u0, v0, W, H, p, pw, ph, off), d10 = wrapPoint(u1, v0, W, H, p, pw, ph, off);
-      const d01 = wrapPoint(u0, v1, W, H, p, pw, ph, off), d11 = wrapPoint(u1, v1, W, H, p, pw, ph, off);
+      const d00 = wrapPoint(u0, v0, W, H, p, pw, ph, off, rot), d10 = wrapPoint(u1, v0, W, H, p, pw, ph, off, rot);
+      const d01 = wrapPoint(u0, v1, W, H, p, pw, ph, off, rot), d11 = wrapPoint(u1, v1, W, H, p, pw, ph, off, rot);
       drawTriangle(lc, patch, s00, s10, s11, d00, d10, d11);
       drawTriangle(lc, patch, s00, s11, s01, d00, d11, d01);
     }
@@ -457,13 +474,16 @@ function renderHat(canvas, hatImg, patch, widthIn, size, off) {
 }
 
 // The reverse of the crown wrap: a point on the hat photo back to (u, v) on the patch.
-function unwrapPoint(X, Y, { W, H, p, pw, ph, off }) {
+function unwrapPoint(X, Y, { W, H, p, pw, ph, off, rot }) {
   const half = Math.PI * p.wrap * 0.5;
-  const s = ((X - (p.cx + off.x) * W) / pw) * 2 * Math.sin(half);
+  // undo the patch rotation first
+  const dx = X - (p.cx + off.x) * W, dy = Y - (p.cy + off.y) * H;
+  const lx = dx * Math.cos(rot) + dy * Math.sin(rot), ly = -dx * Math.sin(rot) + dy * Math.cos(rot);
+  const s = (lx / pw) * 2 * Math.sin(half);
   if (Math.abs(s) > 1) return null;
   const q = Math.asin(s) / (Math.PI * p.wrap);
   const edge = (1 - Math.cos(q * Math.PI * p.wrap)) / (1 - Math.cos(half));
-  return { u: q + 0.5, v: (Y - (p.cy + off.y) * H - p.edgeDrop * edge * ph) / ph + 0.5 };
+  return { u: q + 0.5, v: (ly - p.edgeDrop * edge * ph) / ph + 0.5 };
 }
 
 // Dashed outline around the selected piece, following the crown's curve.
@@ -474,7 +494,7 @@ function drawSelection(canvas, geom, patch, rect) {
   const edge = (x0, y0, x1, y1) => {
     for (let i = 0; i <= 12; i++) {
       const t = i / 12;
-      pts.push(wrapPoint((x0 + (x1 - x0) * t) / patch.width, (y0 + (y1 - y0) * t) / patch.height, geom.W, geom.H, geom.p, geom.pw, geom.ph, geom.off));
+      pts.push(wrapPoint((x0 + (x1 - x0) * t) / patch.width, (y0 + (y1 - y0) * t) / patch.height, geom.W, geom.H, geom.p, geom.pw, geom.ph, geom.off, geom.rot));
     }
   };
   edge(rx, ry, rx + rw, ry);
@@ -562,7 +582,17 @@ const chip = (on) =>
 
 export default function HatTryOn() {
   const canvasRef = useRef(null);
-  const [hatImg, setHatImg] = useState(null);
+  const [hatId, setHatId] = useState(CLASSIC_HAT.id);
+  const hat = HATS.find((h) => h.id === hatId) || CLASSIC_HAT;
+  const [hatGroup, setHatGroup] = useState("solid");
+  const [loaded, setLoaded] = useState(null); // { id, img } of the hat photo on screen
+  const hatImg = loaded && loaded.img;
+  const profile = hatImg ? profileFor(HATS.find((h) => h.id === loaded.id), hatImg.naturalWidth, hatImg.naturalHeight) : null;
+  useEffect(() => {
+    const img = new Image();
+    img.onload = () => setLoaded({ id: hatId, img });
+    img.src = hat.src;
+  }, [hatId]);
   const [shapeIndex, setShapeIndex] = useState(7); // Ridgeback
   const [materialId, setMaterialId] = useState("leather");
   const [colorIndex, setColorIndex] = useState(1); // Jersey Tan leather
@@ -577,12 +607,14 @@ export default function HatTryOn() {
   const geomRef = useRef(null);
   const [ownPatch, setOwnPatch] = useState(null);
   const [patchSize, setPatchSize] = useState(100);
+  const [patchRot, setPatchRot] = useState(0); // degrees
   const [artBoxes, setArtBoxes] = useState(null);
   const [woodImgs, setWoodImgs] = useState({}); // grain photos, loaded the first time Real Wood is picked
   const [offset, setOffset] = useState({ x: 0, y: 0 }); // where the patch sits, as a fraction of the photo
   const drag = useRef(null);
-  const [line1, setLine1] = useState("");
-  const [line2, setLine2] = useState("");
+  const MAX_LINES = 6;
+  const [lines, setLines] = useState(["", ""]);
+  const setLine = (i, v) => setLines((ls) => ls.map((l, j) => (j === i ? v : l)));
   const [fontIndex, setFontIndex] = useState(0);
   const [textSize, setTextSize] = useState(100);
   const NO_WARP = { bend: 0, width: 100, height: 100, spacing: 0 };
@@ -601,8 +633,6 @@ export default function HatTryOn() {
   const direct = material.mode === "direct" && !usingOwn;
 
   useEffect(() => {
-    const img = new Image();
-    img.onload = () => setHatImg(img);
     // Start with the B40 logo on the patch so the preview shows off right away.
     const b40 = new Image();
     b40.onload = () => {
@@ -610,7 +640,6 @@ export default function HatTryOn() {
       if (wantB40.current) setLogo((current) => current || b40Logo.current);
     };
     b40.src = DEFAULT_LOGO;
-    img.src = HAT.src;
     setArtBoxes(patchShapes.map((s) => pathBounds(s.art, s.box)));
     if (!document.getElementById("try-it-on-fonts")) {
       const link = document.createElement("link");
@@ -624,7 +653,7 @@ export default function HatTryOn() {
   }, []);
 
   const font = FONTS[fontIndex];
-  const typed = [line1, line2].map((l) => l.trim()).filter(Boolean);
+  const typed = lines.map((l) => l.trim()).filter(Boolean);
   const art = { logo, logoSize, logoPos, lines: typed, font, textSize, textPos, textColor, warp };
 
   // The first time someone types, make room: logo moves up a bit, text goes under it.
@@ -647,7 +676,7 @@ export default function HatTryOn() {
     if (usingOwn) return ownPatch;
     if (direct) return logo || typed.length ? drawPrint(art) : null;
     return drawPatch({ shape: { ...shape, artBox: artBoxes[shapeIndex] }, material, color, art });
-  }, [artBoxes, shapeIndex, materialId, colorIndex, logo, logoSize, logoPos, line1, line2, fontIndex, textSize, textPos, textColor, warp, fontsReady, ownPatch, woodImgs]);
+  }, [artBoxes, shapeIndex, materialId, colorIndex, logo, logoSize, logoPos, lines, fontIndex, textSize, textPos, textColor, warp, fontsReady, ownPatch, woodImgs]);
 
   useEffect(() => {
     if (materialId !== "wood" || Object.keys(woodImgs).length) return;
@@ -660,13 +689,13 @@ export default function HatTryOn() {
 
   useEffect(() => {
     if (!hatImg || !canvasRef.current) return;
-    const geom = renderHat(canvasRef.current, hatImg, patch, hatWidthIn, patchSize, offset);
+    const geom = renderHat(canvasRef.current, hatImg, patch, hatWidthIn, patchSize, offset, profile, patchRot);
     geomRef.current = geom;
     if (geom && selected) {
       const rect = selected === "patch" ? [0, 0, patch.width, patch.height] : patch.hits && patch.hits[selected];
       if (rect) drawSelection(canvasRef.current, geom, patch, rect);
     }
-  }, [hatImg, patch, hatWidthIn, patchSize, offset, selected]);
+  }, [loaded, patch, hatWidthIn, patchSize, patchRot, offset, selected]);
 
   // Click the patch, logo or text to pick it up, then drag to move it.
   const startDrag = (e) => {
@@ -698,35 +727,45 @@ export default function HatTryOn() {
       return;
     }
     // screen movement → movement across the patch's artwork area
-    const du = ((dx * geom.W) / geom.pw) * patch.artScale.x, dv = ((dy * geom.H) / geom.ph) * patch.artScale.y;
+    const sx = dx * geom.W, sy = dy * geom.H; // turn screen movement back into the patch's own direction
+    const lx = sx * Math.cos(geom.rot) + sy * Math.sin(geom.rot), ly = -sx * Math.sin(geom.rot) + sy * Math.cos(geom.rot);
+    const du = (lx / geom.pw) * patch.artScale.x, dv = (ly / geom.ph) * patch.artScale.y;
     const clamp = (v) => Math.max(-0.7, Math.min(0.7, v));
     const move = (pos) => ({ x: clamp(pos.x + du), y: clamp(pos.y + dv) });
     if (target === "logo") setLogoPos(move);
     else setTextPos(move);
   };
   const endDrag = () => { drag.current = null; };
-  const resetPositions = () => {
-    setMoved(false);
-    setOffset({ x: 0, y: 0 });
-    setLogoPos(typed.length && logo ? { x: 0, y: -0.16 } : { x: 0, y: 0 });
-    setTextPos(typed.length && logo ? { x: 0, y: 0.33 } : { x: 0, y: 0 });
-    setPatchSize(100);
+  // Back to how the page opened (keeping the hat they picked).
+  const startOver = () => {
+    applyDesign({ lg: "b40", s: 7, m: "leather", c: 1, l: [], f: 0, ts: 100, w: STRAIGHT, h: 40, sh: 100, ls: 100,
+      lp: { x: 0, y: 0 }, tp: { x: 0, y: 0.33 }, o: { x: 0, y: 0 }, ps: 100, r: 0 });
+    hadText.current = false;
+    setStarter(null);
+    setSharedNeedsLogo(false);
   };
 
   // Everything needed to rebuild this design, for share links.
   const design = {
-    v: 1, s: shapeIndex, m: materialId, c: colorIndex, l: [line1, line2], f: fontIndex, ts: textSize, w: warp,
-    h: textHue, sh: textShade, lg: logo ? (logo.isDefault ? "b40" : "own") : "none", ls: logoSize, lp: logoPos, tp: textPos, o: offset, ps: patchSize,
+    v: 1, s: shapeIndex, m: materialId, c: colorIndex, l: lines, f: fontIndex, ts: textSize, w: warp,
+    h: textHue, sh: textShade, lg: logo ? (logo.isDefault ? "b40" : "own") : "none", ls: logoSize, lp: logoPos, tp: textPos, o: offset, ps: patchSize, ht: hatId, r: patchRot,
   };
   const applyDesign = (d) => {
     hadText.current = true; // the design already has its own layout
     wantB40.current = d.lg === "b40";
     setLogo(d.lg === "b40" ? b40Logo.current : null);
     setShapeIndex(d.s === -1 ? 7 : d.s);
+    if (d.ht && HATS.some((h) => h.id === d.ht)) {
+      setHatId(d.ht);
+      setHatGroup(HATS.find((h) => h.id === d.ht).group);
+    }
     setMaterialId(d.m);
     setColorIndex(d.c || 0);
-    setLine1(d.l[0] || "");
-    setLine2(d.l[1] || "");
+    const ls = (d.l || []).slice(0, MAX_LINES);
+    while (ls.length > 2 && !ls[ls.length - 1]) ls.pop();
+    while (ls.length < 2) ls.push("");
+    setLines(ls);
+    setPatchRot(d.r || 0);
     setFontIndex(d.f || 0);
     setTextSize(d.ts || 100);
     setWarp(d.w || STRAIGHT);
@@ -794,7 +833,7 @@ export default function HatTryOn() {
     let imageUrl = "(picture didn't upload)";
     try {
       const clean = document.createElement("canvas");
-      renderHat(clean, hatImg, patch, hatWidthIn, patchSize, offset);
+      renderHat(clean, hatImg, patch, hatWidthIn, patchSize, offset, profile, patchRot);
       const res = await fetch("/api/design", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -829,15 +868,15 @@ export default function HatTryOn() {
   };
 
   const summary = usingOwn
-    ? `my own patch design on a ${HAT.name}`
+    ? `my own patch design on a ${hat.name}`
     : direct
-    ? `${logo && !logo.isDefault ? "my logo" : "a design"} printed in full color right on a ${HAT.name}`
-    : `${/^[AEIOU]/.test(shape.name) ? "an" : "a"} ${shape.name} patch in ${color ? `${color.name} ` : ""}${material.name}${logo && !logo.isDefault ? " with my logo" : ""} on a ${HAT.name}`;
+    ? `${logo && !logo.isDefault ? "my logo" : "a design"} printed in full color right on a ${hat.name}`
+    : `${/^[AEIOU]/.test(shape.name) ? "an" : "a"} ${shape.name} patch in ${color ? `${color.name} ` : ""}${material.name}${logo && !logo.isDefault ? " with my logo" : ""} on a ${hat.name}`;
   const fullSummary = summary + (typed.length ? `, with the text "${typed.join(" / ")}" in the ${font.name} font` : "");
 
   const save = () => {
     const clean = document.createElement("canvas");
-    renderHat(clean, hatImg, patch, hatWidthIn, patchSize, offset);
+    renderHat(clean, hatImg, patch, hatWidthIn, patchSize, offset, profile, patchRot);
     clean.toBlob((blob) => {
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
@@ -864,7 +903,7 @@ export default function HatTryOn() {
         <p className="mb-4 rounded-lg border border-[#c6a36b]/40 bg-[#c6a36b]/10 px-4 py-2 text-sm text-white/80">Someone shared this design with you. Add your logo to finish it.</p>
       )}
       <p className="mb-6 text-xs font-semibold uppercase tracking-[0.25em] text-white/40">
-        Shape <span className="text-[#c6a36b]">·</span> Material <span className="text-[#c6a36b]">·</span> Your Logo <span className="text-[#c6a36b]">·</span> Text <span className="text-[#c6a36b]">·</span> Save &amp; Send
+        Hat <span className="text-[#c6a36b]">·</span> Shape <span className="text-[#c6a36b]">·</span> Material <span className="text-[#c6a36b]">·</span> Your Logo <span className="text-[#c6a36b]">·</span> Text <span className="text-[#c6a36b]">·</span> Save &amp; Send
       </p>
       <div className="grid items-start gap-6 lg:grid-cols-[1.35fr_1fr] lg:gap-8">
         {/* the hat */}
@@ -880,14 +919,35 @@ export default function HatTryOn() {
               : selected === "text" ? "Text selected: drag it anywhere on the " + (direct ? "hat." : "patch.")
               : selected === "patch" ? `${direct ? "Design" : "Patch"} selected: drag to move everything. Click the logo or text to move just that.`
               : `Click the ${direct ? "design" : "patch"}, logo, or text, then drag to move it.`}
-            {moved ? <button onClick={resetPositions} className="ml-2 uppercase tracking-[0.12em] text-[#c6a36b] hover:text-white">Oops, Start Over</button> : null}
           </p>
-          <p className="mt-1 text-center text-[11px] text-white/35 lg:text-xs">Showing one hat: the {HAT.name}. We carry 17+ brands and dozens of styles. Preview colors are close, not exact.</p>
+          <button onClick={startOver} className="mx-auto mt-2 block rounded-full border border-[#c6a36b]/60 px-6 py-2.5 text-xs font-bold uppercase tracking-[0.15em] text-[#c6a36b] transition hover:bg-[#c6a36b] hover:text-black">
+            ↺ Oops, Start Over
+          </button>
+          <p className="mt-1 text-center text-[11px] text-white/35 lg:text-xs">{hat.name} · One of {HATS.length} hats to try. We carry 17+ brands. Preview colors are close, not exact.</p>
         </div>
 
         {/* the controls */}
         <div className="space-y-3">
-          <Panel step="01" title="Pick a Shape">
+          <Panel step="01" title="Pick Your Hat">
+            <div className="mb-3 flex flex-wrap gap-2">
+              {HAT_GROUPS.map((g) => (
+                <button key={g.id} onClick={() => setHatGroup(g.id)} className={chip(hatGroup === g.id)}>
+                  {g.name} <span className="opacity-50">{HATS.filter((h) => h.group === g.id).length}</span>
+                </button>
+              ))}
+            </div>
+            <div className="grid max-h-60 grid-cols-4 gap-1.5 overflow-y-auto pr-1 sm:grid-cols-6">
+              {HATS.filter((h) => h.group === hatGroup).map((h) => (
+                <button key={h.id} onClick={() => setHatId(h.id)} title={h.name} aria-label={h.name}
+                  className={`overflow-hidden rounded-md border-2 bg-[#161616] transition ${h.id === hatId ? "border-[#c6a36b]" : "border-transparent hover:border-white/30"}`}>
+                  <img src={h.thumb} alt="" loading="lazy" className="block aspect-[4/3] w-full object-contain" />
+                </button>
+              ))}
+            </div>
+            <p className="mt-2 text-xs text-white/60">{hat.name} <span className="text-white/35">· your patch stays put when you switch hats</span></p>
+          </Panel>
+
+          <Panel step="02" title="Pick a Shape">
             {direct && <p className="mb-2 text-xs text-white/60">Full-color UV prints go right on the hat, so there&apos;s no patch shape.</p>}
             <div className={direct ? "pointer-events-none opacity-40" : ""}>
             <div className="grid grid-cols-3 gap-2">
@@ -908,11 +968,14 @@ export default function HatTryOn() {
             </div>
             {!direct && <p className="mt-3 rounded-lg border border-[#c6a36b]/30 bg-[#c6a36b]/[0.06] px-3 py-2 text-xs text-white/70"><span className="text-[#c6a36b]">+</span> Want a different shape? We can cut almost any shape. Just ask.</p>}
             <div className="mt-3">
-              <Slider label={direct ? "Print Size" : "Patch Size"} value={patchSize} min={70} max={125} onChange={setPatchSize} />
+              <Slider label={direct ? "Print Size" : "Patch Size"} value={patchSize} min={50} max={200} onChange={setPatchSize} />
+              <div className="mt-2">
+                <Slider label={`Rotate ${direct ? "Design" : "Patch"} (${patchRot}°)`} value={patchRot} min={-90} max={90} onChange={setPatchRot} />
+              </div>
             </div>
           </Panel>
 
-          <Panel step="02" title="Pick a Material" dim={usingOwn}>
+          <Panel step="03" title="Pick a Material" dim={usingOwn}>
             <div className="flex flex-wrap gap-2">
               {materials.map((m) => (
                 <button key={m.id} disabled={usingOwn} onClick={() => { setMaterialId(m.id); setColorIndex(0); }} className={chip(m.id === materialId)}>{m.name}</button>
@@ -932,7 +995,7 @@ export default function HatTryOn() {
             <p className="mt-3 rounded-lg border border-[#c6a36b]/30 bg-[#c6a36b]/[0.06] px-3 py-2 text-xs text-white/70"><span className="text-[#c6a36b]">+</span> Also available: PVC, embroidery, camo and patterned leatherette, and more. Just ask.</p>
           </Panel>
 
-          <Panel step="03" title="Add Your Logo" dim={usingOwn}>
+          <Panel step="04" title="Add Your Logo" dim={usingOwn}>
             <label className={`${chip(false)} flex cursor-pointer justify-center py-3`}>
               {logo && !logo.isDefault ? "Change Logo" : "Upload Your Logo"}
               <input type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" disabled={usingOwn} className="hidden"
@@ -947,13 +1010,18 @@ export default function HatTryOn() {
             )}
           </Panel>
 
-          <Panel step="04" title="Add Text" dim={usingOwn}>
+          <Panel step="05" title="Add Text" dim={usingOwn}>
             <div className="space-y-2">
-              {[[line1, setLine1, "Line 1 (like your name or business)"], [line2, setLine2, "Line 2 (optional, like EST. 2024)"]].map(([value, set, hint], i) => (
-                <input key={i} value={value} onChange={(e) => set(e.target.value)} placeholder={hint} maxLength={28} disabled={usingOwn}
+              {lines.map((value, i) => (
+                <input key={i} value={value} onChange={(e) => setLine(i, e.target.value)} maxLength={28} disabled={usingOwn}
+                  placeholder={i === 0 ? "Line 1 (like your name or business)" : i === 1 ? "Line 2 (optional, like EST. 2024)" : `Line ${i + 1} (optional)`}
                   className="w-full rounded-lg border border-white/15 bg-black px-3 py-2.5 text-white placeholder:text-white/30 focus:border-[#c6a36b] focus:outline-none"
                   style={{ fontFamily: `"${font.family}", sans-serif`, fontSize: 18 }} />
               ))}
+              {lines.length < MAX_LINES && (
+                <button type="button" disabled={usingOwn} onClick={() => setLines((ls) => [...ls, ""])}
+                  className="text-xs font-semibold uppercase tracking-[0.15em] text-[#c6a36b] hover:text-white">+ Add a line</button>
+              )}
             </div>
             <div className="mt-3 flex flex-wrap gap-2">
               {FONTS.map((f, i) => (
@@ -992,7 +1060,7 @@ export default function HatTryOn() {
             {material.mode === "engrave" && typed.length > 0 && <p className="mt-2 text-xs text-white/45">Text is engraved, just like the logo.</p>}
           </Panel>
 
-          <Panel step="05" title="Save & Send">
+          <Panel step="06" title="Save & Send">
             <p className="mb-3 text-sm text-white/60">Love it? Send it straight to us and we&apos;ll take it from there.</p>
             {sendStatus === "sent" ? (
               <div className="mb-3 rounded-lg border border-[#c6a36b]/50 bg-[#c6a36b]/10 p-4 text-center">
