@@ -128,7 +128,7 @@ const navLinks = [
   ["/trail-series", "Trail Series"],
   ["/dealership-series", "Dealership Series"],
   ["/gallery", "Gallery"],
-  ["/custom-orders", "Custom Orders"],
+  ["/#contact", "Custom Orders"],
 ];
 
 export default function GalleryPage() {
@@ -197,7 +197,7 @@ export default function GalleryPage() {
               {open.sub && <p className="-mt-1 text-sm text-white/50">{open.sub}</p>}
               <p className="mt-3 text-sm text-white/70">{categories[open.category].ask}</p>
               <div className="mt-2 flex flex-wrap justify-center gap-3">
-                <Link href="/custom-orders" className="inline-flex items-center gap-2 bg-[#c6a36b] px-6 py-3 text-xs font-bold uppercase tracking-[0.15em] text-black transition hover:bg-[#d4b07a]">
+                <Link href={`/?hat=${encodeURIComponent(open.name)}#contact`} className="inline-flex items-center gap-2 bg-[#c6a36b] px-6 py-3 text-xs font-bold uppercase tracking-[0.15em] text-black transition hover:bg-[#d4b07a]">
                   Start a Project →
                 </Link>
                 <a href={mailto(`Hat inquiry: ${open.name}`)} className="inline-flex items-center gap-2 border border-white/20 px-6 py-3 text-xs font-bold uppercase tracking-[0.15em] text-white transition hover:border-white/50">
@@ -232,7 +232,7 @@ export default function GalleryPage() {
             )}
           </nav>
           <div className="flex items-center gap-2 md:gap-3">
-            <Link href="/custom-orders" className="inline-flex items-center gap-1.5 rounded-2xl bg-[#c6a36b] px-3 py-2 text-xs font-semibold text-black shadow-lg transition hover:-translate-y-0.5 hover:bg-[#d4b07a] md:px-4 md:text-sm">
+            <Link href="/#contact" className="inline-flex items-center gap-1.5 rounded-2xl bg-[#c6a36b] px-3 py-2 text-xs font-semibold text-black shadow-lg transition hover:-translate-y-0.5 hover:bg-[#d4b07a] md:px-4 md:text-sm">
               Start a Project →
             </Link>
             <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="rounded-lg p-2 text-stone-300 transition hover:bg-white/5 md:hidden">
@@ -263,7 +263,7 @@ export default function GalleryPage() {
               Every hat here started with a story. Pick a style you like, send us your logo or idea, and we'll build it from there.
             </p>
             <div className="flex flex-wrap gap-3">
-              <Link href="/custom-orders" className="inline-flex items-center gap-2 bg-[#c6a36b] px-6 py-3.5 text-xs font-bold uppercase tracking-[0.15em] text-black transition hover:bg-[#d4b07a]">
+              <Link href="/#contact" className="inline-flex items-center gap-2 bg-[#c6a36b] px-6 py-3.5 text-xs font-bold uppercase tracking-[0.15em] text-black transition hover:bg-[#d4b07a]">
                 Start a Project →
               </Link>
               <a href={mailto()} className="inline-flex items-center gap-2 border border-white/20 px-6 py-3.5 text-xs font-bold uppercase tracking-[0.15em] transition hover:border-white/50">
@@ -379,7 +379,7 @@ export default function GalleryPage() {
             ))}
           </div>
           <div className="flex flex-wrap justify-center gap-3">
-            <Link href="/custom-orders" className="inline-flex items-center gap-2 bg-[#c6a36b] px-8 py-4 text-sm font-bold uppercase tracking-[0.15em] text-black transition hover:bg-[#d4b07a]">
+            <Link href="/#contact" className="inline-flex items-center gap-2 bg-[#c6a36b] px-8 py-4 text-sm font-bold uppercase tracking-[0.15em] text-black transition hover:bg-[#d4b07a]">
               Start a Project →
             </Link>
             <a href={mailto()} className="inline-flex items-center gap-2 border border-white/20 px-8 py-4 text-sm font-bold uppercase tracking-[0.15em] transition hover:border-white/50">
@@ -397,7 +397,7 @@ export default function GalleryPage() {
             <a href={`tel:${PHONE}`} className="transition hover:text-white">{PHONE}</a>
             <a href={mailto()} className="transition hover:text-white">{EMAIL}</a>
             <a href="https://www.instagram.com/b40_designs/" target="_blank" rel="noreferrer" className="transition hover:text-white">Instagram</a>
-            <Link href="/custom-orders" className="transition hover:text-white">Custom Orders</Link>
+            <Link href="/#contact" className="transition hover:text-white">Custom Orders</Link>
             <Link href="/" className="transition hover:text-white">Back to Home</Link>
           </div>
         </div>
@@ -406,7 +406,7 @@ export default function GalleryPage() {
       {/* ── MOBILE CONTACT BAR ── */}
       <div className="fixed bottom-0 left-0 right-0 z-40 grid grid-cols-2 border-t border-white/10 bg-black/95 backdrop-blur md:hidden">
         <a href={mailto()} className="py-4 text-center text-xs font-bold uppercase tracking-[0.15em] text-white/80">Email Us</a>
-        <Link href="/custom-orders" className="bg-[#c6a36b] py-4 text-center text-xs font-bold uppercase tracking-[0.15em] text-black">Start a Project →</Link>
+        <Link href="/#contact" className="bg-[#c6a36b] py-4 text-center text-xs font-bold uppercase tracking-[0.15em] text-black">Start a Project →</Link>
       </div>
 
     </main>

@@ -33,6 +33,12 @@ function ContactForm({ light = false }) {
     name: "", email: "", phone: "", projectType: "", quantity: "", message: "",
   });
 
+  // Coming from a hat in the gallery (/?hat=Name#contact): start the message with that hat.
+  React.useEffect(() => {
+    const hat = new URLSearchParams(window.location.search).get("hat");
+    if (hat) setForm((prev) => ({ ...prev, message: `I'm interested in a hat like "${hat}" from your gallery.\n\n` }));
+  }, []);
+
   const handleChange = (e) => setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
   const handleSubmit = async (e) => {
@@ -161,6 +167,25 @@ export default function Back40LandingPage() {
     { title: "Black Marble Lightning", tag: "B40 Style", image: "/images/home-black-marble-lightning.jpg" },
   ];
 
+  const stats = [
+    ["6", "Years making hats"],
+    ["7,500+", "Hats made", "On track for 10,000 by 2027"],
+    ["25+", "Brands built for"],
+    ["Bella Vista", "Arkansas made"],
+  ];
+
+  const madeHere = [
+    { image: "/images/production-laser.jpg", title: "We make the patch", text: "Patches cut and engraved in our own shop." },
+    { image: "/images/production-bench.jpg", title: "We build every hat", text: "Patches go on by hand, one hat at a time." },
+    { image: "/images/production-order.jpg", title: "We deliver the order", text: "From a handful of hats to full team and business runs." },
+  ];
+
+  const builtFor = [
+    "Wood Motor Company", "Hyundai Bentonville", "Woolbright Auto Glass", "Seven Lakes Church",
+    "Pinnacle Sports Ventures", "War Eagle Mill", "Lot Nine Billiards & Games", "Garrett X",
+    "Complete Wheel Restoration", "Webb Auto Remarketing", "Vagabond Coffee Bar", "New Light Electric",
+  ];
+
   const series = [
     { title: "B40 Trail Series", text: "4 hats. 4 trails. Built for the riders, shops, and trail towns of Northwest Arkansas.", image: "/images/trail-back-40-loop.jpg", link: "/trail-series", cta: "See the Trail Series" },
     { title: "B40 Dealership Series", text: "Built for the people who live inside the car business, from the front line to the back lot.", image: "/images/dealership-card.jpg", link: "/dealership-series", cta: "Enter the Series" },
@@ -177,12 +202,12 @@ export default function Back40LandingPage() {
     { q: "Do you work with businesses and local brands?", a: "Yes. Back 40 is built for shops, restaurants, events, dealerships, teams, and local brands that want better merch." },
     { q: "Can you do one-off special projects too?", a: "Yes. Some of the best builds come from personal stories, landmarks, family history, and custom legacy pieces." },
     { q: "How long does production take?", a: "Standard production is 3-4 weeks. Rush production is available for projects with a tighter deadline." },
-    { q: "What's the minimum order?", a: "No minimums. We build small runs and one-off custom pieces. Scale up as you grow." },
+    { q: "What's the minimum order?", a: "No minimums. Small runs are welcome, with the best pricing at 24+ hats." },
   ];
 
   const testimonials = [
     { name: "Trey Lee", role: "Business Owner", text: "Ordering branded items for my business used to be a challenge until I started working with Back 40 Designs. Their communication is excellent, and the quality of the shirts and hats I've received has been outstanding. I highly recommend reaching out to them for your business needs.", rating: 5 },
-    { name: "Jonathan Woolbright", role: "Woolbright Auto Glass", text: "Back 40 Designs put together work shirts and ballcaps for Woolbright Auto Glass. Did a great job outfitting our team!", rating: 5 },
+    { name: "Jonathan Woolbright", role: "Woolbright Auto Glass", image: "/images/home-woolbright.jpg", text: "Back 40 Designs put together work shirts and ballcaps for Woolbright Auto Glass. Did a great job outfitting our team!", rating: 5 },
     { name: "All American PDR", role: "Company", text: "Consistently outstanding experience. I've ordered both hats and shirts, and the quality, along with the speed of delivery, far exceeds others in the area. I highly recommend getting your gear here.", rating: 5 },
     { name: "Scott Clark", role: "Customer", text: "Badass hats made custom by a badass individual. Highly recommend!", rating: 5 },
   ];
@@ -286,6 +311,48 @@ export default function Back40LandingPage() {
         </div>
       </section>
 
+      {/* ── PROOF ── */}
+      <section className="border-t border-white/10 bg-black">
+        <div className="mx-auto max-w-7xl px-4 py-10 md:px-10 md:py-12">
+          <div className="grid grid-cols-2 gap-6 text-center md:grid-cols-4">
+            {stats.map(([value, label, note]) => (
+              <div key={label}>
+                <p className="text-4xl uppercase text-[#c6a36b] md:text-5xl" style={bebas}>{value}</p>
+                <p className="mt-1 text-xs font-semibold uppercase tracking-[0.2em] text-stone-400">{label}</p>
+                {note && <p className="mt-1 text-xs text-stone-500">{note}</p>}
+              </div>
+            ))}
+          </div>
+          <div className="mt-10 text-center">
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-stone-500">Brands we've built for</p>
+            <p className="mx-auto mt-3 max-w-5xl text-sm leading-7 text-stone-300 md:text-base md:leading-8">
+              {builtFor.map((name) => (
+                <span key={name} className="inline-block whitespace-nowrap">{name}<span className="mx-2 text-[#c6a36b]/50">·</span></span>
+              ))}
+              <a href="/gallery" className="whitespace-nowrap text-[#c6a36b] underline-offset-4 hover:underline">and more</a>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ── MADE IN BELLA VISTA ── */}
+      <section className="bg-black">
+        <div className="mx-auto max-w-7xl px-4 pb-14 md:px-10 md:pb-20">
+          <h2 className="mb-6 text-3xl uppercase text-[#c6a36b] md:text-4xl" style={bebas}>Made in Bella Vista</h2>
+          <div className="grid gap-4 md:grid-cols-3 md:gap-6">
+            {madeHere.map((item) => (
+              <figure key={item.title} className="overflow-hidden rounded-xl border border-white/10 bg-white/5">
+                <img src={item.image} alt={item.title} loading="lazy" className="aspect-[4/3] w-full object-cover" />
+                <figcaption className="p-4">
+                  <p className="text-2xl uppercase text-white" style={bebas}>{item.title}</p>
+                  <p className="mt-1 text-sm leading-6 text-stone-400">{item.text}</p>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── PARTNER LOGOS ── */}
       <section className="border-y border-white/10 bg-stone-900/40">
         <div className="mx-auto max-w-7xl px-4 py-10 md:px-10 md:py-14">
@@ -348,8 +415,21 @@ export default function Back40LandingPage() {
           <p className="text-sm uppercase tracking-[0.25em] text-stone-400">Customer Reviews</p>
           <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">Real people, real feedback.</h2>
         </div>
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {testimonials.map((t) => (
+        {testimonials.filter((t) => t.image).map((t) => (
+          <div key={t.name} className="mb-4 grid overflow-hidden rounded-[2rem] border border-[#c6a36b]/30 bg-white/5 md:grid-cols-[1fr_1.2fr]">
+            <img src={t.image} alt={`${t.role} hat by Back 40 Designs`} className="aspect-[4/3] w-full object-cover" />
+            <div className="flex flex-col justify-center p-6 md:p-10">
+              <div className="mb-4 flex gap-1">
+                {[...Array(t.rating)].map((_, i) => <span key={i} className="text-yellow-400 text-lg">★</span>)}
+              </div>
+              <p className="mb-6 text-lg leading-8 text-stone-200 md:text-xl md:leading-9">"{t.text}"</p>
+              <p className="font-semibold text-white">{t.name}</p>
+              <p className="text-sm text-stone-400">{t.role}</p>
+            </div>
+          </div>
+        ))}
+        <div className="grid gap-4 md:grid-cols-3">
+          {testimonials.filter((t) => !t.image).map((t) => (
             <div key={t.name} className="rounded-[2rem] border border-white/10 bg-white/5 p-6 md:p-7">
               <div className="mb-4 flex gap-1">
                 {[...Array(t.rating)].map((_, i) => <span key={i} className="text-yellow-400 text-lg">★</span>)}
