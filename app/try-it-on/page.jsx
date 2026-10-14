@@ -55,14 +55,6 @@ export default function TryItOnPage() {
         </div>
       </section>
 
-      {/* ── PREVIEW ── */}
-      <section id="try-it-on" className="scroll-mt-24 border-t border-white/10 px-6 py-12 md:px-16 md:py-16">
-        <div className="mx-auto max-w-7xl">
-          <h2 className="mb-2 text-4xl uppercase md:text-5xl" style={bebas}>See It on a Hat</h2>
-          <HatTryOn />
-        </div>
-      </section>
-
       {/* ── WHAT YOU CAN CHOOSE ── */}
       <section className="border-y border-white/10 bg-[#080808] px-6 py-10 md:px-16 md:py-12">
         <div className="mx-auto max-w-6xl">
@@ -96,6 +88,14 @@ export default function TryItOnPage() {
               ))}
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ── PREVIEW ── */}
+      <section id="try-it-on" className="scroll-mt-24 px-6 py-12 md:px-16 md:py-16">
+        <div className="mx-auto max-w-7xl">
+          <h2 className="mb-2 text-4xl uppercase md:text-5xl" style={bebas}>See It on a Hat</h2>
+          <HatTryOn />
         </div>
       </section>
 
