@@ -15,6 +15,7 @@ const dealershipLinks = [
 
 const menu = [
   ["/gallery", "Gallery"],
+  ["/try-it-on", "Try It On"],
   ["/trail-series", "Trail Series"],
   ["/dealership-series", "Dealership Series"],
   ["/#story", "Our Story"],

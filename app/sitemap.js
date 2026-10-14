@@ -4,6 +4,7 @@ const BASE = "https://www.back40designco.com";
 const pages = [
   "",
   "/gallery",
+  "/try-it-on",
   "/dealership-series",
   "/dealership-series/green-pea-guide",
   "/dealership-series/bingo",
