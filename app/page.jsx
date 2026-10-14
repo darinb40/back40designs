@@ -175,7 +175,7 @@ export default function Back40LandingPage() {
   ];
 
   const madeHere = [
-    { image: "/images/production-laser.jpg", title: "We make the patch", text: "Patches cut and engraved in our own shop." },
+    { image: "/images/production-cutting.jpg", title: "We make the patch", text: "Patches cut and engraved in our own shop." },
     { image: "/images/production-bench.jpg", title: "We build every hat", text: "Patches go on by hand, one hat at a time." },
     { image: "/images/production-order.jpg", title: "We deliver the order", text: "From a handful of hats to full team and business runs." },
   ];
