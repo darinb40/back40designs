@@ -113,7 +113,7 @@ function ShopifyButton({ componentId, productId }) {
 const serviceBayItems = [
   {
     title: "I Don't Work For Free",
-    image: "/images/free-work.png",
+    image: "/images/free-work.jpg",
     subtitle: "Flat rate. Every flag hour counts.",
     description: "Built for the techs who know exactly what their time is worth and aren't shy about it.",
     patch: "Acrylic patch",
@@ -123,7 +123,7 @@ const serviceBayItems = [
   },
   {
     title: "Who Traded For This Piece of $#!T?",
-    image: "/images/pos.png",
+    image: "/images/pos.jpg",
     subtitle: "Someone upfront made a bad call.",
     description: "For the tech who pulls a car into the bay and immediately knows the whole story.",
     patch: "Acrylic patch",
@@ -133,7 +133,7 @@ const serviceBayItems = [
   },
   {
     title: "Cross Threaded Is Threaded",
-    image: "/images/cross-thread.png",
+    image: "/images/cross-thread.jpg",
     subtitle: "It's in there. That's what matters.",
     description: "Shop floor logic. You either get it or you don't.",
     patch: "Acrylic patch",
@@ -160,7 +160,7 @@ export default function ServiceBayPage() {
       `}</style>
 
       {/* Background */}
-      <div className="fixed inset-0 -z-20 bg-[url('/images/service-bay-bg.png')] bg-cover bg-center opacity-85" />
+      <div className="fixed inset-0 -z-20 bg-[url('/images/service-bay-bg.jpg')] bg-cover bg-center opacity-85" />
       <div className="fixed inset-0 -z-10 bg-black/20" />
 
       {/* LIGHTBOX */}

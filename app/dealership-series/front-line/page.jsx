@@ -130,14 +130,14 @@ export default function FrontLinePage() {
     {
       name: "Board It! (Classic)",
       text: "The moment every salesperson lives for. When the deal sticks and the board gets another name on it.",
-      image: "/images/board-it-car.png",
+      image: "/images/board-it-car-web.jpg",
       componentId: "product-component-1779236084695",
       productId: "10335431721092",
     },
     {
       name: "Board It! (Crown)",
       text: "Same energy. Different look. For the closer who's been putting names on boards long enough to wear the crown.",
-      image: "/images/board-it-crown.png",
+      image: "/images/board-it-crown.jpg",
       componentId: "product-component-1779236122603",
       productId: "10335435686020",
     },
@@ -172,7 +172,7 @@ export default function FrontLinePage() {
       `}</style>
 
       {/* Background */}
-      <div className="fixed inset-0 -z-30 bg-cover bg-center" style={{ backgroundImage: "url('/images/front-line.png')" }} />
+      <div className="fixed inset-0 -z-30 bg-cover bg-center" style={{ backgroundImage: "url('/images/front-line.jpg')" }} />
       <div className="fixed inset-0 -z-20 bg-black/5" />
       <div className="fixed inset-0 -z-20 bg-gradient-to-b from-black/40 via-transparent to-transparent" />
 

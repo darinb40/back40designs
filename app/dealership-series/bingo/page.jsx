@@ -192,7 +192,7 @@ export default function BingoLandingPage() {
       {/* ── HERO ── */}
       <section style={{ minHeight: "100dvh", position: "relative", display: "flex", flexDirection: "column", justifyContent: "center", padding: "6rem 1.5rem 4rem", overflow: "hidden", background: "#080808" }}>
 
-        <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/images/pre-order-page.png')", backgroundSize: "cover", backgroundPosition: "center", opacity: 0.2 }} />
+        <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/images/pre-order-page.jpg')", backgroundSize: "cover", backgroundPosition: "center", opacity: 0.2 }} />
         <div style={{ position: "absolute", inset: 0, pointerEvents: "none", overflow: "hidden", zIndex: 1 }}>
           <div style={{ position: "absolute", left: 0, right: 0, height: "2px", background: "linear-gradient(transparent, rgba(220,38,38,0.12), transparent)", animation: "scanline 8s linear infinite" }} />
         </div>

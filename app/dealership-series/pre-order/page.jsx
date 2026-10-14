@@ -16,7 +16,7 @@ const hats = [
   {
     title: "Board It! (Classic)",
     lane: "Front Line",
-    image: "/images/board-it-car.png",
+    image: "/images/board-it-car-web.jpg",
     subtitle: "The moment every salesperson lives for. When the deal sticks and the board gets another name on it.",
     componentId: "product-component-1779236084695",
     productId: "10335431721092",
@@ -24,7 +24,7 @@ const hats = [
   {
     title: "Board It! (Crown)",
     lane: "Front Line",
-    image: "/images/board-it-crown.png",
+    image: "/images/board-it-crown.jpg",
     subtitle: "Same energy. Different look. For the closer who has been putting names on boards long enough to wear the crown.",
     componentId: "product-component-1779236122603",
     productId: "10335435686020",
@@ -41,7 +41,7 @@ const hats = [
   {
     title: "Hold Gross",
     lane: "Back Lot",
-    image: "/images/hold-gross.png",
+    image: "/images/hold-gross.jpg",
     subtitle: "No discounts given.",
     componentId: "product-component-1779236223733",
     productId: "10335906398340",
@@ -49,7 +49,7 @@ const hats = [
   {
     title: "Let Me Guess / Just Looking / Not Buying Today",
     lane: "Back Lot",
-    image: "/images/let-me-guess.png",
+    image: "/images/let-me-guess.jpg",
     subtitle: "The line every closer has heard.",
     componentId: "product-component-1779236273254",
     productId: "10335906496644",
@@ -65,7 +65,7 @@ const hats = [
   {
     title: "Down the Road Motors",
     lane: "Back Lot",
-    image: "/images/down-the-road.png",
+    image: "/images/down-the-road.jpg",
     subtitle: '"They said they can do it for less."',
     componentId: "product-component-1779236173766",
     productId: "10335907217540",
@@ -74,7 +74,7 @@ const hats = [
   {
     title: "I Don't Work For Free",
     lane: "Service Bay",
-    image: "/images/free-work.png",
+    image: "/images/free-work.jpg",
     subtitle: "Flat rate. Every flag hour counts.",
     componentId: "product-component-1779236250617",
     productId: "10335437291652",
@@ -82,7 +82,7 @@ const hats = [
   {
     title: "Who Traded For This Piece of $#!T?",
     lane: "Service Bay",
-    image: "/images/pos.png",
+    image: "/images/pos.jpg",
     subtitle: "Someone upfront made a bad call.",
     componentId: "product-component-1779236419734",
     productId: "10335441682564",
@@ -90,7 +90,7 @@ const hats = [
   {
     title: "Cross Threaded Is Threaded",
     lane: "Service Bay",
-    image: "/images/cross-thread.png",
+    image: "/images/cross-thread.jpg",
     subtitle: "Shop floor logic.",
     componentId: "product-component-1779236147267",
     productId: "10335441911940",
@@ -233,7 +233,7 @@ export default function DealershipShopPage() {
       `}</style>
 
       {/* Background */}
-      <div className="fixed inset-0 -z-10 bg-[url('/images/pre-order-page.png')] bg-cover bg-center" />
+      <div className="fixed inset-0 -z-10 bg-[url('/images/pre-order-page.jpg')] bg-cover bg-center" />
 
       {/* LIGHTBOX */}
       {lightbox !== null && (

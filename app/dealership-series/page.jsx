@@ -37,7 +37,7 @@ export default function DealershipSeriesPage() {
       `}</style>
 
       {/* Background */}
-      <div className="fixed inset-0 z-0 bg-[url('/images/firefly-dealership.png')] bg-cover bg-center" />
+      <div className="fixed inset-0 z-0 bg-[url('/images/firefly-dealership.jpg')] bg-cover bg-center" />
       <div className="fixed inset-0 z-0 bg-black/20" />
       <div className="fixed inset-0 z-0 bg-gradient-to-b from-black/45 via-transparent to-black/20" />
 
@@ -198,7 +198,7 @@ export default function DealershipSeriesPage() {
                 <h3 className="mt-3 text-xl font-semibold">Service Bay</h3>
                 <p className="mt-3 text-sm leading-6 text-white/75">Built for advisors, techs, and the people who keep the store moving.</p>
                 <div className="mt-5 h-56 overflow-hidden rounded-xl border border-white/10 md:h-64">
-                  <img src="/images/cross-thread.png" alt="Service Bay" className="h-full w-full object-cover" />
+                  <img src="/images/cross-thread.jpg" alt="Service Bay" className="h-full w-full object-cover" />
                 </div>
                 <div className="mt-4 grid gap-2">
                   <Link href="/dealership-series/service-bay" className="inline-flex w-full justify-center rounded-2xl border border-white/10 bg-black/20 px-5 py-3 font-semibold text-white transition hover:bg-white/10">Enter Service Bay →</Link>
@@ -212,7 +212,7 @@ export default function DealershipSeriesPage() {
                 <h3 className="mt-3 text-xl font-semibold">Back Lot</h3>
                 <p className="mt-3 text-sm leading-6 text-white/75">Insider language. Closer energy. Built for the ones who have earned the right to wear it.</p>
                 <div className="mt-5 h-56 overflow-hidden rounded-xl border border-white/10 md:h-64">
-                  <img src="/images/hold-gross.png" alt="Back Lot" className="h-full w-full object-cover" />
+                  <img src="/images/hold-gross.jpg" alt="Back Lot" className="h-full w-full object-cover" />
                 </div>
                 <div className="mt-4 grid gap-2">
                   <Link href="/dealership-series/backlot" className="inline-flex w-full justify-center rounded-2xl border border-white/10 bg-black/20 px-5 py-3 font-semibold text-white transition hover:bg-white/10">Enter Back Lot →</Link>

@@ -115,7 +115,7 @@ const backLotItems = [
     title: 'Hold Gross',
     subtitle: 'No discounts given.',
     description: 'For the ones who know the difference between a deal and a donation. Hold the line.',
-    image: '/images/hold-gross.png',
+    image: '/images/hold-gross.jpg',
     componentId: 'product-component-1779236223733',
     productId: '10335906398340',
   },
@@ -123,7 +123,7 @@ const backLotItems = [
     title: 'Let Me Guess / Just Looking / Not Buying Today',
     subtitle: 'The line every closer has heard.',
     description: 'Three sentences. One customer. Said it on a Tuesday and drove home in a new car.',
-    image: '/images/let-me-guess.png',
+    image: '/images/let-me-guess.jpg',
     componentId: 'product-component-1779236273254',
     productId: '10335906496644',
   },
@@ -139,7 +139,7 @@ const backLotItems = [
     title: 'Down the Road Motors',
     subtitle: '"They said they can do it for less."',
     description: "Est. Never. Located in Somewhere Elseville, USA. They've never actually been there — but somehow, some way... they always can.",
-    image: '/images/down-the-road.png',
+    image: '/images/down-the-road.jpg',
     componentId: 'product-component-1779236173766',
     productId: '10335907217540',
   },
@@ -215,7 +215,7 @@ export default function BackLotPage() {
       `}</style>
 
       {/* Background */}
-      <div className="fixed inset-0 -z-30 bg-[url('/images/back-lot.png')] bg-cover bg-center animate-[b40Drift_25s_ease-in-out_infinite]" />
+      <div className="fixed inset-0 -z-30 bg-[url('/images/back-lot.jpg')] bg-cover bg-center animate-[b40Drift_25s_ease-in-out_infinite]" />
       <div className="fixed inset-0 -z-20 bg-black/10" />
       <div
         className="pointer-events-none fixed inset-0 -z-10 opacity-[0.07] mix-blend-soft-light"

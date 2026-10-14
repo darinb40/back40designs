@@ -234,7 +234,7 @@ export default function GreenPeaGuidePage() {
 
       {/* ── HERO ── */}
       <section style={{ minHeight: "65dvh", position: "relative", display: "flex", flexDirection: "column", justifyContent: "flex-end", padding: "6rem 1.5rem 3rem", overflow: "hidden", background: "#080808" }}>
-        <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/images/frontline-showroom-bg.png')", backgroundSize: "cover", backgroundPosition: "center", opacity: 0.12 }} />
+        <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/images/frontline-showroom-bg.jpg')", backgroundSize: "cover", backgroundPosition: "center", opacity: 0.12 }} />
         <div style={{ position: "absolute", inset: 0, backgroundImage: "linear-gradient(rgba(220,38,38,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(220,38,38,0.03) 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, #080808 25%, transparent 100%)" }} />
 
