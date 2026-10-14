@@ -2,6 +2,9 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import SiteHeader from "../../../components/SiteHeader";
+import SiteFooter from "../../../components/SiteFooter";
+import MobileContactBar from "../../../components/MobileContactBar";
 
 // ── BUYING PATTERNS ──────────────────────────────────────────────────
 const buyingPatterns = [
@@ -126,100 +129,7 @@ export default function GreenPeaGuidePage() {
         .stat-card { padding: 1.35rem; border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; background: #0f0f0f; display: flex; gap: 1rem; align-items: flex-start; }
       `}</style>
 
-      {/* ── HEADER ── */}
-      <header style={{ position: "sticky", top: 0, zIndex: 40, borderBottom: "1px solid rgba(255,255,255,0.08)", background: "rgba(8,8,8,0.92)", backdropFilter: "blur(12px)" }}>
-        <div style={{ maxWidth: "1280px", margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 24px" }}>
-
-          {/* Logo */}
-          <Link href="/">
-            <img src="/images/b402026.png" alt="Back 40 Designs" style={{ height: "40px", width: "auto" }} />
-          </Link>
-
-          {/* Desktop nav */}
-          <nav style={{ display: "none", alignItems: "center", gap: "24px" }} className="desktop-nav">
-
-            <div className="nav-group">
-              <Link href="/dealership-series" className="nav-link" style={{ color: "white", fontWeight: "500" }}>
-                Dealership Series
-              </Link>
-              <div className="nav-dropdown">
-                {navLinks.map(([href, label]) => (
-                  <Link key={href} href={href} className={`nav-dropdown-item ${href === "/dealership-series/green-pea-guide" ? "active" : ""}`}>
-                    {label}
-                  </Link>
-                ))}
-                <div style={{ borderTop: "1px solid rgba(255,255,255,0.08)", margin: "4px 0" }} />
-                
-              </div>
-            </div>
-
-            <Link href="/trail-series" className="nav-link">Trail Series</Link>
-            <Link href="/#process" className="nav-link">Process</Link>
-            <Link href="/gallery" className="nav-link">Gallery</Link>
-            <Link href="/#story" className="nav-link">Story</Link>
-            <Link href="/#contact" className="nav-link">Contact</Link>
-          </nav>
-
-          {/* Right buttons */}
-          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-            
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              style={{ background: "transparent", border: "none", color: "rgba(255,255,255,0.6)", cursor: "pointer", padding: "8px", fontSize: "18px" }}
-              className="mobile-menu-btn"
-              aria-label="Toggle menu"
-            >
-              {mobileMenuOpen ? "✕" : "☰"}
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile menu */}
-        {mobileMenuOpen && (
-          <div style={{ borderTop: "1px solid rgba(255,255,255,0.08)", background: "rgba(0,0,0,0.95)", padding: "16px 24px" }}>
-            <div style={{ display: "flex", flexDirection: "column", gap: "16px", fontFamily: "'DM Mono', monospace", fontSize: "13px", letterSpacing: "0.12em", textTransform: "uppercase" }}>
-
-              <div style={{ borderBottom: "1px solid rgba(255,255,255,0.05)", paddingBottom: "12px" }}>
-                <button
-                  onClick={() => setMobileDropdownOpen(!mobileDropdownOpen)}
-                  style={{ background: "transparent", border: "none", color: "rgba(255,255,255,0.6)", cursor: "pointer", display: "flex", justifyContent: "space-between", width: "100%", fontFamily: "'DM Mono', monospace", fontSize: "13px", letterSpacing: "0.12em", textTransform: "uppercase", padding: 0 }}
-                >
-                  <span>Dealership Series</span>
-                  <span style={{ color: "rgba(255,255,255,0.3)" }}>{mobileDropdownOpen ? "−" : "+"}</span>
-                </button>
-                {mobileDropdownOpen && (
-                  <div style={{ marginTop: "12px", marginLeft: "16px", display: "flex", flexDirection: "column", gap: "12px", color: "rgba(255,255,255,0.5)" }}>
-                    <Link href="/dealership-series" onClick={() => setMobileMenuOpen(false)} style={{ color: "rgba(255,255,255,0.5)", textDecoration: "none" }}>Overview</Link>
-                    {navLinks.map(([href, label]) => (
-                      <Link key={href} href={href} onClick={() => setMobileMenuOpen(false)} style={{ color: href === "/dealership-series/green-pea-guide" ? "white" : "rgba(255,255,255,0.5)", textDecoration: "none", fontWeight: href === "/dealership-series/green-pea-guide" ? "500" : "normal" }}>
-                        {label}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              {[
-                ["/trail-series", "Trail Series"],
-                ["/#process", "Process"],
-                ["/gallery", "Gallery"],
-                ["/#story", "Story"],
-                ["/#contact", "Contact"],
-              ].map(([href, label]) => (
-                <Link key={label} href={href} onClick={() => setMobileMenuOpen(false)} style={{ color: "rgba(255,255,255,0.6)", textDecoration: "none", borderBottom: "1px solid rgba(255,255,255,0.05)", paddingBottom: "12px" }}>{label}</Link>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Show desktop nav via style injection */}
-        <style>{`
-          @media (min-width: 768px) {
-            .desktop-nav { display: flex !important; }
-            .mobile-menu-btn { display: none !important; }
-          }
-        `}</style>
-      </header>
+      <SiteHeader position="sticky" active="Dealership Series" />
 
       {/* ── HERO ── */}
       <section style={{ minHeight: "65dvh", position: "relative", display: "flex", flexDirection: "column", justifyContent: "flex-end", padding: "6rem 1.5rem 3rem", overflow: "hidden", background: "#080808" }}>
@@ -370,14 +280,8 @@ export default function GreenPeaGuidePage() {
         </div>
       </div>
 
-      {/* ── FOOTER ── */}
-      <footer style={{ borderTop: "1px solid rgba(255,255,255,0.08)", padding: "1.5rem", display: "flex", flexWrap: "wrap", gap: "1rem", alignItems: "center", justifyContent: "space-between", maxWidth: "900px", margin: "0 auto", width: "100%" }}>
-        <p style={{ fontSize: "12px", color: "rgba(255,255,255,0.28)", letterSpacing: "0.08em" }}>© 2026 Back 40 Designs</p>
-        <div style={{ display: "flex", gap: "1.5rem" }}>
-          <Link href="/dealership-series/bingo" style={{ fontSize: "12px", color: "rgba(255,255,255,0.35)", letterSpacing: "0.12em", textTransform: "uppercase", textDecoration: "none" }}>Bingo</Link>
-          <Link href="/" style={{ fontSize: "12px", color: "rgba(255,255,255,0.35)", letterSpacing: "0.12em", textTransform: "uppercase", textDecoration: "none" }}>Home</Link>
-        </div>
-      </footer>
+      <SiteFooter />
+      <MobileContactBar textMessage="Hi! I'm interested in Dealership Series hats." emailSubject="Dealership Series hats" />
     </>
   );
 }

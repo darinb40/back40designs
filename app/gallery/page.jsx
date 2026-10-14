@@ -2,6 +2,9 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import SiteHeader from "../../components/SiteHeader";
+import SiteFooter from "../../components/SiteFooter";
+import MobileContactBar from "../../components/MobileContactBar";
 
 const bebas = { fontFamily: "'Bebas Neue', 'Arial Narrow', sans-serif" };
 const PHONE = "479-544-1366";
@@ -222,40 +225,7 @@ export default function GalleryPage() {
         </div>
       )}
 
-      {/* ── HEADER ── */}
-      <header className="fixed left-0 right-0 top-0 z-40 border-b border-white/10 bg-black/90 backdrop-blur">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-10 md:py-4">
-          <Link href="/">
-            <img src="/images/b402026.png" alt="Back 40 Designs" className="h-10 w-auto md:h-12" />
-          </Link>
-          <nav className="hidden items-center gap-6 text-sm text-stone-300 md:flex">
-            {navLinks.map(([href, label]) =>
-              href === "/gallery" ? (
-                <Link key={label} href={href} className="border-b border-[#c6a36b] pb-0.5 font-semibold text-[#c6a36b]">{label}</Link>
-              ) : (
-                <Link key={label} href={href} className="transition hover:text-white">{label}</Link>
-              )
-            )}
-          </nav>
-          <div className="flex items-center gap-2 md:gap-3">
-            <Link href="/#contact" className="inline-flex items-center gap-1.5 rounded-2xl bg-[#c6a36b] px-3 py-2 text-xs font-semibold text-black shadow-lg transition hover:-translate-y-0.5 hover:bg-[#d4b07a] md:px-4 md:text-sm">
-              Start a Project →
-            </Link>
-            <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="rounded-lg p-2 text-stone-300 transition hover:bg-white/5 md:hidden">
-              {mobileMenuOpen ? "✕" : "☰"}
-            </button>
-          </div>
-        </div>
-        {mobileMenuOpen && (
-          <div className="border-t border-white/10 bg-black/90 px-4 py-4 md:hidden">
-            <nav className="flex flex-col gap-4 text-sm text-stone-300">
-              {navLinks.map(([href, label]) => (
-                <Link key={label} href={href} onClick={() => setMobileMenuOpen(false)} className="border-b border-white/5 pb-3 transition hover:text-white">{label}</Link>
-              ))}
-            </nav>
-          </div>
-        )}
-      </header>
+      <SiteHeader position="fixed" active="Gallery" />
 
       {/* ── HERO ── */}
       <section className="relative px-6 pb-12 pt-28 md:px-16 md:pb-16 md:pt-36">
@@ -401,26 +371,9 @@ export default function GalleryPage() {
         </div>
       </section>
 
-      {/* ── FOOTER ── */}
-      <footer className="border-t border-white/10 px-5 py-8 text-sm text-white/40 md:px-10">
-        <div className="mx-auto flex max-w-7xl flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <p>© 2026 Back 40 Designs. Custom headwear with story and identity.</p>
-          <div className="flex flex-wrap gap-4 sm:gap-6">
-            <a href={sms()} className="transition hover:text-white">Text {PHONE}</a>
-            <a href={mailto()} className="transition hover:text-white">{EMAIL}</a>
-            <a href="https://www.instagram.com/b40_designs/" target="_blank" rel="noreferrer" className="transition hover:text-white">Instagram</a>
-            <Link href="/#contact" className="transition hover:text-white">Custom Orders</Link>
-            <Link href="/" className="transition hover:text-white">Back to Home</Link>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
+      <MobileContactBar />
 
-      {/* ── MOBILE CONTACT BAR ── */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 grid grid-cols-3 border-t border-white/10 bg-black/95 backdrop-blur md:hidden">
-        <a href={sms()} className="py-4 text-center text-xs font-bold uppercase tracking-[0.15em] text-white/85">Text Us</a>
-        <a href={mailto()} className="border-l border-white/10 py-4 text-center text-xs font-bold uppercase tracking-[0.15em] text-white/85">Email Us</a>
-        <Link href="/#contact" className="bg-[#c6a36b] py-4 text-center text-xs font-bold uppercase tracking-[0.15em] text-black">Start →</Link>
-      </div>
 
     </main>
   );

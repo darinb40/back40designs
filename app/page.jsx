@@ -1,6 +1,9 @@
 'use client';
 
 import React from 'react';
+import SiteHeader from "../components/SiteHeader";
+import SiteFooter from "../components/SiteFooter";
+import MobileContactBar from "../components/MobileContactBar";
 
 // ─── Icon Components ────────────────────────────────────────────────
 const ArrowRight = ({ className = "h-4 w-4" }) => <span className={className}>→</span>;
@@ -214,42 +217,7 @@ export default function Back40LandingPage() {
   return (
     <div className="min-h-screen bg-stone-950 pb-14 text-stone-100 md:pb-0">
 
-      {/* ── HEADER ── */}
-      <header className="sticky top-0 z-40 border-b border-white/10 bg-stone-950/90 backdrop-blur">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-10 md:py-4">
-          <a href="/">
-            <img src="/images/b402026.png" alt="Back 40 Designs" className="h-10 w-auto md:h-12" />
-          </a>
-          <nav className="hidden items-center gap-6 text-sm text-stone-300 md:flex">
-            <a href="/trail-series" className="transition hover:text-white">Trail Series</a>
-            <a href="/dealership-series" className="transition hover:text-white">Dealership Series</a>
-            <a href="/gallery" className="transition hover:text-white">Gallery</a>
-            <a href="#contact" className="transition hover:text-white">Custom Orders</a>
-          </nav>
-          <div className="flex items-center gap-2 md:gap-3">
-            <a href="#contact" className="inline-flex items-center gap-1.5 rounded-2xl bg-white px-3 py-2 text-xs font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100 md:px-4 md:text-sm">
-              Start a Project
-            </a>
-            <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="rounded-lg p-2 text-stone-300 transition hover:bg-white/5 md:hidden" aria-label="Toggle menu">
-              {mobileMenuOpen ? "✕" : "☰"}
-            </button>
-          </div>
-        </div>
-        {mobileMenuOpen && (
-          <div className="border-t border-white/10 bg-stone-950 px-4 py-4 md:hidden">
-            <nav className="flex flex-col gap-4 text-sm text-stone-300">
-              {[
-                ["/trail-series", "Trail Series"],
-                ["/dealership-series", "Dealership Series"],
-                ["/gallery", "Gallery"],
-                ["#contact", "Custom Orders"],
-              ].map(([href, label]) => (
-                <a key={label} href={href} onClick={() => setMobileMenuOpen(false)} className="border-b border-white/5 pb-3 transition hover:text-white">{label}</a>
-              ))}
-            </nav>
-          </div>
-        )}
-      </header>
+      <SiteHeader position="sticky" />
 
       {/* ── HERO ── */}
       <section className="relative overflow-hidden bg-black">
@@ -481,29 +449,9 @@ export default function Back40LandingPage() {
         </div>
       </section>
 
-      {/* ── FOOTER ── */}
-      <footer className="relative overflow-hidden border-t border-white/10 px-4 py-8 text-sm text-stone-500 md:px-10">
-        <LineTopoOverlay opacity="opacity-10" dark="bg-black/85" />
-        <div className="relative z-10 mx-auto flex max-w-7xl flex-col gap-5 md:flex-row md:items-center md:justify-between">
-          <div className="flex flex-col gap-1">
-            <p className="font-semibold text-stone-300">Back 40 Designs</p>
-            <p>© 2026 Back 40 Designs. Custom headwear with story and identity.</p>
-          </div>
-          <div className="flex flex-wrap gap-4 sm:gap-6">
-            <a href={smsLink()} className="transition hover:text-stone-300">Text {phoneNumber}</a>
-            <a href="mailto:info@back40designco.com" className="transition hover:text-stone-300">Email</a>
-            <a href={instagramLink} target="_blank" rel="noreferrer" className="transition hover:text-stone-300">Instagram</a>
-            <a href={facebookLink} target="_blank" rel="noreferrer" className="transition hover:text-stone-300">Facebook</a>
-            <a href="/privacy" className="transition hover:text-stone-300">Privacy Policy</a>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
+      <MobileContactBar />
 
-      {/* ── MOBILE CONTACT BAR ── */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 grid grid-cols-2 border-t border-white/10 bg-black/95 backdrop-blur md:hidden">
-        <a href={smsLink()} className="py-4 text-center text-xs font-bold uppercase tracking-[0.15em] text-white/85">Text Us</a>
-        <a href={`mailto:${email}`} className="bg-[#c6a36b] py-4 text-center text-xs font-bold uppercase tracking-[0.15em] text-black">Email Us</a>
-      </div>
 
     </div>
   );

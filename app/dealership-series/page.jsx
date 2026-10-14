@@ -2,6 +2,9 @@
 
 import React from "react";
 import Link from "next/link";
+import SiteHeader from "../../components/SiteHeader";
+import SiteFooter from "../../components/SiteFooter";
+import MobileContactBar from "../../components/MobileContactBar";
 
 // The whole Dealership Series on one page, grouped by lane.
 const lanes = [
@@ -71,70 +74,7 @@ export default function DealershipSeriesPage() {
 
       <div className="relative z-10">
 
-        {/* HEADER */}
-        <header className="sticky top-0 z-40 border-b border-white/10 bg-black/80 backdrop-blur">
-          <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-10 md:py-4">
-            <Link href="/">
-              <img src="/images/b402026.png" alt="Back 40 Designs" className="h-10 w-auto md:h-12" />
-            </Link>
-
-            {/* Desktop nav */}
-            <nav className="hidden items-center gap-6 text-sm text-stone-300 md:flex">
-              <div className="relative group">
-                <Link href="/dealership-series" className="text-white font-semibold">Dealership Series</Link>
-                <div className="absolute left-0 top-full mt-0 hidden w-60 flex-col rounded-xl border border-white/10 bg-black/95 p-2 pt-5 backdrop-blur-md shadow-2xl group-hover:flex before:absolute before:inset-x-0 before:-top-3 before:h-3 before:content-['']">
-                  {menuLinks.map(([href, label]) => (
-                    <Link key={label} href={href} className="rounded-lg px-4 py-3 transition hover:bg-white/5 hover:text-white">{label}</Link>
-                  ))}
-                </div>
-              </div>
-              <Link href="/trail-series" className="transition hover:text-white">Trail Series</Link>
-              <Link href="/#process" className="transition hover:text-white">Process</Link>
-              <Link href="/gallery" className="transition hover:text-white">Gallery</Link>
-              <Link href="/#story" className="transition hover:text-white">Story</Link>
-              <Link href="/#contact" className="transition hover:text-white">Contact</Link>
-            </nav>
-
-            <div className="flex items-center gap-2 md:gap-3">
-              <a href={emailLink} className="inline-flex items-center gap-1.5 rounded-2xl bg-white px-3 py-2 text-xs font-semibold text-stone-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-stone-100 md:px-4 md:text-sm">
-                Email Us →
-              </a>
-              <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="rounded-lg p-2 text-stone-300 transition hover:bg-white/5 md:hidden" aria-label="Toggle menu">
-                {mobileMenuOpen ? "✕" : "☰"}
-              </button>
-            </div>
-          </div>
-
-          {/* Mobile menu */}
-          {mobileMenuOpen && (
-            <div className="border-t border-white/10 bg-black/95 px-4 py-4 md:hidden">
-              <nav className="flex flex-col gap-4 text-sm text-stone-300">
-                <div className="border-b border-white/5 pb-3">
-                  <button type="button" onClick={() => setMobileDropdownOpen(!mobileDropdownOpen)} className="flex w-full items-center justify-between text-left transition hover:text-white">
-                    <span>Dealership Series</span>
-                    <span className="text-white/50">{mobileDropdownOpen ? "−" : "+"}</span>
-                  </button>
-                  {mobileDropdownOpen && (
-                    <div className="mt-3 ml-4 flex flex-col gap-3 rounded-xl border border-white/10 bg-white/[0.03] p-4 text-white/70">
-                      {menuLinks.map(([href, label]) => (
-                        <Link key={label} href={href} onClick={() => setMobileMenuOpen(false)} className="transition hover:text-white">{label}</Link>
-                      ))}
-                    </div>
-                  )}
-                </div>
-                {[
-                  ["/trail-series", "Trail Series"],
-                  ["/#process", "Process"],
-                  ["/gallery", "Gallery"],
-                  ["/#story", "Story"],
-                  ["/#contact", "Contact"],
-                ].map(([href, label]) => (
-                  <Link key={label} href={href} onClick={() => setMobileMenuOpen(false)} className="border-b border-white/5 pb-3 transition hover:text-white">{label}</Link>
-                ))}
-              </nav>
-            </div>
-          )}
-        </header>
+        <SiteHeader position="sticky" active="Dealership Series" />
 
         {/* HERO */}
         <section className="px-5 pb-10 pt-8 md:px-10 md:pb-14 md:pt-14">
@@ -243,27 +183,11 @@ export default function DealershipSeriesPage() {
           </div>
         </section>
 
-        {/* FOOTER */}
-        <footer className="border-t border-white/10 bg-black/60 px-5 py-8 text-sm text-white/40 md:px-10">
-          <div className="mx-auto flex max-w-7xl flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <p>© 2026 Back 40 Designs. Custom headwear with story and identity.</p>
-            <div className="flex flex-wrap gap-4 sm:gap-6">
-              <a href={textLink} className="transition hover:text-white">Text 479-544-1366</a>
-              <a href="mailto:info@back40designco.com" className="transition hover:text-white">Email</a>
-              <a href={instagramLink} target="_blank" rel="noreferrer" className="transition hover:text-white">Instagram</a>
-              <Link href="/lot-stretcher" className="transition hover:text-white">Lot Stretcher</Link>
-              <Link href="/" className="transition hover:text-white">Back to Home</Link>
-            </div>
-          </div>
-        </footer>
+        <SiteFooter />
+        <MobileContactBar textMessage="Hi! I'm interested in Dealership Series hats." emailSubject="Dealership Series hats" />
 
       </div>
 
-      {/* MOBILE CONTACT BAR */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 grid grid-cols-2 border-t border-white/10 bg-black/95 backdrop-blur md:hidden">
-        <a href={textLink} className="py-4 text-center text-xs font-bold uppercase tracking-[0.15em] text-white/85">Text Us</a>
-        <a href={emailLink} className="bg-[#c6a36b] py-4 text-center text-xs font-bold uppercase tracking-[0.15em] text-black">Email Us</a>
-      </div>
     </main>
   );
 }
