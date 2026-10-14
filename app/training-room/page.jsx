@@ -399,7 +399,7 @@ export default function TrainingRoomPage() {
               Screenshot / Save Certificate
             </button>
             <Link
-              href="/dealership-series/backlot"
+              href="/dealership-series#back-lot"
               className="rounded-xl border border-red-400/30 bg-red-500/10 py-4 text-xs uppercase tracking-widest text-red-200 transition hover:border-red-400/70 hover:bg-red-500/20 hover:text-white active:scale-[0.97]"
             >
               Enter Back Lot

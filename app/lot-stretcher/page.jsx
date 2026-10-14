@@ -290,7 +290,7 @@ export default function LotStretcherPage() {
         </div>
 
         <div className={`mt-10 transition-opacity duration-700 delay-1000 ${showText ? "opacity-100" : "opacity-0"}`}>
-          <Link href="/dealership-series/backlot" className="text-xs text-white/20 hover:text-white/50 tracking-widest uppercase font-mono transition">
+          <Link href="/dealership-series#back-lot" className="text-xs text-white/20 hover:text-white/50 tracking-widest uppercase font-mono transition">
             ← Back to Back Lot
           </Link>
         </div>

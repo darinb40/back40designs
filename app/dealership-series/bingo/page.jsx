@@ -20,9 +20,9 @@ const previewWords = [
 ];
 
 const navLinks = [
-  ["/dealership-series/front-line", "Front Line"],
-  ["/dealership-series/service-bay", "Service Bay"],
-  ["/dealership-series/backlot", "Back Lot"],
+  ["/dealership-series#front-line", "Front Line"],
+  ["/dealership-series#service-bay", "Service Bay"],
+  ["/dealership-series#back-lot", "Back Lot"],
   ["/dealership-series/green-pea-guide", "Green Pea Guide"],
   ["/lot-stretcher", "Lot Stretcher"],
 ];
