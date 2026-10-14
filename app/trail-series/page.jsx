@@ -6,8 +6,6 @@ import Link from "next/link";
 export default function TrailSeriesPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const shopLink = "https://back40-headwear.myshopify.com/collections/b40-trail-series";
-
   const hats = [
     {
       name: "Back 40 Loop",
@@ -53,7 +51,6 @@ export default function TrailSeriesPage() {
             <img src="/images/b402026.png" alt="Back 40 Designs" className="h-10 w-auto md:h-12" />
           </Link>
           <nav className="hidden items-center gap-6 text-sm text-stone-300 md:flex">
-            <a href={shopLink} target="_blank" rel="noreferrer" className="transition hover:text-white">Shop</a>
             <Link href="/trail-series" className="text-[#c6a36b] font-semibold border-b border-[#c6a36b] pb-0.5">Trail Series</Link>
             <Link href="/dealership-series" className="transition hover:text-white">Dealership Series</Link>
             <Link href="/gallery" className="transition hover:text-white">Gallery</Link>
@@ -72,7 +69,6 @@ export default function TrailSeriesPage() {
           <div className="border-t border-white/10 bg-black/90 px-4 py-4 md:hidden">
             <nav className="flex flex-col gap-4 text-sm text-stone-300">
               {[
-                [shopLink, "Shop", true],
                 ["/trail-series", "Trail Series", false],
                 ["/dealership-series", "Dealership Series", false],
                 ["/gallery", "Gallery", false],
@@ -109,7 +105,7 @@ export default function TrailSeriesPage() {
             </p>
             <div className="flex flex-col gap-3 sm:flex-row">
               <a href="#the-hats" className="inline-flex items-center justify-center gap-2 bg-[#c6a36b] px-6 py-3 text-sm font-bold uppercase tracking-[0.15em] text-black transition hover:bg-[#d4b07a]">
-                Shop the Series ↓
+                See the Series ↓
               </a>
               <Link href="/#contact" className="inline-flex items-center justify-center gap-2 border border-white/40 px-6 py-3 text-sm font-semibold uppercase tracking-[0.15em] text-white transition hover:bg-white/10">
                 Build a Shop Collab →

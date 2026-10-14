@@ -3,14 +3,12 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
-const SHOPIFY_DOMAIN = 'dy7tby-ue.myshopify.com';
-const STOREFRONT_TOKEN = 'a6a4ccdb4cdd021868213cc7fe3a35bd';
 
 export default function Back40LoopRWBPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  const shopLink = "https://back40-headwear.myshopify.com/collections/b40-trail-series";
+  const emailLink = `mailto:info@back40designco.com?subject=${encodeURIComponent("Trail Series: Back 40 Loop (Red, White & Blue)")}`;
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
@@ -18,94 +16,8 @@ export default function Back40LoopRWBPage() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => {
-    const scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
-
-    function initButton() {
-      if (!window.ShopifyBuy || !window.ShopifyBuy.UI) return;
-      const client = window.ShopifyBuy.buildClient({
-        domain: SHOPIFY_DOMAIN,
-        storefrontAccessToken: STOREFRONT_TOKEN,
-      });
-      window.ShopifyBuy.UI.onReady(client).then((ui) => {
-        ui.createComponent('product', {
-          id: '10286114013316',
-          node: document.getElementById('product-component-1777645104855'),
-          moneyFormat: '%24%7B%7Bamount%7D%7D',
-          options: {
-            product: {
-              styles: {
-                product: {
-                  '@media (min-width: 601px)': {
-                    'max-width': '100%',
-                    'margin-left': '0px',
-                    'margin-bottom': '0px',
-                  },
-                },
-                button: {
-                  'font-family': 'Open Sans, sans-serif',
-                  'font-weight': 'bold',
-                  'background-color': '#c6a36b',
-                  ':hover': { 'background-color': '#d4b07a' },
-                  ':focus': { 'background-color': '#d4b07a' },
-                  'padding': '14px 32px',
-                  'font-size': '14px',
-                  'letter-spacing': '0.1em',
-                  'text-transform': 'uppercase',
-                  'width': '100%',
-                },
-              },
-              buttonDestination: 'checkout',
-              contents: { img: false, title: false, price: false },
-              text: { button: 'Get Yours — $35' },
-              googleFonts: ['Open Sans'],
-            },
-            cart: {
-              styles: { button: { 'background-color': '#c6a36b', ':hover': { 'background-color': '#d4b07a' } } },
-              text: { total: 'Subtotal', button: 'Checkout' },
-              googleFonts: ['Open Sans'],
-            },
-            toggle: {
-              styles: { toggle: { 'background-color': '#c6a36b', ':hover': { 'background-color': '#d4b07a' } } },
-              googleFonts: ['Open Sans'],
-            },
-          },
-        });
-      });
-    }
-
-    if (window.ShopifyBuy && window.ShopifyBuy.UI) {
-      initButton();
-    } else {
-      const existing = document.querySelector(`script[src="${scriptURL}"]`);
-      if (existing) {
-        const interval = setInterval(() => {
-          if (window.ShopifyBuy && window.ShopifyBuy.UI) {
-            clearInterval(interval);
-            initButton();
-          }
-        }, 100);
-        return;
-      }
-      const script = document.createElement('script');
-      script.async = true;
-      script.src = scriptURL;
-      script.onload = initButton;
-      document.head.appendChild(script);
-    }
-  }, []);
-
   return (
     <main className="relative w-full overflow-hidden bg-black text-white">
-
-      <style>{`
-        .shopify-buy__product { text-align: center !important; margin: 0 !important; max-width: 100% !important; width: 100% !important; }
-        .shopify-buy__btn-wrapper { display: flex !important; justify-content: center !important; width: 100% !important; }
-        .shopify-buy__product__title { text-align: center !important; }
-        .shopify-buy__product__price { text-align: center !important; }
-        #product-component-1777645104855 { width: 100% !important; max-width: 100% !important; }
-        #product-component-1777645104855 iframe { width: 100% !important; max-width: 100% !important; }
-      `}</style>
 
       {/* HEADER */}
       <header className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${scrolled ? "border-b border-white/10 bg-black/90 backdrop-blur" : "bg-transparent"}`}>
@@ -114,7 +26,6 @@ export default function Back40LoopRWBPage() {
             <img src="/images/b402026.png" alt="Back 40 Designs" className="h-10 w-auto md:h-12" />
           </Link>
           <nav className="hidden items-center gap-6 text-sm text-stone-300 md:flex">
-            <a href={shopLink} target="_blank" rel="noreferrer" className="transition hover:text-white">Shop</a>
             <Link href="/trail-series" className="text-[#c6a36b] font-semibold border-b border-[#c6a36b] pb-0.5">Trail Series</Link>
             <Link href="/dealership-series" className="transition hover:text-white">Dealership Series</Link>
             <Link href="/gallery" className="transition hover:text-white">Gallery</Link>
@@ -133,7 +44,6 @@ export default function Back40LoopRWBPage() {
           <div className="border-t border-white/10 bg-black/90 px-4 py-4 md:hidden">
             <nav className="flex flex-col gap-4 text-sm text-stone-300">
               {[
-                [shopLink, "Shop", true],
                 ["/trail-series", "Trail Series", false],
                 ["/dealership-series", "Dealership Series", false],
                 ["/gallery", "Gallery", false],
@@ -170,8 +80,8 @@ export default function Back40LoopRWBPage() {
             <p className="mb-10 max-w-sm text-sm leading-6 text-white/60 md:text-base">
               Same legendary trail. Different story. This one's for the riders who bleed red, white, and blue on every descent.
             </p>
-            <a href="#story" className="inline-flex items-center justify-center gap-2 bg-[#c6a36b] px-6 py-3 text-sm font-bold uppercase tracking-[0.15em] text-black transition hover:bg-[#d4b07a]">
-              Get Yours — $35 ↓
+            <a href={emailLink} className="inline-flex items-center justify-center gap-2 bg-[#c6a36b] px-6 py-3 text-sm font-bold uppercase tracking-[0.15em] text-black transition hover:bg-[#d4b07a]">
+              Email Us About This Hat →
             </a>
           </div>
         </div>
@@ -231,7 +141,7 @@ export default function Back40LoopRWBPage() {
               </div>
               <div className="mt-6">
                 <p className="mb-3 text-xs font-semibold uppercase tracking-[0.25em] text-white/40">Limited Run — Small Batch</p>
-                <div id="product-component-1777645104855" className="w-full" />
+                <a href={emailLink} className="inline-flex w-full items-center justify-center gap-2 bg-[#c6a36b] px-6 py-3.5 text-sm font-bold uppercase tracking-[0.15em] text-black transition hover:bg-[#d4b07a]">Email Us About This Hat →</a>
               </div>
             </div>
 
@@ -251,7 +161,6 @@ export default function Back40LoopRWBPage() {
                   { label: "Patch", value: "Layered Acrylic" },
                   { label: "Style", value: "Snapback" },
                   { label: "Location", value: "Bella Vista, AR" },
-                  { label: "Price", value: "$35.00" },
                 ].map(({ label, value }) => (
                   <div key={label} className="border-l-2 pl-3" style={{ borderColor: "#B22234" }}>
                     <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#c6a36b]">{label}</p>
