@@ -218,3 +218,7 @@ select option:checked {
     display: none !important;
   }
 }
+
+/* Rainbow and shade sliders on the Try It On page: a round white knob on a colored track */
+.color-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; border-radius: 9999px; background: #fff; border: 2px solid #000; box-shadow: 0 0 0 1px #fff; }
+.color-slider::-moz-range-thumb { width: 18px; height: 18px; border-radius: 9999px; background: #fff; border: 2px solid #000; }

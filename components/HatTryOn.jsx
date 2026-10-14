@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { patchShapes } from "./patchShapes";
 import { leatheretteColors, leatherColors } from "./leatherColors";
 import { smsLink, mailtoLink } from "./contact";
@@ -20,20 +20,34 @@ const HAT = {
   fitWidthIn: 3.69,
 };
 
+// Real wood grain photos (free CC0 textures from ambientCG.com) until we have our
+// own close-ups. `turn` rotates photos whose grain runs up and down so it runs across the patch.
+const woodColors = [
+  { name: "Maple", photo: "maple", base: "#d9b77f", burn: "#4a2c14" },
+  { name: "Ash", photo: "ash", base: "#d8c09a", burn: "#4a2c14" },
+  { name: "Oak", photo: "oak", base: "#c4955f", burn: "#3d2310", turn: true },
+  { name: "Hickory", photo: "hickory", base: "#a8743f", burn: "#2e190a" },
+  { name: "Cherry", photo: "cherry", base: "#c47a45", burn: "#2e1608", turn: true },
+  { name: "Cedar", photo: "cedar", base: "#d0814c", burn: "#2e1608" },
+  { name: "Redwood", photo: "redwood", base: "#a65435", burn: "#241006", turn: true },
+  { name: "Mahogany", photo: "mahogany", base: "#7e3e1d", burn: "#1d0c04", turn: true },
+  { name: "Walnut", photo: "walnut", base: "#5a3820", burn: "#160c05" },
+  { name: "Weathered Gray", photo: "weathered", base: "#5b544c", burn: "#1a1612", turn: true },
+].map((w) => ({ ...w, src: `/images/try-it-on/wood/${w.photo}.jpg` }));
+
 // Leather and leatherette colors come from our supplier (leatherColors.js); the
 // other materials are stand-in looks until real material photos are in. `engrave` materials burn the
-// logo and border in one color; `color` materials show the logo in full color.
+// logo and border in one color; `color` materials show the logo in full color; `direct`
+// skips the patch and prints the logo straight onto the hat.
 const materials = [
   {
     id: "leatherette", name: "Leatherette", mode: "engrave", texture: "grain",
     colors: leatheretteColors,
   },
   { id: "leather", name: "Genuine Leather", mode: "engrave", texture: "leather", colors: leatherColors },
-  { id: "wood", name: "Real Wood", mode: "engrave", texture: "wood", base: "#c99b65", burn: "#4b2b13" },
+  { id: "wood", name: "Real Wood", mode: "engrave", colors: woodColors },
   { id: "acrylic", name: "Acrylic", mode: "color", texture: "gloss", base: "#141414", burn: "#d9d9d9" },
-  { id: "pvc", name: "PVC", mode: "color", texture: "rubber", base: "#232323", burn: "#c6a36b" },
-  { id: "uv", name: "Full-Color UV Print", mode: "color", texture: "grain", base: "#f1ede6", burn: "#2b2b2b" },
-  { id: "embroidery", name: "Embroidery", mode: "color", texture: "thread", base: "#161616", burn: "#e9e4da" },
+  { id: "uv", name: "Full-Color UV Print", mode: "direct" },
 ];
 
 const PATCH_PX = 900;
@@ -60,15 +74,6 @@ function drawTexture(ctx, texture, w, h) {
       ctx.fillStyle = g;
       ctx.fillRect(0, 0, w, h);
     }
-  } else if (texture === "wood") {
-    for (let y = -20; y < h + 20; y += 6 + rand() * 10) {
-      ctx.strokeStyle = `rgba(90,50,20,${0.12 + rand() * 0.22})`;
-      ctx.lineWidth = 1 + rand() * 3;
-      ctx.beginPath();
-      const amp = 3 + rand() * 8, freq = 0.004 + rand() * 0.006, phase = rand() * 6;
-      for (let x = 0; x <= w; x += 10) ctx.lineTo(x, y + Math.sin(x * freq + phase) * amp);
-      ctx.stroke();
-    }
   } else if (texture === "gloss") {
     const g = ctx.createLinearGradient(0, 0, w * 0.7, h);
     g.addColorStop(0, "rgba(255,255,255,0.22)");
@@ -76,21 +81,6 @@ function drawTexture(ctx, texture, w, h) {
     g.addColorStop(1, "rgba(255,255,255,0)");
     ctx.fillStyle = g;
     ctx.fillRect(0, 0, w, h);
-  } else if (texture === "rubber") {
-    const g = ctx.createLinearGradient(0, 0, 0, h);
-    g.addColorStop(0, "rgba(255,255,255,0.08)");
-    g.addColorStop(1, "rgba(0,0,0,0.2)");
-    ctx.fillStyle = g;
-    ctx.fillRect(0, 0, w, h);
-  } else if (texture === "thread") {
-    ctx.strokeStyle = "rgba(255,255,255,0.05)";
-    ctx.lineWidth = 1;
-    for (let x = -h; x < w; x += 4) {
-      ctx.beginPath();
-      ctx.moveTo(x, 0);
-      ctx.lineTo(x + h, h);
-      ctx.stroke();
-    }
   }
   ctx.restore();
 }
@@ -146,6 +136,136 @@ function logoMask(img) {
   return c;
 }
 
+// A logo for printing straight onto the hat: trimmed to its artwork, and a flat
+// white background (JPG logos) is dropped so it doesn't print as a white box.
+function printLogo(img) {
+  const c = document.createElement("canvas");
+  c.width = img.naturalWidth;
+  c.height = img.naturalHeight;
+  const x = c.getContext("2d");
+  x.drawImage(img, 0, 0);
+  const data = x.getImageData(0, 0, c.width, c.height);
+  const px = data.data;
+  let transparent = false;
+  for (let i = 3; i < px.length; i += 16) if (px[i] < 250) { transparent = true; break; }
+  let minX = c.width, minY = c.height, maxX = 0, maxY = 0;
+  for (let i = 0; i < px.length; i += 4) {
+    if (!transparent && Math.min(px[i], px[i + 1], px[i + 2]) > 238) px[i + 3] = 0;
+    if (px[i + 3] > 10) {
+      const k = i / 4, X = k % c.width, Y = (k - X) / c.width;
+      minX = Math.min(minX, X); maxX = Math.max(maxX, X); minY = Math.min(minY, Y); maxY = Math.max(maxY, Y);
+    }
+  }
+  x.putImageData(data, 0, 0);
+  if (maxX < minX) { c.box = { x: 0, y: 0, w: c.width, h: c.height }; return c; }
+  const out = document.createElement("canvas");
+  out.width = maxX - minX + 1;
+  out.height = maxY - minY + 1;
+  out.getContext("2d").drawImage(c, -minX, -minY);
+  out.box = { x: minX, y: minY, w: out.width, h: out.height };
+  return out;
+}
+
+// Fonts for the text box (Google Fonts, free to use). Loaded only on this page.
+const FONTS = [
+  { name: "Western", family: "Rye" },
+  { name: "Block", family: "Bebas Neue" },
+  { name: "Varsity", family: "Graduate" },
+  { name: "Stencil", family: "Black Ops One" },
+  { name: "Script", family: "Yellowtail" },
+];
+const FONT_CSS = "https://fonts.googleapis.com/css2?family=Rye&family=Bebas+Neue&family=Graduate&family=Black+Ops+One&family=Yellowtail&display=swap";
+// UV printing can do any color, so text color is picked with two sliders:
+// hue (around the rainbow) and shade (black, through the pure color, to white).
+const textColorOf = (hue, shade) => `hsl(${hue}, 85%, ${shade}%)`;
+
+// One line of text, drawn letter by letter so it can be bent into an arch (bend > 0)
+// or a smile (bend < 0), squished or stretched (width/height %), and spaced out.
+function renderLine(text, { px, family, ink, warp }) {
+  const { bend, width, height, spacing } = warp;
+  const sx = width / 100, sy = height / 100, gapPx = (spacing / 100) * px;
+  const m = document.createElement("canvas").getContext("2d");
+  m.font = `${px}px "${family}"`;
+  const chars = [...text];
+  const widths = chars.map((ch) => m.measureText(ch).width * sx);
+  const total = widths.reduce((a, w) => a + w, 0) + gapPx * (chars.length - 1);
+  const glyphH = px * 1.15 * sy;
+  const theta = (Math.abs(bend) / 100) * Math.PI * 0.95; // how much of a circle the line wraps
+  const R = theta > 0.01 ? total / theta : 0;
+  const sag = R ? R * (1 - Math.cos(theta / 2)) : 0;
+  const pad = px * 0.3;
+  const W = Math.ceil((R ? 2 * R * Math.sin(Math.min(theta, Math.PI) / 2) : total) + glyphH + pad * 2);
+  const H = Math.ceil(glyphH + sag + pad * 2);
+  const c = document.createElement("canvas");
+  c.width = Math.max(1, W);
+  c.height = Math.max(1, H);
+  const x = c.getContext("2d");
+  x.font = `${px}px "${family}"`;
+  x.textAlign = "center";
+  x.textBaseline = "middle";
+  x.fillStyle = ink;
+  const cx = W / 2, cy = bend >= 0 ? pad + glyphH / 2 : pad + glyphH / 2 + sag;
+  let along = -total / 2;
+  chars.forEach((ch, i) => {
+    const mid = along + widths[i] / 2;
+    along += widths[i] + gapPx;
+    let px0 = cx + mid, py0 = cy, rot = 0;
+    if (R) {
+      const a = mid / R;
+      px0 = cx + R * Math.sin(a);
+      py0 = bend > 0 ? cy + R * (1 - Math.cos(a)) : cy - R * (1 - Math.cos(a));
+      rot = bend > 0 ? a : -a;
+    }
+    x.save();
+    x.translate(px0, py0);
+    x.rotate(rot);
+    x.scale(sx, sy);
+    x.fillText(ch, 0, 0);
+    x.restore();
+  });
+  return c;
+}
+
+// Logo and up to two lines of text, laid out as one piece of artwork: the logo on
+// top, text centered under it. Returns a one-color `mask` (for engraving) and a
+// full-color `print`, both the same size.
+function composeArt({ logo, lines, font, textSize, textGap, textColor, warp }) {
+  lines = lines.map((l) => l.trim()).filter(Boolean);
+  if (!logo && !lines.length) return null;
+  const box = logo ? logo.print.box : null;
+  const lw = box ? box.w : 0, lh = box ? box.h : 0;
+  const px = (box ? Math.max(lw, lh * 1.6) : 1000) * 0.2 * (textSize / 100);
+  const rendered = (ink) => lines.map((l) => renderLine(l, { px, family: font.family, ink, warp }));
+  const sample = rendered("#000");
+  // rendered lines include padding; overlap them a little so they sit like normal lines
+  const trim = px * 0.3;
+  const textW = Math.max(0, ...sample.map((c) => c.width));
+  const textH = sample.reduce((a, c) => a + c.height - trim * 2, 0) + trim * 2;
+  const gap = box && lines.length ? lh * 0.1 + (textGap / 100) * lh - trim : 0;
+  const textTop = lh + gap;
+  const top = Math.min(0, textTop), bottom = Math.max(lh, textTop + (lines.length ? textH : 0));
+  const pad = px * 0.15;
+  const W = Math.ceil(Math.max(lw, textW) + pad * 2), H = Math.ceil(bottom - top + pad * 2);
+  const make = (logoSrc, lineCanvases) => {
+    const c = document.createElement("canvas");
+    c.width = W;
+    c.height = H;
+    const x = c.getContext("2d");
+    const oy = pad - top;
+    if (box) {
+      if (logoSrc === logo.print) x.drawImage(logo.print, (W - lw) / 2, oy);
+      else x.drawImage(logoSrc, box.x, box.y, box.w, box.h, (W - lw) / 2, oy, lw, lh);
+    }
+    let y = oy + textTop;
+    lineCanvases.forEach((lc) => {
+      x.drawImage(lc, (W - lc.width) / 2, y);
+      y += lc.height - trim * 2;
+    });
+    return c;
+  };
+  return { mask: make(logo ? logo.mask : null, sample), print: make(logo ? logo.print : null, rendered(textColor)) };
+}
+
 function tint(mask, color) {
   const c = document.createElement("canvas");
   c.width = mask.width;
@@ -158,7 +278,7 @@ function tint(mask, color) {
   return c;
 }
 
-function drawPatch({ shape, material, color, logo, logoSize, logoX, logoY }) {
+function drawPatch({ shape, material, color, art, logoSize, logoX, logoY }) {
   const [bx, by, bw, bh] = shape.box;
   const k = PATCH_PX / Math.max(bw, bh);
   const c = document.createElement("canvas");
@@ -176,17 +296,27 @@ function drawPatch({ shape, material, color, logo, logoSize, logoX, logoY }) {
   x.fillStyle = look.base;
   x.fillRect(bx, by, bw, bh);
   x.setTransform(1, 0, 0, 1, 0, 0);
-  drawTexture(x, material.texture, c.width, c.height);
+  if (look.img) {
+    // grain photo, scaled to cover the whole patch
+    const turn = look.turn, iw = turn ? look.img.height : look.img.width, ih = turn ? look.img.width : look.img.height;
+    const sc = Math.max(c.width / iw, c.height / ih);
+    x.translate(c.width / 2, c.height / 2);
+    if (turn) x.rotate(Math.PI / 2);
+    x.drawImage(look.img, (-look.img.width * sc) / 2, (-look.img.height * sc) / 2, look.img.width * sc, look.img.height * sc);
+    x.setTransform(1, 0, 0, 1, 0, 0);
+  } else {
+    drawTexture(x, material.texture, c.width, c.height);
+  }
   x.restore();
 
-  // logo, clipped to the artwork area
-  if (logo) {
+  // logo and text, clipped to the artwork area
+  if (art) {
     toShape();
     x.save();
     x.clip(new Path2D(shape.art));
     const [ax, ay, aw, ah] = shape.artBox;
-    const src = material.mode === "engrave" ? tint(logo.mask, look.burn) : logo.img;
-    const iw = logo.img.naturalWidth, ih = logo.img.naturalHeight;
+    const src = material.mode === "engrave" ? tint(art.mask, look.burn) : art.print;
+    const iw = art.print.width, ih = art.print.height;
     const fit = Math.min(aw / iw, ah / ih) * 0.86 * (logoSize / 100);
     const w = iw * fit, h = ih * fit;
     const cx = ax + aw / 2 + (logoX / 100) * aw, cy = ay + ah / 2 + (logoY / 100) * ah;
@@ -210,11 +340,11 @@ function drawPatch({ shape, material, color, logo, logoSize, logoX, logoY }) {
 }
 
 // ── Crown wrap (from the B40 Patch Studio mockup) ──
-function wrapPoint(u, v, W, H, p, pw, ph) {
+function wrapPoint(u, v, W, H, p, pw, ph, off) {
   const q = u - 0.5, half = Math.PI * p.wrap * 0.5;
   const nx = Math.sin(q * Math.PI * p.wrap) / (2 * Math.sin(half));
   const edge = (1 - Math.cos(q * Math.PI * p.wrap)) / (1 - Math.cos(half));
-  return { x: p.cx * W + nx * pw, y: p.cy * H + (v - 0.5) * ph + p.edgeDrop * edge * ph };
+  return { x: (p.cx + off.x) * W + nx * pw, y: (p.cy + off.y) * H + (v - 0.5) * ph + p.edgeDrop * edge * ph };
 }
 
 function drawTriangle(c, img, s0, s1, s2, d0, d1, d2) {
@@ -246,7 +376,7 @@ function drawTriangle(c, img, s0, s1, s2, d0, d1, d2) {
   c.restore();
 }
 
-function renderHat(canvas, hatImg, patch, widthIn, size) {
+function renderHat(canvas, hatImg, patch, widthIn, size, off) {
   const W = hatImg.naturalWidth, H = hatImg.naturalHeight;
   canvas.width = W;
   canvas.height = H;
@@ -271,8 +401,8 @@ function renderHat(canvas, hatImg, patch, widthIn, size) {
       const u0 = i / cols, u1 = (i + 1) / cols, v0 = j / rows, v1 = (j + 1) / rows;
       const s00 = { x: u0 * patch.width, y: v0 * patch.height }, s10 = { x: u1 * patch.width, y: v0 * patch.height };
       const s01 = { x: u0 * patch.width, y: v1 * patch.height }, s11 = { x: u1 * patch.width, y: v1 * patch.height };
-      const d00 = wrapPoint(u0, v0, W, H, p, pw, ph), d10 = wrapPoint(u1, v0, W, H, p, pw, ph);
-      const d01 = wrapPoint(u0, v1, W, H, p, pw, ph), d11 = wrapPoint(u1, v1, W, H, p, pw, ph);
+      const d00 = wrapPoint(u0, v0, W, H, p, pw, ph, off), d10 = wrapPoint(u1, v0, W, H, p, pw, ph, off);
+      const d01 = wrapPoint(u0, v1, W, H, p, pw, ph, off), d11 = wrapPoint(u1, v1, W, H, p, pw, ph, off);
       drawTriangle(lc, patch, s00, s10, s11, d00, d10, d11);
       drawTriangle(lc, patch, s00, s11, s01, d00, d11, d01);
     }
@@ -310,7 +440,7 @@ function Panel({ step, title, children, dim }) {
   return (
     <div className={`rounded-xl border border-white/10 bg-white/[0.03] p-4 transition md:p-5 ${dim ? "opacity-40" : ""}`}>
       <p className="mb-3 text-xl uppercase md:text-2xl" style={bebas}>
-        <span className="mr-2 text-[#c6a36b]">{step}</span>{title}
+        {step && <span className="mr-2 text-[#c6a36b]">{step}</span>}{title}
       </p>
       {children}
     </div>
@@ -344,34 +474,100 @@ export default function HatTryOn() {
   const [ownPatch, setOwnPatch] = useState(null);
   const [patchSize, setPatchSize] = useState(100);
   const [artBoxes, setArtBoxes] = useState(null);
+  const [woodImgs, setWoodImgs] = useState({}); // grain photos, loaded the first time Real Wood is picked
+  const [offset, setOffset] = useState({ x: 0, y: 0 }); // where the patch sits, as a fraction of the photo
+  const drag = useRef(null);
+  const [line1, setLine1] = useState("");
+  const [line2, setLine2] = useState("");
+  const [fontIndex, setFontIndex] = useState(0);
+  const [textSize, setTextSize] = useState(100);
+  const [textGap, setTextGap] = useState(0);
+  const NO_WARP = { bend: 0, width: 100, height: 100, spacing: 0 };
+  const [warp, setWarp] = useState(NO_WARP);
+  const setWarpPart = (k) => (v) => setWarp((w) => ({ ...w, [k]: v }));
+  const [textHue, setTextHue] = useState(40);
+  const [textShade, setTextShade] = useState(100); // starts white
+  const textColor = textColorOf(textHue, textShade);
+  const [fontsReady, setFontsReady] = useState(0);
 
   const material = materials.find((m) => m.id === materialId);
-  const color = material.colors ? material.colors[colorIndex] : null;
+  const pick = material.colors ? material.colors[colorIndex] : null;
+  const color = pick && pick.src ? { ...pick, img: woodImgs[pick.photo] } : pick;
   const shape = patchShapes[shapeIndex];
   const usingOwn = ownPatch && shapeIndex === -1;
+  const direct = material.mode === "direct" && !usingOwn;
 
   useEffect(() => {
     const img = new Image();
     img.onload = () => setHatImg(img);
     // Start with the B40 logo on the patch so the preview shows off right away.
     const b40 = new Image();
-    b40.onload = () => setLogo((current) => current || { img: b40, mask: logoMask(b40), isDefault: true });
+    b40.onload = () => setLogo((current) => current || { img: b40, mask: logoMask(b40), print: printLogo(b40), isDefault: true });
     b40.src = DEFAULT_LOGO;
     img.src = HAT.src;
     setArtBoxes(patchShapes.map((s) => pathBounds(s.art, s.box)));
+    if (!document.getElementById("try-it-on-fonts")) {
+      const link = document.createElement("link");
+      link.id = "try-it-on-fonts";
+      link.rel = "stylesheet";
+      link.href = FONT_CSS;
+      document.head.appendChild(link);
+    }
+    // redraw as each font arrives so typed text never shows in a fallback font
+    FONTS.forEach((f) => document.fonts.load(`80px "${f.family}"`).then(() => setFontsReady((n) => n + 1)));
   }, []);
 
+  const font = FONTS[fontIndex];
+  const art = useMemo(
+    () => composeArt({ logo, lines: [line1, line2], font, textSize, textGap, textColor, warp }),
+    [logo, line1, line2, fontIndex, textSize, textGap, textColor, warp, fontsReady]
+  );
+  const typed = [line1, line2].map((l) => l.trim()).filter(Boolean);
+
+  // The patch is drawn once per design change; moving it only re-wraps it onto the hat.
+  const patch = useMemo(() => {
+    if (!artBoxes) return null;
+    if (usingOwn) return ownPatch;
+    if (direct) return art ? art.print : null;
+    return drawPatch({ shape: { ...shape, artBox: artBoxes[shapeIndex] }, material, color, art, logoSize, logoX, logoY });
+  }, [artBoxes, shapeIndex, materialId, colorIndex, art, logoSize, logoX, logoY, ownPatch, woodImgs]);
+
   useEffect(() => {
-    if (!hatImg || !artBoxes || !canvasRef.current) return;
-    const patch = usingOwn
-      ? ownPatch
-      : drawPatch({ shape: { ...shape, artBox: artBoxes[shapeIndex] }, material, color, logo, logoSize, logoX, logoY });
-    renderHat(canvasRef.current, hatImg, patch, usingOwn ? 3.5 : shape.widthIn, patchSize);
-  }, [hatImg, artBoxes, shapeIndex, materialId, colorIndex, logo, logoSize, logoX, logoY, ownPatch, patchSize]);
+    if (materialId !== "wood" || Object.keys(woodImgs).length) return;
+    for (const w of woodColors) {
+      const img = new Image();
+      img.onload = () => setWoodImgs((m) => ({ ...m, [w.photo]: img }));
+      img.src = w.src;
+    }
+  }, [materialId]);
+
+  useEffect(() => {
+    if (!hatImg || !canvasRef.current) return;
+    const widthIn = usingOwn ? 3.5 : direct ? 3.2 * (logoSize / 100) : shape.widthIn;
+    renderHat(canvasRef.current, hatImg, patch, widthIn, patchSize, offset);
+  }, [hatImg, patch, patchSize, offset, logoSize]);
+
+  // Drag the patch around the hat with a mouse or finger.
+  const startDrag = (e) => {
+    drag.current = { x: e.clientX, y: e.clientY };
+    e.currentTarget.setPointerCapture(e.pointerId);
+  };
+  const moveDrag = (e) => {
+    if (!drag.current) return;
+    const r = e.currentTarget.getBoundingClientRect();
+    const dx = (e.clientX - drag.current.x) / r.width, dy = (e.clientY - drag.current.y) / r.height;
+    drag.current = { x: e.clientX, y: e.clientY };
+    const clamp = (v) => Math.max(-0.32, Math.min(0.32, v));
+    setOffset((o) => ({ x: clamp(o.x + dx), y: clamp(o.y + dy) }));
+  };
+  const endDrag = () => { drag.current = null; };
 
   const summary = usingOwn
     ? `my own patch design on a ${HAT.name}`
+    : direct
+    ? `${logo && !logo.isDefault ? "my logo" : "a design"} printed in full color right on a ${HAT.name}`
     : `a ${shape.name} patch in ${color ? `${color.name} ` : ""}${material.name}${logo && !logo.isDefault ? " with my logo" : ""} on a ${HAT.name}`;
+  const fullSummary = summary + (typed.length ? `, with the text "${typed.join(" / ")}" in the ${font.name} font` : "");
 
   const save = () =>
     canvasRef.current.toBlob((blob) => {
@@ -386,21 +582,28 @@ export default function HatTryOn() {
   return (
     <div>
       <p className="mb-6 text-xs font-semibold uppercase tracking-[0.25em] text-white/40">
-        Shape <span className="text-[#c6a36b]">·</span> Material <span className="text-[#c6a36b]">·</span> Your Logo <span className="text-[#c6a36b]">·</span> Save &amp; Send
+        Shape <span className="text-[#c6a36b]">·</span> Material <span className="text-[#c6a36b]">·</span> Your Logo <span className="text-[#c6a36b]">·</span> Text <span className="text-[#c6a36b]">·</span> Save &amp; Send
       </p>
       <div className="grid items-start gap-6 lg:grid-cols-[1.35fr_1fr] lg:gap-8">
         {/* the hat */}
         {/* stays in view while the controls scroll, so every change shows on the hat */}
         <div className="sticky top-[65px] z-20 -mx-6 bg-black px-6 pb-2 pt-1 lg:top-[97px] lg:mx-0 lg:px-0 lg:pb-0 lg:pt-0">
           <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#0b0b0b]">
-            <canvas ref={canvasRef} className="mx-auto block h-auto max-h-[36vh] w-auto max-w-full lg:max-h-[calc(100vh-150px)]" aria-label={`Preview: ${summary}`} />
+            <canvas ref={canvasRef} onPointerDown={startDrag} onPointerMove={moveDrag} onPointerUp={endDrag} onPointerCancel={endDrag}
+              className="mx-auto block h-auto max-h-[36vh] w-auto max-w-full cursor-grab touch-none active:cursor-grabbing lg:max-h-[calc(100vh-150px)]" aria-label={`Preview: ${summary}`} />
           </div>
-          <p className="mt-2 text-center text-[11px] text-white/40 lg:mt-3 lg:text-xs">{HAT.name} · Preview colors are close, not exact. Ask us for samples.</p>
+          <p className="mt-2 text-center text-[11px] text-white/60 lg:mt-3 lg:text-xs">
+            Drag the {direct ? "logo" : "patch"} to move it anywhere on the hat.
+            {(offset.x !== 0 || offset.y !== 0) && <button onClick={() => setOffset({ x: 0, y: 0 })} className="ml-2 uppercase tracking-[0.12em] text-[#c6a36b] hover:text-white">Center it</button>}
+          </p>
+          <p className="mt-1 text-center text-[11px] text-white/35 lg:text-xs">{HAT.name} · Preview colors are close, not exact. Ask us for samples.</p>
         </div>
 
         {/* the controls */}
         <div className="space-y-3">
           <Panel step="01" title="Pick a Shape">
+            {direct && <p className="mb-2 text-xs text-white/60">Full-color UV prints go right on the hat, so there&apos;s no patch shape.</p>}
+            <div className={direct ? "pointer-events-none opacity-40" : ""}>
             <div className="grid grid-cols-3 gap-2">
               {patchShapes.map((s, i) => (
                 <button key={s.name} onClick={() => setShapeIndex(i)} className={`${chip(i === shapeIndex)} flex flex-col items-center gap-1.5 px-1`}>
@@ -412,12 +615,13 @@ export default function HatTryOn() {
               ))}
             </div>
             <label className={`${chip(usingOwn)} mt-2 flex cursor-pointer flex-col items-center gap-0.5 border-dashed py-3 text-center normal-case tracking-normal`}>
-              <span className="text-sm font-semibold">Don&apos;t have the shape you want? Upload a PNG.</span>
-              <span className="text-xs font-normal text-white/45">Your finished patch shows on the hat as-is.</span>
+              <span className="text-sm font-semibold">Have a different shape in mind? Upload your own patch.</span>
+              <span className="text-xs font-normal text-white/45">Got a picture of a patch you designed? Add it here and we&apos;ll show it on the hat just as it looks.</span>
               <input type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" className="hidden" onChange={(e) => loadImage(e.target.files[0], (img) => { setOwnPatch(img); setShapeIndex(-1); })} />
             </label>
+            </div>
             <div className="mt-3">
-              <Slider label="Patch Size" value={patchSize} min={70} max={125} onChange={setPatchSize} />
+              <Slider label={direct ? "Print Size" : "Patch Size"} value={patchSize} min={70} max={125} onChange={setPatchSize} />
             </div>
           </Panel>
 
@@ -427,14 +631,15 @@ export default function HatTryOn() {
                 <button key={m.id} disabled={usingOwn} onClick={() => { setMaterialId(m.id); setColorIndex(0); }} className={chip(m.id === materialId)}>{m.name}</button>
               ))}
             </div>
+            {direct && <p className="mt-3 text-xs text-white/60">No patch: your logo is printed in full color right onto the hat.{!logo && " Add your logo below to see it."}</p>}
             {material.colors && (
               <div className="mt-3 flex flex-wrap items-center gap-2">
                 {material.colors.map((c, i) => (
                   <button key={c.name} disabled={usingOwn} onClick={() => setColorIndex(i)} title={c.name} aria-label={c.name}
                     className={`h-7 w-7 rounded-full border-2 transition ${i === colorIndex ? "scale-110 border-[#c6a36b]" : "border-white/20"}`}
-                    style={{ background: `linear-gradient(135deg, ${c.base} 58%, ${c.burn} 58%)` }} />
+                    style={{ background: c.src ? `center / cover url(${c.src})` : `linear-gradient(135deg, ${c.base} 58%, ${c.burn} 58%)` }} />
                 ))}
-                <p className="w-full text-xs text-white/60">{color.name} <span className="text-white/35">· base / engrave color · {material.colors.length} colors</span></p>
+                <p className="w-full text-xs text-white/60">{color.name} <span className="text-white/35">· {materialId === "wood" ? `${material.colors.length} woods` : `base / engrave color · ${material.colors.length} colors`}</span></p>
               </div>
             )}
           </Panel>
@@ -443,24 +648,74 @@ export default function HatTryOn() {
             <label className={`${chip(false)} flex cursor-pointer justify-center py-3`}>
               {logo && !logo.isDefault ? "Change Logo" : "Upload Your Logo"}
               <input type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" disabled={usingOwn} className="hidden"
-                onChange={(e) => loadImage(e.target.files[0], (img) => { setLogo({ img, mask: logoMask(img) }); setLogoSize(100); setLogoX(0); setLogoY(0); })} />
+                onChange={(e) => loadImage(e.target.files[0], (img) => { setLogo({ img, mask: logoMask(img), print: printLogo(img) }); setLogoSize(100); setLogoX(0); setLogoY(0); })} />
             </label>
             <p className="mt-2 text-xs text-white/45">A PNG with a see-through background works best. It stays on your device.</p>
-            {logo && (
-              <div className="mt-3 space-y-2">
-                <Slider label="Logo Size" value={logoSize} min={30} max={140} onChange={setLogoSize} />
-                <Slider label="Left / Right" value={logoX} min={-40} max={40} onChange={setLogoX} />
-                <Slider label="Up / Down" value={logoY} min={-40} max={40} onChange={setLogoY} />
-                <button onClick={() => setLogo(null)} className="text-xs uppercase tracking-[0.15em] text-white/40 hover:text-white">Remove logo</button>
-              </div>
-            )}
+            {logo && <button onClick={() => setLogo(null)} className="mt-2 text-xs uppercase tracking-[0.15em] text-white/40 hover:text-white">Remove logo</button>}
           </Panel>
 
-          <Panel step="04" title="Save & Send">
+          <Panel step="04" title="Add Text" dim={usingOwn}>
+            <div className="space-y-2">
+              {[[line1, setLine1, "Line 1 (like your name or business)"], [line2, setLine2, "Line 2 (optional, like EST. 2024)"]].map(([value, set, hint], i) => (
+                <input key={i} value={value} onChange={(e) => set(e.target.value)} placeholder={hint} maxLength={28} disabled={usingOwn}
+                  className="w-full rounded-lg border border-white/15 bg-black px-3 py-2.5 text-white placeholder:text-white/30 focus:border-[#c6a36b] focus:outline-none"
+                  style={{ fontFamily: `"${font.family}", sans-serif`, fontSize: 18 }} />
+              ))}
+            </div>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {FONTS.map((f, i) => (
+                <button key={f.name} disabled={usingOwn} onClick={() => setFontIndex(i)} className={`${chip(i === fontIndex)} normal-case tracking-normal`}
+                  style={{ fontFamily: `"${f.family}", sans-serif`, fontSize: 16 }}>{f.name}</button>
+              ))}
+            </div>
+            {material.mode !== "engrave" && (
+              <div className="mt-3 space-y-2">
+                <p className="flex items-center gap-2 text-xs uppercase tracking-[0.15em] text-white/50">
+                  Text Color <span className="h-5 w-5 rounded-full border border-white/30" style={{ background: textColor }} />
+                  <span className="normal-case tracking-normal text-white/35">Any color, printed in full color</span>
+                </p>
+                <input type="range" min={0} max={360} value={textHue} onChange={(e) => setTextHue(Number(e.target.value))} aria-label="Text color"
+                  className="color-slider h-3 w-full cursor-pointer appearance-none rounded-full"
+                  style={{ background: "linear-gradient(to right, hsl(0,85%,50%), hsl(60,85%,50%), hsl(120,85%,50%), hsl(180,85%,50%), hsl(240,85%,50%), hsl(300,85%,50%), hsl(360,85%,50%))" }} />
+                <input type="range" min={0} max={100} value={textShade} onChange={(e) => setTextShade(Number(e.target.value))} aria-label="Text shade, dark to light"
+                  className="color-slider h-3 w-full cursor-pointer appearance-none rounded-full"
+                  style={{ background: `linear-gradient(to right, #000, ${textColorOf(textHue, 50)}, #fff)` }} />
+                <div className="flex justify-between text-[10px] uppercase tracking-[0.15em] text-white/35"><span>Darker</span><span>Lighter</span></div>
+              </div>
+            )}
+            {typed.length > 0 && (
+              <div className="mt-3 space-y-2">
+                <Slider label="Text Size" value={textSize} min={40} max={180} onChange={setTextSize} />
+                {logo && <Slider label="Space Between Logo & Text" value={textGap} min={-60} max={60} onChange={setTextGap} />}
+                <p className="pt-2 text-xs uppercase tracking-[0.15em] text-white/70">Shape the Text</p>
+                <Slider label="Bend ← smile · arch →" value={warp.bend} min={-100} max={100} onChange={setWarpPart("bend")} />
+                <Slider label="Squish ← width → stretch" value={warp.width} min={50} max={170} onChange={setWarpPart("width")} />
+                <Slider label="Short ← height → tall" value={warp.height} min={50} max={170} onChange={setWarpPart("height")} />
+                <Slider label="Letter Spacing" value={warp.spacing} min={-15} max={60} onChange={setWarpPart("spacing")} />
+                {JSON.stringify(warp) !== JSON.stringify(NO_WARP) && (
+                  <button onClick={() => setWarp(NO_WARP)} className="text-xs uppercase tracking-[0.15em] text-[#c6a36b] hover:text-white">Straighten text</button>
+                )}
+              </div>
+            )}
+            {material.mode === "engrave" && typed.length > 0 && <p className="mt-2 text-xs text-white/45">Text is engraved, just like the logo.</p>}
+          </Panel>
+
+          {art && (
+            <Panel step="" title="Size & Position">
+              <p className="-mt-1 mb-3 text-xs text-white/45">Moves your logo and text together.{!direct && " Drag the patch on the hat to move the whole patch."}</p>
+              <div className="space-y-2">
+                <Slider label="Size" value={logoSize} min={30} max={140} onChange={setLogoSize} />
+                {!direct && <Slider label="Left / Right" value={logoX} min={-40} max={40} onChange={setLogoX} />}
+                {!direct && <Slider label="Up / Down" value={logoY} min={-40} max={40} onChange={setLogoY} />}
+              </div>
+            </Panel>
+          )}
+
+          <Panel step="05" title="Save & Send">
             <p className="mb-3 text-sm text-white/60">Love it? Save the picture, then text or email it to us and we&apos;ll take it from there.</p>
             <div className="grid grid-cols-3 gap-2">
               <button onClick={save} className="bg-[#c6a36b] px-3 py-3 text-xs font-bold uppercase tracking-[0.12em] text-black transition hover:bg-[#d4b07a]">Save Image</button>
-              <a href={smsLink(`Hi! I made ${summary} on your Try It On page. I'll send you the picture.`)} className="border border-white/20 px-3 py-3 text-center text-xs font-bold uppercase tracking-[0.12em] transition hover:border-white/50">Text Us</a>
+              <a href={smsLink(`Hi! I made ${fullSummary} on your Try It On page. I'll send you the picture.`)} className="border border-white/20 px-3 py-3 text-center text-xs font-bold uppercase tracking-[0.12em] transition hover:border-white/50">Text Us</a>
               <a href={mailtoLink(`Try It On: ${usingOwn ? "My own patch" : `${shape.name} / ${color ? `${color.name} ` : ""}${material.name}`}`)} className="border border-white/20 px-3 py-3 text-center text-xs font-bold uppercase tracking-[0.12em] transition hover:border-white/50">Email Us</a>
             </div>
           </Panel>
