@@ -149,9 +149,10 @@ export default function Back40LandingPage() {
 
   const instagramLink = "https://www.instagram.com/b40_designs/";
   const facebookLink = "https://www.facebook.com/profile.php?id=61574511363635";
-  const phoneLink = "tel:479-544-1366";
   const phoneNumber = "479-544-1366";
   const email = "info@back40designco.com";
+  // Texts open the visitor's messages app with a starter message they can edit.
+  const smsLink = (message = "Hi! I'm interested in a custom hat project.") => `sms:+14795441366?&body=${encodeURIComponent(message)}`;
 
   const bebas = { fontFamily: "'Bebas Neue', 'Arial Narrow', sans-serif" };
 
@@ -211,7 +212,7 @@ export default function Back40LandingPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-stone-950 text-stone-100">
+    <div className="min-h-screen bg-stone-950 pb-14 text-stone-100 md:pb-0">
 
       {/* ── HEADER ── */}
       <header className="sticky top-0 z-40 border-b border-white/10 bg-stone-950/90 backdrop-blur">
@@ -265,8 +266,11 @@ export default function Back40LandingPage() {
               <a href="#contact" className="inline-flex items-center gap-2 bg-[#c6a36b] px-6 py-3.5 text-xs font-bold uppercase tracking-[0.15em] text-black transition hover:bg-[#d4b07a]">
                 Start a Project →
               </a>
-              <a href="#work" className="inline-flex items-center gap-2 border border-white/20 px-6 py-3.5 text-xs font-bold uppercase tracking-[0.15em] text-white transition hover:border-white/50">
-                See Our Work
+              <a href={smsLink()} className="inline-flex items-center gap-2 border border-white/20 px-6 py-3.5 text-xs font-bold uppercase tracking-[0.15em] text-white transition hover:border-white/50">
+                Text Us
+              </a>
+              <a href="#work" className="inline-flex items-center gap-2 px-2 py-3.5 text-xs font-bold uppercase tracking-[0.15em] text-white/60 transition hover:text-white">
+                See Our Work ↓
               </a>
             </div>
           </div>
@@ -434,7 +438,8 @@ export default function Back40LandingPage() {
               <p className="text-sm uppercase tracking-[0.2em] text-stone-600">Let's build something</p>
               <h2 className="mt-2 text-2xl font-semibold tracking-tight md:text-3xl">Start your project here.</h2>
               <p className="mt-2 text-sm leading-6 text-stone-600 mb-6">
-                Fill out the form and Darin will be in touch within 1-2 business days. Prefer email? Write to{" "}
+                Fill out the form and Darin will be in touch within 1-2 business days. Prefer to text? Text{" "}
+                <a href={smsLink()} className="font-semibold text-stone-900 underline">{phoneNumber}</a>, or email{" "}
                 <a href={`mailto:${email}`} className="font-semibold text-stone-900 underline">{email}</a>.
               </p>
               <ContactForm light={true} />
@@ -485,7 +490,7 @@ export default function Back40LandingPage() {
             <p>© 2026 Back 40 Designs. Custom headwear with story and identity.</p>
           </div>
           <div className="flex flex-wrap gap-4 sm:gap-6">
-            <a href={phoneLink} className="transition hover:text-stone-300">{phoneNumber}</a>
+            <a href={smsLink()} className="transition hover:text-stone-300">Text {phoneNumber}</a>
             <a href="mailto:info@back40designco.com" className="transition hover:text-stone-300">Email</a>
             <a href={instagramLink} target="_blank" rel="noreferrer" className="transition hover:text-stone-300">Instagram</a>
             <a href={facebookLink} target="_blank" rel="noreferrer" className="transition hover:text-stone-300">Facebook</a>
@@ -493,6 +498,12 @@ export default function Back40LandingPage() {
           </div>
         </div>
       </footer>
+
+      {/* ── MOBILE CONTACT BAR ── */}
+      <div className="fixed bottom-0 left-0 right-0 z-40 grid grid-cols-2 border-t border-white/10 bg-black/95 backdrop-blur md:hidden">
+        <a href={smsLink()} className="py-4 text-center text-xs font-bold uppercase tracking-[0.15em] text-white/85">Text Us</a>
+        <a href={`mailto:${email}`} className="bg-[#c6a36b] py-4 text-center text-xs font-bold uppercase tracking-[0.15em] text-black">Email Us</a>
+      </div>
 
     </div>
   );

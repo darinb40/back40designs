@@ -9,6 +9,7 @@ export default function Back40LoopRWBPage() {
   const [scrolled, setScrolled] = useState(false);
 
   const emailLink = `mailto:info@back40designco.com?subject=${encodeURIComponent("Trail Series: Back 40 Loop (Red, White & Blue)")}`;
+  const textLink = `sms:+14795441366?&body=${encodeURIComponent("Hi! I\'m interested in the Back 40 Loop (Red, White & Blue) hat.")}`;
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
@@ -80,9 +81,14 @@ export default function Back40LoopRWBPage() {
             <p className="mb-10 max-w-sm text-sm leading-6 text-white/60 md:text-base">
               Same legendary trail. Different story. This one's for the riders who bleed red, white, and blue on every descent.
             </p>
-            <a href={emailLink} className="inline-flex items-center justify-center gap-2 bg-[#c6a36b] px-6 py-3 text-sm font-bold uppercase tracking-[0.15em] text-black transition hover:bg-[#d4b07a]">
-              Email Us About This Hat →
-            </a>
+            <div className="flex flex-wrap gap-3">
+              <a href={emailLink} className="inline-flex items-center justify-center gap-2 bg-[#c6a36b] px-6 py-3 text-sm font-bold uppercase tracking-[0.15em] text-black transition hover:bg-[#d4b07a]">
+                Email Us About This Hat →
+              </a>
+              <a href={textLink} className="inline-flex items-center justify-center gap-2 border border-white/40 px-6 py-3 text-sm font-bold uppercase tracking-[0.15em] text-white transition hover:bg-white/10">
+                Text Us
+              </a>
+            </div>
           </div>
         </div>
         <div className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 animate-bounce text-white/40">
@@ -142,6 +148,7 @@ export default function Back40LoopRWBPage() {
               <div className="mt-6">
                 <p className="mb-3 text-xs font-semibold uppercase tracking-[0.25em] text-white/40">Limited Run — Small Batch</p>
                 <a href={emailLink} className="inline-flex w-full items-center justify-center gap-2 bg-[#c6a36b] px-6 py-3.5 text-sm font-bold uppercase tracking-[0.15em] text-black transition hover:bg-[#d4b07a]">Email Us About This Hat →</a>
+                <a href={textLink} className="mt-3 inline-flex w-full items-center justify-center gap-2 border border-white/30 px-6 py-3.5 text-sm font-bold uppercase tracking-[0.15em] text-white transition hover:bg-white/10">Text Us</a>
               </div>
             </div>
 
@@ -206,7 +213,7 @@ export default function Back40LoopRWBPage() {
         <div className="mx-auto flex max-w-7xl flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <p>© 2026 Back 40 Designs. Custom headwear with story and identity.</p>
           <div className="flex flex-wrap gap-4 sm:gap-6">
-            <a href="tel:479-544-1366" className="transition hover:text-white">479-544-1366</a>
+            <a href={textLink} className="transition hover:text-white">Text 479-544-1366</a>
             <a href="mailto:info@back40designco.com" className="transition hover:text-white">Email</a>
             <a href="https://www.instagram.com/b40_designs/" target="_blank" rel="noreferrer" className="transition hover:text-white">Instagram</a>
             <Link href="/trail-series" className="transition hover:text-white">Trail Series</Link>

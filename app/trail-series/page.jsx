@@ -5,6 +5,7 @@ import Link from "next/link";
 
 export default function TrailSeriesPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const textLink = `sms:+14795441366?&body=${encodeURIComponent("Hi! I'm interested in Trail Series hats.")}`;
 
   const hats = [
     {
@@ -197,9 +198,14 @@ export default function TrailSeriesPage() {
           <p className="mb-8 max-w-xl text-sm leading-7 text-white/60 md:text-base">
             We build custom programs for bike shops, teams, and local brands. No generic templates. Everything starts with your story.
           </p>
-          <Link href="/#contact" className="inline-flex items-center gap-2 bg-[#c6a36b] px-8 py-4 text-sm font-bold uppercase tracking-[0.15em] text-black transition hover:bg-[#d4b07a]">
-            Start a Project →
-          </Link>
+          <div className="flex flex-wrap justify-center gap-3">
+            <Link href="/#contact" className="inline-flex items-center gap-2 bg-[#c6a36b] px-8 py-4 text-sm font-bold uppercase tracking-[0.15em] text-black transition hover:bg-[#d4b07a]">
+              Start a Project →
+            </Link>
+            <a href={textLink} className="inline-flex items-center gap-2 border border-white/40 px-8 py-4 text-sm font-bold uppercase tracking-[0.15em] text-white transition hover:bg-white/10">
+              Text Us
+            </a>
+          </div>
         </div>
       </section>
 
@@ -208,7 +214,7 @@ export default function TrailSeriesPage() {
         <div className="mx-auto flex max-w-7xl flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <p>© 2026 Back 40 Designs. Custom headwear with story and identity.</p>
           <div className="flex flex-wrap gap-4 sm:gap-6">
-            <a href="tel:479-544-1366" className="transition hover:text-white">479-544-1366</a>
+            <a href={textLink} className="transition hover:text-white">Text 479-544-1366</a>
             <a href="mailto:info@back40designco.com" className="transition hover:text-white">Email</a>
             <a href="https://www.instagram.com/b40_designs/" target="_blank" rel="noreferrer" className="transition hover:text-white">Instagram</a>
             <Link href="/" className="transition hover:text-white">Back to Home</Link>

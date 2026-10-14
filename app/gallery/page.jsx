@@ -7,6 +7,8 @@ const bebas = { fontFamily: "'Bebas Neue', 'Arial Narrow', sans-serif" };
 const PHONE = "479-544-1366";
 const EMAIL = "info@back40designco.com";
 const mailto = (subject = "New hat project") => `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}`;
+// Texts open the visitor's messages app with a starter message they can edit.
+const sms = (message = "Hi! I'm interested in a custom hat project.") => `sms:+14795441366?&body=${encodeURIComponent(message)}`;
 
 // B40 styles — each one is a starting point a customer can ask for.
 const styles = [
@@ -204,6 +206,9 @@ export default function GalleryPage() {
                 <a href={mailto(`Hat inquiry: ${open.name}`)} className="inline-flex items-center gap-2 border border-white/20 px-6 py-3 text-xs font-bold uppercase tracking-[0.15em] text-white transition hover:border-white/50">
                   Email Us
                 </a>
+                <a href={sms(`Hi! I'm interested in a hat like "${open.name}" from your gallery.`)} className="inline-flex items-center gap-2 border border-white/20 px-6 py-3 text-xs font-bold uppercase tracking-[0.15em] text-white transition hover:border-white/50">
+                  Text Us
+                </a>
               </div>
               <div className="mt-4 flex items-center gap-6 md:hidden">
                 <button onClick={step(-1)} className="text-sm text-white/50">← Prev</button>
@@ -269,6 +274,9 @@ export default function GalleryPage() {
               </Link>
               <a href={mailto()} className="inline-flex items-center gap-2 border border-white/20 px-6 py-3.5 text-xs font-bold uppercase tracking-[0.15em] transition hover:border-white/50">
                 Email Us
+              </a>
+              <a href={sms()} className="inline-flex items-center gap-2 border border-white/20 px-6 py-3.5 text-xs font-bold uppercase tracking-[0.15em] transition hover:border-white/50">
+                Text Us
               </a>
             </div>
           </div>
@@ -386,6 +394,9 @@ export default function GalleryPage() {
             <a href={mailto()} className="inline-flex items-center gap-2 border border-white/20 px-8 py-4 text-sm font-bold uppercase tracking-[0.15em] transition hover:border-white/50">
               Email Us
             </a>
+            <a href={sms()} className="inline-flex items-center gap-2 border border-white/20 px-8 py-4 text-sm font-bold uppercase tracking-[0.15em] transition hover:border-white/50">
+              Text Us
+            </a>
           </div>
         </div>
       </section>
@@ -395,7 +406,7 @@ export default function GalleryPage() {
         <div className="mx-auto flex max-w-7xl flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <p>© 2026 Back 40 Designs. Custom headwear with story and identity.</p>
           <div className="flex flex-wrap gap-4 sm:gap-6">
-            <a href={`tel:${PHONE}`} className="transition hover:text-white">{PHONE}</a>
+            <a href={sms()} className="transition hover:text-white">Text {PHONE}</a>
             <a href={mailto()} className="transition hover:text-white">{EMAIL}</a>
             <a href="https://www.instagram.com/b40_designs/" target="_blank" rel="noreferrer" className="transition hover:text-white">Instagram</a>
             <Link href="/#contact" className="transition hover:text-white">Custom Orders</Link>
@@ -405,9 +416,10 @@ export default function GalleryPage() {
       </footer>
 
       {/* ── MOBILE CONTACT BAR ── */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 grid grid-cols-2 border-t border-white/10 bg-black/95 backdrop-blur md:hidden">
-        <a href={mailto()} className="py-4 text-center text-xs font-bold uppercase tracking-[0.15em] text-white/80">Email Us</a>
-        <Link href="/#contact" className="bg-[#c6a36b] py-4 text-center text-xs font-bold uppercase tracking-[0.15em] text-black">Start a Project →</Link>
+      <div className="fixed bottom-0 left-0 right-0 z-40 grid grid-cols-3 border-t border-white/10 bg-black/95 backdrop-blur md:hidden">
+        <a href={sms()} className="py-4 text-center text-xs font-bold uppercase tracking-[0.15em] text-white/85">Text Us</a>
+        <a href={mailto()} className="border-l border-white/10 py-4 text-center text-xs font-bold uppercase tracking-[0.15em] text-white/85">Email Us</a>
+        <Link href="/#contact" className="bg-[#c6a36b] py-4 text-center text-xs font-bold uppercase tracking-[0.15em] text-black">Start →</Link>
       </div>
 
     </main>

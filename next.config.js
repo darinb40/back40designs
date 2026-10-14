@@ -7,6 +7,8 @@ const nextConfig = {
       { source: "/dealership-series/backlot", destination: "/dealership-series#back-lot", permanent: false },
       { source: "/dealership-series/service-bay", destination: "/dealership-series#service-bay", permanent: false },
       { source: "/dealership-series/pre-order", destination: "/dealership-series", permanent: false },
+      // The Dante Scavone pre-order page was retired; Dante's Hat lives in the gallery.
+      { source: "/dante-scavone", destination: "/gallery", permanent: false },
     ];
   },
 }

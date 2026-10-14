@@ -43,6 +43,8 @@ const lanes = [
 ];
 
 const mailto = (subject) => `mailto:info@back40designco.com?subject=${encodeURIComponent(subject)}`;
+// Texts open the visitor's messages app with a starter message they can edit.
+const sms = (message) => `sms:+14795441366?&body=${encodeURIComponent(message)}`;
 
 const menuLinks = [
   ["/dealership-series#front-line", "Front Line"],
@@ -57,9 +59,10 @@ export default function DealershipSeriesPage() {
   const [mobileDropdownOpen, setMobileDropdownOpen] = React.useState(false);
   const instagramLink = "https://www.instagram.com/b40_designs/";
   const emailLink = mailto("Dealership Series hats");
+  const textLink = sms("Hi! I'm interested in Dealership Series hats.");
 
   return (
-    <main className="relative min-h-[100dvh] overflow-x-hidden bg-black text-white">
+    <main className="relative min-h-[100dvh] overflow-x-hidden bg-black pb-14 text-white md:pb-0">
 
       {/* Background: the B40 Service Bay garage */}
       <div className="fixed inset-0 z-0 bg-[url('/images/service-bay-bg.jpg')] bg-cover bg-center" />
@@ -151,6 +154,9 @@ export default function DealershipSeriesPage() {
                 <a href={emailLink} className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-white px-5 py-3.5 font-semibold text-black transition hover:bg-stone-100 sm:w-auto">
                   Email Us →
                 </a>
+                <a href={textLink} className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-white/25 bg-black/30 px-5 py-3.5 font-semibold text-white transition hover:bg-white/10 sm:w-auto">
+                  Text Us
+                </a>
               </div>
               <div className="mt-5">
                 <Link href="/lot-stretcher" className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-white/10 bg-black/20 px-5 py-3 text-sm font-medium text-white/35 transition hover:border-white/25 hover:text-white/60 sm:w-auto">
@@ -179,9 +185,14 @@ export default function DealershipSeriesPage() {
                       <h3 className="mt-2 text-lg font-semibold leading-snug">{hat.name}</h3>
                       {hat.subtitle && <p className="mt-1 text-sm italic text-white/55">{hat.subtitle}</p>}
                       <p className="mb-5 mt-2 flex-1 text-sm leading-6 text-white/75">{hat.text}</p>
-                      <a href={mailto(`Dealership Series: ${hat.name}`)} className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-black transition hover:-translate-y-0.5 hover:bg-stone-100">
-                        Email Us About This Hat →
-                      </a>
+                      <div className="grid grid-cols-2 gap-2">
+                        <a href={mailto(`Dealership Series: ${hat.name}`)} className="inline-flex items-center justify-center rounded-2xl bg-white px-3 py-3 text-sm font-semibold text-black transition hover:-translate-y-0.5 hover:bg-stone-100">
+                          Email Us
+                        </a>
+                        <a href={sms(`Hi! I'm interested in the ${hat.name} hat.`)} className="inline-flex items-center justify-center rounded-2xl border border-white/25 px-3 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-white/10">
+                          Text Us
+                        </a>
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -199,9 +210,14 @@ export default function DealershipSeriesPage() {
                 <h3 className="text-2xl font-semibold text-white">Want these for your team or your store?</h3>
                 <p className="mt-1 text-sm text-white/60">One hat or a full team order. Email us and we&apos;ll take it from there. Built by hand in Bella Vista, AR.</p>
               </div>
-              <a href={emailLink} className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-2xl bg-white px-8 py-3.5 text-sm font-semibold text-black transition hover:-translate-y-0.5 hover:bg-stone-100">
-                Email Us →
-              </a>
+              <div className="flex flex-col gap-3 sm:flex-row">
+                <a href={emailLink} className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-2xl bg-white px-8 py-3.5 text-sm font-semibold text-black transition hover:-translate-y-0.5 hover:bg-stone-100">
+                  Email Us →
+                </a>
+                <a href={textLink} className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-2xl border border-white/25 px-8 py-3.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-white/10">
+                  Text Us
+                </a>
+              </div>
             </div>
           </div>
         </section>
@@ -232,7 +248,7 @@ export default function DealershipSeriesPage() {
           <div className="mx-auto flex max-w-7xl flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <p>© 2026 Back 40 Designs. Custom headwear with story and identity.</p>
             <div className="flex flex-wrap gap-4 sm:gap-6">
-              <a href="tel:479-544-1366" className="transition hover:text-white">479-544-1366</a>
+              <a href={textLink} className="transition hover:text-white">Text 479-544-1366</a>
               <a href="mailto:info@back40designco.com" className="transition hover:text-white">Email</a>
               <a href={instagramLink} target="_blank" rel="noreferrer" className="transition hover:text-white">Instagram</a>
               <Link href="/lot-stretcher" className="transition hover:text-white">Lot Stretcher</Link>
@@ -241,6 +257,12 @@ export default function DealershipSeriesPage() {
           </div>
         </footer>
 
+      </div>
+
+      {/* MOBILE CONTACT BAR */}
+      <div className="fixed bottom-0 left-0 right-0 z-40 grid grid-cols-2 border-t border-white/10 bg-black/95 backdrop-blur md:hidden">
+        <a href={textLink} className="py-4 text-center text-xs font-bold uppercase tracking-[0.15em] text-white/85">Text Us</a>
+        <a href={emailLink} className="bg-[#c6a36b] py-4 text-center text-xs font-bold uppercase tracking-[0.15em] text-black">Email Us</a>
       </div>
     </main>
   );
