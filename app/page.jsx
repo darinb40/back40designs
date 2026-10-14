@@ -4,6 +4,7 @@ import React from 'react';
 import SiteHeader from "../components/SiteHeader";
 import SiteFooter from "../components/SiteFooter";
 import MobileContactBar from "../components/MobileContactBar";
+import { hatBrands } from "../components/hatBrands";
 
 // ─── Icon Components ────────────────────────────────────────────────
 const ArrowRight = ({ className = "h-4 w-4" }) => <span className={className}>→</span>;
@@ -326,6 +327,23 @@ export default function Back40LandingPage() {
                   <p className="mt-1 text-sm leading-6 text-stone-400">{item.text}</p>
                 </figcaption>
               </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── HAT BRANDS ── */}
+      <section className="bg-black px-4 pb-14 md:px-10 md:pb-20">
+        <div className="mx-auto max-w-7xl rounded-2xl border border-white/10 bg-white/[0.03] px-6 py-8 md:px-10">
+          <div className="mb-6 flex flex-col items-center gap-1 text-center md:flex-row md:justify-between md:text-left">
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#c6a36b]">Hat brands we build on</p>
+            <a href="/gallery#brands" className="text-xs font-bold uppercase tracking-[0.15em] text-white/60 transition hover:text-white">See all brands →</a>
+          </div>
+          <div className="grid grid-cols-3 items-center gap-x-6 gap-y-6 md:grid-cols-5">
+            {hatBrands.filter((brand) => brand.home).map((brand) => (
+              <div key={brand.name} className="flex h-14 items-center justify-center md:h-16">
+                <img src={brand.logo} alt={brand.name} title={brand.name} loading="lazy" className="max-h-full max-w-[85%] object-contain opacity-85" />
+              </div>
             ))}
           </div>
         </div>

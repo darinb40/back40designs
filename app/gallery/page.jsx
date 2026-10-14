@@ -5,6 +5,7 @@ import Link from "next/link";
 import SiteHeader from "../../components/SiteHeader";
 import SiteFooter from "../../components/SiteFooter";
 import MobileContactBar from "../../components/MobileContactBar";
+import { hatBrands } from "../../components/hatBrands";
 
 const bebas = { fontFamily: "'Bebas Neue', 'Arial Narrow', sans-serif" };
 const PHONE = "479-544-1366";
@@ -278,6 +279,19 @@ export default function GalleryPage() {
                 </ul>
               </div>
             ))}
+          </div>
+          <div id="brands" className="mt-3 scroll-mt-40 rounded-xl border border-white/10 bg-white/[0.03] p-5 md:mt-5">
+            <div className="mb-3 flex flex-col gap-1 md:flex-row md:items-baseline md:justify-between">
+              <p className="text-2xl uppercase text-[#c6a36b]" style={bebas}>Hat Brands We Carry</p>
+              <p className="text-xs text-white/40">Don&apos;t see your favorite? Just ask.</p>
+            </div>
+            <div className="grid grid-cols-3 gap-x-4 gap-y-6 sm:grid-cols-4 lg:grid-cols-6">
+              {hatBrands.map((brand) => (
+                <div key={brand.name} className="flex h-14 items-center justify-center md:h-16">
+                  <img src={brand.logo} alt={brand.name} title={brand.name} loading="lazy" className="max-h-full max-w-[85%] object-contain opacity-80 transition hover:opacity-100" />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
