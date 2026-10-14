@@ -71,6 +71,7 @@ const brands = [
   ["New Light Electric", "brand-new-light-electric", 3],
   ["Complete Wheel Restoration", "brand-complete-wheel", 3],
   ["Woolbright Auto Glass", "brand-woolbright", 2],
+  ["All American PDR", "brand-all-american-pdr"],
   ["Garrett X", "brand-garrett-x", 2],
   ["War Eagle Mill", "brand-war-eagle-mill", 2],
   ["The Hubcap Kid", "brand-hubcap-kid", 3],

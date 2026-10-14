@@ -168,7 +168,7 @@ export default function Back40LandingPage() {
   ];
 
   const stats = [
-    ["6", "Years making hats"],
+    ["6", "Years of hat-making experience"],
     ["7,500+", "Hats made", "On track for 10,000 by 2027"],
     ["25+", "Brands built for"],
     ["Bella Vista", "Arkansas made"],
@@ -181,14 +181,16 @@ export default function Back40LandingPage() {
   ];
 
   const builtFor = [
-    "Wood Motor Company", "Hyundai Bentonville", "Woolbright Auto Glass", "Seven Lakes Church",
-    "Pinnacle Sports Ventures", "War Eagle Mill", "Lot Nine Billiards & Games", "Garrett X",
-    "Complete Wheel Restoration", "Webb Auto Remarketing", "Vagabond Coffee Bar", "New Light Electric",
+    "Wood Motor Company", "Hyundai Bentonville", "Acura of Fayetteville", "71B Auto Auction",
+    "Woolbright Auto Glass", "Pinnacle Sports Ventures", "War Eagle Mill",
+    "Lot Nine Billiards & Games", "The Hubcap Kid", "All American PDR",
+    "Complete Wheel Restoration", "Webb Auto Remarketing", "Vagabond Coffee Bar",
+    "New Light Electric", "Amor Patriae",
   ];
 
   const series = [
     { title: "B40 Trail Series", text: "4 hats. 4 trails. Built for the riders, shops, and trail towns of Northwest Arkansas.", image: "/images/trail-back-40-loop.jpg", link: "/trail-series", cta: "See the Trail Series" },
-    { title: "B40 Dealership Series", text: "Built for the people who live inside the car business, from the front line to the back lot.", image: "/images/dealership-card.jpg", link: "/dealership-series", cta: "Enter the Series" },
+    { title: "B40 Dealership Series", text: "Built for the people who live inside the car business, from the front line to the back lot.", image: "/images/custom-just-looking.jpg", link: "/dealership-series", cta: "Enter the Series" },
   ];
 
   const process = [
@@ -207,8 +209,8 @@ export default function Back40LandingPage() {
 
   const testimonials = [
     { name: "Trey Lee", role: "Business Owner", text: "Ordering branded items for my business used to be a challenge until I started working with Back 40 Designs. Their communication is excellent, and the quality of the shirts and hats I've received has been outstanding. I highly recommend reaching out to them for your business needs.", rating: 5 },
-    { name: "Jonathan Woolbright", role: "Woolbright Auto Glass", image: "/images/home-woolbright.jpg", text: "Back 40 Designs put together work shirts and ballcaps for Woolbright Auto Glass. Did a great job outfitting our team!", rating: 5 },
-    { name: "All American PDR", role: "Company", text: "Consistently outstanding experience. I've ordered both hats and shirts, and the quality, along with the speed of delivery, far exceeds others in the area. I highly recommend getting your gear here.", rating: 5 },
+    { name: "Jonathan Woolbright", role: "Woolbright Auto Glass", brand: "Woolbright Auto Glass", image: "/images/home-woolbright.jpg", text: "Back 40 Designs put together work shirts and ballcaps for Woolbright Auto Glass. Did a great job outfitting our team!", rating: 5 },
+    { name: "All American PDR", role: "Repeat customer", brand: "All American PDR", image: "/images/home-all-american-pdr.jpg", text: "Consistently outstanding experience. I've ordered both hats and shirts, and the quality, along with the speed of delivery, far exceeds others in the area. I highly recommend getting your gear here.", rating: 5 },
     { name: "Scott Clark", role: "Customer", text: "Badass hats made custom by a badass individual. Highly recommend!", rating: 5 },
   ];
 
@@ -415,9 +417,9 @@ export default function Back40LandingPage() {
           <p className="text-sm uppercase tracking-[0.25em] text-stone-400">Customer Reviews</p>
           <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">Real people, real feedback.</h2>
         </div>
-        {testimonials.filter((t) => t.image).map((t) => (
-          <div key={t.name} className="mb-4 grid overflow-hidden rounded-[2rem] border border-[#c6a36b]/30 bg-white/5 md:grid-cols-[1fr_1.2fr]">
-            <img src={t.image} alt={`${t.role} hat by Back 40 Designs`} className="aspect-[4/3] w-full object-cover" />
+        {testimonials.filter((t) => t.image).map((t, i) => (
+          <div key={t.name} className={`mb-4 grid overflow-hidden rounded-[2rem] border border-[#c6a36b]/30 bg-white/5 ${i % 2 ? "md:grid-cols-[1.9fr_1fr]" : "md:grid-cols-[1fr_1.9fr]"}`}>
+            <img src={t.image} alt={`${t.brand} hat by Back 40 Designs`} className={`aspect-[4/3] w-full object-cover ${i % 2 ? "md:order-last" : ""}`} />
             <div className="flex flex-col justify-center p-6 md:p-10">
               <div className="mb-4 flex gap-1">
                 {[...Array(t.rating)].map((_, i) => <span key={i} className="text-yellow-400 text-lg">★</span>)}
@@ -428,7 +430,7 @@ export default function Back40LandingPage() {
             </div>
           </div>
         ))}
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-2">
           {testimonials.filter((t) => !t.image).map((t) => (
             <div key={t.name} className="rounded-[2rem] border border-white/10 bg-white/5 p-6 md:p-7">
               <div className="mb-4 flex gap-1">
