@@ -51,6 +51,8 @@ const materials = [
 ];
 
 const PATCH_PX = 900;
+const FORMSPREE_ID = "xzdywzvy"; // same form as the home page contact form
+const QUANTITIES = ["1–10", "11–24", "25–50", "51+ (best pricing)"];
 const DEFAULT_LOGO = "/images/b402026.png";
 
 // Small seeded random so textures don't shimmer between redraws.
@@ -772,6 +774,59 @@ export default function HatTryOn() {
   };
 
   const [celebrating, setCelebrating] = useState(0);
+  const celebrate = () => {
+    setCelebrating((n) => n + 1);
+    setTimeout(() => setCelebrating(0), 2400);
+  };
+  const countHat = () =>
+    fetch("/api/hat-count", { method: "POST" })
+      .then((r) => r.json())
+      .then((d) => d.count != null && window.dispatchEvent(new CustomEvent("hat-count", { detail: d.count }))) // rolls the odometer
+      .catch(() => {});
+
+  // "Send This Design to B40": picture goes to our storage, details go to Formspree.
+  const [sendOpen, setSendOpen] = useState(false);
+  const [sendForm, setSendForm] = useState({ name: "", contact: "", quantity: "", notes: "" });
+  const [sendStatus, setSendStatus] = useState("idle"); // idle | sending | sent | error
+  const sendDesign = async (e) => {
+    e.preventDefault();
+    setSendStatus("sending");
+    let imageUrl = "(picture didn't upload)";
+    try {
+      const clean = document.createElement("canvas");
+      renderHat(clean, hatImg, patch, hatWidthIn, patchSize, offset);
+      const res = await fetch("/api/design", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ image: clean.toDataURL("image/jpeg", 0.88) }),
+      });
+      if (res.ok) imageUrl = (await res.json()).imageUrl;
+    } catch {}
+    try {
+      const contact = sendForm.contact.trim();
+      const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          _subject: `Hat Maker design from ${sendForm.name}`,
+          name: sendForm.name,
+          contact,
+          ...(contact.includes("@") ? { email: contact } : { phone: contact }),
+          quantity: sendForm.quantity,
+          message: sendForm.notes,
+          design: fullSummary,
+          picture: imageUrl,
+          open_their_design: shareUrl,
+        }),
+      });
+      if (!res.ok) throw new Error();
+      setSendStatus("sent");
+      celebrate();
+      countHat();
+    } catch {
+      setSendStatus("error");
+    }
+  };
 
   const summary = usingOwn
     ? `my own patch design on a ${HAT.name}`
@@ -791,13 +846,8 @@ export default function HatTryOn() {
       a.click();
       setTimeout(() => URL.revokeObjectURL(url), 1500);
     }, "image/png");
-    setCelebrating((n) => n + 1);
-    setTimeout(() => setCelebrating(0), 2400);
-    // every saved hat counts toward the Hat Maker total
-    fetch("/api/hat-count", { method: "POST" })
-      .then((r) => r.json())
-      .then((d) => d.count != null && window.dispatchEvent(new CustomEvent("hat-count", { detail: d.count }))) // rolls the odometer
-      .catch(() => {});
+    celebrate();
+    countHat(); // every saved hat counts toward the Hat Maker total
   };
 
   return (
@@ -943,8 +993,37 @@ export default function HatTryOn() {
           </Panel>
 
           <Panel step="05" title="Save & Send">
-            <p className="mb-3 text-sm text-white/60">Love it? Snap a pic, then send it our way and we&apos;ll take it from there.</p>
-            <button onClick={save} className="mb-2 w-full bg-[#c6a36b] px-3 py-3.5 text-sm font-bold uppercase tracking-[0.12em] text-black transition hover:bg-[#d4b07a]">Snap a Pic 📸</button>
+            <p className="mb-3 text-sm text-white/60">Love it? Send it straight to us and we&apos;ll take it from there.</p>
+            {sendStatus === "sent" ? (
+              <div className="mb-3 rounded-lg border border-[#c6a36b]/50 bg-[#c6a36b]/10 p-4 text-center">
+                <p className="text-2xl uppercase" style={bebas}>Got it! 🤠</p>
+                <p className="text-sm text-white/70">Darin or Kayla will reach out soon about your hat.</p>
+              </div>
+            ) : !sendOpen ? (
+              <button onClick={() => setSendOpen(true)} className="mb-2 w-full bg-[#c6a36b] px-3 py-3.5 text-sm font-bold uppercase tracking-[0.12em] text-black transition hover:bg-[#d4b07a]">Send This Design to B40</button>
+            ) : (
+              <form onSubmit={sendDesign} className="mb-3 space-y-2 rounded-lg border border-white/15 p-3">
+                {[["name", "Your name", "text"], ["contact", "Phone or email", "text"]].map(([key, label, type]) => (
+                  <input key={key} required type={type} placeholder={label} value={sendForm[key]} onChange={(e) => setSendForm({ ...sendForm, [key]: e.target.value })}
+                    className="w-full rounded-lg border border-white/15 bg-black px-3 py-2.5 text-sm text-white placeholder:text-white/35 focus:border-[#c6a36b] focus:outline-none" />
+                ))}
+                <p className="pt-1 text-xs uppercase tracking-[0.15em] text-white/50">How many hats?</p>
+                <div className="grid grid-cols-2 gap-2">
+                  {QUANTITIES.map((q) => (
+                    <button type="button" key={q} onClick={() => setSendForm({ ...sendForm, quantity: q })} className={`${chip(sendForm.quantity === q)} normal-case tracking-normal`}>{q}</button>
+                  ))}
+                </div>
+                <textarea placeholder="Anything else? (optional, like 'need them by May')" rows={2} value={sendForm.notes} onChange={(e) => setSendForm({ ...sendForm, notes: e.target.value })}
+                  className="w-full rounded-lg border border-white/15 bg-black px-3 py-2.5 text-sm text-white placeholder:text-white/35 focus:border-[#c6a36b] focus:outline-none" />
+                <button type="submit" disabled={sendStatus === "sending" || !sendForm.quantity}
+                  className="w-full bg-[#c6a36b] px-3 py-3.5 text-sm font-bold uppercase tracking-[0.12em] text-black transition hover:bg-[#d4b07a] disabled:opacity-50">
+                  {sendStatus === "sending" ? "Sending…" : sendForm.quantity ? "Send It" : "Pick how many hats"}
+                </button>
+                {sendStatus === "error" && <p className="text-xs text-red-300">That didn&apos;t go through. Try again, or use Send It to Darin below.</p>}
+                <p className="text-[11px] text-white/35">Your picture and details go only to B40.</p>
+              </form>
+            )}
+            <button onClick={save} className="mb-2 w-full border border-white/20 px-3 py-3 text-xs font-bold uppercase tracking-[0.12em] transition hover:border-white/50">Snap a Pic 📸</button>
             <div className="grid grid-cols-2 gap-2">
               {PHONES.map((ph) => (
                 <a key={ph.name} href={smsLink(`Hi ${ph.name}! I made ${fullSummary} on your Hat Maker. I'll send you the picture. Here's my design: ${shareUrl}`, ph)}
