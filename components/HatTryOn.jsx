@@ -226,44 +226,73 @@ function renderLine(text, { px, family, ink, warp }) {
   return c;
 }
 
-// Logo and up to two lines of text, laid out as one piece of artwork: the logo on
-// top, text centered under it. Returns a one-color `mask` (for engraving) and a
-// full-color `print`, both the same size.
-function composeArt({ logo, lines, font, textSize, textGap, textColor, warp }) {
-  lines = lines.map((l) => l.trim()).filter(Boolean);
-  if (!logo && !lines.length) return null;
-  const box = logo ? logo.print.box : null;
-  const lw = box ? box.w : 0, lh = box ? box.h : 0;
-  const px = (box ? Math.max(lw, lh * 1.6) : 1000) * 0.2 * (textSize / 100);
-  const rendered = (ink) => lines.map((l) => renderLine(l, { px, family: font.family, ink, warp }));
-  const sample = rendered("#000");
-  // rendered lines include padding; overlap them a little so they sit like normal lines
-  const trim = px * 0.3;
-  const textW = Math.max(0, ...sample.map((c) => c.width));
-  const textH = sample.reduce((a, c) => a + c.height - trim * 2, 0) + trim * 2;
-  const gap = box && lines.length ? lh * 0.1 + (textGap / 100) * lh - trim : 0;
-  const textTop = lh + gap;
-  const top = Math.min(0, textTop), bottom = Math.max(lh, textTop + (lines.length ? textH : 0));
-  const pad = px * 0.15;
-  const W = Math.ceil(Math.max(lw, textW) + pad * 2), H = Math.ceil(bottom - top + pad * 2);
-  const make = (logoSrc, lineCanvases) => {
-    const c = document.createElement("canvas");
-    c.width = W;
-    c.height = H;
-    const x = c.getContext("2d");
-    const oy = pad - top;
-    if (box) {
-      if (logoSrc === logo.print) x.drawImage(logo.print, (W - lw) / 2, oy);
-      else x.drawImage(logoSrc, box.x, box.y, box.w, box.h, (W - lw) / 2, oy, lw, lh);
-    }
-    let y = oy + textTop;
-    lineCanvases.forEach((lc) => {
-      x.drawImage(lc, (W - lc.width) / 2, y);
-      y += lc.height - trim * 2;
-    });
-    return c;
-  };
-  return { mask: make(logo ? logo.mask : null, sample), print: make(logo ? logo.print : null, rendered(textColor)) };
+// Up to two lines of text stacked into one block, each line shaped by `warp`.
+function renderTextBlock(lines, { px, family, ink, warp }) {
+  const rendered = lines.map((l) => renderLine(l, { px, family, ink, warp }));
+  const trim = px * 0.3; // each line carries padding; overlap it so lines sit close
+  const W = Math.max(1, ...rendered.map((c) => c.width));
+  const H = Math.max(1, Math.ceil(rendered.reduce((a, c) => a + c.height - trim * 2, 0) + trim * 2));
+  const c = document.createElement("canvas");
+  c.width = W;
+  c.height = H;
+  const x = c.getContext("2d");
+  let y = 0;
+  rendered.forEach((lc) => {
+    x.drawImage(lc, (W - lc.width) / 2, y);
+    y += lc.height - trim * 2;
+  });
+  return c;
+}
+
+// An uploaded (or the default) logo, ready to use: `print` is the full-color art
+// trimmed to its edges, `mask` the matching one-color version for engraving.
+function makeLogo(img, isDefault = false) {
+  const print = printLogo(img);
+  const full = logoMask(img), b = print.box;
+  const mask = document.createElement("canvas");
+  mask.width = b.w;
+  mask.height = b.h;
+  mask.getContext("2d").drawImage(full, b.x, b.y, b.w, b.h, 0, 0, b.w, b.h);
+  return { img, print, mask, isDefault };
+}
+
+// Draws the logo and text into the artwork area [ax, ay, aw, ah] of a canvas whose
+// current transform maps those units to pixels at scale k. Positions are fractions
+// of the artwork area from its center. Returns where each piece landed, for clicking.
+function drawArtwork(x, { area, k, engrave, burn, logo, logoSize, logoPos, lines, font, textSize, textPos, textColor, warp }) {
+  const [ax, ay, aw, ah] = area;
+  const hits = {};
+  if (logo) {
+    const lw = logo.print.width, lh = logo.print.height;
+    const fit = Math.min(aw / lw, ah / lh) * 0.86 * (logoSize / 100);
+    const w = lw * fit, h = lh * fit;
+    const cx = ax + aw / 2 + logoPos.x * aw, cy = ay + ah / 2 + logoPos.y * ah;
+    x.drawImage(engrave ? tint(logo.mask, burn) : logo.print, cx - w / 2, cy - h / 2, w, h);
+    hits.logo = [cx - w / 2, cy - h / 2, w, h];
+  }
+  if (lines.length) {
+    const px = ah * 0.24 * (textSize / 100) * k; // drawn at full pixel size so it stays sharp
+    const block = renderTextBlock(lines, { px, family: font.family, ink: engrave ? burn : textColor, warp });
+    const w = block.width / k, h = block.height / k;
+    const cx = ax + aw / 2 + textPos.x * aw, cy = ay + ah / 2 + textPos.y * ah;
+    x.drawImage(block, cx - w / 2, cy - h / 2, w, h);
+    // the clickable box skips the block's empty padding
+    hits.text = [cx - w / 2 + (0.25 * px) / k, cy - h / 2 + (0.25 * px) / k, w - (0.5 * px) / k, h - (0.5 * px) / k];
+  }
+  return hits;
+}
+
+// Full-color UV print: no patch, just the artwork on a clear sheet that gets
+// wrapped onto the hat. The sheet stays a fixed size so moving one piece doesn't shift the other.
+const PRINT_SHEET = [0, 0, 1200, 800];
+function drawPrint(art) {
+  const c = document.createElement("canvas");
+  c.width = PRINT_SHEET[2];
+  c.height = PRINT_SHEET[3];
+  const hits = drawArtwork(c.getContext("2d"), { ...art, area: PRINT_SHEET, k: 1, engrave: false });
+  c.hits = hits;
+  c.artScale = { x: 1, y: 1 };
+  return c;
 }
 
 function tint(mask, color) {
@@ -278,7 +307,7 @@ function tint(mask, color) {
   return c;
 }
 
-function drawPatch({ shape, material, color, art, logoSize, logoX, logoY }) {
+function drawPatch({ shape, material, color, art }) {
   const [bx, by, bw, bh] = shape.box;
   const k = PATCH_PX / Math.max(bw, bh);
   const c = document.createElement("canvas");
@@ -310,19 +339,16 @@ function drawPatch({ shape, material, color, art, logoSize, logoX, logoY }) {
   x.restore();
 
   // logo and text, clipped to the artwork area
-  if (art) {
-    toShape();
-    x.save();
-    x.clip(new Path2D(shape.art));
-    const [ax, ay, aw, ah] = shape.artBox;
-    const src = material.mode === "engrave" ? tint(art.mask, look.burn) : art.print;
-    const iw = art.print.width, ih = art.print.height;
-    const fit = Math.min(aw / iw, ah / ih) * 0.86 * (logoSize / 100);
-    const w = iw * fit, h = ih * fit;
-    const cx = ax + aw / 2 + (logoX / 100) * aw, cy = ay + ah / 2 + (logoY / 100) * ah;
-    x.drawImage(src, cx - w / 2, cy - h / 2, w, h);
-    x.restore();
-  }
+  toShape();
+  x.save();
+  x.clip(new Path2D(shape.art));
+  const engrave = material.mode === "engrave";
+  const hits = drawArtwork(x, { ...art, area: shape.artBox, k, engrave, burn: look.burn });
+  x.restore();
+  // remember where things are in patch pixels, so clicks on the hat can find them
+  const toPx = ([hx, hy, hw, hh]) => [(hx - bx) * k, (hy - by) * k, hw * k, hh * k];
+  c.hits = Object.fromEntries(Object.entries(hits).map(([key, r]) => [key, toPx(r)]));
+  c.artScale = { x: bw / shape.artBox[2], y: bh / shape.artBox[3] };
 
   // classic border
   toShape();
@@ -387,10 +413,11 @@ function renderHat(canvas, hatImg, patch, widthIn, size, off) {
   ctx.fillStyle = spot;
   ctx.fillRect(0, 0, W, H);
   ctx.drawImage(hatImg, 0, 0, W, H);
-  if (!patch) return;
+  if (!patch) return null;
   const p = HAT.profile;
   const pw = p.width * W * (widthIn / HAT.fitWidthIn) * (size / 100);
   const ph = pw * (patch.height / patch.width);
+  const geom = { W, H, p, pw, ph, off };
   const layer = document.createElement("canvas");
   layer.width = W;
   layer.height = H;
@@ -422,6 +449,45 @@ function renderHat(canvas, hatImg, patch, widthIn, size, off) {
   ctx.drawImage(layer, W * 0.004, H * 0.008);
   ctx.restore();
   ctx.drawImage(layer, 0, 0);
+  return geom;
+}
+
+// The reverse of the crown wrap: a point on the hat photo back to (u, v) on the patch.
+function unwrapPoint(X, Y, { W, H, p, pw, ph, off }) {
+  const half = Math.PI * p.wrap * 0.5;
+  const s = ((X - (p.cx + off.x) * W) / pw) * 2 * Math.sin(half);
+  if (Math.abs(s) > 1) return null;
+  const q = Math.asin(s) / (Math.PI * p.wrap);
+  const edge = (1 - Math.cos(q * Math.PI * p.wrap)) / (1 - Math.cos(half));
+  return { u: q + 0.5, v: (Y - (p.cy + off.y) * H - p.edgeDrop * edge * ph) / ph + 0.5 };
+}
+
+// Dashed outline around the selected piece, following the crown's curve.
+function drawSelection(canvas, geom, patch, rect) {
+  const ctx = canvas.getContext("2d");
+  const [rx, ry, rw, rh] = rect;
+  const pts = [];
+  const edge = (x0, y0, x1, y1) => {
+    for (let i = 0; i <= 12; i++) {
+      const t = i / 12;
+      pts.push(wrapPoint((x0 + (x1 - x0) * t) / patch.width, (y0 + (y1 - y0) * t) / patch.height, geom.W, geom.H, geom.p, geom.pw, geom.ph, geom.off));
+    }
+  };
+  edge(rx, ry, rx + rw, ry);
+  edge(rx + rw, ry, rx + rw, ry + rh);
+  edge(rx + rw, ry + rh, rx, ry + rh);
+  edge(rx, ry + rh, rx, ry);
+  ctx.save();
+  ctx.beginPath();
+  pts.forEach((pt, i) => (i ? ctx.lineTo(pt.x, pt.y) : ctx.moveTo(pt.x, pt.y)));
+  ctx.closePath();
+  ctx.lineWidth = Math.max(2, geom.W * 0.003);
+  ctx.setLineDash([geom.W * 0.012, geom.W * 0.008]);
+  ctx.strokeStyle = "#c6a36b";
+  ctx.shadowColor = "rgba(0,0,0,0.8)";
+  ctx.shadowBlur = 4;
+  ctx.stroke();
+  ctx.restore();
 }
 
 function loadImage(file, done) {
@@ -469,8 +535,11 @@ export default function HatTryOn() {
   const [colorIndex, setColorIndex] = useState(1); // Jersey Tan leather
   const [logo, setLogo] = useState(null);
   const [logoSize, setLogoSize] = useState(100);
-  const [logoX, setLogoX] = useState(0);
-  const [logoY, setLogoY] = useState(0);
+  // where the logo and text sit, as fractions of the patch's artwork area from its center
+  const [logoPos, setLogoPos] = useState({ x: 0, y: 0 });
+  const [textPos, setTextPos] = useState({ x: 0, y: 0.33 });
+  const [selected, setSelected] = useState(null); // "patch", "logo" or "text": what a drag moves
+  const geomRef = useRef(null);
   const [ownPatch, setOwnPatch] = useState(null);
   const [patchSize, setPatchSize] = useState(100);
   const [artBoxes, setArtBoxes] = useState(null);
@@ -481,7 +550,6 @@ export default function HatTryOn() {
   const [line2, setLine2] = useState("");
   const [fontIndex, setFontIndex] = useState(0);
   const [textSize, setTextSize] = useState(100);
-  const [textGap, setTextGap] = useState(0);
   const NO_WARP = { bend: 0, width: 100, height: 100, spacing: 0 };
   const [warp, setWarp] = useState(NO_WARP);
   const setWarpPart = (k) => (v) => setWarp((w) => ({ ...w, [k]: v }));
@@ -502,7 +570,7 @@ export default function HatTryOn() {
     img.onload = () => setHatImg(img);
     // Start with the B40 logo on the patch so the preview shows off right away.
     const b40 = new Image();
-    b40.onload = () => setLogo((current) => current || { img: b40, mask: logoMask(b40), print: printLogo(b40), isDefault: true });
+    b40.onload = () => setLogo((current) => current || makeLogo(b40, true));
     b40.src = DEFAULT_LOGO;
     img.src = HAT.src;
     setArtBoxes(patchShapes.map((s) => pathBounds(s.art, s.box)));
@@ -518,19 +586,30 @@ export default function HatTryOn() {
   }, []);
 
   const font = FONTS[fontIndex];
-  const art = useMemo(
-    () => composeArt({ logo, lines: [line1, line2], font, textSize, textGap, textColor, warp }),
-    [logo, line1, line2, fontIndex, textSize, textGap, textColor, warp, fontsReady]
-  );
   const typed = [line1, line2].map((l) => l.trim()).filter(Boolean);
+  const art = { logo, logoSize, logoPos, lines: typed, font, textSize, textPos, textColor, warp };
+
+  // The first time someone types, make room: logo moves up a bit, text goes under it.
+  const hadText = useRef(false);
+  useEffect(() => {
+    if (!typed.length || hadText.current) return;
+    hadText.current = true;
+    if (logo) {
+      setLogoPos((p) => (p.x === 0 && p.y === 0 ? { x: 0, y: -0.16 } : p));
+      setLogoSize((v) => (v === 100 ? 72 : v));
+    } else setTextPos({ x: 0, y: 0 });
+  }, [typed.length]);
+
+  const hatWidthIn = usingOwn ? 3.5 : direct ? 4.4 : shape.widthIn;
+  const [moved, setMoved] = useState(false);
 
   // The patch is drawn once per design change; moving it only re-wraps it onto the hat.
   const patch = useMemo(() => {
     if (!artBoxes) return null;
     if (usingOwn) return ownPatch;
-    if (direct) return art ? art.print : null;
-    return drawPatch({ shape: { ...shape, artBox: artBoxes[shapeIndex] }, material, color, art, logoSize, logoX, logoY });
-  }, [artBoxes, shapeIndex, materialId, colorIndex, art, logoSize, logoX, logoY, ownPatch, woodImgs]);
+    if (direct) return logo || typed.length ? drawPrint(art) : null;
+    return drawPatch({ shape: { ...shape, artBox: artBoxes[shapeIndex] }, material, color, art });
+  }, [artBoxes, shapeIndex, materialId, colorIndex, logo, logoSize, logoPos, line1, line2, fontIndex, textSize, textPos, textColor, warp, fontsReady, ownPatch, woodImgs]);
 
   useEffect(() => {
     if (materialId !== "wood" || Object.keys(woodImgs).length) return;
@@ -543,24 +622,57 @@ export default function HatTryOn() {
 
   useEffect(() => {
     if (!hatImg || !canvasRef.current) return;
-    const widthIn = usingOwn ? 3.5 : direct ? 3.2 * (logoSize / 100) : shape.widthIn;
-    renderHat(canvasRef.current, hatImg, patch, widthIn, patchSize, offset);
-  }, [hatImg, patch, patchSize, offset, logoSize]);
+    const geom = renderHat(canvasRef.current, hatImg, patch, hatWidthIn, patchSize, offset);
+    geomRef.current = geom;
+    if (geom && selected) {
+      const rect = selected === "patch" ? [0, 0, patch.width, patch.height] : patch.hits && patch.hits[selected];
+      if (rect) drawSelection(canvasRef.current, geom, patch, rect);
+    }
+  }, [hatImg, patch, hatWidthIn, patchSize, offset, selected]);
 
-  // Drag the patch around the hat with a mouse or finger.
+  // Click the patch, logo or text to pick it up, then drag to move it.
   const startDrag = (e) => {
-    drag.current = { x: e.clientX, y: e.clientY };
-    e.currentTarget.setPointerCapture(e.pointerId);
+    const cv = e.currentTarget, r = cv.getBoundingClientRect(), geom = geomRef.current;
+    let target = "patch";
+    if (geom && patch && patch.hits) {
+      const uv = unwrapPoint(((e.clientX - r.left) * cv.width) / r.width, ((e.clientY - r.top) * cv.height) / r.height, geom);
+      if (uv) {
+        const X = uv.u * patch.width, Y = uv.v * patch.height;
+        const inside = (rect) => rect && X >= rect[0] && X <= rect[0] + rect[2] && Y >= rect[1] && Y <= rect[1] + rect[3];
+        if (inside(patch.hits.text)) target = "text";
+        else if (inside(patch.hits.logo)) target = "logo";
+      }
+    }
+    setSelected(target);
+    drag.current = { x: e.clientX, y: e.clientY, target };
+    cv.setPointerCapture(e.pointerId);
   };
   const moveDrag = (e) => {
     if (!drag.current) return;
-    const r = e.currentTarget.getBoundingClientRect();
+    const cv = e.currentTarget, r = cv.getBoundingClientRect(), geom = geomRef.current;
     const dx = (e.clientX - drag.current.x) / r.width, dy = (e.clientY - drag.current.y) / r.height;
-    drag.current = { x: e.clientX, y: e.clientY };
-    const clamp = (v) => Math.max(-0.32, Math.min(0.32, v));
-    setOffset((o) => ({ x: clamp(o.x + dx), y: clamp(o.y + dy) }));
+    drag.current = { ...drag.current, x: e.clientX, y: e.clientY };
+    const { target } = drag.current;
+    setMoved(true);
+    if (target === "patch" || !geom || !patch.artScale) {
+      const clamp = (v) => Math.max(-0.32, Math.min(0.32, v));
+      setOffset((o) => ({ x: clamp(o.x + dx), y: clamp(o.y + dy) }));
+      return;
+    }
+    // screen movement → movement across the patch's artwork area
+    const du = ((dx * geom.W) / geom.pw) * patch.artScale.x, dv = ((dy * geom.H) / geom.ph) * patch.artScale.y;
+    const clamp = (v) => Math.max(-0.7, Math.min(0.7, v));
+    const move = (pos) => ({ x: clamp(pos.x + du), y: clamp(pos.y + dv) });
+    if (target === "logo") setLogoPos(move);
+    else setTextPos(move);
   };
   const endDrag = () => { drag.current = null; };
+  const resetPositions = () => {
+    setMoved(false);
+    setOffset({ x: 0, y: 0 });
+    setLogoPos(typed.length && logo ? { x: 0, y: -0.16 } : { x: 0, y: 0 });
+    setTextPos(logo ? { x: 0, y: 0.33 } : { x: 0, y: 0 });
+  };
 
   const summary = usingOwn
     ? `my own patch design on a ${HAT.name}`
@@ -569,8 +681,10 @@ export default function HatTryOn() {
     : `a ${shape.name} patch in ${color ? `${color.name} ` : ""}${material.name}${logo && !logo.isDefault ? " with my logo" : ""} on a ${HAT.name}`;
   const fullSummary = summary + (typed.length ? `, with the text "${typed.join(" / ")}" in the ${font.name} font` : "");
 
-  const save = () =>
-    canvasRef.current.toBlob((blob) => {
+  const save = () => {
+    const clean = document.createElement("canvas");
+    renderHat(clean, hatImg, patch, hatWidthIn, patchSize, offset);
+    clean.toBlob((blob) => {
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
@@ -578,6 +692,7 @@ export default function HatTryOn() {
       a.click();
       setTimeout(() => URL.revokeObjectURL(url), 1500);
     }, "image/png");
+  };
 
   return (
     <div>
@@ -593,8 +708,11 @@ export default function HatTryOn() {
               className="mx-auto block h-auto max-h-[36vh] w-auto max-w-full cursor-grab touch-none active:cursor-grabbing lg:max-h-[calc(100vh-150px)]" aria-label={`Preview: ${summary}`} />
           </div>
           <p className="mt-2 text-center text-[11px] text-white/60 lg:mt-3 lg:text-xs">
-            Drag the {direct ? "logo" : "patch"} to move it anywhere on the hat.
-            {(offset.x !== 0 || offset.y !== 0) && <button onClick={() => setOffset({ x: 0, y: 0 })} className="ml-2 uppercase tracking-[0.12em] text-[#c6a36b] hover:text-white">Center it</button>}
+            {selected === "logo" ? "Logo selected: drag it anywhere on the " + (direct ? "hat." : "patch.")
+              : selected === "text" ? "Text selected: drag it anywhere on the " + (direct ? "hat." : "patch.")
+              : selected === "patch" ? `${direct ? "Design" : "Patch"} selected: drag to move everything. Click the logo or text to move just that.`
+              : `Click the ${direct ? "design" : "patch"}, logo, or text, then drag to move it.`}
+            {moved ? <button onClick={resetPositions} className="ml-2 uppercase tracking-[0.12em] text-[#c6a36b] hover:text-white">Reset positions</button> : null}
           </p>
           <p className="mt-1 text-center text-[11px] text-white/35 lg:text-xs">{HAT.name} · Preview colors are close, not exact. Ask us for samples.</p>
         </div>
@@ -648,10 +766,15 @@ export default function HatTryOn() {
             <label className={`${chip(false)} flex cursor-pointer justify-center py-3`}>
               {logo && !logo.isDefault ? "Change Logo" : "Upload Your Logo"}
               <input type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" disabled={usingOwn} className="hidden"
-                onChange={(e) => loadImage(e.target.files[0], (img) => { setLogo({ img, mask: logoMask(img), print: printLogo(img) }); setLogoSize(100); setLogoX(0); setLogoY(0); })} />
+                onChange={(e) => loadImage(e.target.files[0], (img) => { setLogo(makeLogo(img)); setSelected("logo"); })} />
             </label>
             <p className="mt-2 text-xs text-white/45">A PNG with a see-through background works best. It stays on your device.</p>
-            {logo && <button onClick={() => setLogo(null)} className="mt-2 text-xs uppercase tracking-[0.15em] text-white/40 hover:text-white">Remove logo</button>}
+            {logo && (
+              <div className="mt-3 space-y-2">
+                <Slider label="Logo Size" value={logoSize} min={20} max={150} onChange={setLogoSize} />
+                <button onClick={() => { setLogo(null); if (selected === "logo") setSelected(null); }} className="text-xs uppercase tracking-[0.15em] text-white/40 hover:text-white">Remove logo</button>
+              </div>
+            )}
           </Panel>
 
           <Panel step="04" title="Add Text" dim={usingOwn}>
@@ -686,7 +809,6 @@ export default function HatTryOn() {
             {typed.length > 0 && (
               <div className="mt-3 space-y-2">
                 <Slider label="Text Size" value={textSize} min={40} max={180} onChange={setTextSize} />
-                {logo && <Slider label="Space Between Logo & Text" value={textGap} min={-60} max={60} onChange={setTextGap} />}
                 <p className="pt-2 text-xs uppercase tracking-[0.15em] text-white/70">Shape the Text</p>
                 <Slider label="Bend ← smile · arch →" value={warp.bend} min={-100} max={100} onChange={setWarpPart("bend")} />
                 <Slider label="Squish ← width → stretch" value={warp.width} min={50} max={170} onChange={setWarpPart("width")} />
@@ -699,17 +821,6 @@ export default function HatTryOn() {
             )}
             {material.mode === "engrave" && typed.length > 0 && <p className="mt-2 text-xs text-white/45">Text is engraved, just like the logo.</p>}
           </Panel>
-
-          {art && (
-            <Panel step="" title="Size & Position">
-              <p className="-mt-1 mb-3 text-xs text-white/45">Moves your logo and text together.{!direct && " Drag the patch on the hat to move the whole patch."}</p>
-              <div className="space-y-2">
-                <Slider label="Size" value={logoSize} min={30} max={140} onChange={setLogoSize} />
-                {!direct && <Slider label="Left / Right" value={logoX} min={-40} max={40} onChange={setLogoX} />}
-                {!direct && <Slider label="Up / Down" value={logoY} min={-40} max={40} onChange={setLogoY} />}
-              </div>
-            </Panel>
-          )}
 
           <Panel step="05" title="Save & Send">
             <p className="mb-3 text-sm text-white/60">Love it? Save the picture, then text or email it to us and we&apos;ll take it from there.</p>
