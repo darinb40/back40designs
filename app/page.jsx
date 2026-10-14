@@ -238,8 +238,8 @@ export default function Back40LandingPage() {
               <a href={smsLink()} className="inline-flex items-center gap-2 border border-white/20 px-6 py-3.5 text-xs font-bold uppercase tracking-[0.15em] text-white transition hover:border-white/50">
                 Text Us
               </a>
-              <a href="#work" className="inline-flex items-center gap-2 px-2 py-3.5 text-xs font-bold uppercase tracking-[0.15em] text-white/60 transition hover:text-white">
-                See Our Work ↓
+              <a href="/try-it-on" className="inline-flex items-center gap-2 border border-[#c6a36b]/70 px-6 py-3.5 text-xs font-bold uppercase tracking-[0.15em] text-[#c6a36b] transition hover:bg-[#c6a36b] hover:text-black">
+                Design Your Hat →
               </a>
             </div>
           </div>

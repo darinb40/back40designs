@@ -532,16 +532,12 @@ function loadImage(file, done) {
   reader.readAsDataURL(file);
 }
 
-// One-tap starting points. Colors are found by name in the material's list.
 const STRAIGHT = { bend: 0, width: 100, height: 100, spacing: 0 };
-const STARTERS = [
-  { name: "Ranch", shape: "Arkansas", material: "leatherette", color: "Rawhide / Black", lines: ["DOUBLE R RANCH", "EST. 1998"], font: "Western", textSize: 70 },
-  { name: "Bass Club", shape: "Ridgeback", material: "wood", color: "Walnut", lines: ["BIG BASS CLUB", ""], font: "Block", textSize: 130, warp: { ...STRAIGHT, bend: -45 } },
-  { name: "Car Lot", shape: "Ironhide", material: "leatherette", color: "Black / Gold", lines: ["FRONT LINE", "MOTORS"], font: "Stencil", textSize: 95 },
-  { name: "Little League", shape: "Bullseye", material: "uv", lines: ["TIGERS", "2026"], font: "Varsity", textSize: 120, hue: 0, shade: 45, warp: { ...STRAIGHT, bend: 40 } },
-  { name: "Hunting Camp", shape: "Cowboy Buckle", material: "leather", color: "Jersey Tan", lines: ["DEER CAMP", ""], font: "Western", textSize: 120 },
-  { name: "Small Business", shape: "Forge", material: "leatherette", color: "Black / Silver", lines: ["YOUR BUSINESS", "BELLA VISTA, AR"], font: "Block", textSize: 110 },
-];
+const NO_SHAPE = -2; // no patch picked yet: the Hat Maker opens on a blank hat
+
+// Quiet totals (no personal info) so B40 can see if the Hat Maker brings in orders.
+const track = (event) =>
+  fetch("/api/hat-stats", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ event }), keepalive: true }).catch(() => {});
 
 // A design packed into a short link-safe string (and back) for share links.
 const packDesign = (d) => btoa(unescape(encodeURIComponent(JSON.stringify(d)))).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
@@ -599,12 +595,13 @@ export default function HatTryOn() {
     img.onload = () => setLoaded({ id: hatId, img });
     img.src = hat.src;
   }, [hatId]);
-  const [shapeIndex, setShapeIndex] = useState(7); // Ridgeback
+  const [shapeIndex, setShapeIndex] = useState(NO_SHAPE);
   const [materialId, setMaterialId] = useState("leatherette");
   const [colorIndex, setColorIndex] = useState(DEFAULT_LEATHERETTE);
   const [logo, setLogo] = useState(null);
   const b40Logo = useRef(null);
-  const wantB40 = useRef(true); // false once a starter or share link says "no logo"
+  const wantB40 = useRef(false); // true when the B40 logo should show once it has loaded
+  const [b40Ready, setB40Ready] = useState(false);
   const [logoSize, setLogoSize] = useState(100);
   // where the logo and text sit, as fractions of the patch's artwork area from its center
   const [logoPos, setLogoPos] = useState({ x: 0, y: 0 });
@@ -636,6 +633,7 @@ export default function HatTryOn() {
   const color = pick && pick.src ? { ...pick, img: woodImgs[pick.photo] } : pick;
   const shape = patchShapes[shapeIndex];
   const usingOwn = ownPatch && shapeIndex === -1;
+  const hasShape = shapeIndex >= 0;
   const direct = material.mode === "direct" && !usingOwn;
   // the UV print sheet is wider than the artwork, so it wraps further around the crown
   const profile = baseProfile && (direct ? { ...baseProfile, wrap: Math.min(0.95, baseProfile.wrap * PRINT_SPREAD) } : baseProfile);
@@ -645,6 +643,7 @@ export default function HatTryOn() {
     const b40 = new Image();
     b40.onload = () => {
       b40Logo.current = makeLogo(b40, true);
+      setB40Ready(true);
       if (wantB40.current) setLogo((current) => current || b40Logo.current);
     };
     b40.src = DEFAULT_LOGO;
@@ -655,6 +654,14 @@ export default function HatTryOn() {
       link.rel = "stylesheet";
       link.href = FONT_CSS;
       document.head.appendChild(link);
+    }
+    try {
+      if (!sessionStorage.getItem("hatmaker-viewed")) {
+        sessionStorage.setItem("hatmaker-viewed", "1");
+        track("view");
+      }
+    } catch {
+      track("view");
     }
     // redraw as each font arrives so typed text never shows in a fallback font
     FONTS.forEach((f) => document.fonts.load(`80px "${f.family}"`).then(() => setFontsReady((n) => n + 1)));
@@ -675,7 +682,7 @@ export default function HatTryOn() {
     } else setTextPos({ x: 0, y: 0 });
   }, [typed.length]);
 
-  const hatWidthIn = usingOwn ? 3.5 : direct ? 4.4 * PRINT_SPREAD : shape.widthIn;
+  const hatWidthIn = usingOwn ? 3.5 : direct ? 4.4 * PRINT_SPREAD : hasShape ? shape.widthIn : PATCH_FIT_IN;
   const [moved, setMoved] = useState(false);
 
   // The patch is drawn once per design change; moving it only re-wraps it onto the hat.
@@ -683,6 +690,7 @@ export default function HatTryOn() {
     if (!artBoxes) return null;
     if (usingOwn) return ownPatch;
     if (direct) return logo || typed.length ? drawPrint(art) : null;
+    if (!hasShape) return null; // blank hat until they pick a patch shape
     return drawPatch({ shape: { ...shape, artBox: artBoxes[shapeIndex] }, material, color, art });
   }, [artBoxes, shapeIndex, materialId, colorIndex, logo, logoSize, logoPos, lines, fontIndex, textSize, textPos, textColor, warp, fontsReady, ownPatch, woodImgs]);
 
@@ -746,10 +754,9 @@ export default function HatTryOn() {
   const endDrag = () => { drag.current = null; };
   // Back to how the page opened (keeping the hat they picked).
   const startOver = () => {
-    applyDesign({ lg: "b40", s: 7, m: "leatherette", c: DEFAULT_LEATHERETTE, l: [], f: 0, ts: 100, w: STRAIGHT, h: 40, sh: 100, ls: 100,
+    applyDesign({ lg: "none", s: NO_SHAPE, m: "leatherette", c: DEFAULT_LEATHERETTE, l: [], f: 0, ts: 100, w: STRAIGHT, h: 40, sh: 100, ls: 100,
       lp: { x: 0, y: 0 }, tp: { x: 0, y: 0.33 }, o: { x: 0, y: 0 }, ps: 100, r: 0 });
     hadText.current = false;
-    setStarter(null);
     setSharedNeedsLogo(false);
   };
 
@@ -762,7 +769,7 @@ export default function HatTryOn() {
     hadText.current = true; // the design already has its own layout
     wantB40.current = d.lg === "b40";
     setLogo(d.lg === "b40" ? b40Logo.current : null);
-    setShapeIndex(d.s === -1 ? 7 : d.s);
+    setShapeIndex(d.s === -1 || d.s == null ? NO_SHAPE : d.s);
     if (d.ht && HATS.some((h) => h.id === d.ht)) {
       setHatId(d.ht);
       setHatGroup(HATS.find((h) => h.id === d.ht).group);
@@ -787,17 +794,6 @@ export default function HatTryOn() {
     setSelected(null);
     setMoved(false);
   };
-  const applyStarter = (st) => {
-    const mat = materials.find((m) => m.id === st.material);
-    const ci = mat.colors ? Math.max(0, mat.colors.findIndex((c) => c.name === st.color)) : 0;
-    applyDesign({
-      s: patchShapes.findIndex((sh) => sh.name === st.shape), m: st.material, c: ci, l: st.lines,
-      f: FONTS.findIndex((f) => f.name === st.font), ts: st.textSize, w: st.warp || STRAIGHT, h: st.hue, sh: st.shade, lg: "none",
-    });
-    setStarter(st.name);
-  };
-  const [starter, setStarter] = useState(null);
-
   // Opened from a share link? Rebuild that design.
   const [sharedNeedsLogo, setSharedNeedsLogo] = useState(false);
   useEffect(() => {
@@ -815,11 +811,15 @@ export default function HatTryOn() {
   }, [JSON.stringify(design)]);
   const [copied, setCopied] = useState(false);
   const copyShare = async () => {
+    track("share");
     try { await navigator.clipboard.writeText(shareUrl); } catch { window.prompt("Copy this link:", shareUrl); }
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
   };
 
+  const ensureShape = () => {
+    if (shapeIndex === NO_SHAPE) setShapeIndex(7); // Ridgeback
+  };
   const removeLogo = () => {
     wantB40.current = false;
     setLogo(null);
@@ -873,6 +873,7 @@ export default function HatTryOn() {
       });
       if (!res.ok) throw new Error();
       setSendStatus("sent");
+      track("send");
       celebrate();
       countHat();
     } catch {
@@ -884,6 +885,8 @@ export default function HatTryOn() {
     ? `my own patch design on a ${hat.name}`
     : direct
     ? `${logo && !logo.isDefault ? "my logo" : "a design"} printed in full color right on a ${hat.name}`
+    : !hasShape
+    ? `a blank ${hat.name}`
     : `${/^[AEIOU]/.test(shape.name) ? "an" : "a"} ${shape.name} patch in ${color ? `${color.name} ` : ""}${material.name}${logo && !logo.isDefault ? " with my logo" : ""} on a ${hat.name}`;
   const fullSummary = summary + (typed.length ? `, with the text "${typed.join(" / ")}" in the ${font.name} font` : "");
 
@@ -904,14 +907,6 @@ export default function HatTryOn() {
 
   return (
     <div>
-      <div className="mb-4">
-        <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-white/50">Start from an idea</p>
-        <div className="flex flex-wrap gap-2">
-          {STARTERS.map((st) => (
-            <button key={st.name} onClick={() => applyStarter(st)} className={chip(starter === st.name)}>{st.name}</button>
-          ))}
-        </div>
-      </div>
       {sharedNeedsLogo && !logo && (
         <p className="mb-4 rounded-lg border border-[#c6a36b]/40 bg-[#c6a36b]/10 px-4 py-2 text-sm text-white/80">Someone shared this design with you. Add your logo to finish it.</p>
       )}
@@ -931,6 +926,7 @@ export default function HatTryOn() {
             {selected === "logo" ? <>Logo selected: drag it anywhere on the {direct ? "hat." : "patch."} <button onClick={removeLogo} className="ml-1 uppercase tracking-[0.12em] text-[#c6a36b] hover:text-white">✕ Remove it</button></>
               : selected === "text" ? "Text selected: drag it anywhere on the " + (direct ? "hat." : "patch.")
               : selected === "patch" ? `${direct ? "Design" : "Patch"} selected: drag to move everything. Click the logo or text to move just that.`
+              : !patch ? "Pick a hat and a patch shape to get started."
               : `Click the ${direct ? "design" : "patch"}, logo, or text, then drag to move it.`}
           </p>
           <button onClick={startOver} className="mx-auto mt-2 block rounded-full border border-[#c6a36b]/60 px-6 py-2.5 text-xs font-bold uppercase tracking-[0.15em] text-[#c6a36b] transition hover:bg-[#c6a36b] hover:text-black">
@@ -991,14 +987,14 @@ export default function HatTryOn() {
           <Panel step="03" title="Pick a Material" dim={usingOwn}>
             <div className="flex flex-wrap gap-2">
               {materials.map((m) => (
-                <button key={m.id} disabled={usingOwn} onClick={() => { setMaterialId(m.id); setColorIndex(0); }} className={chip(m.id === materialId)}>{m.name}</button>
+                <button key={m.id} disabled={usingOwn} onClick={() => { setMaterialId(m.id); setColorIndex(0); if (m.mode !== "direct") ensureShape(); }} className={chip(m.id === materialId)}>{m.name}</button>
               ))}
             </div>
             {direct && <p className="mt-3 text-xs text-white/60">No patch: your logo is printed in full color right onto the hat.{!logo && " Add your logo below to see it."}</p>}
             {material.colors && (
               <div className="mt-3 flex flex-wrap items-center gap-2">
                 {material.colors.map((c, i) => (
-                  <button key={c.name} disabled={usingOwn} onClick={() => setColorIndex(i)} title={c.name} aria-label={c.name}
+                  <button key={c.name} disabled={usingOwn} onClick={() => { setColorIndex(i); ensureShape(); }} title={c.name} aria-label={c.name}
                     className={`h-7 w-7 rounded-full border-2 transition ${i === colorIndex ? "scale-110 border-[#c6a36b]" : "border-white/20"}`}
                     style={{ background: c.src ? `center / cover url(${c.src})` : `linear-gradient(135deg, ${c.base} 58%, ${c.burn} 58%)` }} />
                 ))}
@@ -1013,15 +1009,15 @@ export default function HatTryOn() {
               <label className={`${chip(false)} flex cursor-pointer items-center justify-center py-3`}>
                 {logo && !logo.isDefault ? "Change Logo" : "Upload Your Logo"}
                 <input type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" disabled={usingOwn} className="hidden"
-                  onChange={(e) => loadImage(e.target.files[0], (img) => { setLogo(makeLogo(img)); setSelected("logo"); })} />
+                  onChange={(e) => loadImage(e.target.files[0], (img) => { setLogo(makeLogo(img)); setSelected("logo"); if (!direct) ensureShape(); })} />
               </label>
               {logo && (
                 <button onClick={removeLogo} disabled={usingOwn} className={`${chip(false)} py-3`}>✕ Remove Logo</button>
               )}
             </div>
-            {!logo && b40Logo.current && (
-              <button onClick={() => { wantB40.current = true; setLogo(b40Logo.current); }} disabled={usingOwn}
-                className="mt-2 text-xs font-semibold uppercase tracking-[0.15em] text-[#c6a36b] hover:text-white">+ Put the B40 logo back</button>
+            {!logo && b40Ready && (
+              <button onClick={() => { wantB40.current = true; setLogo(b40Logo.current); if (!direct) ensureShape(); }} disabled={usingOwn}
+                className={`${chip(false)} mt-2 w-full py-2.5`}>+ Add the B40 Logo</button>
             )}
             <p className="mt-2 text-xs text-white/45">A PNG with a see-through background works best. It stays on your device.</p>
             {logo && (
@@ -1034,7 +1030,7 @@ export default function HatTryOn() {
           <Panel step="05" title="Add Text" dim={usingOwn}>
             <div className="space-y-2">
               {lines.map((value, i) => (
-                <input key={i} value={value} onChange={(e) => setLine(i, e.target.value)} maxLength={28} disabled={usingOwn}
+                <input key={i} value={value} onChange={(e) => { setLine(i, e.target.value); if (e.target.value.trim() && !direct) ensureShape(); }} maxLength={28} disabled={usingOwn}
                   placeholder={i === 0 ? "Line 1 (like your name or business)" : i === 1 ? "Line 2 (optional, like EST. 2024)" : `Line ${i + 1} (optional)`}
                   className="w-full rounded-lg border border-white/15 bg-black px-3 py-2.5 text-white placeholder:text-white/30 focus:border-[#c6a36b] focus:outline-none"
                   style={{ fontFamily: `"${font.family}", sans-serif`, fontSize: 18 }} />
@@ -1089,7 +1085,7 @@ export default function HatTryOn() {
                 <p className="text-sm text-white/70">Darin or Kayla will reach out soon about your hat.</p>
               </div>
             ) : !sendOpen ? (
-              <button onClick={() => setSendOpen(true)} className="mb-2 w-full bg-[#c6a36b] px-3 py-3.5 text-sm font-bold uppercase tracking-[0.12em] text-black transition hover:bg-[#d4b07a]">Send This Design to B40</button>
+              <button onClick={() => { setSendOpen(true); track("send_open"); }} className="mb-2 w-full bg-[#c6a36b] px-3 py-3.5 text-sm font-bold uppercase tracking-[0.12em] text-black transition hover:bg-[#d4b07a]">Send This Design to B40</button>
             ) : (
               <form onSubmit={sendDesign} className="mb-3 space-y-2 rounded-lg border border-white/15 p-3">
                 {[["name", "Your name", "text"], ["contact", "Phone or email", "text"]].map(([key, label, type]) => (
@@ -1115,10 +1111,10 @@ export default function HatTryOn() {
             <button onClick={save} className="mb-2 w-full border border-white/20 px-3 py-3 text-xs font-bold uppercase tracking-[0.12em] transition hover:border-white/50">Snap a Pic 📸</button>
             <div className="grid grid-cols-2 gap-2">
               {PHONES.map((ph) => (
-                <a key={ph.name} href={smsLink(`Hi ${ph.name}! I made ${fullSummary} on your Hat Maker. I'll send you the picture. Here's my design: ${shareUrl}`, ph)}
+                <a key={ph.name} onClick={() => track(`text_${ph.name.toLowerCase()}`)} href={smsLink(`Hi ${ph.name}! I made ${fullSummary} on your Hat Maker. I'll send you the picture. Here's my design: ${shareUrl}`, ph)}
                   className="border border-white/20 px-3 py-3 text-center text-xs font-bold uppercase tracking-[0.12em] transition hover:border-white/50">Send It to {ph.name}</a>
               ))}
-              <a href={`mailto:${EMAIL}?subject=${encodeURIComponent(`Try It On: ${usingOwn ? "My own patch" : `${shape.name} / ${color ? `${color.name} ` : ""}${material.name}`}`)}&body=${encodeURIComponent(`Hi! I made ${fullSummary}. I'll attach the picture.\n\nMy design: ${shareUrl}`)}`}
+              <a onClick={() => track("email")} href={`mailto:${EMAIL}?subject=${encodeURIComponent(`Try It On: ${usingOwn ? "My own patch" : !hasShape ? hat.name : `${shape.name} / ${color ? `${color.name} ` : ""}${material.name}`}`)}&body=${encodeURIComponent(`Hi! I made ${fullSummary}. I'll attach the picture.\n\nMy design: ${shareUrl}`)}`}
                 className="border border-white/20 px-3 py-3 text-center text-xs font-bold uppercase tracking-[0.12em] transition hover:border-white/50">Email Us</a>
               <button onClick={copyShare} className="border border-white/20 px-3 py-3 text-center text-xs font-bold uppercase tracking-[0.12em] transition hover:border-white/50">
                 {copied ? "Link Copied! ✓" : "Copy Share Link"}

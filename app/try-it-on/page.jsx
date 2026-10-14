@@ -105,6 +105,9 @@ export default function TryItOnPage() {
             <HatOdometer />
           </div>
           <HatTryOn />
+          <p className="mt-8 border-t border-white/10 pt-6 text-center text-sm text-white/60 md:text-base">
+            Designed and built in <span className="text-white">Bella Vista, Arkansas</span>. <span className="text-[#c6a36b]">7,500+ hats made</span>, from one custom hat to hundreds for your business.
+          </p>
         </div>
       </section>
 
