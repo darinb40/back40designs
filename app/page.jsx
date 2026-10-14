@@ -359,28 +359,8 @@ export default function Back40LandingPage() {
         </div>
       </section>
 
-      {/* ── PARTNER LOGOS ── */}
-      <section className="border-y border-white/10 bg-stone-900/40">
-        <div className="mx-auto max-w-7xl px-4 py-10 md:px-10 md:py-14">
-          <div className="mb-8 text-center">
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-stone-500">Trusted by leading brands</p>
-          </div>
-          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-20">
-            <a href="https://pinnaclesportsventures.com" target="_blank" rel="noreferrer" className="opacity-70 transition hover:opacity-100">
-              <img src="/images/psv.png" alt="Pinnacle Sports Ventures" className="h-16 w-auto object-contain md:h-28" />
-            </a>
-            <a href="https://www.bentonvillebicyclecompany.com" target="_blank" rel="noreferrer" className="opacity-70 transition hover:opacity-100">
-              <img src="/images/bentonville-bicycle-logo.png" alt="Bentonville Bicycle Co." className="h-16 w-auto object-contain md:h-28" />
-            </a>
-            <a href="https://lonestaradhesive.com" target="_blank" rel="noreferrer" className="opacity-70 transition hover:opacity-100">
-              <img src="/images/lonestar.png" alt="LoneStar Adhesive" className="h-16 w-auto object-contain md:h-28" />
-            </a>
-          </div>
-        </div>
-      </section>
-
       {/* ── SERIES ── */}
-      <section className="mx-auto max-w-7xl px-4 py-14 md:px-10 md:py-20">
+      <section className="mx-auto max-w-7xl px-4 pb-14 md:px-10 md:pb-20">
         <div className="grid gap-4 md:grid-cols-2 md:gap-6">
           {series.map((item) => (
             <a key={item.title} href={item.link} className="group grid overflow-hidden rounded-[2rem] border border-white/10 bg-stone-900/70 transition hover:-translate-y-1 sm:grid-cols-[0.9fr_1fr]">
