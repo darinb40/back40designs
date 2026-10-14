@@ -65,6 +65,8 @@ const materials = [
 ];
 
 const PATCH_PX = 900;
+// The Hat Maker opens on Saddle Tan leatherette.
+const DEFAULT_LEATHERETTE = Math.max(0, leatheretteColors.findIndex((c) => c.name === "Saddle Tan / Black"));
 const FORMSPREE_ID = "xzdywzvy"; // same form as the home page contact form
 const QUANTITIES = ["1–10", "11–24", "25–50", "51+ (best pricing)"];
 const DEFAULT_LOGO = "/images/b402026.png";
@@ -302,15 +304,19 @@ function drawArtwork(x, { area, k, engrave, burn, logo, logoSize, logoPos, lines
 }
 
 // Full-color UV print: no patch, just the artwork on a clear sheet that gets
-// wrapped onto the hat. The sheet stays a fixed size so moving one piece doesn't shift the other.
-const PRINT_SHEET = [0, 0, 1200, 800];
+// wrapped onto the hat. The sheet is PRINT_SPREAD times wider and taller than the
+// artwork area, so the logo and text can be dragged or enlarged well past their
+// starting spot without being cut off at the sheet's edge.
+const PRINT_SPREAD = 2;
+const PRINT_SHEET = [0, 0, 1600, 1066];
+const PRINT_AREA = [400, 266, 800, 534]; // the middle half: where artwork starts out
 function drawPrint(art) {
   const c = document.createElement("canvas");
   c.width = PRINT_SHEET[2];
   c.height = PRINT_SHEET[3];
-  const hits = drawArtwork(c.getContext("2d"), { ...art, area: PRINT_SHEET, k: 1, engrave: false });
+  const hits = drawArtwork(c.getContext("2d"), { ...art, area: PRINT_AREA, k: 1, engrave: false });
   c.hits = hits;
-  c.artScale = { x: 1, y: 1 };
+  c.artScale = { x: PRINT_SPREAD, y: PRINT_SPREAD };
   return c;
 }
 
@@ -587,15 +593,15 @@ export default function HatTryOn() {
   const [hatGroup, setHatGroup] = useState("solid");
   const [loaded, setLoaded] = useState(null); // { id, img } of the hat photo on screen
   const hatImg = loaded && loaded.img;
-  const profile = hatImg ? profileFor(HATS.find((h) => h.id === loaded.id), hatImg.naturalWidth, hatImg.naturalHeight) : null;
+  const baseProfile = hatImg ? profileFor(HATS.find((h) => h.id === loaded.id), hatImg.naturalWidth, hatImg.naturalHeight) : null;
   useEffect(() => {
     const img = new Image();
     img.onload = () => setLoaded({ id: hatId, img });
     img.src = hat.src;
   }, [hatId]);
   const [shapeIndex, setShapeIndex] = useState(7); // Ridgeback
-  const [materialId, setMaterialId] = useState("leather");
-  const [colorIndex, setColorIndex] = useState(1); // Jersey Tan leather
+  const [materialId, setMaterialId] = useState("leatherette");
+  const [colorIndex, setColorIndex] = useState(DEFAULT_LEATHERETTE);
   const [logo, setLogo] = useState(null);
   const b40Logo = useRef(null);
   const wantB40 = useRef(true); // false once a starter or share link says "no logo"
@@ -631,6 +637,8 @@ export default function HatTryOn() {
   const shape = patchShapes[shapeIndex];
   const usingOwn = ownPatch && shapeIndex === -1;
   const direct = material.mode === "direct" && !usingOwn;
+  // the UV print sheet is wider than the artwork, so it wraps further around the crown
+  const profile = baseProfile && (direct ? { ...baseProfile, wrap: Math.min(0.95, baseProfile.wrap * PRINT_SPREAD) } : baseProfile);
 
   useEffect(() => {
     // Start with the B40 logo on the patch so the preview shows off right away.
@@ -667,7 +675,7 @@ export default function HatTryOn() {
     } else setTextPos({ x: 0, y: 0 });
   }, [typed.length]);
 
-  const hatWidthIn = usingOwn ? 3.5 : direct ? 4.4 : shape.widthIn;
+  const hatWidthIn = usingOwn ? 3.5 : direct ? 4.4 * PRINT_SPREAD : shape.widthIn;
   const [moved, setMoved] = useState(false);
 
   // The patch is drawn once per design change; moving it only re-wraps it onto the hat.
@@ -738,7 +746,7 @@ export default function HatTryOn() {
   const endDrag = () => { drag.current = null; };
   // Back to how the page opened (keeping the hat they picked).
   const startOver = () => {
-    applyDesign({ lg: "b40", s: 7, m: "leather", c: 1, l: [], f: 0, ts: 100, w: STRAIGHT, h: 40, sh: 100, ls: 100,
+    applyDesign({ lg: "b40", s: 7, m: "leatherette", c: DEFAULT_LEATHERETTE, l: [], f: 0, ts: 100, w: STRAIGHT, h: 40, sh: 100, ls: 100,
       lp: { x: 0, y: 0 }, tp: { x: 0, y: 0.33 }, o: { x: 0, y: 0 }, ps: 100, r: 0 });
     hadText.current = false;
     setStarter(null);
@@ -812,6 +820,11 @@ export default function HatTryOn() {
     setTimeout(() => setCopied(false), 2500);
   };
 
+  const removeLogo = () => {
+    wantB40.current = false;
+    setLogo(null);
+    if (selected === "logo") setSelected(null);
+  };
   const [celebrating, setCelebrating] = useState(0);
   const celebrate = () => {
     setCelebrating((n) => n + 1);
@@ -915,7 +928,7 @@ export default function HatTryOn() {
               className="mx-auto block h-auto max-h-[36vh] w-auto max-w-full cursor-grab touch-none active:cursor-grabbing lg:max-h-[calc(100vh-150px)]" aria-label={`Preview: ${summary}`} />
           </div>
           <p className="mt-2 text-center text-[11px] text-white/60 lg:mt-3 lg:text-xs">
-            {selected === "logo" ? "Logo selected: drag it anywhere on the " + (direct ? "hat." : "patch.")
+            {selected === "logo" ? <>Logo selected: drag it anywhere on the {direct ? "hat." : "patch."} <button onClick={removeLogo} className="ml-1 uppercase tracking-[0.12em] text-[#c6a36b] hover:text-white">✕ Remove it</button></>
               : selected === "text" ? "Text selected: drag it anywhere on the " + (direct ? "hat." : "patch.")
               : selected === "patch" ? `${direct ? "Design" : "Patch"} selected: drag to move everything. Click the logo or text to move just that.`
               : `Click the ${direct ? "design" : "patch"}, logo, or text, then drag to move it.`}
@@ -996,16 +1009,24 @@ export default function HatTryOn() {
           </Panel>
 
           <Panel step="04" title="Add Your Logo" dim={usingOwn}>
-            <label className={`${chip(false)} flex cursor-pointer justify-center py-3`}>
-              {logo && !logo.isDefault ? "Change Logo" : "Upload Your Logo"}
-              <input type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" disabled={usingOwn} className="hidden"
-                onChange={(e) => loadImage(e.target.files[0], (img) => { setLogo(makeLogo(img)); setSelected("logo"); })} />
-            </label>
+            <div className={`grid gap-2 ${logo ? "grid-cols-2" : "grid-cols-1"}`}>
+              <label className={`${chip(false)} flex cursor-pointer items-center justify-center py-3`}>
+                {logo && !logo.isDefault ? "Change Logo" : "Upload Your Logo"}
+                <input type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" disabled={usingOwn} className="hidden"
+                  onChange={(e) => loadImage(e.target.files[0], (img) => { setLogo(makeLogo(img)); setSelected("logo"); })} />
+              </label>
+              {logo && (
+                <button onClick={removeLogo} disabled={usingOwn} className={`${chip(false)} py-3`}>✕ Remove Logo</button>
+              )}
+            </div>
+            {!logo && b40Logo.current && (
+              <button onClick={() => { wantB40.current = true; setLogo(b40Logo.current); }} disabled={usingOwn}
+                className="mt-2 text-xs font-semibold uppercase tracking-[0.15em] text-[#c6a36b] hover:text-white">+ Put the B40 logo back</button>
+            )}
             <p className="mt-2 text-xs text-white/45">A PNG with a see-through background works best. It stays on your device.</p>
             {logo && (
-              <div className="mt-3 space-y-2">
+              <div className="mt-3">
                 <Slider label="Logo Size" value={logoSize} min={20} max={150} onChange={setLogoSize} />
-                <button onClick={() => { setLogo(null); if (selected === "logo") setSelected(null); }} className="text-xs uppercase tracking-[0.15em] text-white/40 hover:text-white">Remove logo</button>
               </div>
             )}
           </Panel>
