@@ -174,10 +174,12 @@ export default function Back40LandingPage() {
     ["Bella Vista", "Arkansas made"],
   ];
 
-  const madeHere = [
-    { image: "/images/production-cutting.jpg", title: "We make the patch", text: "Patches cut and engraved in our own shop." },
-    { image: "/images/production-bench.jpg", title: "We build every hat", text: "Patches go on by hand, one hat at a time." },
-    { image: "/images/production-order.jpg", title: "We deliver the order", text: "From a handful of hats to full team and business runs." },
+  // How it works
+  const steps = [
+    { step: "01", title: "Send us the idea", text: "A logo, a concept, a business name, or just the vibe you want. That's enough to get moving.", image: "/images/production-sketch.jpg" },
+    { step: "02", title: "We make the patch", text: "We dial in the hat and the acrylic, leatherette, or metal patch, then cut and engrave it in our own shop.", image: "/images/production-cutting.jpg" },
+    { step: "03", title: "We build every hat", text: "Patches go on by hand, one hat at a time, with a clean, premium finish.", image: "/images/production-bench.jpg" },
+    { step: "04", title: "We deliver the order", text: "From a handful of hats to full team and business runs.", image: "/images/production-order.jpg" },
   ];
 
   const builtFor = [
@@ -191,12 +193,6 @@ export default function Back40LandingPage() {
   const series = [
     { title: "B40 Trail Series", text: "4 hats. 4 trails. Built for the riders, shops, and trail towns of Northwest Arkansas.", image: "/images/trail-back-40-loop.jpg", link: "/trail-series", cta: "See the Trail Series" },
     { title: "B40 Dealership Series", text: "Built for the people who live inside the car business, from the front line to the back lot.", image: "/images/custom-just-looking.jpg", link: "/dealership-series", cta: "Enter the Series" },
-  ];
-
-  const process = [
-    { step: "01", title: "Start with the idea", text: "Send a logo, a concept, a business name, or even just the vibe you want. That is enough to get moving.", icon: "/images/lightbulb.png" },
-    { step: "02", title: "Shape the build", text: "We dial in the hat, the acrylic, leatherette, or metal patch, and the layout until the design feels right and fits the brand.", icon: "/images/shape.png" },
-    { step: "03", title: "Bring it to life", text: "Once approved, the run is built with a clean, premium finish made to be worn — not forgotten.", icon: "/images/life.png" },
   ];
 
   const faqs = [
@@ -337,16 +333,24 @@ export default function Back40LandingPage() {
         </div>
       </section>
 
-      {/* ── MADE IN BELLA VISTA ── */}
-      <section className="bg-black">
+      {/* ── HOW IT WORKS ── */}
+      <section id="process" className="bg-black">
         <div className="mx-auto max-w-7xl px-4 pb-14 md:px-10 md:pb-20">
-          <h2 className="mb-6 text-3xl uppercase text-[#c6a36b] md:text-4xl" style={bebas}>Made in Bella Vista</h2>
-          <div className="grid gap-4 md:grid-cols-3 md:gap-6">
-            {madeHere.map((item) => (
-              <figure key={item.title} className="overflow-hidden rounded-xl border border-white/10 bg-white/5">
-                <img src={item.image} alt={item.title} loading="lazy" className="aspect-[4/3] w-full object-cover" />
+          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#c6a36b]">Made in Bella Vista, AR</p>
+          <h2 className="mb-6 mt-2 text-3xl uppercase text-white md:text-4xl" style={bebas}>How it works</h2>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 md:gap-5">
+            {steps.map((item) => (
+              <figure key={item.step} className="overflow-hidden rounded-xl border border-white/10 bg-white/5">
+                {item.image ? (
+                  <img src={item.image} alt={item.title} loading="lazy" className="aspect-[4/3] w-full object-cover" />
+                ) : (
+                  <div className="flex aspect-[4/3] items-center justify-center bg-black">
+                    <img src={item.icon} alt="" className="h-24 w-24 object-contain md:h-28 md:w-28" />
+                  </div>
+                )}
                 <figcaption className="p-4">
-                  <p className="text-2xl uppercase text-white" style={bebas}>{item.title}</p>
+                  <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#c6a36b]">{item.step}</p>
+                  <p className="mt-1 text-2xl uppercase text-white" style={bebas}>{item.title}</p>
                   <p className="mt-1 text-sm leading-6 text-stone-400">{item.text}</p>
                 </figcaption>
               </figure>
@@ -375,26 +379,8 @@ export default function Back40LandingPage() {
         </div>
       </section>
 
-      {/* ── PROCESS ── */}
-      <section id="process" className="mx-auto max-w-7xl px-4 py-14 md:px-10 md:py-20">
-        <div className="mb-10 max-w-3xl">
-          <p className="text-sm uppercase tracking-[0.2em] text-stone-400">How it works</p>
-          <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">Simple, clean, and built around custom work.</h2>
-        </div>
-        <div className="grid gap-4 md:grid-cols-3 md:gap-6">
-          {process.map((item) => (
-            <div key={item.step} className="rounded-[2rem] border border-white/10 bg-white/5 p-6 md:p-7">
-              <img src={item.icon} alt={item.title} className="mb-5 h-20 w-20 object-contain md:h-28 md:w-28" />
-              <p className="text-xs font-bold uppercase tracking-[0.3em] text-stone-500">{item.step}</p>
-              <h3 className="mt-2 text-xl font-semibold text-white md:text-2xl">{item.title}</h3>
-              <p className="mt-4 text-sm leading-7 text-stone-300">{item.text}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* ── SERIES ── */}
-      <section className="mx-auto max-w-7xl px-4 pb-14 md:px-10 md:pb-20">
+      <section className="mx-auto max-w-7xl px-4 py-14 md:px-10 md:py-20">
         <div className="grid gap-4 md:grid-cols-2 md:gap-6">
           {series.map((item) => (
             <a key={item.title} href={item.link} className="group grid overflow-hidden rounded-[2rem] border border-white/10 bg-stone-900/70 transition hover:-translate-y-1 sm:grid-cols-[0.9fr_1fr]">
