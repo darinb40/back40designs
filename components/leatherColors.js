@@ -1,0 +1,60 @@
+// Leatherette colors from our supplier, Lone Star Adhesive (Durra-Bull Premium
+// Leatherette). `base` is the sheet color and `burn` the color it engraves to,
+// both sampled from Lone Star's product photos, so they're close, not exact.
+// Patterned sheets (camo, carbon fiber, holographic, cork...) aren't listed yet.
+export const leatheretteColors = [
+ { "name": "Bright White / Black", "base": "#fcfdfa", "burn": "#020202" },
+ { "name": "Glossy White / Black", "base": "#f3f4f6", "burn": "#0c0c0c" },
+ { "name": "Matte White / Black", "base": "#f3f4f6", "burn": "#0d0d0d" },
+ { "name": "Eggshell / Black", "base": "#d5d6d5", "burn": "#010100" },
+ { "name": "Sand / Black", "base": "#b6aa99", "burn": "#010101" },
+ { "name": "Flint / Black", "base": "#9e9f98", "burn": "#000000" },
+ { "name": "Light Brown / Black", "base": "#a39989", "burn": "#0c0c0c" },
+ { "name": "Olive / Black", "base": "#8f906a", "burn": "#1e1d15" },
+ { "name": "Charcoal / Black", "base": "#676863", "burn": "#000000" },
+ { "name": "Gray / Black", "base": "#525252", "burn": "#0b0b0b" },
+ { "name": "Black / Black", "base": "#25272a", "burn": "#3c3e41" },
+ { "name": "Black / Silver", "base": "#24282a", "burn": "#ded5d5" },
+ { "name": "Black / Gold", "base": "#1f1f1f", "burn": "#be984f" },
+ { "name": "Black / Copper", "base": "#1f1f1f", "burn": "#c17f4a" },
+ { "name": "Glossy Black / Silver", "base": "#131313", "burn": "#a1a1a1" },
+ { "name": "Glossy Black / Black", "base": "#121212", "burn": "#2e2e2e" },
+ { "name": "Glossy Black / Gold", "base": "#121212", "burn": "#bc964d" },
+ { "name": "Ruby / Black", "base": "#d63243", "burn": "#000000" },
+ { "name": "Red / Black", "base": "#c31d2a", "burn": "#0b0b0b" },
+ { "name": "Maroon / Black", "base": "#99344d", "burn": "#000000" },
+ { "name": "Dark Brown / Black", "base": "#644c45", "burn": "#0b0b0b" },
+ { "name": "Saddle Brown / Black", "base": "#7b3421", "burn": "#0b0a0b" },
+ { "name": "Rustic / Gold", "base": "#3f2f2a", "burn": "#c19a51" },
+ { "name": "Buckskin / Black", "base": "#c6874c", "burn": "#000000" },
+ { "name": "Copper / Black", "base": "#ca7942", "burn": "#0c0c0b" },
+ { "name": "Orange / Black", "base": "#c76b44", "burn": "#000000" },
+ { "name": "Saddle Tan / Black", "base": "#b37d41", "burn": "#0b0a0b" },
+ { "name": "Rawhide / Black (Heritage)", "base": "#a95e3e", "burn": "#000000" },
+ { "name": "Walnut / Black", "base": "#8e6450", "burn": "#000000" },
+ { "name": "Walnut / Silver", "base": "#8e6550", "burn": "#ededed" },
+ { "name": "Walnut / Gold", "base": "#8d6450", "burn": "#c4b046" },
+ { "name": "Pebbled Rawhide / Black", "base": "#9f4f2d", "burn": "#0b0a0a" },
+ { "name": "Rawhide / Black", "base": "#87462b", "burn": "#0a0b0b" },
+ { "name": "Rustic / Silver", "base": "#3f2f29", "burn": "#aaa7a6" },
+ { "name": "Yellow / Black", "base": "#e3d310", "burn": "#010100" },
+ { "name": "OD Green / Black", "base": "#73784d", "burn": "#0b0b0b" },
+ { "name": "Kelly Green / Black", "base": "#2e8f56", "burn": "#000000" },
+ { "name": "Seafoam Green / Black", "base": "#71beb6", "burn": "#000000" },
+ { "name": "Topaz / Black", "base": "#458391", "burn": "#000000" },
+ { "name": "Sky Blue / Black", "base": "#72c1eb", "burn": "#000000" },
+ { "name": "Indigo / Silver", "base": "#51688e", "burn": "#ededed" },
+ { "name": "Indigo / Gold", "base": "#51688e", "burn": "#c4b046" },
+ { "name": "Indigo / Black", "base": "#51688d", "burn": "#000000" },
+ { "name": "Blue / Silver", "base": "#082675", "burn": "#a1a7b6" },
+ { "name": "Violet / Black", "base": "#7c3ab0", "burn": "#000000" },
+ { "name": "Primrose / Black", "base": "#e4458d", "burn": "#000000" },
+ { "name": "Maroon / Silver", "base": "#75152e", "burn": "#c4c5c4" }
+];
+
+// Top-grain leather panels from Lone Star.
+export const leatherColors = [
+ { "name": "Natural", "base": "#e6c39b", "burn": "#4a2c17" },
+ { "name": "Jersey Tan", "base": "#ca986f", "burn": "#3d2414" },
+ { "name": "Limousin Brown", "base": "#c96a30", "burn": "#2f1609" }
+];

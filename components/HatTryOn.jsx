@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { patchShapes } from "./patchShapes";
+import { leatheretteColors, leatherColors } from "./leatherColors";
 import { smsLink, mailtoLink } from "./contact";
 
 // Customer "try it on" preview: draws a patch (shape + material + optional logo)
@@ -19,21 +20,15 @@ const HAT = {
   fitWidthIn: 3.69,
 };
 
-// Stand-in looks until real material photos are in. `engrave` materials burn the
+// Leather and leatherette colors come from our supplier (leatherColors.js); the
+// other materials are stand-in looks until real material photos are in. `engrave` materials burn the
 // logo and border in one color; `color` materials show the logo in full color.
 const materials = [
   {
     id: "leatherette", name: "Leatherette", mode: "engrave", texture: "grain",
-    colors: [
-      { name: "Black", base: "#1c1c1c", burn: "#8d8a84" },
-      { name: "Brown", base: "#5b3a24", burn: "#1d120b" },
-      { name: "Tan", base: "#b48a5d", burn: "#3a2314" },
-      { name: "Rawhide", base: "#cdb08a", burn: "#4a2e1a" },
-      { name: "Gray", base: "#7c7c79", burn: "#1f1f1f" },
-      { name: "Navy", base: "#25314a", burn: "#9ba6ba" },
-    ],
+    colors: leatheretteColors,
   },
-  { id: "leather", name: "Genuine Leather", mode: "engrave", texture: "leather", base: "#9a6a3f", burn: "#3a2010" },
+  { id: "leather", name: "Genuine Leather", mode: "engrave", texture: "leather", colors: leatherColors },
   { id: "wood", name: "Real Wood", mode: "engrave", texture: "wood", base: "#c99b65", burn: "#4b2b13" },
   { id: "acrylic", name: "Acrylic", mode: "color", texture: "gloss", base: "#141414", burn: "#d9d9d9" },
   { id: "pvc", name: "PVC", mode: "color", texture: "rubber", base: "#232323", burn: "#c6a36b" },
@@ -42,6 +37,7 @@ const materials = [
 ];
 
 const PATCH_PX = 900;
+const DEFAULT_LOGO = "/images/b402026.png";
 
 // Small seeded random so textures don't shimmer between redraws.
 function rng(seed) {
@@ -340,7 +336,7 @@ export default function HatTryOn() {
   const [hatImg, setHatImg] = useState(null);
   const [shapeIndex, setShapeIndex] = useState(7); // Ridgeback
   const [materialId, setMaterialId] = useState("leather");
-  const [colorIndex, setColorIndex] = useState(0);
+  const [colorIndex, setColorIndex] = useState(1); // Jersey Tan leather
   const [logo, setLogo] = useState(null);
   const [logoSize, setLogoSize] = useState(100);
   const [logoX, setLogoX] = useState(0);
@@ -357,6 +353,10 @@ export default function HatTryOn() {
   useEffect(() => {
     const img = new Image();
     img.onload = () => setHatImg(img);
+    // Start with the B40 logo on the patch so the preview shows off right away.
+    const b40 = new Image();
+    b40.onload = () => setLogo((current) => current || { img: b40, mask: logoMask(b40), isDefault: true });
+    b40.src = DEFAULT_LOGO;
     img.src = HAT.src;
     setArtBoxes(patchShapes.map((s) => pathBounds(s.art, s.box)));
   }, []);
@@ -371,7 +371,7 @@ export default function HatTryOn() {
 
   const summary = usingOwn
     ? `my own patch design on a ${HAT.name}`
-    : `a ${shape.name} patch in ${color ? `${color.name} ` : ""}${material.name}${logo ? " with my logo" : ""} on a ${HAT.name}`;
+    : `a ${shape.name} patch in ${color ? `${color.name} ` : ""}${material.name}${logo && !logo.isDefault ? " with my logo" : ""} on a ${HAT.name}`;
 
   const save = () =>
     canvasRef.current.toBlob((blob) => {
@@ -390,11 +390,12 @@ export default function HatTryOn() {
       </p>
       <div className="grid items-start gap-6 lg:grid-cols-[1.35fr_1fr] lg:gap-8">
         {/* the hat */}
-        <div className="lg:sticky lg:top-28">
+        {/* stays in view while the controls scroll, so every change shows on the hat */}
+        <div className="sticky top-[65px] z-20 -mx-6 bg-black px-6 pb-2 pt-1 lg:top-[97px] lg:mx-0 lg:px-0 lg:pb-0 lg:pt-0">
           <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#0b0b0b]">
-            <canvas ref={canvasRef} className="block h-auto w-full" aria-label={`Preview: ${summary}`} />
+            <canvas ref={canvasRef} className="mx-auto block h-auto max-h-[36vh] w-auto max-w-full lg:max-h-[calc(100vh-150px)]" aria-label={`Preview: ${summary}`} />
           </div>
-          <p className="mt-3 text-center text-xs text-white/40">{HAT.name} · Preview colors are close, not exact. Ask us for samples.</p>
+          <p className="mt-2 text-center text-[11px] text-white/40 lg:mt-3 lg:text-xs">{HAT.name} · Preview colors are close, not exact. Ask us for samples.</p>
         </div>
 
         {/* the controls */}
@@ -423,23 +424,24 @@ export default function HatTryOn() {
           <Panel step="02" title="Pick a Material" dim={usingOwn}>
             <div className="flex flex-wrap gap-2">
               {materials.map((m) => (
-                <button key={m.id} disabled={usingOwn} onClick={() => setMaterialId(m.id)} className={chip(m.id === materialId)}>{m.name}</button>
+                <button key={m.id} disabled={usingOwn} onClick={() => { setMaterialId(m.id); setColorIndex(0); }} className={chip(m.id === materialId)}>{m.name}</button>
               ))}
             </div>
             {material.colors && (
               <div className="mt-3 flex flex-wrap items-center gap-2">
                 {material.colors.map((c, i) => (
                   <button key={c.name} disabled={usingOwn} onClick={() => setColorIndex(i)} title={c.name} aria-label={c.name}
-                    className={`h-7 w-7 rounded-full border-2 transition ${i === colorIndex ? "border-[#c6a36b]" : "border-white/20"}`} style={{ background: c.base }} />
+                    className={`h-7 w-7 rounded-full border-2 transition ${i === colorIndex ? "scale-110 border-[#c6a36b]" : "border-white/20"}`}
+                    style={{ background: `linear-gradient(135deg, ${c.base} 58%, ${c.burn} 58%)` }} />
                 ))}
-                <span className="ml-1 text-xs text-white/45">{color.name} · and many more colors</span>
+                <p className="w-full text-xs text-white/60">{color.name} <span className="text-white/35">· base / engrave color · {material.colors.length} colors</span></p>
               </div>
             )}
           </Panel>
 
           <Panel step="03" title="Add Your Logo" dim={usingOwn}>
             <label className={`${chip(false)} flex cursor-pointer justify-center py-3`}>
-              {logo ? "Change Logo" : "Upload Your Logo"}
+              {logo && !logo.isDefault ? "Change Logo" : "Upload Your Logo"}
               <input type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" disabled={usingOwn} className="hidden"
                 onChange={(e) => loadImage(e.target.files[0], (img) => { setLogo({ img, mask: logoMask(img) }); setLogoSize(100); setLogoX(0); setLogoY(0); })} />
             </label>
