@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { patchShapes } from "./patchShapes";
 import { leatheretteColors, leatherColors } from "./leatherColors";
-import { smsLink, mailtoLink } from "./contact";
+import { smsLink, EMAIL, PHONES } from "./contact";
 
 // Customer "try it on" preview: draws a patch (shape + material + optional logo)
 // and wraps it onto a front-facing hat photo, using the crown-wrap math from
@@ -273,11 +273,13 @@ function drawArtwork(x, { area, k, engrave, burn, logo, logoSize, logoPos, lines
   if (lines.length) {
     const px = ah * 0.24 * (textSize / 100) * k; // drawn at full pixel size so it stays sharp
     const block = renderTextBlock(lines, { px, family: font.family, ink: engrave ? burn : textColor, warp });
-    const w = block.width / k, h = block.height / k;
+    // never wider than the artwork area, so long names don't run off the patch
+    const fitText = Math.min(1, (aw * 0.98) / (block.width / k - (0.5 * px) / k));
+    const w = (block.width / k) * fitText, h = (block.height / k) * fitText, padIn = ((0.25 * px) / k) * fitText;
     const cx = ax + aw / 2 + textPos.x * aw, cy = ay + ah / 2 + textPos.y * ah;
     x.drawImage(block, cx - w / 2, cy - h / 2, w, h);
     // the clickable box skips the block's empty padding
-    hits.text = [cx - w / 2 + (0.25 * px) / k, cy - h / 2 + (0.25 * px) / k, w - (0.5 * px) / k, h - (0.5 * px) / k];
+    hits.text = [cx - w / 2 + padIn, cy - h / 2 + padIn, w - padIn * 2, h - padIn * 2];
   }
   return hits;
 }
@@ -502,6 +504,35 @@ function loadImage(file, done) {
   reader.readAsDataURL(file);
 }
 
+// One-tap starting points. Colors are found by name in the material's list.
+const STRAIGHT = { bend: 0, width: 100, height: 100, spacing: 0 };
+const STARTERS = [
+  { name: "Ranch", shape: "Arkansas", material: "leatherette", color: "Rawhide / Black", lines: ["DOUBLE R RANCH", "EST. 1998"], font: "Western", textSize: 70 },
+  { name: "Bass Club", shape: "Ridgeback", material: "wood", color: "Walnut", lines: ["BIG BASS CLUB", ""], font: "Block", textSize: 130, warp: { ...STRAIGHT, bend: -45 } },
+  { name: "Car Lot", shape: "Ironhide", material: "leatherette", color: "Black / Gold", lines: ["FRONT LINE", "MOTORS"], font: "Stencil", textSize: 95 },
+  { name: "Little League", shape: "Bullseye", material: "uv", lines: ["TIGERS", "2026"], font: "Varsity", textSize: 120, hue: 0, shade: 45, warp: { ...STRAIGHT, bend: 40 } },
+  { name: "Hunting Camp", shape: "Cowboy Buckle", material: "leather", color: "Jersey Tan", lines: ["DEER CAMP", ""], font: "Western", textSize: 120 },
+  { name: "Small Business", shape: "Forge", material: "leatherette", color: "Black / Silver", lines: ["YOUR BUSINESS", "BELLA VISTA, AR"], font: "Block", textSize: 110 },
+];
+
+// A design packed into a short link-safe string (and back) for share links.
+const packDesign = (d) => btoa(unescape(encodeURIComponent(JSON.stringify(d)))).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+const unpackDesign = (str) => JSON.parse(decodeURIComponent(escape(atob(str.replace(/-/g, "+").replace(/_/g, "/")))));
+
+// Quick "Lookin' good!" with a burst of confetti over the hat when a design is saved.
+function Celebration() {
+  const colors = ["#c6a36b", "#ffffff", "#c0262d", "#3e69b2", "#e3d310"];
+  return (
+    <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center overflow-hidden">
+      {Array.from({ length: 36 }, (_, i) => (
+        <span key={i} className="confetti-piece absolute left-1/2 top-1/2 h-2.5 w-1.5 rounded-sm"
+          style={{ background: colors[i % colors.length], "--dx": `${Math.cos(i * 2.4) * (140 + (i % 5) * 40)}px`, "--dy": `${Math.sin(i * 2.4) * (110 + (i % 4) * 35) - 60}px`, "--r": `${i * 47}deg`, animationDelay: `${(i % 6) * 0.03}s` }} />
+      ))}
+      <p className="celebrate-pop rounded-full bg-black/80 px-6 py-3 text-3xl uppercase text-white shadow-2xl md:text-4xl" style={bebas}>Lookin&apos; good! 🤠</p>
+    </div>
+  );
+}
+
 function Panel({ step, title, children, dim }) {
   return (
     <div className={`rounded-xl border border-white/10 bg-white/[0.03] p-4 transition md:p-5 ${dim ? "opacity-40" : ""}`}>
@@ -534,6 +565,8 @@ export default function HatTryOn() {
   const [materialId, setMaterialId] = useState("leather");
   const [colorIndex, setColorIndex] = useState(1); // Jersey Tan leather
   const [logo, setLogo] = useState(null);
+  const b40Logo = useRef(null);
+  const wantB40 = useRef(true); // false once a starter or share link says "no logo"
   const [logoSize, setLogoSize] = useState(100);
   // where the logo and text sit, as fractions of the patch's artwork area from its center
   const [logoPos, setLogoPos] = useState({ x: 0, y: 0 });
@@ -557,6 +590,7 @@ export default function HatTryOn() {
   const [textShade, setTextShade] = useState(100); // starts white
   const textColor = textColorOf(textHue, textShade);
   const [fontsReady, setFontsReady] = useState(0);
+  const [hatCount, setHatCount] = useState(null); // how many hats have been saved here, from /api/hat-count
 
   const material = materials.find((m) => m.id === materialId);
   const pick = material.colors ? material.colors[colorIndex] : null;
@@ -570,7 +604,10 @@ export default function HatTryOn() {
     img.onload = () => setHatImg(img);
     // Start with the B40 logo on the patch so the preview shows off right away.
     const b40 = new Image();
-    b40.onload = () => setLogo((current) => current || makeLogo(b40, true));
+    b40.onload = () => {
+      b40Logo.current = makeLogo(b40, true);
+      if (wantB40.current) setLogo((current) => current || b40Logo.current);
+    };
     b40.src = DEFAULT_LOGO;
     img.src = HAT.src;
     setArtBoxes(patchShapes.map((s) => pathBounds(s.art, s.box)));
@@ -581,6 +618,7 @@ export default function HatTryOn() {
       link.href = FONT_CSS;
       document.head.appendChild(link);
     }
+    fetch("/api/hat-count").then((r) => r.json()).then((d) => setHatCount(d.count)).catch(() => {});
     // redraw as each font arrives so typed text never shows in a fallback font
     FONTS.forEach((f) => document.fonts.load(`80px "${f.family}"`).then(() => setFontsReady((n) => n + 1)));
   }, []);
@@ -671,14 +709,77 @@ export default function HatTryOn() {
     setMoved(false);
     setOffset({ x: 0, y: 0 });
     setLogoPos(typed.length && logo ? { x: 0, y: -0.16 } : { x: 0, y: 0 });
-    setTextPos(logo ? { x: 0, y: 0.33 } : { x: 0, y: 0 });
+    setTextPos(typed.length && logo ? { x: 0, y: 0.33 } : { x: 0, y: 0 });
+    setPatchSize(100);
   };
+
+  // Everything needed to rebuild this design, for share links.
+  const design = {
+    v: 1, s: shapeIndex, m: materialId, c: colorIndex, l: [line1, line2], f: fontIndex, ts: textSize, w: warp,
+    h: textHue, sh: textShade, lg: logo ? (logo.isDefault ? "b40" : "own") : "none", ls: logoSize, lp: logoPos, tp: textPos, o: offset, ps: patchSize,
+  };
+  const applyDesign = (d) => {
+    hadText.current = true; // the design already has its own layout
+    wantB40.current = d.lg === "b40";
+    setLogo(d.lg === "b40" ? b40Logo.current : null);
+    setShapeIndex(d.s === -1 ? 7 : d.s);
+    setMaterialId(d.m);
+    setColorIndex(d.c || 0);
+    setLine1(d.l[0] || "");
+    setLine2(d.l[1] || "");
+    setFontIndex(d.f || 0);
+    setTextSize(d.ts || 100);
+    setWarp(d.w || STRAIGHT);
+    setTextHue(d.h ?? 40);
+    setTextShade(d.sh ?? 100);
+    setLogoSize(d.ls || 100);
+    setLogoPos(d.lp || { x: 0, y: 0 });
+    setTextPos(d.tp || { x: 0, y: 0 });
+    setOffset(d.o || { x: 0, y: 0 });
+    setPatchSize(d.ps || 100);
+    setSelected(null);
+    setMoved(false);
+  };
+  const applyStarter = (st) => {
+    const mat = materials.find((m) => m.id === st.material);
+    const ci = mat.colors ? Math.max(0, mat.colors.findIndex((c) => c.name === st.color)) : 0;
+    applyDesign({
+      s: patchShapes.findIndex((sh) => sh.name === st.shape), m: st.material, c: ci, l: st.lines,
+      f: FONTS.findIndex((f) => f.name === st.font), ts: st.textSize, w: st.warp || STRAIGHT, h: st.hue, sh: st.shade, lg: "none",
+    });
+    setStarter(st.name);
+  };
+  const [starter, setStarter] = useState(null);
+
+  // Opened from a share link? Rebuild that design.
+  const [sharedNeedsLogo, setSharedNeedsLogo] = useState(false);
+  useEffect(() => {
+    const d = new URLSearchParams(window.location.search).get("d");
+    if (!d) return;
+    try {
+      const shared = unpackDesign(d);
+      applyDesign(shared);
+      setSharedNeedsLogo(shared.lg === "own");
+    } catch {}
+  }, []);
+  const [shareUrl, setShareUrl] = useState("");
+  useEffect(() => {
+    setShareUrl(`${window.location.origin}/try-it-on?d=${packDesign(design)}#try-it-on`);
+  }, [JSON.stringify(design)]);
+  const [copied, setCopied] = useState(false);
+  const copyShare = async () => {
+    try { await navigator.clipboard.writeText(shareUrl); } catch { window.prompt("Copy this link:", shareUrl); }
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2500);
+  };
+
+  const [celebrating, setCelebrating] = useState(0);
 
   const summary = usingOwn
     ? `my own patch design on a ${HAT.name}`
     : direct
     ? `${logo && !logo.isDefault ? "my logo" : "a design"} printed in full color right on a ${HAT.name}`
-    : `a ${shape.name} patch in ${color ? `${color.name} ` : ""}${material.name}${logo && !logo.isDefault ? " with my logo" : ""} on a ${HAT.name}`;
+    : `${/^[AEIOU]/.test(shape.name) ? "an" : "a"} ${shape.name} patch in ${color ? `${color.name} ` : ""}${material.name}${logo && !logo.isDefault ? " with my logo" : ""} on a ${HAT.name}`;
   const fullSummary = summary + (typed.length ? `, with the text "${typed.join(" / ")}" in the ${font.name} font` : "");
 
   const save = () => {
@@ -692,10 +793,30 @@ export default function HatTryOn() {
       a.click();
       setTimeout(() => URL.revokeObjectURL(url), 1500);
     }, "image/png");
+    setCelebrating((n) => n + 1);
+    setTimeout(() => setCelebrating(0), 2400);
+    // every saved hat counts toward the Hat Maker total
+    fetch("/api/hat-count", { method: "POST" }).then((r) => r.json()).then((d) => d.count != null && setHatCount(d.count)).catch(() => {});
   };
 
   return (
     <div>
+      {hatCount != null && (
+        <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-[#c6a36b]/40 bg-[#c6a36b]/10 px-4 py-1.5 text-sm text-white/85">
+          🧢 {hatCount > 0 ? <><strong className="text-[#c6a36b]">{hatCount.toLocaleString()}</strong> {hatCount === 1 ? "hat" : "hats"} designed so far</> : "Be the first to save a hat design!"}
+        </p>
+      )}
+      <div className="mb-4">
+        <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-white/50">Start from an idea</p>
+        <div className="flex flex-wrap gap-2">
+          {STARTERS.map((st) => (
+            <button key={st.name} onClick={() => applyStarter(st)} className={chip(starter === st.name)}>{st.name}</button>
+          ))}
+        </div>
+      </div>
+      {sharedNeedsLogo && !logo && (
+        <p className="mb-4 rounded-lg border border-[#c6a36b]/40 bg-[#c6a36b]/10 px-4 py-2 text-sm text-white/80">Someone shared this design with you. Add your logo to finish it.</p>
+      )}
       <p className="mb-6 text-xs font-semibold uppercase tracking-[0.25em] text-white/40">
         Shape <span className="text-[#c6a36b]">·</span> Material <span className="text-[#c6a36b]">·</span> Your Logo <span className="text-[#c6a36b]">·</span> Text <span className="text-[#c6a36b]">·</span> Save &amp; Send
       </p>
@@ -703,7 +824,8 @@ export default function HatTryOn() {
         {/* the hat */}
         {/* stays in view while the controls scroll, so every change shows on the hat */}
         <div className="sticky top-[65px] z-20 -mx-6 bg-black px-6 pb-2 pt-1 lg:top-[97px] lg:mx-0 lg:px-0 lg:pb-0 lg:pt-0">
-          <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#0b0b0b]">
+          <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#0b0b0b]">
+            {celebrating > 0 && <Celebration key={celebrating} />}
             <canvas ref={canvasRef} onPointerDown={startDrag} onPointerMove={moveDrag} onPointerUp={endDrag} onPointerCancel={endDrag}
               className="mx-auto block h-auto max-h-[36vh] w-auto max-w-full cursor-grab touch-none active:cursor-grabbing lg:max-h-[calc(100vh-150px)]" aria-label={`Preview: ${summary}`} />
           </div>
@@ -712,7 +834,7 @@ export default function HatTryOn() {
               : selected === "text" ? "Text selected: drag it anywhere on the " + (direct ? "hat." : "patch.")
               : selected === "patch" ? `${direct ? "Design" : "Patch"} selected: drag to move everything. Click the logo or text to move just that.`
               : `Click the ${direct ? "design" : "patch"}, logo, or text, then drag to move it.`}
-            {moved ? <button onClick={resetPositions} className="ml-2 uppercase tracking-[0.12em] text-[#c6a36b] hover:text-white">Reset positions</button> : null}
+            {moved ? <button onClick={resetPositions} className="ml-2 uppercase tracking-[0.12em] text-[#c6a36b] hover:text-white">Oops, Start Over</button> : null}
           </p>
           <p className="mt-1 text-center text-[11px] text-white/35 lg:text-xs">Showing one hat: the {HAT.name}. We carry 17+ brands and dozens of styles. Preview colors are close, not exact.</p>
         </div>
@@ -825,12 +947,20 @@ export default function HatTryOn() {
           </Panel>
 
           <Panel step="05" title="Save & Send">
-            <p className="mb-3 text-sm text-white/60">Love it? Save the picture, then text or email it to us and we&apos;ll take it from there.</p>
-            <div className="grid grid-cols-3 gap-2">
-              <button onClick={save} className="bg-[#c6a36b] px-3 py-3 text-xs font-bold uppercase tracking-[0.12em] text-black transition hover:bg-[#d4b07a]">Save Image</button>
-              <a href={smsLink(`Hi! I made ${fullSummary} on your Try It On page. I'll send you the picture.`)} className="border border-white/20 px-3 py-3 text-center text-xs font-bold uppercase tracking-[0.12em] transition hover:border-white/50">Text Us</a>
-              <a href={mailtoLink(`Try It On: ${usingOwn ? "My own patch" : `${shape.name} / ${color ? `${color.name} ` : ""}${material.name}`}`)} className="border border-white/20 px-3 py-3 text-center text-xs font-bold uppercase tracking-[0.12em] transition hover:border-white/50">Email Us</a>
+            <p className="mb-3 text-sm text-white/60">Love it? Snap a pic, then send it our way and we&apos;ll take it from there.</p>
+            <button onClick={save} className="mb-2 w-full bg-[#c6a36b] px-3 py-3.5 text-sm font-bold uppercase tracking-[0.12em] text-black transition hover:bg-[#d4b07a]">Snap a Pic 📸</button>
+            <div className="grid grid-cols-2 gap-2">
+              {PHONES.map((ph) => (
+                <a key={ph.name} href={smsLink(`Hi ${ph.name}! I made ${fullSummary} on your Hat Maker. I'll send you the picture. Here's my design: ${shareUrl}`, ph)}
+                  className="border border-white/20 px-3 py-3 text-center text-xs font-bold uppercase tracking-[0.12em] transition hover:border-white/50">Send It to {ph.name}</a>
+              ))}
+              <a href={`mailto:${EMAIL}?subject=${encodeURIComponent(`Try It On: ${usingOwn ? "My own patch" : `${shape.name} / ${color ? `${color.name} ` : ""}${material.name}`}`)}&body=${encodeURIComponent(`Hi! I made ${fullSummary}. I'll attach the picture.\n\nMy design: ${shareUrl}`)}`}
+                className="border border-white/20 px-3 py-3 text-center text-xs font-bold uppercase tracking-[0.12em] transition hover:border-white/50">Email Us</a>
+              <button onClick={copyShare} className="border border-white/20 px-3 py-3 text-center text-xs font-bold uppercase tracking-[0.12em] transition hover:border-white/50">
+                {copied ? "Link Copied! ✓" : "Copy Share Link"}
+              </button>
             </div>
+            {logo && !logo.isDefault && <p className="mt-2 text-xs text-white/40">Share links include everything except your uploaded logo, which stays on your device.</p>}
           </Panel>
         </div>
       </div>
