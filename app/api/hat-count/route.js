@@ -9,20 +9,34 @@ const KEY = "hatmaker:saves";
 
 let client;
 async function redis() {
+  if (!process.env.REDIS_URL) throw new Error("REDIS_URL is not set");
   if (!client) {
-    client = createClient({ url: process.env.REDIS_URL });
+    // fail fast instead of retrying forever, so the page never waits on the counter
+    client = createClient({ url: process.env.REDIS_URL, socket: { connectTimeout: 4000, reconnectStrategy: false } });
     client.on("error", () => {});
-    await client.connect();
+    try {
+      await client.connect();
+    } catch (err) {
+      client = null;
+      throw err;
+    }
   }
   return client;
 }
+
+// When the counter is down, say why (setting names only, never their values).
+const down = (err) =>
+  Response.json(
+    { count: null, reason: String(err && err.message).slice(0, 120), settings: Object.keys(process.env).filter((k) => /REDIS|KV_/.test(k)) },
+    { status: 503 }
+  );
 
 export async function GET() {
   try {
     const count = Number(await (await redis()).get(KEY)) || 0;
     return Response.json({ count });
-  } catch {
-    return Response.json({ count: null }, { status: 503 });
+  } catch (err) {
+    return down(err);
   }
 }
 
@@ -35,7 +49,7 @@ export async function POST(request) {
     const fresh = await db.set(`hatmaker:recent:${visitor}`, "1", { NX: true, EX: 20 });
     const count = fresh ? await db.incr(KEY) : Number(await db.get(KEY)) || 0;
     return Response.json({ count });
-  } catch {
-    return Response.json({ count: null }, { status: 503 });
+  } catch (err) {
+    return down(err);
   }
 }
