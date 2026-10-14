@@ -4,6 +4,7 @@ import SiteHeader from "../../components/SiteHeader";
 import SiteFooter from "../../components/SiteFooter";
 import MobileContactBar from "../../components/MobileContactBar";
 import HatTryOn from "../../components/HatTryOn";
+import HatOdometer from "../../components/HatOdometer";
 import { hatBrands } from "../../components/hatBrands";
 import { smsLink, mailtoLink } from "../../components/contact";
 
@@ -94,10 +95,15 @@ export default function TryItOnPage() {
       {/* ── PREVIEW ── */}
       <section id="try-it-on" className="scroll-mt-24 px-6 py-12 md:px-16 md:py-16">
         <div className="mx-auto max-w-7xl">
-          <h2 className="mb-2 text-4xl uppercase md:text-5xl" style={bebas}>Take It for a Test Drive</h2>
-          <p className="mb-4 max-w-3xl text-sm leading-6 text-white/65 md:text-base">
-            This is just a starting point. Real orders can be any hat, any shape, any color, any material. If you can dream it, we can probably build it.
-          </p>
+          <div className="mb-4 flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+            <h2 className="mb-2 text-4xl uppercase md:text-5xl" style={bebas}>Take It for a Test Drive</h2>
+            <p className="mb-4 max-w-3xl text-sm leading-6 text-white/65 md:text-base">
+              This is just a starting point. Real orders can be any hat, any shape, any color, any material. If you can dream it, we can probably build it.
+            </p>
+            </div>
+            <HatOdometer />
+          </div>
           <HatTryOn />
         </div>
       </section>

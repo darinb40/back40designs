@@ -590,7 +590,6 @@ export default function HatTryOn() {
   const [textShade, setTextShade] = useState(100); // starts white
   const textColor = textColorOf(textHue, textShade);
   const [fontsReady, setFontsReady] = useState(0);
-  const [hatCount, setHatCount] = useState(null); // how many hats have been saved here, from /api/hat-count
 
   const material = materials.find((m) => m.id === materialId);
   const pick = material.colors ? material.colors[colorIndex] : null;
@@ -618,7 +617,6 @@ export default function HatTryOn() {
       link.href = FONT_CSS;
       document.head.appendChild(link);
     }
-    fetch("/api/hat-count").then((r) => r.json()).then((d) => setHatCount(d.count)).catch(() => {});
     // redraw as each font arrives so typed text never shows in a fallback font
     FONTS.forEach((f) => document.fonts.load(`80px "${f.family}"`).then(() => setFontsReady((n) => n + 1)));
   }, []);
@@ -796,16 +794,14 @@ export default function HatTryOn() {
     setCelebrating((n) => n + 1);
     setTimeout(() => setCelebrating(0), 2400);
     // every saved hat counts toward the Hat Maker total
-    fetch("/api/hat-count", { method: "POST" }).then((r) => r.json()).then((d) => d.count != null && setHatCount(d.count)).catch(() => {});
+    fetch("/api/hat-count", { method: "POST" })
+      .then((r) => r.json())
+      .then((d) => d.count != null && window.dispatchEvent(new CustomEvent("hat-count", { detail: d.count }))) // rolls the odometer
+      .catch(() => {});
   };
 
   return (
     <div>
-      {hatCount != null && (
-        <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-[#c6a36b]/40 bg-[#c6a36b]/10 px-4 py-1.5 text-sm text-white/85">
-          🧢 {hatCount > 0 ? <><strong className="text-[#c6a36b]">{hatCount.toLocaleString()}</strong> {hatCount === 1 ? "hat" : "hats"} designed so far</> : "Be the first to save a hat design!"}
-        </p>
-      )}
       <div className="mb-4">
         <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-white/50">Start from an idea</p>
         <div className="flex flex-wrap gap-2">
