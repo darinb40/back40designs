@@ -24,15 +24,19 @@ const CLASSIC_HAT = {
   profile: { cx: 0.5, cy: 0.474, width: 0.377, wrap: 0.28, edgeDrop: 0.035, shade: 0.12 },
 };
 const HATS = [CLASSIC_HAT, ...hatPhotos];
-// B40's own hat photos get their patch spot from the hat's outline, in the same
-// proportions as the Richardson 112 profile above (center at 50.3% down the hat, 42% of its width).
-const profileFor = (hat, W, H) =>
-  hat.profile || {
-    cx: (hat.box[0] + hat.box[2]) / 2 / W,
-    cy: (hat.box[1] + 0.503 * (hat.box[3] - hat.box[1])) / H,
-    width: (0.42 * (hat.box[2] - hat.box[0])) / W,
-    wrap: 0.28, edgeDrop: 0.035, shade: 0.12,
-  };
+// B40's own hat photos get their patch spot from where the front panel actually is:
+// centered 65% of the way from the crown top down to where the bill meets it, and as
+// wide as 64% of that height — the same proportions as the Richardson 112 profile above,
+// so a patch lands in the same place, at the same size, on every hat.
+const profileFor = (hat, W, H) => {
+  if (hat.profile) return hat.profile;
+  const base = { wrap: 0.28, edgeDrop: 0.035, shade: 0.12, cx: (hat.box[0] + hat.box[2]) / 2 / W };
+  if (hat.crown) {
+    const [top, brim] = hat.crown;
+    return { ...base, cy: top + 0.65 * (brim - top), width: (0.644 * (brim - top) * H) / W };
+  }
+  return { ...base, cy: (hat.box[1] + 0.503 * (hat.box[3] - hat.box[1])) / H, width: (0.42 * (hat.box[2] - hat.box[0])) / W };
+};
 
 // Real wood grain photos (free CC0 textures from ambientCG.com) until we have our
 // own close-ups. `turn` rotates photos whose grain runs up and down so it runs across the patch.
