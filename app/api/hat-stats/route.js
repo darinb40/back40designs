@@ -4,7 +4,7 @@ import { createClient } from "redis";
 
 export const dynamic = "force-dynamic";
 
-const EVENTS = ["view", "send_open", "send", "text_darin", "text_kayla", "email", "share"];
+const EVENTS = ["view", "send_open", "send", "text_darin", "text_kayla", "email", "share", "compare"];
 const key = (e) => `hatmaker:stats:${e}`;
 
 let client;

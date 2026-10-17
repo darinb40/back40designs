@@ -14,6 +14,7 @@ const ROWS = [
   ["text_kayla", "Tapped Send It to Kayla", "opens a text; they may not hit send"],
   ["email", "Tapped Email Us", "opens an email; they may not hit send"],
   ["share", "Copied a share link", ""],
+  ["compare", "Compared hat colors side by side", ""],
 ];
 
 export default function HatMakerNumbers() {

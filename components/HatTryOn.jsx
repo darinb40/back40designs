@@ -76,21 +76,59 @@ function rng(seed) {
   return () => ((seed = (seed * 16807) % 2147483647) - 1) / 2147483646;
 }
 
+// A small seamless "pebble grain" tile, grey around the middle, made once. Laid over
+// the material with soft-light so it adds texture without changing the color.
+let grainTile = null;
+function getGrainTile() {
+  if (grainTile) return grainTile;
+  const S = 256, rand = rng(7);
+  const c = document.createElement("canvas");
+  c.width = c.height = S;
+  const x = c.getContext("2d");
+  x.fillStyle = "#808080";
+  x.fillRect(0, 0, S, S);
+  for (let i = 0; i < 2400; i++) {
+    const px = rand() * S, py = rand() * S, r = 1.4 + rand() * 3.2;
+    for (const [ox, oy] of [[0, 0], [S, 0], [-S, 0], [0, S], [0, -S]]) {
+      x.beginPath();
+      x.arc(px + ox, py + oy, r, 0, Math.PI * 2);
+      x.fillStyle = `rgba(255,255,255,${0.05 + rand() * 0.08})`;
+      x.fill();
+      x.lineWidth = 0.9;
+      x.strokeStyle = "rgba(0,0,0,0.16)";
+      x.stroke();
+    }
+  }
+  const d = x.getImageData(0, 0, S, S), px = d.data;
+  for (let i = 0; i < px.length; i += 4) {
+    const n = (rand() - 0.5) * 22;
+    px[i] += n; px[i + 1] += n; px[i + 2] += n;
+  }
+  x.putImageData(d, 0, 0);
+  return (grainTile = c);
+}
+
 function drawTexture(ctx, texture, w, h) {
-  const rand = rng(40);
   ctx.save();
   if (texture === "leather" || texture === "grain") {
-    const n = texture === "leather" ? 9000 : 5000;
-    for (let i = 0; i < n; i++) {
-      ctx.fillStyle = rand() > 0.5 ? "rgba(255,255,255,0.05)" : "rgba(0,0,0,0.09)";
-      ctx.fillRect(rand() * w, rand() * h, 1 + rand() * 2.5, 1 + rand() * 2.5);
-    }
+    ctx.globalCompositeOperation = "soft-light";
+    const pat = ctx.createPattern(getGrainTile(), "repeat");
+    pat.setTransform(new DOMMatrix().scale(texture === "leather" ? 1.9 : 1.4));
+    ctx.globalAlpha = texture === "leather" ? 0.9 : 0.7;
+    ctx.fillStyle = pat;
+    ctx.fillRect(0, 0, w, h);
     if (texture === "leather") {
-      const g = ctx.createRadialGradient(w * 0.4, h * 0.35, 0, w * 0.5, h * 0.5, w * 0.7);
-      g.addColorStop(0, "rgba(255,220,170,0.12)");
-      g.addColorStop(1, "rgba(40,20,5,0.25)");
-      ctx.fillStyle = g;
-      ctx.fillRect(0, 0, w, h);
+      // genuine leather: gentle uneven tone across the hide
+      ctx.globalCompositeOperation = "source-over";
+      ctx.globalAlpha = 1;
+      const rand = rng(11);
+      for (let i = 0; i < 14; i++) {
+        const g = ctx.createRadialGradient(rand() * w, rand() * h, 0, rand() * w, rand() * h, (0.15 + rand() * 0.3) * w);
+        g.addColorStop(0, rand() > 0.5 ? "rgba(255,230,190,0.07)" : "rgba(60,30,10,0.08)");
+        g.addColorStop(1, "rgba(0,0,0,0)");
+        ctx.fillStyle = g;
+        ctx.fillRect(0, 0, w, h);
+      }
     }
   } else if (texture === "gloss") {
     const g = ctx.createLinearGradient(0, 0, w * 0.7, h);
@@ -285,17 +323,24 @@ function drawArtwork(x, { area, k, engrave, burn, logo, logoSize, logoPos, lines
     const fit = Math.min(aw / lw, ah / lh) * 0.86 * (logoSize / 100);
     const w = lw * fit, h = lh * fit;
     const cx = ax + aw / 2 + logoPos.x * aw, cy = ay + ah / 2 + logoPos.y * ah;
+    if (engrave) {
+      // a faint light edge on the lower right makes the burn read as cut into the surface
+      const lip = 1.2 / k;
+      x.drawImage(tint(logo.mask, "rgba(255,255,255,0.22)"), cx - w / 2 + lip, cy - h / 2 + lip, w, h);
+    }
     x.drawImage(engrave ? tint(logo.mask, burn) : logo.print, cx - w / 2, cy - h / 2, w, h);
     hits.logo = [cx - w / 2, cy - h / 2, w, h];
   }
   if (lines.length) {
     const px = ah * 0.24 * (textSize / 100) * k; // drawn at full pixel size so it stays sharp
     const block = renderTextBlock(lines, { px, family: font.family, ink: engrave ? burn : textColor, warp });
+    const lipBlock = engrave ? renderTextBlock(lines, { px, family: font.family, ink: "rgba(255,255,255,0.22)", warp }) : null;
     // never wider than the area, and with a logo, short enough to stay under it
     const maxH = (logo ? 0.36 : 0.96) * ah;
     const fitText = Math.min(1, (aw * 0.98) / (block.width / k - (0.5 * px) / k), maxH / (block.height / k - (0.5 * px) / k));
     const w = (block.width / k) * fitText, h = (block.height / k) * fitText, padIn = ((0.25 * px) / k) * fitText;
     const cx = ax + aw / 2 + textPos.x * aw, cy = ay + ah / 2 + textPos.y * ah;
+    if (lipBlock) x.drawImage(lipBlock, cx - w / 2 + 1.2 / k, cy - h / 2 + 1.2 / k, w, h);
     x.drawImage(block, cx - w / 2, cy - h / 2, w, h);
     // the clickable box skips the block's empty padding
     hits.text = [cx - w / 2 + padIn, cy - h / 2 + padIn, w - padIn * 2, h - padIn * 2];
@@ -380,12 +425,25 @@ function drawPatch({ shape, material, color, art }) {
   x.fillStyle = look.burn;
   x.fill(new Path2D(shape.border));
 
-  // soft edge so the patch reads as a raised piece
+  // finish, like a real cut patch: the dark core shows along the cut edge, the
+  // surface has a soft sheen, and it falls off slightly toward the edges
   x.save();
   x.clip(cut);
-  x.lineWidth = 6 / k;
-  x.strokeStyle = "rgba(0,0,0,0.35)";
+  x.lineWidth = 5 / k;
+  x.strokeStyle = look.burn;
   x.stroke(cut);
+  x.setTransform(1, 0, 0, 1, 0, 0);
+  const W2 = c.width, H2 = c.height;
+  const sheen = x.createRadialGradient(W2 * 0.36, H2 * 0.28, 0, W2 * 0.36, H2 * 0.28, Math.max(W2, H2) * 0.75);
+  sheen.addColorStop(0, `rgba(255,255,255,${material.texture === "gloss" ? 0.08 : 0.13})`);
+  sheen.addColorStop(1, "rgba(255,255,255,0)");
+  x.fillStyle = sheen;
+  x.fillRect(0, 0, W2, H2);
+  const fall = x.createRadialGradient(W2 / 2, H2 / 2, Math.min(W2, H2) * 0.3, W2 / 2, H2 / 2, Math.max(W2, H2) * 0.62);
+  fall.addColorStop(0, "rgba(0,0,0,0)");
+  fall.addColorStop(1, "rgba(0,0,0,0.2)");
+  x.fillStyle = fall;
+  x.fillRect(0, 0, W2, H2);
   x.restore();
   return c;
 }
@@ -429,7 +487,7 @@ function drawTriangle(c, img, s0, s1, s2, d0, d1, d2) {
   c.restore();
 }
 
-function renderHat(canvas, hatImg, patch, widthIn, size, off, p, rotDeg = 0) {
+function renderHat(canvas, hatImg, patch, widthIn, size, off, p, rotDeg = 0, raised = true) {
   const rot = (rotDeg * Math.PI) / 180;
   const W = hatImg.naturalWidth, H = hatImg.naturalHeight;
   canvas.width = W;
@@ -475,6 +533,18 @@ function renderHat(canvas, hatImg, patch, widthIn, size, off, p, rotDeg = 0) {
   ctx.filter = `blur(${Math.max(2, W * 0.006)}px)`;
   ctx.drawImage(layer, W * 0.004, H * 0.008);
   ctx.restore();
+  if (raised) {
+    // patch thickness: a dark sliver of the edge showing just below the patch
+    const t = document.createElement("canvas");
+    t.width = W;
+    t.height = H;
+    const tc = t.getContext("2d");
+    tc.drawImage(layer, 0, 0);
+    tc.globalCompositeOperation = "source-in";
+    tc.fillStyle = "rgba(16,12,9,0.92)";
+    tc.fillRect(0, 0, W, H);
+    for (let i = 1; i <= 3; i++) ctx.drawImage(t, 0, H * 0.0011 * i);
+  }
   ctx.drawImage(layer, 0, 0);
   return geom;
 }
@@ -608,6 +678,11 @@ export default function HatTryOn() {
   const [textPos, setTextPos] = useState({ x: 0, y: 0.33 });
   const [selected, setSelected] = useState(null); // "patch", "logo" or "text": what a drag moves
   const geomRef = useRef(null);
+  // Compare: the same design on up to 3 hats, side by side.
+  const [compareMode, setCompareMode] = useState(false);
+  const [compareIds, setCompareIds] = useState([]);
+  const [compareShots, setCompareShots] = useState(null);
+  const hatImgCache = useRef({});
   const [ownPatch, setOwnPatch] = useState(null);
   const [patchSize, setPatchSize] = useState(100);
   const [patchRot, setPatchRot] = useState(0); // degrees
@@ -705,7 +780,7 @@ export default function HatTryOn() {
 
   useEffect(() => {
     if (!hatImg || !canvasRef.current) return;
-    const geom = renderHat(canvasRef.current, hatImg, patch, hatWidthIn, patchSize, offset, profile, patchRot);
+    const geom = renderHat(canvasRef.current, hatImg, patch, hatWidthIn, patchSize, offset, profile, patchRot, !direct);
     geomRef.current = geom;
     if (geom && selected) {
       const rect = selected === "patch" ? [0, 0, patch.width, patch.height] : patch.hits && patch.hits[selected];
@@ -713,8 +788,28 @@ export default function HatTryOn() {
     }
   }, [loaded, patch, hatWidthIn, patchSize, patchRot, offset, selected]);
 
+  // Two fingers on a phone: pinch to resize, twist to turn the patch.
+  const pointers = useRef(new Map());
+  const pinch = useRef(null);
+  const twoFingers = () => {
+    const [a, b] = [...pointers.current.values()];
+    return { dist: Math.hypot(b.x - a.x, b.y - a.y), ang: (Math.atan2(b.y - a.y, b.x - a.x) * 180) / Math.PI };
+  };
+  const SIZE_RANGE = { patch: [50, 200], logo: [20, 150], text: [40, 180] };
+
   // Click the patch, logo or text to pick it up, then drag to move it.
   const startDrag = (e) => {
+    pointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    try { e.currentTarget.setPointerCapture(e.pointerId); } catch {}
+    if (pointers.current.size === 2) {
+      const target = (drag.current && drag.current.target) || "patch";
+      const { dist, ang } = twoFingers();
+      pinch.current = { target, dist0: dist, ang0: ang, rot0: patchRot,
+        size0: target === "logo" ? logoSize : target === "text" ? textSize : patchSize };
+      drag.current = null;
+      return;
+    }
+    if (pointers.current.size > 2) return;
     const cv = e.currentTarget, r = cv.getBoundingClientRect(), geom = geomRef.current;
     let target = "patch";
     if (geom && patch && patch.hits) {
@@ -728,9 +823,26 @@ export default function HatTryOn() {
     }
     setSelected(target);
     drag.current = { x: e.clientX, y: e.clientY, target };
-    cv.setPointerCapture(e.pointerId);
   };
   const moveDrag = (e) => {
+    if (pointers.current.has(e.pointerId)) pointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (pinch.current && pointers.current.size >= 2) {
+      const { target, dist0, ang0, rot0, size0 } = pinch.current;
+      const { dist, ang } = twoFingers();
+      const [lo, hi] = SIZE_RANGE[target];
+      const size = Math.round(Math.max(lo, Math.min(hi, size0 * (dist / Math.max(dist0, 1)))));
+      if (target === "logo") setLogoSize(size);
+      else if (target === "text") setTextSize(size);
+      else {
+        setPatchSize(size);
+        let turn = ang - ang0;
+        if (turn > 180) turn -= 360;
+        if (turn < -180) turn += 360;
+        setPatchRot(Math.round(Math.max(-90, Math.min(90, rot0 + turn))));
+      }
+      setMoved(true);
+      return;
+    }
     if (!drag.current) return;
     const cv = e.currentTarget, r = cv.getBoundingClientRect(), geom = geomRef.current;
     const dx = (e.clientX - drag.current.x) / r.width, dy = (e.clientY - drag.current.y) / r.height;
@@ -751,7 +863,18 @@ export default function HatTryOn() {
     if (target === "logo") setLogoPos(move);
     else setTextPos(move);
   };
-  const endDrag = () => { drag.current = null; };
+  const endDrag = (e) => {
+    pointers.current.delete(e.pointerId);
+    if (pointers.current.size < 2 && pinch.current) {
+      // one finger still down after a pinch: keep dragging the same piece from there
+      const target = pinch.current.target;
+      pinch.current = null;
+      const [rest] = [...pointers.current.values()];
+      drag.current = rest ? { x: rest.x, y: rest.y, target } : null;
+      return;
+    }
+    if (pointers.current.size === 0) drag.current = null;
+  };
   // Back to how the page opened (keeping the hat they picked).
   const startOver = () => {
     applyDesign({ lg: "none", s: NO_SHAPE, m: "leatherette", c: DEFAULT_LEATHERETTE, l: [], f: 0, ts: 100, w: STRAIGHT, h: 40, sh: 100, ls: 100,
@@ -820,6 +943,56 @@ export default function HatTryOn() {
   const ensureShape = () => {
     if (shapeIndex === NO_SHAPE) setShapeIndex(7); // Ridgeback
   };
+  const loadHatImg = (h) =>
+    new Promise((resolve) => {
+      if (hatImgCache.current[h.id]) return resolve(hatImgCache.current[h.id]);
+      const im = new Image();
+      im.onload = () => resolve((hatImgCache.current[h.id] = im));
+      im.src = h.src;
+    });
+  const toggleCompare = (id) =>
+    setCompareIds((ids) => (ids.includes(id) ? ids.filter((x) => x !== id) : ids.length < 3 ? [...ids, id] : ids));
+  const openCompare = async () => {
+    const shots = [];
+    for (const id of compareIds) {
+      const h = HATS.find((x) => x.id === id);
+      const im = await loadHatImg(h);
+      const bp = profileFor(h, im.naturalWidth, im.naturalHeight);
+      const pr = direct ? { ...bp, wrap: Math.min(0.95, bp.wrap * PRINT_SPREAD) } : bp;
+      const c = document.createElement("canvas");
+      renderHat(c, im, patch, hatWidthIn, patchSize, offset, pr, patchRot, !direct);
+      shots.push({ name: h.name, canvas: c, url: c.toDataURL("image/jpeg", 0.88) });
+    }
+    setCompareShots(shots);
+    track("compare");
+  };
+  const saveCompare = () => {
+    const H = 600, gap = 24, label = 70;
+    const ws = compareShots.map((sh) => Math.round((sh.canvas.width / sh.canvas.height) * H));
+    const out = document.createElement("canvas");
+    out.width = ws.reduce((a, b) => a + b, 0) + gap * (ws.length + 1);
+    out.height = H + label + gap;
+    const x = out.getContext("2d");
+    x.fillStyle = "#0b0b0b";
+    x.fillRect(0, 0, out.width, out.height);
+    x.fillStyle = "#ffffff";
+    x.font = "600 28px Helvetica, Arial, sans-serif";
+    x.textAlign = "center";
+    let left = gap;
+    compareShots.forEach((sh, i) => {
+      x.drawImage(sh.canvas, left, gap, ws[i], H);
+      x.fillText(sh.name, left + ws[i] / 2, gap + H + 45);
+      left += ws[i] + gap;
+    });
+    out.toBlob((blob) => {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "B40-Hat-Comparison.jpg";
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(url), 1500);
+    }, "image/jpeg", 0.9);
+  };
   const removeLogo = () => {
     wantB40.current = false;
     setLogo(null);
@@ -846,7 +1019,7 @@ export default function HatTryOn() {
     let imageUrl = "(picture didn't upload)";
     try {
       const clean = document.createElement("canvas");
-      renderHat(clean, hatImg, patch, hatWidthIn, patchSize, offset, profile, patchRot);
+      renderHat(clean, hatImg, patch, hatWidthIn, patchSize, offset, profile, patchRot, !direct);
       const res = await fetch("/api/design", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -892,7 +1065,7 @@ export default function HatTryOn() {
 
   const save = () => {
     const clean = document.createElement("canvas");
-    renderHat(clean, hatImg, patch, hatWidthIn, patchSize, offset, profile, patchRot);
+    renderHat(clean, hatImg, patch, hatWidthIn, patchSize, offset, profile, patchRot, !direct);
     clean.toBlob((blob) => {
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
@@ -913,6 +1086,28 @@ export default function HatTryOn() {
       <p className="mb-6 text-xs font-semibold uppercase tracking-[0.25em] text-white/40">
         Hat <span className="text-[#c6a36b]">·</span> Shape <span className="text-[#c6a36b]">·</span> Material <span className="text-[#c6a36b]">·</span> Your Logo <span className="text-[#c6a36b]">·</span> Text <span className="text-[#c6a36b]">·</span> Save &amp; Send
       </p>
+      {compareShots && (
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-black/95 p-4 md:p-8" onClick={() => setCompareShots(null)}>
+          <div className="mx-auto max-w-6xl" onClick={(e) => e.stopPropagation()}>
+            <div className="mb-4 flex items-center justify-between gap-3">
+              <p className="text-3xl uppercase md:text-4xl" style={bebas}>Side by Side</p>
+              <button onClick={() => setCompareShots(null)} className="text-sm uppercase tracking-[0.15em] text-white/60 hover:text-white">✕ Close</button>
+            </div>
+            <div className={`grid gap-3 ${compareShots.length === 3 ? "sm:grid-cols-3" : "sm:grid-cols-2"}`}>
+              {compareShots.map((sh) => (
+                <div key={sh.name} className="overflow-hidden rounded-xl border border-white/10 bg-[#0b0b0b]">
+                  <img src={sh.url} alt={`Your design on the ${sh.name}`} className="block aspect-[4/3] w-full object-cover" />
+                  <p className="p-3 text-center text-sm text-white/80">{sh.name}</p>
+                </div>
+              ))}
+            </div>
+            <div className="mt-4 flex flex-wrap justify-center gap-2">
+              <button onClick={saveCompare} className="bg-[#c6a36b] px-6 py-3 text-xs font-bold uppercase tracking-[0.12em] text-black hover:bg-[#d4b07a]">Save Comparison Image</button>
+              <button onClick={() => { setCompareShots(null); setCompareMode(false); }} className="border border-white/20 px-6 py-3 text-xs font-bold uppercase tracking-[0.12em] hover:border-white/50">Back to Designing</button>
+            </div>
+          </div>
+        </div>
+      )}
       <div className="grid items-start gap-6 lg:grid-cols-[1.35fr_1fr] lg:gap-8">
         {/* the hat */}
         {/* stays in view while the controls scroll, so every change shows on the hat */}
@@ -932,6 +1127,7 @@ export default function HatTryOn() {
           <button onClick={startOver} className="mx-auto mt-2 block rounded-full border border-[#c6a36b]/60 px-6 py-2.5 text-xs font-bold uppercase tracking-[0.15em] text-[#c6a36b] transition hover:bg-[#c6a36b] hover:text-black">
             ↺ Oops, Start Over
           </button>
+          <p className="mt-1 text-center text-[11px] text-white/50 md:hidden">Two fingers: pinch to resize, twist to turn the patch.</p>
           <p className="mt-1 text-center text-[11px] text-white/35 lg:text-xs">{hat.name} · One of {HATS.length} hats to try. We carry 17+ brands. Preview colors are close, not exact.</p>
         </div>
 
@@ -947,13 +1143,31 @@ export default function HatTryOn() {
             </div>
             <div className="grid max-h-60 grid-cols-4 gap-1.5 overflow-y-auto pr-1 sm:grid-cols-6">
               {HATS.filter((h) => h.group === hatGroup).map((h) => (
-                <button key={h.id} onClick={() => setHatId(h.id)} title={h.name} aria-label={h.name}
-                  className={`overflow-hidden rounded-md border-2 bg-[#161616] transition ${h.id === hatId ? "border-[#c6a36b]" : "border-transparent hover:border-white/30"}`}>
+                <button key={h.id} onClick={() => (compareMode ? toggleCompare(h.id) : setHatId(h.id))} title={h.name} aria-label={h.name}
+                  className={`relative overflow-hidden rounded-md border-2 bg-[#161616] transition ${
+                    (compareMode ? compareIds.includes(h.id) : h.id === hatId) ? "border-[#c6a36b]" : "border-transparent hover:border-white/30"}`}>
                   <img src={h.thumb} alt="" loading="lazy" className="block aspect-[4/3] w-full object-contain" />
+                  {compareMode && compareIds.includes(h.id) && (
+                    <span className="absolute right-1 top-1 flex h-5 w-5 items-center justify-center rounded-full bg-[#c6a36b] text-[11px] font-bold text-black">{compareIds.indexOf(h.id) + 1}</span>
+                  )}
                 </button>
               ))}
             </div>
-            <p className="mt-2 text-xs text-white/60">{hat.name} <span className="text-white/35">· your patch stays put when you switch hats</span></p>
+            {compareMode ? (
+              <div className="mt-3 flex flex-wrap items-center gap-2">
+                <p className="text-xs text-white/60">Tap up to 3 hats to compare ({compareIds.length}/3)</p>
+                <button onClick={openCompare} disabled={compareIds.length < 2 || !patch}
+                  className="ml-auto bg-[#c6a36b] px-4 py-2 text-xs font-bold uppercase tracking-[0.12em] text-black disabled:opacity-40">See Side by Side</button>
+                <button onClick={() => setCompareMode(false)} className="text-xs uppercase tracking-[0.12em] text-white/50 hover:text-white">Cancel</button>
+                {!patch && <p className="w-full text-[11px] text-white/40">Add a patch or logo first so there&apos;s something to compare.</p>}
+              </div>
+            ) : (
+              <div className="mt-2 flex flex-wrap items-center gap-2">
+                <p className="text-xs text-white/60">{hat.name} <span className="text-white/35">· your patch stays put when you switch hats</span></p>
+                <button onClick={() => { setCompareMode(true); setCompareIds([hatId]); }}
+                  className={`${chip(false)} ml-auto py-1.5`}>Compare Hat Colors</button>
+              </div>
+            )}
           </Panel>
 
           <Panel step="02" title="Pick a Shape">
